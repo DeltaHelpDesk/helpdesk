@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { AuthType } from './authType,enum';
+import { AuthType } from './authType.enum';
 
 @Entity()
 export class User {
