@@ -1,0 +1,42 @@
+version: '3'
+services:
+  backend:
+    image: kkarczmarczyk/node-yarn
+    env_file:
+      - backend/.env
+    networks:
+      backend:
+        aliases:
+          - node
+    expose:
+      - '3000'
+    ports:
+      - '${NODE_PORT}:3000'
+    volumes:
+      - './backend:/backend'
+      - './dckr:/dckr'
+    working_dir: '/backend'
+    depends_on:
+      - mysql
+    command: ['/dckr/scripts/wait-for-mysql.sh']
+  mysql:
+    image: mysql:5.7
+    env_file:
+    - dckr/env/mysql.env
+    networks:
+      backend:
+        aliases:
+        - mysql
+    expose:
+    - '3306'
+    ports:
+    - '${MYSQL_PORT}:3306'
+    volumes:
+    - './dckr/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
+    - 'mysql-data:/var/lib/mysql'
+networks:
+  backend:
+    driver: 'bridge'
+volumes:
+  mysql-data:
+    driver: 'local'
