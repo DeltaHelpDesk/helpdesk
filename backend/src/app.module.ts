@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
+import { LocalizationModule } from './localization/localization.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     }),
     TypeOrmModule.forRoot(),
     AuthModule,
+    LocalizationModule,
   ],
   controllers: [AppController],
   providers: [],
