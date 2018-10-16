@@ -22,9 +22,12 @@
     "@nestjs/common": "^5.1.0",
     "@nestjs/core": "^5.1.0",
     "@nestjs/graphql": "^5.4.0",
+    "@nestjs/typeorm": "^5.2.2",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
-    "typescript": "^3.0.1"
+    "typeorm": "^0.2.7",
+    "typescript": "^3.0.1",
+    "wait-on": "^3.1.0"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.1.0",
