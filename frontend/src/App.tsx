@@ -16,7 +16,7 @@ class App extends React.Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <Hello name={"Delta helpdesk"} />
-        <StatefullExample name={"StatefullExample"}/>
+        <StatefullExample name={"StatefullExample"} />
       </div>
     );
   }
