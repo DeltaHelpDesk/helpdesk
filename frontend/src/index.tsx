@@ -1,6 +1,5 @@
 import App from './App';
 import './components/Menu';
-import Menu from './components/Menu';
 import './index.css';
 
 import registerServiceWorker from './registerServiceWorker';
@@ -14,6 +13,5 @@ ReactDOM.render(
   <App />,
   document.getElementById('root') as HTMLElement
 );
-ReactDOM.render(<Menu />, document.querySelector('#root'));
 
 registerServiceWorker();
