@@ -5,8 +5,8 @@
     "module": "esnext",
     "target": "es5",
     "lib": [
-      "es6",
-      "dom"
+      "esnext", // https://github.com/esnext/esnext
+      "dom" 
     ],
     "sourceMap": true,
     "allowJs": true,
