@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `auth_api` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `auth_api`.* TO 'root'@'%' ;
+CREATE DATABASE IF NOT EXISTS `helpdesk` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `helpdesk`.* TO 'root'@'%' ;
 
 FLUSH PRIVILEGES ;
