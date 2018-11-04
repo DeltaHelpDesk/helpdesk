@@ -1,4 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import path from 'path';
 
 @Injectable()
 export class LocalizationService {
@@ -8,7 +9,7 @@ export class LocalizationService {
         }
         let localization: any;
         try {
-            localization = require('./localizations/');
+            localization = require(path.resolve('./localizations', `${lang}.json`));
         } catch (error) {
             localization = require('./localizations/en.json');
         }
