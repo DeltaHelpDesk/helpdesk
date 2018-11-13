@@ -13,5 +13,5 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): User
   createEmailUser(email: String!, password: String!): User
-  logout
+  logout(): Boolean
 }
