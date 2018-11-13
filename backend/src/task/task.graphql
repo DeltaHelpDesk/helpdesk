@@ -1,0 +1,33 @@
+enum State {
+  UNRESOLVED
+  SOLVING
+  SOLVED
+  RETURNED
+}
+
+type Log{
+  id: Int!
+  author: User!
+  created_at: Date
+  comment: String
+  state: State
+}
+type Task {
+  id: Int!
+  issue: String!
+  author: User!
+  assignee: User!
+  created_at: Date
+  updated_at: Date
+  state: State!
+  logs: [Log]
+}
+
+type Query{
+  task(id: int): Task
+}
+type Mutation {
+  addTask(issue: String!, assignee: User): Task
+  changeTaskState(comment: String, state: State): Task
+}
+

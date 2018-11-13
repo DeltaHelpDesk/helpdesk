@@ -4,6 +4,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { LocalizationModule } from './localization/localization.module';
+import { TaskService } from './task/task/task.service';
+import { TaskService } from './task/task.service';
 
 @Module({
   imports: [
@@ -15,6 +17,6 @@ import { LocalizationModule } from './localization/localization.module';
     LocalizationModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [TaskService],
 })
 export class AppModule { }
