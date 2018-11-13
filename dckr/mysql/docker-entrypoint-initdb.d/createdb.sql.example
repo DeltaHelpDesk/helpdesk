@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS `helpdesk` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `helpdesk`.* TO 'root'@'%' ;
+
+FLUSH PRIVILEGES ;

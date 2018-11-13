@@ -1,0 +1,77 @@
+version: '3'
+services:
+  backend:
+    image: kkarczmarczyk/node-yarn
+    env_file:
+      - backend/.env
+    networks:
+      backend:
+        aliases:
+          - api
+    expose:
+      - '3000'
+    ports:
+      - '${NODE_PORT}:3000'
+    volumes:
+      - './backend:/backend'
+      - './dckr:/dckr'
+    working_dir: '/backend'
+    depends_on:
+      - mysql
+    command: ['/dckr/scripts/wait-for-mysql.sh']
+  mysql:
+    image: mysql:5.7
+    env_file:
+    - dckr/env/mysql.env
+    networks:
+      backend:
+        aliases:
+        - mysql
+    expose:
+    - '3306'
+    ports:
+    - '${MYSQL_PORT}:3306'
+    volumes:
+    - './dckr/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
+    - 'mysql-data:/var/lib/mysql'
+  frontend:
+    image: kkarczmarczyk/node-yarn
+    env_file:
+      - frontend/.env
+    networks:
+      frontend:
+        aliases:
+          - front
+      backend:
+        aliases:
+          - front
+    expose:
+    - '3001'
+    ports:
+    - '${FRONTEND_NODE_PORT}:3001'
+    volumes:
+      - './frontend:/frontend'
+    working_dir: '/frontend'
+    command: ['yarn', 'start']
+  storybook:
+    image: kkarczmarczyk/node-yarn
+    networks:
+      frontend:
+        aliases:
+          - storybook
+    expose:
+    - '9001'
+    ports:
+    - '${STORYBOOK_PORT}:9001'
+    volumes:
+    - './frontend:/frontend'
+    working_dir: '/frontend'
+    command: ['yarn', 'storybook']
+networks:
+  backend:
+    driver: 'bridge'
+  frontend:
+    driver: 'bridge'
+volumes:
+  mysql-data:
+    driver: 'local'

@@ -1,0 +1,16 @@
+type User {
+  id: Int!
+  fullName: String!
+  email: String!
+  created_at: Date
+  updated_at: Date
+}
+
+type Query {
+  session: User
+}
+
+type Mutation {
+  login(email: String!, password: String!): User
+  logout
+}
