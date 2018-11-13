@@ -1,5 +1,6 @@
 docker run --rm -v %cd%\backend:/backend -w="/backend" kkarczmarczyk/node-yarn:latest yarn install
 docker run --rm -v %cd%\frontend:/frontend -w="/frontend" kkarczmarczyk/node-yarn:latest yarn install
+docker run --rm -v %cd%\mobile:/mobile -w="/mobile" kkarczmarczyk/node-yarn:latest yarn install
 copy .\dckr\env\mysql-example.env .\dckr\env\mysql.env
 copy .\dckr\mysql\docker-entrypoint-initdb.d\createdb.sql.example .\dckr\mysql\docker-entrypoint-initdb.d\createdb.sql
 copy .\.env-example .\.env
