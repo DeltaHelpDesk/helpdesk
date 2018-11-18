@@ -1,23 +1,24 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
+import { User } from './user.param.decorator';
 
 @Resolver('Auth')
 export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 
     @Query('session')
-    async getSession() {
-        return await this.authService.getSession();
+    async getSession(@User() user) {
+        return user;
     }
 
-    @Mutation('login')
+    @Mutation('loginEmail')
     async login(
         @Args('email')
         email: string,
         @Args('password')
         password: string,
     ) {
-        return await this.authService.login(email, password);
+        return await this.authService.loginEmail(email, password);
     }
 
     @Mutation('logout')
@@ -25,13 +26,13 @@ export class AuthResolvers {
         return await this.authService.logout();
     }
 
-    @Mutation('createUser')
+    @Mutation('createUserEmail')
     async createEmailUser(
         @Args('email')
         email: string,
         @Args('password')
         password: string,
     ) {
-        return await this.authService.createEmailUser(email, password);
+        return await this.authService.createUserEmail(email, password);
     }
 }

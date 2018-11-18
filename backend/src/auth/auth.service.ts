@@ -3,14 +3,17 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AuthService {
     getSession() {
+
     }
 
-    login(email: string, password: string) {
+    loginEmail(email: string, password: string) {
+
     }
 
     logout() {
     }
 
-    createEmailUser(email: string, password: string) {
+    createUserEmail(email: string, password: string) {
+
     }
 }
