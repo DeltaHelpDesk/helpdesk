@@ -4,8 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-
-import * as PropTypes from "prop-types";
+import Logo from "./../img/helpdesklogo.jpg";
 import * as React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -36,8 +35,8 @@ function ButtonAppBar(props: any) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            HELPDESK
+          <Typography className={classes.grow}>
+            <img className="logo" src={Logo}/>  
           </Typography>
           <Button color="inherit">Menu item</Button>
           <Button color="inherit">Menu item</Button>
@@ -48,8 +47,6 @@ function ButtonAppBar(props: any) {
   );
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+
 
 export default withStyles(styles)(ButtonAppBar);
