@@ -11,6 +11,14 @@ export class AuthResolvers {
         return user;
     }
 
+    @Mutation('loginOffice')
+    async loginOffice(
+        @Args('token')
+        token: string,
+    ) {
+        return await this.authService.loginOffice(token);
+    }
+
     @Mutation('loginEmail')
     async login(
         @Args('email')

@@ -16,4 +16,8 @@ export class AuthService {
     createUserEmail(email: string, password: string) {
 
     }
+
+    loginOffice(token: string) {
+
+    }
 }

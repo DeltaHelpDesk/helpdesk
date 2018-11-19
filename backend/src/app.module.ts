@@ -11,7 +11,7 @@ import { join } from 'path';
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(process.cwd(), 'src/graphql.ts'),
+        path: join(process.cwd(), 'src/gql.ts'),
         outputAs: 'class',
       },
     }),

@@ -16,6 +16,9 @@ export class User {
     password?: string;
 
     @Column()
+    token?: string;
+
+    @Column()
     authType: AuthType;
 
     @CreateDateColumn()
