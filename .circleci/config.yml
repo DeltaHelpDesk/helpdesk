@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  lint-backend:
+    docker:
+      - image: kkarczmarczyk/node-yarn:latest
+    steps:
+      - checkout
+      - cd backend
+      - yarn install
+      - yarn lint
+  lint-frontend:
+    docker:
+      - image: kkarczmarczyk/node-yarn:latest
+    steps:
+      - checkout
+      - cd frontend
+      - yarn install
+      - yarn lint
