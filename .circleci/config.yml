@@ -4,19 +4,17 @@ jobs:
   lint-backend:
     docker:
       - image: kkarczmarczyk/node-yarn:latest
-    working_directory: ~/repo
+    working_directory: ~/repo/backend
     steps:
       - checkout
-      - run: cd backend
       - run: yarn install
       - run: yarn lint
   lint-frontend:
     docker:
       - image: kkarczmarczyk/node-yarn:latest
-    working_directory: ~/repo
+    working_directory: ~/repo/frontend
     steps:
       - checkout
-      - run: cd frontend
       - run: yarn install
       - run: yarn lint
 workflows:
