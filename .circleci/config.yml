@@ -19,3 +19,21 @@ jobs:
       - run: cd frontend
       - run: yarn install
       - run: yarn lint
+workflows:
+  version: 2
+  lint:
+    jobs:
+    - lint-backend:
+        filters:
+          branches:
+            only:
+            - master
+            - dev
+            - /feature\/.*/
+    - lint-frontend:
+        filters:
+          branches:
+            only:
+            - master
+            - dev
+            - /feature\/.*/
