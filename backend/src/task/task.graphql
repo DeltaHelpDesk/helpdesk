@@ -24,6 +24,7 @@ type Task {
 }
 
 type Query{
+  tasks: Task
   task(id: int): Task
 }
 type Mutation {

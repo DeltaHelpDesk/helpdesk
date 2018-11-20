@@ -4,8 +4,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { LocalizationModule } from './localization/localization.module';
-import { TaskService } from './task/task/task.service';
 import { TaskService } from './task/task.service';
+import { TaskModule } from 'task/task.module';
 
 @Module({
   imports: [
@@ -15,6 +15,7 @@ import { TaskService } from './task/task.service';
     TypeOrmModule.forRoot(),
     AuthModule,
     LocalizationModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [TaskService],
