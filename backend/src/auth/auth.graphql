@@ -1,17 +1,27 @@
+enum AuthType {
+  EMAIL
+  OFFICE
+}
 type User {
-  id: Int!
+  id: ID!
   fullName: String!
   email: String!
-  created_at: Date
+  created_at: Date!
   updated_at: Date
 }
+type Session {
+  token: String!
+}
+union AuthenticatedUser = User | Session
+
 
 type Query {
-  session: User
+  session: AuthenticatedUser
 }
 
 type Mutation {
-  login(email: String!, password: String!): User
-  createEmailUser(email: String!, password: String!): User
+  loginOffice(token: String!): AuthenticatedUser
+  loginEmail(email: String!, password: String!): AuthenticatedUser
+  createUserEmail(email: String!, password: String!, fullName: String!): User
   logout: Boolean
 }

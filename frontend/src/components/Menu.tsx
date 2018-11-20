@@ -38,7 +38,7 @@ function ButtonAppBar(props: any) {
           <Typography className={classes.grow}>
             <img className="logo" src={Logo}/>  
           </Typography>
-          <Button color="inherit">Menu item</Button>
+          <Button color="inherit">Men</Button>
           <Button color="inherit">Menu item</Button>
           <Button color="inherit">Menu item</Button>
         </Toolbar>
