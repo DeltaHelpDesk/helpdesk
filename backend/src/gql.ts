@@ -8,7 +8,7 @@ export abstract class IMutation {
 
     abstract loginEmail(email: string, password: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
-    abstract createUserEmail(email: string, password: string): User | Promise<User>;
+    abstract createUserEmail(email: string, password: string, fullName: string): User | Promise<User>;
 
     abstract logout(): boolean | Promise<boolean>;
 }
@@ -24,7 +24,7 @@ export class Session {
 }
 
 export class User {
-    id: number;
+    id: string;
     fullName: string;
     email: string;
     created_at: Date;

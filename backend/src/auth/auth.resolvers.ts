@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { User } from './user.param.decorator';
 
-@Resolver('Auth')
+@Resolver('Aush')
 export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 
@@ -40,7 +40,9 @@ export class AuthResolvers {
         email: string,
         @Args('password')
         password: string,
+        @Args('fullName')
+        fullName: string,
     ) {
-        return await this.authService.createUserEmail(email, password);
+        return await this.authService.createUserEmail(email, password, fullName);
     }
 }

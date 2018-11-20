@@ -1,4 +1,4 @@
 export enum AuthType {
-    EMAIL,
-    OFFICE,
+    EMAIL = 'EMAIL',
+    OFFICE = 'OFFICE',
 }
