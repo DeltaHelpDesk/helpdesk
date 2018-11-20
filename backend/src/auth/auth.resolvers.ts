@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { User } from './user.param.decorator';
 
-@Resolver('Aush')
+@Resolver('Auth')
 export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 

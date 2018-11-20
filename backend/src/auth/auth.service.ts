@@ -30,7 +30,8 @@ export class AuthService {
 
     async createUserEmail(email: string, textPassword: string, fullName: string) {
         const password = textPassword;
-        return await this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
+        const user = await this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
+        return user;
     }
 
     loginOffice(token: string) {

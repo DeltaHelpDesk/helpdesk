@@ -1,3 +1,4 @@
+import { AuthResolvers } from './auth.resolvers';
 import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -20,6 +21,7 @@ import { JwtStrategy } from './jwt.strategy';
     providers: [
         JwtStrategy,
         AuthService,
+        AuthResolvers,
     ],
     controllers: [],
 })
