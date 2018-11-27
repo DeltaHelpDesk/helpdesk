@@ -25,10 +25,4 @@ import { JwtStrategy } from './jwt.strategy';
     ],
     controllers: [],
 })
-export class AuthModule {
-    // configure(consumer: MiddlewareConsumer) {
-    //     consumer
-    //         .apply(UserMiddleware)
-    //         .forRoutes({ path: '*', method: RequestMethod.ALL });
-    // }
-}
+export class AuthModule {}
