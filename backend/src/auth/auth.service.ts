@@ -19,18 +19,22 @@ export class AuthService {
 
     async loginEmail(email: string, textPassword: string) {
         const password = textPassword;
-        const user = await this.userRepository.findOne({ email, password });
+        let user = await this.userRepository.findOne({ email, password });
         const jwtPayload: JwtPayload = { userId: user.id, authType: user.authType };
         const token = this.jwtService.sign(jwtPayload);
+        user.token = token;
+        user = await this.userRepository.save(user);
         return {...user, token };
     }
 
-    logout() {
+    logout(user: User) {
+        // todo: logout
     }
 
     async createUserEmail(email: string, textPassword: string, fullName: string) {
         const password = textPassword;
-        return await this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
+        const user = await this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
+        return user;
     }
 
     loginOffice(token: string) {
