@@ -23,7 +23,7 @@ export class Log {
     @CreateDateColumn()
     created_at: Date;
 
-    @ManyToOne(type => Task)
+    @ManyToOne(type => Task, task => task.logs)
     task: Task;
 
 }

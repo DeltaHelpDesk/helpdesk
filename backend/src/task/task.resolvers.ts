@@ -5,7 +5,7 @@ import { TaskService } from './task.service';
 import { User } from 'auth/user.param.decorator';
 import { User as UserEntity } from 'auth/user.entity';
 @Resolver('Task')
-export class TaskResolver {
+export class TaskResolvers {
     constructor(private readonly taskService: TaskService) {}
     @Query('tasks')
     async getTasks() {
