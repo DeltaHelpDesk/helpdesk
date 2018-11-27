@@ -1,34 +1,33 @@
-import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
-import * as PropTypes from "prop-types";
+import {IUser} from "./TaskList";
 import * as React from "react";
-
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
-  class: {
-    flexGrow: 1
-  }
 };
+
 // Prepared for Task component
-function Task(props: any) {
-  const { classes } = props;
+function Task(props: IUser) {
+  // const { classes } = props;
+  const user : IUser = props;
   return (
-    <Card className={classes.card}>
+    <Card>
       <CardContent>
+        <Typography>
+          <h1>
+            {user.name}
+          </h1>
+        </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+      <CardContent>
+        <Typography>
+        {user.description}
+        </Typography>
+      </CardContent>
     </Card>
   );
 }
-
-Task.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Task);
