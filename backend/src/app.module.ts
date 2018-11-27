@@ -4,7 +4,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { LocalizationModule } from './localization/localization.module';
+import { TaskService } from './task/task.service';
+import { TaskModule } from 'task/task.module';
 import { join } from 'path';
+
 
 @Module({
   imports: [
@@ -18,8 +21,9 @@ import { join } from 'path';
     TypeOrmModule.forRoot(),
     AuthModule,
     LocalizationModule,
+    TaskModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [TaskService],
 })
 export class AppModule { }
