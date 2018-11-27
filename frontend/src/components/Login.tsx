@@ -16,7 +16,7 @@ import * as React from "react";
 const styles = (theme: Theme) => ({
     root: {
         display: "flex",
-        flexWrap: "wrap"
+        //flexWrap: "wrap"
     },
     margin: {
         margin: theme.spacing.unit
@@ -109,4 +109,4 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
 }
 
 
-export default withStyles(styles as any)(FilledInputAdornments);
+export default withStyles(styles)(FilledInputAdornments);
