@@ -35,7 +35,7 @@ interface FilledInputAdornmentsState {
     showPassword: boolean
 }
 
-type FilledInputAdornmentsProps<T> = WithStyles<T> & Record<"mode", boolean>
+type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
 class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<typeof styles>, FilledInputAdornmentsState> {
 
@@ -45,9 +45,14 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
         showPassword: false
     };
 
-    handleChange = (prop: any) => (event: ) => {
-        this.setState({ [prop]: eventtarget.value });
+
+    handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+        this.setState(previousState => {
+            previousState[e.currentTarget.name] = e.currentTarget.value
+        });
+        console.log(this.state)
     };
+
 
     handleClickShowPassword = () => {
         this.setState((state) => ({ showPassword: !state.showPassword }));
@@ -59,44 +64,49 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
 
         return (
             <div className={classes.root}>
-                <TextField
-                    id="name"
-                    className={classNames(classes.margin, classes.textField)}
-                    variant="filled"
-                    label="Zadej jméno"
-                    onChange={this.handleChange("name")}
-                />
-                <TextField
-                    id="filled-adornment-password"
-                    className={classNames(classes.margin, classes.textField)}
-                    variant="filled"
-                    type={this.state.showPassword ? "text" : "password"}
-                    label="Heslo"
-                    value={this.state.password}
-                    onChange={this.handleChange("password")}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment variant="filled" position="end">
-                                <IconButton
-                                    aria-label="Toggle password visibility"
-                                    onClick={this.handleClickShowPassword}
-                                >
-                                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        )
-                    }}
-                />
-                <Button
-                    variant="contained"
-                    className={classNames(classes.button, classes.margin)}
-                >
-                    Přihlásit
+                <form>
+                    <TextField
+                        id="name"
+                        className={classNames(classes.margin, classes.textField)}
+                        variant="filled"
+                        name="name"
+                        label="Zadej jméno"
+                        type="text"
+                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                    />
+                    <TextField
+                        id="filled-adornment-password"
+                        className={classNames(classes.margin, classes.textField)}
+                        variant="filled"
+                        name="password"
+                        type={this.state.showPassword ? "text" : "password"}
+                        label="Heslo"
+                        value={this.state.password}
+                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment variant="filled" position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                    >
+                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+                    <Button
+                        variant="contained"
+                        className={classNames(classes.button, classes.margin)}
+                    >
+                        Přihlásit
         </Button>
+                </form>
             </div>
         );
     }
 }
 
 
-export default withStyles(styles)(FilledInputAdornments);
+export default withStyles(styles as any)(FilledInputAdornments);
