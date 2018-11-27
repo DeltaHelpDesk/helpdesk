@@ -19,7 +19,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "storybook": "start-storybook -p 9001",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "tslint -p tsconfig.json -c tslint.json"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.11",

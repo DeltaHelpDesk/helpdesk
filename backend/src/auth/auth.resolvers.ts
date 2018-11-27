@@ -1,8 +1,9 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { User } from './user.param.decorator';
+import { User as UserEntity } from './user.entity';
 
-@Resolver('Aush')
+@Resolver('Auth')
 export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 
@@ -30,8 +31,8 @@ export class AuthResolvers {
     }
 
     @Mutation('logout')
-    async logout() {
-        return await this.authService.logout();
+    async logout(@User() user: UserEntity) {
+        return await this.authService.logout(user);
     }
 
     @Mutation('createUserEmail')
