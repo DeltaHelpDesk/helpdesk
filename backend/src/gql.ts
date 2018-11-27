@@ -3,6 +3,22 @@ export enum AuthType {
     OFFICE = "OFFICE"
 }
 
+export enum State {
+    UNRESOLVED = "UNRESOLVED",
+    SOLVING = "SOLVING",
+    SOLVED = "SOLVED",
+    RETURNED = "RETURNED"
+}
+
+export class Log {
+    id: string;
+    author: User;
+    created_at: Date;
+    comment?: string;
+    state?: State;
+    assignee?: User;
+}
+
 export abstract class IMutation {
     abstract loginOffice(token: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
@@ -11,16 +27,35 @@ export abstract class IMutation {
     abstract createUserEmail(email: string, password: string, fullName: string): User | Promise<User>;
 
     abstract logout(): boolean | Promise<boolean>;
+
+    abstract addTask(issue: string, assigneeId?: string): Task | Promise<Task>;
+
+    abstract changeTaskState(taskId?: string, comment?: string, state?: State): Task | Promise<Task>;
 }
 
 export abstract class IQuery {
     abstract session(): AuthenticatedUser | Promise<AuthenticatedUser>;
+
+    abstract tasks(): Task[] | Promise<Task[]>;
+
+    abstract task(id?: string): Task | Promise<Task>;
 
     abstract temp__(): boolean | Promise<boolean>;
 }
 
 export class Session {
     token: string;
+}
+
+export class Task {
+    id: string;
+    issue: string;
+    author: User;
+    assignee: User;
+    created_at: Date;
+    updated_at?: Date;
+    state: State;
+    logs?: Log[];
 }
 
 export class User {
