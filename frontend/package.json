@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^3.2.2",
     "@material-ui/icons": "^3.0.1",
+    "@types/classnames": "^2.2.6",
     "apollo-boost": "^0.1.16",
     "graphql": "^14.0.2",
     "react": "^16.5.2",
@@ -14,12 +15,13 @@
     "react-scripts-ts": "3.1.0"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts-ts start",
+    "start": "PORT=3001 CHOKIDAR_USEPOLLING=true react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "storybook": "start-storybook -p 9001",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "tslint -p tsconfig.json -c tslint.json"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.11",
