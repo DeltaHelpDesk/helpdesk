@@ -1,31 +1,30 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
 import { User } from 'auth/user.entity';
-enum State{
-    UNRESOLVED,
-    SOLVING,
-    SOLVED,
-    RETURNED,
-}
+import { State } from './state.enum';
+import { Log } from './log.entity';
 @Entity()
 export class Task {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column("longtext")
+    @Column('longtext')
     issue: string;
 
-    @Column()
+    @ManyToOne(type => User, user => user.createdTasks)
     author: User;
 
-    @Column()
-    assignee: User;
+    @ManyToOne(type => User, user => user.assignedTasks)
+    assignee?: User;
 
     @CreateDateColumn()
     created_at: Date;
 
     @CreateDateColumn()
     updated_at: Date;
-    
+
     @Column()
     state: State;
+
+    @OneToMany(type => Log, log => log.task)
+    logs: Log[];
 }

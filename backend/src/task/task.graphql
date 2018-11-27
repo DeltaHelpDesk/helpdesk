@@ -5,30 +5,31 @@ enum State {
   RETURNED
 }
 
-type Log{
-  id: Int!
+type Log {
+  id: ID!
   author: User!
-  created_at: Date
+  created_at: Date!
   comment: String
   state: State
+  assignee: User
 }
 type Task {
-  id: Int!
+  id: ID!
   issue: String!
   author: User!
   assignee: User!
-  created_at: Date
+  created_at: Date!
   updated_at: Date
   state: State!
   logs: [Log]
 }
 
 type Query{
-  tasks: Task
+  tasks: [Task]
   task(id: int): Task
 }
 type Mutation {
-  addTask(issue: String!, assignee: User): Task
-  changeTaskState(comment: String, state: State): Task
+  addTask(issue: String!, assigneeId: ID): Task
+  changeTaskState(taskId: ID, comment: String, state: State): Task
 }
 
