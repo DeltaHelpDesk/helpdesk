@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { AuthType } from './authType.enum';
+import bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -18,8 +19,11 @@ export class AuthService {
     }
 
     async loginEmail(email: string, textPassword: string) {
-        const password = textPassword;
-        let user = await this.userRepository.findOne({ email, password });
+        let user = await this.userRepository.findOne({ email });
+        if (!(await bcrypt.compare(textPassword, user.password))) {
+            // tslint:disable-next-line:no-string-throw
+            throw 'Bad password';
+        }
         const jwtPayload: JwtPayload = { userId: user.id, authType: user.authType };
         const token = this.jwtService.sign(jwtPayload);
         user.token = token;
@@ -32,7 +36,7 @@ export class AuthService {
     }
 
     async createUserEmail(email: string, textPassword: string, fullName: string) {
-        const password = textPassword;
+        const password = await bcrypt.hash(textPassword, 10);
         const user = await this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
         return user;
     }
