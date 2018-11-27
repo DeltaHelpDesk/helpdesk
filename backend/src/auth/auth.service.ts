@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtPayload } from './jwtPayload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,15 +14,11 @@ export class AuthService {
         private readonly userRepository: Repository<User>,
         private readonly jwtService: JwtService,
     ) {}
-
-    getSession() {
-    }
-
     async loginEmail(email: string, textPassword: string) {
         let user = await this.userRepository.findOne({ email });
         if (!(await bcrypt.compare(textPassword, user.password))) {
             // tslint:disable-next-line:no-string-throw
-            throw 'Bad password';
+            throw new HttpException('Bad password', HttpStatus.UNAUTHORIZED);
         }
         const jwtPayload: JwtPayload = { userId: user.id, authType: user.authType };
         const token = this.jwtService.sign(jwtPayload);
