@@ -13,11 +13,14 @@ export class User {
     @Column({ length: 120, unique: true })
     email: string;
 
-    @Column({ length: 40 })
+    @Column({ length: 255, nullable: true })
     password?: string;
 
-    @Column()
+    @Column({ nullable: true })
     token?: string;
+
+    @Column({ nullable: true })
+    otherToken?: string;
 
     @Column()
     authType: AuthType;

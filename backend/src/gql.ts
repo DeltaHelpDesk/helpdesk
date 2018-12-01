@@ -10,6 +10,15 @@ export enum State {
     RETURNED = "RETURNED"
 }
 
+export class AuthenticatedUser {
+    id: string;
+    fullName: string;
+    email: string;
+    created_at: Date;
+    updated_at?: Date;
+    token: string;
+}
+
 export class Log {
     id: string;
     author: User;
@@ -43,10 +52,6 @@ export abstract class IQuery {
     abstract temp__(): boolean | Promise<boolean>;
 }
 
-export class Session {
-    token: string;
-}
-
 export class Task {
     id: string;
     issue: string;
@@ -67,4 +72,3 @@ export class User {
 }
 
 export type Date = any;
-export type AuthenticatedUser = User | Session;
