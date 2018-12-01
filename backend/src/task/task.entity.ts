@@ -13,7 +13,7 @@ export class Task {
     @ManyToOne(type => User, user => user.createdTasks)
     author: User;
 
-    @ManyToOne(type => User, user => user.assignedTasks)
+    @ManyToOne(type => User, user => user.assignedTasks, { nullable: true })
     assignee?: User;
 
     @CreateDateColumn()

@@ -36,7 +36,7 @@ export class AuthResolvers {
     }
 
     @Mutation('createUserEmail')
-    async createEmailUser(
+    async createUserEmail(
         @Args('email')
         email: string,
         @Args('password')
