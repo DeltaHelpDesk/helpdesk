@@ -30,17 +30,20 @@ export class TaskDetailPage {
       buttons: [
         {
           text: 'Mark As Done',
+          icon: 'checkmark'
         },
         {
           text: 'Edit',
+          icon: 'construct'
         },
         {
           text: 'Delete',
           role: 'destructive',
+          icon: 'trash'
         },
         {
-          text: 'Cancel',
-          role: 'cancel'
+          text: 'CANCEL',
+          role: 'cancel',
         }
       ]
     });
