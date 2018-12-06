@@ -30,7 +30,7 @@ export class TaskResolvers {
     ){
         return await this.taskService.addTask(user, issue, assigneeId);
     }
-    @Mutation('updateTask')
+    @Mutation('changeTaskState')
     async changeState(
         @User()
         author: UserEntity,
