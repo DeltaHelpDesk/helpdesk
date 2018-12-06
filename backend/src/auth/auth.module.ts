@@ -11,7 +11,10 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
     imports: [
         TypeOrmModule.forFeature([User]),
-        PassportModule.register({ defaultStrategy: 'jwt' }),
+        PassportModule.register({
+            defaultStrategy: 'jwt',
+            property: 'user',
+        }),
         JwtModule.register({
             secretOrPrivateKey: jwtSecretOrPrivateKey,
             signOptions: jwtSignOptions,
