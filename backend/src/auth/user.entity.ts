@@ -3,7 +3,8 @@ import { AuthType } from './authType.enum';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn() id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column({ length: 120 })
     fullName: string;
@@ -13,6 +14,9 @@ export class User {
 
     @Column({ length: 40 })
     password?: string;
+
+    @Column()
+    token?: string;
 
     @Column()
     authType: AuthType;

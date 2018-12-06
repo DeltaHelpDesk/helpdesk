@@ -4,6 +4,8 @@ import { LocalizationService } from './localization.service';
 
 @Module({
   controllers: [LocalizationController],
-  providers: [LocalizationService]
+  providers: [
+    LocalizationService,
+  ],
 })
 export class LocalizationModule {}

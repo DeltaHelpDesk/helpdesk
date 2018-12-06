@@ -20,3 +20,4 @@ storiesOf('Button', module)
   ));
 
 storiesOf('Menu', module).add('Default', () => <Menu />)
+storiesOf('Login', module).add('Default', () => <Login />)

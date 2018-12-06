@@ -1,23 +1,48 @@
-import { ParseIntPipe, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { Auth } from '../graphql.schema';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { User } from './user.param.decorator';
 
-@Resolver('Auth')
+@Resolver('Aush')
 export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 
-    @Query()
-    async getAuth() {
-        return await this.authService.findAll();
+    @Query('session')
+    async getSession(@User() user) {
+        return user;
     }
 
-    @Query('auth')
-    async findOneById(
-        @Args('id', ParseIntPipe)
-        id: number,
-    ): Promise<Auth> {
-        return await this.authService.findOneById(id);
+    @Mutation('loginOffice')
+    async loginOffice(
+        @Args('token')
+        token: string,
+    ) {
+        return await this.authService.loginOffice(token);
+    }
+
+    @Mutation('loginEmail')
+    async login(
+        @Args('email')
+        email: string,
+        @Args('password')
+        password: string,
+    ) {
+        return await this.authService.loginEmail(email, password);
+    }
+
+    @Mutation('logout')
+    async logout() {
+        return await this.authService.logout();
+    }
+
+    @Mutation('createUserEmail')
+    async createEmailUser(
+        @Args('email')
+        email: string,
+        @Args('password')
+        password: string,
+        @Args('fullName')
+        fullName: string,
+    ) {
+        return await this.authService.createUserEmail(email, password, fullName);
     }
 }
