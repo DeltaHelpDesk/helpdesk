@@ -31,11 +31,11 @@ export class TaskService {
   }
   async changeTaskState(author: User, taskId: number, comment: string, state: State): Promise<Task>{
     const task = await this.taskRepository.findOne(taskId);
-    const log = this.logRepository.create({author, comment, task});
-    await this.logRepository.save(log);
-    if(state){
+    if (state) {
       task.state = state;
     }
-    return await this.taskRepository.save(task);
+    const log = this.logRepository.create({author, comment, task});
+    await this.logRepository.save(log);
+    return task;
   }
 }
