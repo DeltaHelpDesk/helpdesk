@@ -19,7 +19,7 @@ export class FakeDataService implements OnModuleInit {
         private readonly logRepository: Repository<Log>,
     ) {}
     async onModuleInit() {
-        if ((await this.taskRepository.count()) < 10) {
+        if ((await this.taskRepository.count()) > 15) {
             return;
         }
         let user = this.userRepository.create(
