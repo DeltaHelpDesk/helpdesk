@@ -6,6 +6,9 @@
   "dependencies": {
     "@material-ui/core": "^3.2.2",
     "@material-ui/icons": "^3.0.1",
+    "@mdi/font": "^3.2.89",
+    "@mdi/js": "^3.2.89",
+    "@mdi/react": "^1.1.0",
     "@types/classnames": "^2.2.6",
     "apollo-boost": "^0.1.16",
     "classnames": "^2.2.6",
