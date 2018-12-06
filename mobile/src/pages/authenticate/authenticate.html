@@ -1,20 +1,51 @@
 <ion-header>
-  <ion-navbar text-center>
-    <ion-title>Authenticate</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>{{ 'AUTHENTICATE' }}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="changeLoginTypeActionSheet()">
+        <ion-icon name="apps"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <ion-card *ngIf="loginType === loginTypes.office365">
+    <ion-card-header text-center>
+      <img src="/assets/imgs/office365.png">
+    </ion-card-header>
+
     <ion-list>
-        <ion-item>
-            <ion-label stacked>Email</ion-label>
-            <ion-input type="email"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked>Password</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
-        
-        <!--https://ionicframework.com/docs/components/#card-list -->
+      <div padding>
+        <button ion-button block padding (click)="loginOffice365()">{{ 'LOGIN' }}</button>
+      </div>
     </ion-list>
+  </ion-card>
+
+  <ion-card *ngIf="loginType === loginTypes.email">
+    <form [formGroup]="emailLoginForm" (ngSubmit)="submitEmailLoginForm()">
+      <ion-card-header text-center>
+        <ion-icon name="person"></ion-icon>
+      </ion-card-header>
+
+      <ion-list>
+        <ion-item>
+          <ion-label stacked color="primary">{{ 'EMAIL' }}</ion-label>
+          <ion-input formControlName="email" type="text" placeholder="email@delta-skola.cz"></ion-input>
+        </ion-item>
+        <universal-input-error [control]="emailLoginForm.controls['email']"></universal-input-error>
+
+        <ion-item>
+          <ion-label stacked color="primary">{{ 'PASSWORD' }}</ion-label>
+          <ion-input formControlName="password" type="password" placeholder="1234556"></ion-input>
+        </ion-item>
+        <universal-input-error [control]="emailLoginForm.controls['password']"></universal-input-error>
+
+        <div padding>
+          <button ion-button block padding>{{ 'LOGIN' }}</button>
+        </div>
+      </ion-list>
+    </form>
+  </ion-card>
 </ion-content>

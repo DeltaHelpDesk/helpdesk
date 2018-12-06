@@ -1,0 +1,10 @@
+<p *ngIf="control.invalid && (control.dirty || control.touched)" ion-text color="danger" text-right padding-horizontal>
+
+  <ng-container *ngIf="control.errors['required']">
+  {{ 'REQUIRED_FIELD_ERROR' }}
+  </ng-container>
+
+  <ng-container *ngIf="!control.errors['required'] && control.errors['email']">
+    {{ 'INVALID_EMAIL_ERROR' }}
+  </ng-container>
+</p>
