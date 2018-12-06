@@ -22,7 +22,7 @@ export class Task {
     @CreateDateColumn()
     updated_at: Date;
 
-    @Column()
+    @Column({default: State.UNRESOLVED})
     state: State;
 
     @OneToMany(type => Log, log => log.task)
