@@ -11,13 +11,13 @@ export class Log {
     @ManyToOne(type => User)
     author: User;
 
-    @Column('longtext')
+    @Column({ type: 'longtext', nullable: true })
     comment?: string;
 
-    @ManyToOne(type => User)
+    @ManyToOne(type => User, { nullable: true })
     assignee?: User;
 
-    @Column()
+    @Column({ nullable: true })
     state?: State;
 
     @CreateDateColumn()

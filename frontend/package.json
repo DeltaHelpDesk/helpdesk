@@ -6,7 +6,9 @@
   "dependencies": {
     "@material-ui/core": "^3.2.2",
     "@material-ui/icons": "^3.0.1",
+    "@types/classnames": "^2.2.6",
     "apollo-boost": "^0.1.16",
+    "classnames": "^2.2.6",
     "graphql": "^14.0.2",
     "react": "^16.5.2",
     "react-apollo": "^2.2.4",
@@ -27,6 +29,7 @@
     "@storybook/addon-links": "^3.4.11",
     "@storybook/addons": "^3.4.11",
     "@storybook/react": "^3.4.11",
+    "@types/classnames": "^2.2.6",
     "@types/graphql": "^14.0.3",
     "@types/jest": "^23.3.5",
     "@types/node": "^10.12.0",

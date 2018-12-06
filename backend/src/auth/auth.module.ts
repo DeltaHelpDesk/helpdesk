@@ -1,5 +1,6 @@
+import { jwtSecretOrPrivateKey, jwtSignOptions } from './jwt.config';
 import { AuthResolvers } from './auth.resolvers';
-import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { AuthService } from './auth.service';
@@ -12,10 +13,8 @@ import { JwtStrategy } from './jwt.strategy';
         TypeOrmModule.forFeature([User]),
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
-            secretOrPrivateKey: `bi',.;p[p[../42y5u6jugng259/**[;l;'.;'joigytyg215985+39+*-*9+393gtryerttyrweswry8tbd];`,
-            signOptions: {
-                expiresIn: 3600,
-            },
+            secretOrPrivateKey: jwtSecretOrPrivateKey,
+            signOptions: jwtSignOptions,
         }),
     ],
     providers: [
