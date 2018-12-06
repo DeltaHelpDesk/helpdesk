@@ -7,6 +7,7 @@ import * as PropTypes from "prop-types";
 import * as React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
+import { NavLink } from 'react-router-dom';
 
 const styles = {
   grow: {
@@ -28,9 +29,9 @@ function ButtonAppBar(props: any) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            HELPDESK
+            <NavLink to="/">HELPDESK</NavLink>
           </Typography>
-          <Button color="inherit">Menu item</Button>
+          <Button color="inherit"><NavLink to="/admin">Administration</NavLink></Button>
           <Button color="inherit">Menu item</Button>
           <Button color="inherit">Menu item</Button>
         </Toolbar>
