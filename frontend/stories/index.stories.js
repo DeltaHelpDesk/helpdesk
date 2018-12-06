@@ -6,6 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 
 import { Button, Welcome } from '@storybook/react/demo';
 import Menu from './../src/components/Menu.tsx';
+import Login from './../src/components/Login.tsx'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -20,3 +21,4 @@ storiesOf('Button', module)
   ));
 
 storiesOf('Menu', module).add('Default', () => <Menu />)
+storiesOf('Login', module).add('Default', () => <Login />)
