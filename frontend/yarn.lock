@@ -77,6 +77,21 @@
     "@babel/runtime" "7.0.0"
     recompose "^0.29.0"
 
+"@mdi/font@^3.2.89":
+  version "3.2.89"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-3.2.89.tgz#91790717881c8839729286e516436e7b9f3d96ea"
+  integrity sha512-K+E44jDkv7jwJbRYctw5+k+jE0j43dCN9KH3ZsIcqYjmhQ3ZN3/eBM2oXtFhxSOKYpEn/xFStS+SGRZjlJY/dg==
+
+"@mdi/js@^3.2.89":
+  version "3.2.89"
+  resolved "https://registry.yarnpkg.com/@mdi/js/-/js-3.2.89.tgz#71310ff0890cd161ef56407120dda36dbcf1a427"
+  integrity sha512-IpW8oz3HL7rJYCQZUe6Pq4keuzluIQzFSM8yM/dzhPrwF2gM1ZyVo+MSXkP6U5JtGW9r2pFSWyQzeW4Y+R5zIQ==
+
+"@mdi/react@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@mdi/react/-/react-1.1.0.tgz#22b014e40152adbe0d7d36631fc9979854603c7a"
+  integrity sha512-c0+avMYEZ6i7Pg1ULLFs+p7k8bDPiie9rrgGYs8VWQhw2tUUYz7r0lIPVzD3bzMghWfyhfkArj88K5Of0WTMNw==
+
 "@storybook/addon-actions@3.4.11", "@storybook/addon-actions@^3.4.11":
   version "3.4.11"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.4.11.tgz#a51418c5b684fd3df2788c19ef266845d6068baf"
@@ -301,6 +316,7 @@
 "@types/classnames@^2.2.6":
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.6.tgz#dbe8a666156d556ed018e15a4c65f08937c3f628"
+  integrity sha512-XHcYvVdbtAxVstjKxuULYqYaWIzHR15yr1pZj4fnGChuBVJlIAp9StJna0ZJNSgxPh4Nac2FL4JM3M11Tm6fqQ==
 
 "@types/graphql@^14.0.3":
   version "14.0.3"

@@ -67,6 +67,20 @@ services:
     - './frontend:/frontend'
     working_dir: '/frontend'
     command: ['yarn', 'storybook']
+  mobile:
+    image: kkarczmarczyk/node-yarn
+    networks:
+      backend:
+        aliases:
+          - mobile
+    expose:
+    - '8100'
+    ports:
+      - '${IONIC_PORT}:8100'
+    volumes:
+      - './mobile:/mobile'
+    working_dir: '/mobile'
+    command: ['yarn', 'start']
 networks:
   backend:
     driver: 'bridge'

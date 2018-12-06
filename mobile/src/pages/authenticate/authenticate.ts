@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ActionSheetController, IonicPage } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import * as _ from 'lodash';
+import { Office365Provider } from "../../providers/office365.provider";
 
-/**
- * Generated class for the AuthenticatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+enum LoginType {
+  office365,
+  email
+}
 
 @IonicPage()
 @Component({
@@ -14,12 +15,63 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'authenticate.html',
 })
 export class AuthenticatePage {
+  loginType: LoginType = LoginType.office365;
+  loginTypes = LoginType;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  emailLoginForm: FormGroup;
+
+  constructor(
+    public fb: FormBuilder,
+    public actionSheetCtrl: ActionSheetController,
+    public office365Provider: Office365Provider
+  ) {
+    this.initForm();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AuthenticatePage');
+  initForm() {
+    this.emailLoginForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required],
+    })
   }
 
+  changeLoginTypeActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'CHANGE_LOGIN_TYPE',
+      buttons: [
+        {
+          text: 'OFFICE365',
+          icon: 'logo-windows',
+          handler: () => {
+            this.loginType = LoginType.office365;
+          }
+        },{
+          text: 'EMAIL',
+          icon: 'contact',
+          handler: () => {
+            this.loginType = LoginType.email;
+          }
+        },{
+          text: 'CLOSE',
+          role: 'cancel'
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  loginOffice365() {
+    this.office365Provider.login();
+  }
+
+  submitEmailLoginForm() {
+    if(this.emailLoginForm.invalid) {
+      _.forEach(this.emailLoginForm.controls, control => control.markAsTouched());
+      return;
+    }
+
+    console.log(this.emailLoginForm.value)
+
+    // TODO: Login service
+  }
 }
