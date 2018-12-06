@@ -38,7 +38,7 @@ export class TaskResolvers {
         stateId: number,
         @Args('comment')
         comment: string,
-        @Args()
+        @Args('state')
         state: State,
     ){
         return await this.taskService.changeTaskState(author, stateId, comment, state);
