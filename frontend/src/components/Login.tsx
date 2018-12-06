@@ -16,7 +16,7 @@ import * as React from "react";
 const styles = (theme: Theme) => ({
     root: {
         display: "flex",
-        //flexWrap: "wrap"
+        // flexWrap: "wrap"
     },
     margin: {
         margin: theme.spacing.unit
@@ -29,34 +29,49 @@ const styles = (theme: Theme) => ({
     }
 });
 
-interface FilledInputAdornmentsState {
+interface IFilledInputAdornmentsState {
+    showPassword: boolean,
+    user: IUser
+}
+
+interface IUser {
     name: string,
     password: string,
-    showPassword: boolean
 }
 
 type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
-class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<typeof styles>, FilledInputAdornmentsState> {
+class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<typeof styles>, IFilledInputAdornmentsState> {
 
     state = {
-        name: "",
-        password: "",
+        user: {
+            name: "",
+            password: "",
+        },
         showPassword: false
     };
 
 
     handleInputChange(e: React.FormEvent<HTMLInputElement>) {
-        this.setState(previousState => {
-            previousState[e.currentTarget.name] = e.currentTarget.value
-        });
-        console.log(this.state)
+        const property = e.currentTarget.name;
+        const value = e.currentTarget.value;
+
+        this.setState(previousState => ({
+            user: {
+                ...previousState.user,
+                [property]: value
+            }
+        }));
     };
 
 
     handleClickShowPassword = () => {
         this.setState((state) => ({ showPassword: !state.showPassword }));
     };
+
+    handleSubmit = () => {
+        console.log(this.state.user)
+    }
 
     render() {
         const { classes } = this.props;
@@ -81,7 +96,6 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                         name="password"
                         type={this.state.showPassword ? "text" : "password"}
                         label="Heslo"
-                        value={this.state.password}
                         onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                         InputProps={{
                             endAdornment: (
@@ -99,9 +113,10 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                     <Button
                         variant="contained"
                         className={classNames(classes.button, classes.margin)}
+                        onClick={this.handleSubmit}
                     >
                         Přihlásit
-        </Button>
+                    </Button>
                 </form>
             </div>
         );
