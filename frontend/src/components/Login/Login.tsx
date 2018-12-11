@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import { WithStyles } from "@material-ui/core";
 
 import * as React from "react";
+import MicrosoftButtonLogin from './MicrosoftButtonLogin';
 
 
 // TODO: type definitons
@@ -110,6 +111,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                             )
                         }}
                     />
+                    <MicrosoftButtonLogin />
                     <Button
                         variant="contained"
                         className={classNames(classes.button, classes.margin)}
