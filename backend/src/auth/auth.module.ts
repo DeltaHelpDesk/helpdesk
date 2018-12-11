@@ -1,4 +1,6 @@
-import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { jwtSecretOrPrivateKey, jwtSignOptions } from './jwt.config';
+import { AuthResolvers } from './auth.resolvers';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { AuthService } from './auth.service';
@@ -9,24 +11,20 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
     imports: [
         TypeOrmModule.forFeature([User]),
-        PassportModule.register({ defaultStrategy: 'jwt' }),
+        PassportModule.register({
+            defaultStrategy: 'jwt',
+            property: 'user',
+        }),
         JwtModule.register({
-            secretOrPrivateKey: `bi',.;p[p[../42y5u6jugng259/**[;l;'.;'joigytyg215985+39+*-*9+393gtryerttyrweswry8tbd];`,
-            signOptions: {
-                expiresIn: 3600,
-            },
+            secretOrPrivateKey: jwtSecretOrPrivateKey,
+            signOptions: jwtSignOptions,
         }),
     ],
     providers: [
         JwtStrategy,
         AuthService,
+        AuthResolvers,
     ],
     controllers: [],
 })
-export class AuthModule {
-    // configure(consumer: MiddlewareConsumer) {
-    //     consumer
-    //         .apply(UserMiddleware)
-    //         .forRoutes({ path: '*', method: RequestMethod.ALL });
-    // }
-}
+export class AuthModule {}

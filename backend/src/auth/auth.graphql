@@ -9,11 +9,14 @@ type User {
   created_at: Date!
   updated_at: Date
 }
-type Session {
+type AuthenticatedUser {
+  id: ID!
+  fullName: String!
+  email: String!
+  created_at: Date!
+  updated_at: Date
   token: String!
 }
-union AuthenticatedUser = User | Session
-
 
 type Query {
   session: AuthenticatedUser

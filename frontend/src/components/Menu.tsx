@@ -1,14 +1,13 @@
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import MenuIcon from "@material-ui/icons/Menu";
 
 import * as PropTypes from "prop-types";
 import * as React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
+import { NavLink } from 'react-router-dom';
 
 const styles = {
   grow: {
@@ -29,17 +28,10 @@ function ButtonAppBar(props: any) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            HELPDESK
+            <NavLink to="/">HELPDESK</NavLink>
           </Typography>
-          <Button color="inherit">Men</Button>
+          <Button color="inherit"><NavLink to="/admin">Administration</NavLink></Button>
           <Button color="inherit">Menu item</Button>
           <Button color="inherit">Menu item</Button>
         </Toolbar>

@@ -51,5 +51,10 @@
             false
         ]
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "src/gql.ts"
+        ]
+    }
 }
