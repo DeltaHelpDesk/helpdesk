@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.fixed-square-200
+{
+  height: 200px;
+  width:200px;
+  margin:50px;
+  background:#3f51b5 !important;
+  color:white;
+}
+.flex
+{
+  display:inline-flex;
+}
+.center-all-inner-items
+{
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
