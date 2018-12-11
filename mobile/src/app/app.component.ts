@@ -12,15 +12,16 @@ export class MyApp {
 
   rootPage: any = 'TaskListPage';
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Task List', component: 'TaskListPage' },
-      { title: 'Profile', component: 'ProfilePage' },
+      { title: 'Task List', component: 'TaskListPage', icon: 'list'},
+      { title: 'Device List', component: 'DeviceListPage', icon: 'laptop'},
+      { title: 'Profile', component: 'ProfilePage', icon: 'contact' },
     ];
 
   }

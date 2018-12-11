@@ -1,3 +1,10 @@
 page-authenticate {
+  ion-grid {
+    height: 100%;
+    justify-content: center;
+  }
 
+  ion-icon[name="person"] {
+    font-size: 5em;
+  }
 }

@@ -4,10 +4,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { LocalizationModule } from './localization/localization.module';
-import { TaskService } from './task/task.service';
 import { TaskModule } from 'task/task.module';
 import { join } from 'path';
 import { gqlContextFunction } from './gqlContext';
+import { FakeDataService } from 'fakeData.service';
 
 @Module({
   imports: [
@@ -25,6 +25,8 @@ import { gqlContextFunction } from './gqlContext';
     TaskModule,
   ],
   controllers: [AppController],
-  providers: [TaskService],
+  providers: [
+    FakeDataService,
+  ],
 })
 export class AppModule { }
