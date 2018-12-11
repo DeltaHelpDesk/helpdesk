@@ -1,7 +1,7 @@
 import Typography from "@material-ui/core/Typography";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import {IUser} from "./TaskList";
+import {ITask} from "./TaskList";
 import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -9,9 +9,9 @@ const styles = {
 };
 
 // Prepared for Task component
-function Task(props: IUser) {
+function Task(props: any) {
   // const { classes } = props;
-  const user : IUser = props;
+  const user : ITask = props.user;
   return (
     <Card>
       <CardContent>

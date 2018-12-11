@@ -1,22 +1,37 @@
 import * as React from "react";
 import Task from "./Task";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
 import { withStyles } from "@material-ui/core/styles";
 
-export interface IUser {
+export interface ITask {
   name: string;
   description: string;
 }
+const GET_TASKS = gql`
+  {
+    task {
+      id
+      breed
+    }
+  }`;
 
 const styles = {
 };
 
-function TaskList(props: any) {
-  // const { classes } = props;
-  const users : IUser[] = [{name: "Havelis", description: "Neni to Asus"}, {name: "Lorem", description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Vivamus luctus egestas leo. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Duis sapien nunc, commodo et, interdum suscipit, sollicitudin et, dolor."}, {name: "name", description: "description"}]
-  const tasks = users.map((user : IUser) => <Task key="Task" name={user.name} description={user.description}/>);
+function TaskList() {
   return (
-    <div>{tasks}</div>
+    <Query query={GET_TASKS}>
+      {({ loading, error, data }) => {
+        if (loading) {return "Loading..."};
+        if (error) { return `Error! ${error.message}`};
+  
+        return (
+        data.map((task : any) => <Task key={task.id} user={task}/>)
+        );
+      }}
+    </Query>
   );
 }
 
