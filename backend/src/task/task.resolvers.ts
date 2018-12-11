@@ -48,7 +48,17 @@ export class TaskResolvers {
         comment: string,
         @Args('state')
         state: State,
+        @Args('assigneeId')
+        assigneeId: number,
     ){
-        return await this.taskService.changeTaskState(author, stateId, comment, state);
+        return await this.taskService.changeTaskState(author, stateId, comment, state ,assigneeId);
     }
+    @Mutation('deleteTask')
+    async deleteTask(
+        @Args('taskId')
+        taskId: number,
+    ){
+        return await this.taskService.deleteTask(taskId);
+    }
+
 }

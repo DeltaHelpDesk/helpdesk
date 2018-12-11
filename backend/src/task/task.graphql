@@ -30,6 +30,7 @@ type Query{
 }
 type Mutation {
   addTask(issue: String!, assigneeId: ID): Task
-  changeTaskState(taskId: ID, comment: String, state: State): Task
+  changeTaskState(taskId: ID, comment: String, state: State, assigneeId: ID): Task
+  deleteTask(taskId: ID): Boolean
 }
 

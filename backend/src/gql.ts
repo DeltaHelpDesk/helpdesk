@@ -39,7 +39,9 @@ export abstract class IMutation {
 
     abstract addTask(issue: string, assigneeId?: string): Task | Promise<Task>;
 
-    abstract changeTaskState(taskId?: string, comment?: string, state?: State): Task | Promise<Task>;
+    abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string): Task | Promise<Task>;
+
+    abstract deleteTask(taskId?: string): boolean | Promise<boolean>;
 }
 
 export abstract class IQuery {
