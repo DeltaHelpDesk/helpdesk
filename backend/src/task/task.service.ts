@@ -29,15 +29,27 @@ export class TaskService {
     const task = this.taskRepository.create({author, issue, assignee});
     return await this.taskRepository.save(task);
   }
-  async changeTaskState(author: User, taskId: number, comment?: string, state?: State): Promise<Task>{
+  async changeTaskState(author: User, taskId: number, comment?: string, state?: State, assigneeId?: number): Promise<Task>{
     let task = await this.taskRepository.findOne(taskId);
     if (state) {
       task.state = state;
+    }
+    if(assigneeId){
+      const assignee = await this.userRepository.findOne(assigneeId);
+      task.assignee = assignee;
     }
     task = await this.taskRepository.save(task);
     let log = this.logRepository.create({author, comment, task});
     log = await this.logRepository.save(log);
     task.logs.push(log);
     return task;
+  }
+  async deleteTask(taskId: number){
+    const task = this.taskRepository.findOne(taskId);
+    if(!task){
+      return false;
+    }
+    await this.taskRepository.delete(taskId);
+    return true;
   }
 }
