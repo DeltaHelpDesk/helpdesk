@@ -27,14 +27,16 @@ export class TaskResolvers {
     @UseGuards(GqlAuthGuard)
     @Mutation('addTask')
     async login(
+        @Args('subject')
+        subject: string,
         @Args('issue')
         issue: string,
         @Args('assigneeId')
         assigneeId: number,
         @User()
-        user: UserEntity,
+        author: UserEntity,
     ){
-        return await this.taskService.addTask(user, issue, assigneeId);
+        return await this.taskService.addTask({author, issue, assigneeId, subject});
     }
 
     @UseGuards(GqlAuthGuard)
@@ -51,7 +53,7 @@ export class TaskResolvers {
         @Args('assigneeId')
         assigneeId: number,
     ){
-        return await this.taskService.changeTaskState(author, stateId, comment, state ,assigneeId);
+        return await this.taskService.changeTaskState(author, stateId, comment, state, assigneeId);
     }
     @Mutation('deleteTask')
     async deleteTask(

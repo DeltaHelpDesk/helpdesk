@@ -10,6 +10,9 @@ export class Task {
     @Column('longtext')
     issue: string;
 
+    @Column()
+    subject: string;
+
     @ManyToOne(type => User, user => user.createdTasks)
     author: User;
 
