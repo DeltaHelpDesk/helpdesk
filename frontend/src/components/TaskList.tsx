@@ -6,14 +6,14 @@ import { Query } from "react-apollo";
 import { withStyles } from "@material-ui/core/styles";
 
 export interface ITask {
-  name: string;
-  description: string;
+  id: string;
+  issue: string;
 }
 const GET_TASKS = gql`
   {
     task {
       id
-      breed
+      issue
     }
   }`;
 
@@ -26,9 +26,9 @@ function TaskList() {
       {({ loading, error, data }) => {
         if (loading) {return "Loading..."};
         if (error) { return `Error! ${error.message}`};
-  
+
         return (
-        data.map((task : any) => <Task key={task.id} user={task}/>)
+        data.map((task : ITask) => <Task key={task.id} task={task}/>)
         );
       }}
     </Query>

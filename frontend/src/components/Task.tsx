@@ -9,21 +9,21 @@ const styles = {
 };
 
 // Prepared for Task component
-function Task(props: any) {
+function Task(props: {task:ITask}) {
   // const { classes } = props;
-  const user : ITask = props.user;
+  const task: ITask = props.task;
   return (
     <Card>
       <CardContent>
         <Typography>
           <h1>
-            {user.name}
+            Titulek
           </h1>
         </Typography>
       </CardContent>
       <CardContent>
         <Typography>
-        {user.description}
+        {task.issue}
         </Typography>
       </CardContent>
     </Card>
