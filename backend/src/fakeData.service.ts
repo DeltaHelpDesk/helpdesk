@@ -8,6 +8,7 @@ import { Task } from 'task/task.entity';
 import { Log } from 'task/log.entity';
 import { AuthType } from 'auth/authType.enum';
 import { State } from 'task/state.enum';
+import { UserRole } from 'auth/userRole.enum';
 
 @Injectable()
 export class FakeDataService implements OnModuleInit {
@@ -20,7 +21,7 @@ export class FakeDataService implements OnModuleInit {
         private readonly logRepository: Repository<Log>,
     ) {}
     async onModuleInit() {
-        if ((await this.taskRepository.count()) > 15) {
+        if ((await this.taskRepository.count()) > 3) {
             return;
         }
         const password = await bcrypt.hash('kaktus', 10);
@@ -36,6 +37,13 @@ export class FakeDataService implements OnModuleInit {
                 email: faker.internet.email(),
                 authType: AuthType.EMAIL,
                 password,
+            },
+            {
+                fullName: 'Admin Adminový',
+                email: 'admin@admin.cz',
+                authType: AuthType.EMAIL,
+                password: 'admin',
+                role: UserRole.SUPERADMIN,
             },
         ]) as any;
         const { identifiers: [task1, task2, task3, task4] }: {identifiers: Task[]} = await this.taskRepository.insert([
