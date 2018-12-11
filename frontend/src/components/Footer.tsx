@@ -9,11 +9,11 @@ const styles = {
         backgroundColor: "black",
         color: "white",
         height: "100px",
-        position: "fixed",
+        position: "fixed" as "fixed",
         left: 0,
         bottom: 0,
         botton: "0px",
-        textAlign: "center"
+        textAlign: "center" as "center"
     }
 };
 
