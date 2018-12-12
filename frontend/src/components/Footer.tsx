@@ -8,7 +8,7 @@ const styles = {
         width: "100%",
         backgroundColor: "black",
         color: "white",
-        height: "100px",
+        height: "60px",
         position: "fixed" as "fixed",
         left: 0,
         bottom: 0,
@@ -21,7 +21,7 @@ function Footer(props: any) {
     const { classes } = props;
     return (
         <div className={classes.root}>
-            <p>Helpdesk</p> <p>Footer text</p>
+            <p>Helpdesk</p> <p>Copyright @2018</p>
         </div>
     );
 }
