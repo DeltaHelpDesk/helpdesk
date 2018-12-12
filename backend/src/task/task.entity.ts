@@ -13,10 +13,10 @@ export class Task {
     @Column()
     subject: string;
 
-    @ManyToOne(type => User, user => user.createdTasks)
+    @ManyToOne(type => User, user => user.createdTasks, { eager: true })
     author: User;
 
-    @ManyToOne(type => User, user => user.assignedTasks, { nullable: true })
+    @ManyToOne(type => User, user => user.assignedTasks, { nullable: true, eager: true })
     assignee?: User;
 
     @CreateDateColumn()
@@ -28,6 +28,6 @@ export class Task {
     @Column({default: State.UNRESOLVED})
     state: State;
 
-    @OneToMany(type => Log, log => log.task)
+    @OneToMany(type => Log, log => log.task, { eager: true })
     logs: Log[];
 }
