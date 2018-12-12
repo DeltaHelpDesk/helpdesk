@@ -32,7 +32,7 @@ function ButtonAppBar(props: any) {
             <NavLink to="/">HELPDESK</NavLink>
           </Typography>
           <Button color="inherit"><NavLink to="/admin">Administration</NavLink></Button>
-          <Button color="inherit">Menu item</Button>
+          <Button color="inherit"><NavLink to="/tasklist">Task List</NavLink></Button>
           <Button color="inherit">Menu item</Button>
         </Toolbar>
       </AppBar>
