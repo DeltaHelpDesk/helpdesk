@@ -1,28 +1,23 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
+import "./styles.css"
 
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = {
-    root: {
-        width: "100%",
-        backgroundColor: "black",
-        color: "white",
-        height: "60px",
-        position: "fixed" as "fixed",
-        left: 0,
-        bottom: 0,
-        botton: "0px",
-        textAlign: "center" as "center"
-    }
+const style = {
+    footerSpan: {
+        color:"lightslategrey"
+    },    
 };
 
 function Footer(props: any) {
     const { classes } = props;
     return (
-        <div className={classes.root}>
-            <p>Helpdesk</p> <p>Copyright @2018</p>
-        </div>
+
+        <footer className="footeAnimate">
+            <span className={classes.footerSpan}>© 2018 </span>
+            <a className="footerhref" href="/">HelpDesk</a>
+        </footer>
     );
 }
 
@@ -30,4 +25,4 @@ Footer.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Footer);
+export default withStyles(style)(Footer);
