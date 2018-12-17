@@ -1,10 +1,9 @@
 import * as React from "react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
-
-import { withStyles } from "@material-ui/core/styles";
 import Task from './Task';
+import { Query } from "react-apollo";
+import { withStyles } from "@material-ui/core/styles";
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { GET_TASKS } from './TaskListQueries';
 
 
 export interface ITask {
@@ -14,15 +13,6 @@ export interface ITask {
   assignee: string;
   author: string;
 }
-const GET_TASKS = gql`
-  {
-    tasks {
-      id
-      issue
-      state
-    }
-  }
- `;
 
 const styles = {
 };

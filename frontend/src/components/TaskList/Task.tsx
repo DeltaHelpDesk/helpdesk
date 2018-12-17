@@ -8,7 +8,7 @@ const styles = {
 
 // Prepared for Task component
 function Task(props: {task:ITask}) {
-  // const { classes } = props;
+
   const task: ITask = props.task;
   return (
       <TableRow>
