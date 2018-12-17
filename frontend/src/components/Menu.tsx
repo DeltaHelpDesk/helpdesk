@@ -19,6 +19,10 @@ const styles = {
   },
   root: {
     flexGrow: 1
+  },
+  menuItem: {
+    color: "white",
+    textDecoration: "none"
   }
 };
 
@@ -28,12 +32,12 @@ function ButtonAppBar(props: any) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            <NavLink to="/">HELPDESK</NavLink>
+          <Typography variant="h6" className={classes.grow}>
+            <NavLink className={classes.menuItem} to="/">HELPDESK</NavLink>
           </Typography>
-          <Button color="inherit"><NavLink to="/admin">Administration</NavLink></Button>
-          <Button color="inherit">Menu item</Button>
-          <Button color="inherit">Menu item</Button>
+          <Button ><NavLink className={classes.menuItem} to="/admin">Administration</NavLink></Button>
+          <Button><NavLink className={classes.menuItem} to="">Menu item</NavLink></Button>
+          <Button><NavLink className={classes.menuItem} to="">Menu tem</NavLink></Button>
         </Toolbar>
       </AppBar>
     </div>
