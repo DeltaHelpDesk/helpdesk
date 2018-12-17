@@ -3,6 +3,7 @@ import * as React from "react";
 import "./styles.css"
 
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from 'react-router-dom';
 
 const style = {
     footerSpan: {
@@ -16,7 +17,7 @@ function Footer(props: any) {
 
         <footer className="footeAnimate">
             <span className={classes.footerSpan}>© 2018 </span>
-            <a className="footerhref" href="/">HelpDesk</a>
+            <Link className="footerhref" to="/">HelpDesk</Link>
         </footer>
     );
 }
