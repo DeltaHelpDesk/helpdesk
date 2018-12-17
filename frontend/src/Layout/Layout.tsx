@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Menu from 'src/components/Menu';
-import Footer from 'src/components/Footer';
+import Footer from 'src/components/Footer/Footer';
 
 const Layout: React.SFC<{}> = props => {
     return(
