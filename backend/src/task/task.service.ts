@@ -45,7 +45,7 @@ export class TaskService {
     return task;
   }
   async deleteTask(taskId: number){
-    const task = this.taskRepository.findOne(taskId);
+    const task = await this.taskRepository.findOne(taskId);
     if (!task) {
       return false;
     }
