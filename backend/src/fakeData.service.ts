@@ -21,7 +21,8 @@ export class FakeDataService implements OnModuleInit {
         private readonly logRepository: Repository<Log>,
     ) {}
     async onModuleInit() {
-        if ((await this.taskRepository.count()) > 3) {
+        const defAdminExists = !!(await this.userRepository.findOne({email: 'admin@admin.cz'}));
+        if (defAdminExists || (await this.taskRepository.count()) > 3) {
             return;
         }
         const password = await bcrypt.hash('kaktus', 10);
