@@ -41,22 +41,26 @@ export class FakeDataService implements OnModuleInit {
         const { identifiers: [task1, task2, task3, task4] }: {identifiers: Task[]} = await this.taskRepository.insert([
             {
                 author: user1,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
             },
             {
                 author: user2,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
             },
             {
                 author: user1,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
                 state: State.SOLVING,
             },
             {
                 author: user2,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
                 state: State.RETURNED,
