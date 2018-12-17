@@ -3,7 +3,7 @@ import resolvers from "./resolvers.js";
 import typeDefs from "./typedefs.js";
 
 const client = new ApolloClient({
-  uri: "http://192.168.99.100:3000/graphql",
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
   clientState: {
     defaults: {
       testMessage: "Ahoj",
