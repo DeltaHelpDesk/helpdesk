@@ -36,8 +36,7 @@ function ButtonAppBar(props: any) {
             <NavLink className={classes.menuItem} to="/">HELPDESK</NavLink>
           </Typography>
           <Button ><NavLink className={classes.menuItem} to="/admin">Administration</NavLink></Button>
-          <Button><NavLink className={classes.menuItem} to="">Menu item</NavLink></Button>
-          <Button><NavLink className={classes.menuItem} to="">Menu tem</NavLink></Button>
+          <Button><NavLink className={classes.menuItem} to="/tasklist">Tasklist</NavLink></Button>
         </Toolbar>
       </AppBar>
     </div>

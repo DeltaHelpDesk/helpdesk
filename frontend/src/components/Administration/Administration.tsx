@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-
+import Card from '@material-ui/core/Card';
 
 import * as PropTypes from "prop-types";
 import * as React from "react";
@@ -18,15 +18,21 @@ function AdministrationItems() {
   // const { classes } = props;
   return (
     <div>
-      <Grid item={true} xs={4} style={styles.border}>
-        <p>settings</p>
+      <Card className="fixed-square-200 flex center-all-inner-items">
+      <Grid item={true}>
+        <p>Settings</p>
       </Grid>
-      <Grid item={true} xs={4} style={styles.border}>
-        <p>edit tasks</p>
+      </Card>
+      <Card className="fixed-square-200 flex center-all-inner-items">
+      <Grid item={true}>
+        <p>Edit tasks</p>
       </Grid>
-      <Grid item={true} xs={4} style={styles.border}>
-        <p>devices</p>
+      </Card>
+      <Card className="fixed-square-200 flex center-all-inner-items">
+      <Grid item={true}>
+        <p>Devices</p>
       </Grid>
+      </Card>
     </div>
   );
 }
