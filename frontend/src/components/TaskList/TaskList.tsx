@@ -10,8 +10,14 @@ export interface ITask {
   id: string;
   issue: string;
   state: string;
-  assignee: string;
-  author: string;
+  assignee: IAssignee;
+  author: IAuthor;
+}
+export interface IAssignee{
+  fullName: string;
+}
+export interface IAuthor{
+  fullName: string;
 }
 
 const styles = {
@@ -42,6 +48,9 @@ function TaskList() {
                   </TableCell>
                   <TableCell>
                     State
+                  </TableCell>
+                  <TableCell>
+                    Delete
                   </TableCell>
                 </TableRow>
               </TableHead>
