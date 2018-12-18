@@ -1,6 +1,9 @@
 import gql from "graphql-tag";
 import client from './client';
 
+export const isLoggedIn = () => {
+  return !!lastToken;
+};
 export const setToken = (token: string | undefined | null) => {
   if(token) {
     lastToken = token;

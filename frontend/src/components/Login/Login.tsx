@@ -11,6 +11,7 @@ import { WithStyles } from "@material-ui/core";
 import * as React from "react";
 import MicrosoftButtonLogin from './MicrosoftButtonLogin';
 import { loginByEmail } from 'src/graphql/auth';
+import { RouteComponentProps } from 'react-router-dom';
 
 
 // TODO: type definitons
@@ -43,7 +44,7 @@ interface IUser {
 
 type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
-class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<typeof styles>, IFilledInputAdornmentsState> {
+class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<typeof styles> & RouteComponentProps<any>, IFilledInputAdornmentsState> {
 
   state = {
     user: {
@@ -74,12 +75,11 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
   handleSubmit = () => {
     const { user } = this.state;
     loginByEmail(user.name, user.password);
-    // TODO: REDIRECT
+    this.props.history.push('/admin');
   }
 
   render() {
     const { classes } = this.props;
-
 
     return (
       <div className={classes.root}>
@@ -121,7 +121,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
             onClick={this.handleSubmit}
           >
             Přihlásit
-                    </Button>
+          </Button>
         </form>
       </div>
     );
