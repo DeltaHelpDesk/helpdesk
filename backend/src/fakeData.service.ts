@@ -21,7 +21,8 @@ export class FakeDataService implements OnModuleInit {
         private readonly logRepository: Repository<Log>,
     ) {}
     async onModuleInit() {
-        if ((await this.taskRepository.count()) > 3) {
+        const defAdminExists = !!(await this.userRepository.findOne({email: 'admin@admin.cz'}));
+        if (defAdminExists || (await this.taskRepository.count()) > 3) {
             return;
         }
         const password = await bcrypt.hash('kaktus', 10);
@@ -49,22 +50,26 @@ export class FakeDataService implements OnModuleInit {
         const { identifiers: [task1, task2, task3, task4] }: {identifiers: Task[]} = await this.taskRepository.insert([
             {
                 author: user1,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
             },
             {
                 author: user2,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
             },
             {
                 author: user1,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
                 state: State.SOLVING,
             },
             {
                 author: user2,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
                 state: State.RETURNED,

@@ -55,6 +55,8 @@ export class TaskResolvers {
     ){
         return await this.taskService.changeTaskState(author, stateId, comment, state, assigneeId);
     }
+
+    @UseGuards(GqlAuthGuard)
     @Mutation('deleteTask')
     async deleteTask(
         @Args('taskId')
