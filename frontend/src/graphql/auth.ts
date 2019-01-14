@@ -40,7 +40,7 @@ export const GET_SESSION = gql`
 
 export const loginByEmail = async (email: string, password: string): Promise<string> => {
   // tslint:disable-next-line:no-shadowed-variable
-  const { data: { loginByEmail: loginByEmailQuery } }: any = await client.mutate({
+  const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
     mutation: LOGIN_EMAIL,
     variables: {
       email,
@@ -49,4 +49,16 @@ export const loginByEmail = async (email: string, password: string): Promise<str
   });
   setToken(loginByEmailQuery.token);
   return loginByEmailQuery.token;
+};
+
+export const loginByOffice = async (token: string): Promise<string> => {
+  // tslint:disable-next-line:no-shadowed-variable
+  const { data: { loginOffice: loginByOfficeQuery } }: any = await client.mutate({
+    mutation: LOGIN_OFFICE,
+    variables: {
+      token
+    }
+  });
+  setToken(loginByOfficeQuery.token);
+  return loginByOfficeQuery.token;
 };

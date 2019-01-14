@@ -72,10 +72,14 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
     this.setState((state) => ({ showPassword: !state.showPassword }));
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { user } = this.state;
-    loginByEmail(user.name, user.password);
-    this.props.history.push('/admin');
+    try {
+      await loginByEmail(user.name, user.password);
+      this.props.history.push('/admin');
+    } catch(e) {
+      alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+    }
   }
 
   render() {

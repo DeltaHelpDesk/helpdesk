@@ -17,11 +17,11 @@ const styles = (theme: Theme) => ({
 });
 
 function ButtonSizes(props: any) {
-  const { classes } = props;
+  const { classes, onClick } = props;
   return (
     <div>
       <div>
-        <Button variant="contained" size="large" color="primary" className={classes.margin}>
+        <Button variant="contained" size="large" color="primary" className={classes.margin} onClick={onClick}>
           <Icon path={mdiWindows} className={classNames(classes.leftIcon, classes.iconSmall)}
             size={1}
             color="white"
