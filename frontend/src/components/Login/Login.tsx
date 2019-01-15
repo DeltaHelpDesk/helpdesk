@@ -10,8 +10,8 @@ import { WithStyles } from "@material-ui/core";
 
 import * as React from "react";
 import MicrosoftButtonLogin from './MicrosoftButtonLogin';
-import { loginByEmail } from 'src/graphql/auth';
 import { RouteComponentProps } from 'react-router-dom';
+import { ReactAuthContext } from 'src/graphql/auth';
 
 
 // TODO: type definitons
@@ -45,7 +45,7 @@ interface IUser {
 type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
 class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<typeof styles> & RouteComponentProps<any>, IFilledInputAdornmentsState> {
-
+  static contextType = ReactAuthContext;
   state = {
     user: {
       name: "",
@@ -74,11 +74,17 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
 
   handleSubmit = async () => {
     const { user } = this.state;
+    const { loginByEmail } = this.context;
+    console.log(this.context);
     try {
       await loginByEmail(user.name, user.password);
       this.props.history.push('/admin');
     } catch(e) {
-      alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+      if(e.graphQLErrors) {
+        alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+      } else {
+        console.error("handle login error", e);
+      }
     }
   }
 
@@ -132,5 +138,6 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
   }
 }
 
+FilledInputAdornments.contextType = ReactAuthContext;
 
 export default withStyles(styles)(FilledInputAdornments);
