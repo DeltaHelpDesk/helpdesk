@@ -1,5 +1,4 @@
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
@@ -11,18 +10,24 @@ import { NavLink } from 'react-router-dom';
 
 const styles = {
   grow: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
+    flexGrow: 1,
   },
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
+firstItem:{
+  color:"white",
+  textDecoration:"none",
+},
   menuItem: {
     color: "white",
-    textDecoration: "none"
+    textDecoration: "none",
+    marginLeft: "5px",
+    padding: "10px 15px",
+    borderRadius: "5%",
+    '&:hover':{
+      background: "rgba(255,255,255,0.5)",
+    }
   }
 };
 
@@ -33,10 +38,10 @@ function ButtonAppBar(props: any) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.grow}>
-            <NavLink className={classes.menuItem} to="/">HELPDESK</NavLink>
+            <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
           </Typography>
-          <Button ><NavLink className={classes.menuItem} to="/admin">Administration</NavLink></Button>
-          <Button><NavLink className={classes.menuItem} to="/tasklist">Tasklist</NavLink></Button>
+          <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
+          <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
         </Toolbar>
       </AppBar>
     </div>
