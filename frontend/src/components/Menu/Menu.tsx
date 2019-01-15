@@ -25,7 +25,6 @@ firstItem:{
     marginLeft: "5px",
     padding: "10px 15px",
     borderRadius: "5%",
-    fontWeight:"bold" as "bold",
     '&:hover':{
       background: "rgba(255,255,255,0.5)",
     }
