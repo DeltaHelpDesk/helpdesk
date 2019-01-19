@@ -4,7 +4,7 @@ import Login from "./components/Login/Login";
 import AdministrationContainer from "./components/Administration/AdministrationContainer";
 import Layout from "./Layout/Layout";
 import TaskList from './components/TaskList/TaskList';
-import NewTask from './components/NewTask/Form';
+import NewTask from './components/NewTask/NewTask';
 
 class Router extends React.Component<{}> {
   render() {
