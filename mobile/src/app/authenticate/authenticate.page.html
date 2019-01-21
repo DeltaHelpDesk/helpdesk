@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content padding>
+  <div class="ion-text-center ion-padding-vertical">
+    <img src="/assets/images/logo.png"/>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-item>
       <ion-label position="stacked">Email</ion-label>
@@ -15,6 +18,6 @@
       <ion-label position="stacked">Password</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-    <ion-button color="primary" type="submit">Přihlásit se</ion-button>
+    <ion-button padding expand="full" color="primary" type="submit">Log In</ion-button>
   </form>
 </ion-content>

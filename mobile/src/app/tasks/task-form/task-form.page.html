@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Task Form
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (ngSubmit)="add()">
+    <ion-item>
+      <ion-label position="stacked">Subject</ion-label>
+      <ion-input type="text" formControlName="subject"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Issue</ion-label>
+      <ion-textarea rows="5" formControlName="issue"></ion-textarea>
+    </ion-item>
+    <ion-button padding expand="full" color="primary" type="submit">Add Task</ion-button>
+  </form>
+</ion-content>
