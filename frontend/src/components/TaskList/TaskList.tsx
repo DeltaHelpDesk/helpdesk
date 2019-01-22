@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import { withStyles } from "@material-ui/core/styles";
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { GET_TASKS } from './TaskListQueries';
-
+import "../../graphql/auth";
 
 export interface ITask {
   id: string;
