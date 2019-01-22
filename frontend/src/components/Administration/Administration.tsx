@@ -7,17 +7,17 @@ import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
-  border: {
-    border: "1px black solid",
-    display: "inline-block",
-    padding: "20px",
-  },
+    border: {
+        border: "1px black solid",
+        display: "inline-block",
+        padding: "20px",
+    },
 };
 
 function AdministrationItems() {
   // const { classes } = props;
   return (
-    <div>
+    <div className="center-all-inner-items">
       <Card className="fixed-square-200 flex center-all-inner-items">
       <Grid item={true}>
         <p>Settings</p>
