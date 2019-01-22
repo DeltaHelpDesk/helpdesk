@@ -72,15 +72,28 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
     this.setState((state) => ({ showPassword: !state.showPassword }));
   };
 
-  handleSubmit = async () => {
+  handleFormSubmit = async () => {
     const { user } = this.state;
     const { loginByEmail } = this.context;
-    console.log(this.context);
     try {
       await loginByEmail(user.name, user.password);
       this.props.history.push('/admin');
     } catch(e) {
-      if(e.graphQLErrors) {
+      if(e && e.graphQLErrors && e.graphQLErrors[0]) {
+        alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+      } else {
+        console.error("handle login error", e);
+      }
+    }
+  }
+
+  handleOfficeLogin = async () => {
+    const { doLoginOffice } = this.context;
+    try {
+      await doLoginOffice();
+      this.props.history.push('/admin');
+    } catch(e) {
+      if(e && e.graphQLErrors && e.graphQLErrors[0]) {
         alert(e.graphQLErrors[0].message); // TODO: material ui dialog
       } else {
         console.error("handle login error", e);
@@ -124,11 +137,11 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
               )
             }}
           />
-          <MicrosoftButtonLogin />
+          <MicrosoftButtonLogin onClick={this.handleOfficeLogin} />
           <Button
             variant="contained"
             className={classNames(classes.button, classes.margin)}
-            onClick={this.handleSubmit}
+            onClick={this.handleFormSubmit}
           >
             Přihlásit
           </Button>

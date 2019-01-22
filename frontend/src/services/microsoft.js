@@ -1,7 +1,7 @@
 import * as Msal from 'msal';
 // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-core/README.md
 
-export default class AuthService {
+export default class MicrosoftAuthService {
   constructor() {
     this.applicationConfig = {
       clientID: '12a2525e-d4a2-45fb-9020-0809921a1503',
@@ -9,7 +9,9 @@ export default class AuthService {
       responseType: ['id_token']
     };
     this.app = new Msal.UserAgentApplication(
-      this.applicationConfig.clientID
+      this.applicationConfig.clientID,
+      null,
+      this.authCallback
     );
   }
 
@@ -18,7 +20,7 @@ export default class AuthService {
       console.log("CALLBACK", token);
     }
     else {
-      log(error + ":" + errorDesc);
+      console.log(error + ":" + errorDesc);
     }
 }
 
@@ -63,20 +65,20 @@ export default class AuthService {
   };
 }
 
-export default class GraphService {
-  constructor() {
-    this.graphUrl = 'https://graph.microsoft.com/v1.0/';
-  }
-  getUserInfo = token => {
-    const headers = new Headers({ Authorization: `Bearer ${token}` });
-    const options = {
-      headers
-    };
-    return fetch(`${this.graphUrl}/me`, options)
-      .then(response => response.json())
-      .catch(response => {
-        throw new Error(response.text());
-      });
-  };
-}
+// export default class GraphService {
+//   constructor() {
+//     this.graphUrl = 'https://graph.microsoft.com/v1.0/';
+//   }
+//   getUserInfo = token => {
+//     const headers = new Headers({ Authorization: `Bearer ${token}` });
+//     const options = {
+//       headers
+//     };
+//     return fetch(`${this.graphUrl}/me`, options)
+//       .then(response => response.json())
+//       .catch(response => {
+//         throw new Error(response.text());
+//       });
+//   };
+// }
 

@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 import client from './client';
 import * as React from 'react';
+import MicrosoftAuthService from '../services/microsoft';
 
 export const isLoggedIn = () => {
   return !!lastToken;
@@ -36,15 +37,22 @@ interface IAuthContextValue {
   isLoggedIn: boolean;
   loginByOffice: (token: string) => any;
   loginByEmail: (email: string, password: string) => any;
+  doLoginOffice: () => any;
 }
 
-const defaultContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => null,  loginByEmail: () => null };
+const defaultContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => null,  loginByEmail: () => null, doLoginOffice: () => null };
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
+  microsoftAuthService = new MicrosoftAuthService();
   constructor(props: {}) {
     super(props);
-    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail };
+    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice };
+  }
+
+  doLoginOffice = async () => {
+    await this.microsoftAuthService.login();
+    return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
   }
 
   loginByOffice = async (token: string): Promise<string> => {
