@@ -8,13 +8,13 @@ export class Log {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User)
+    @ManyToOne(type => User, { eager: true })
     author: User;
 
     @Column({ type: 'longtext', nullable: true })
     comment?: string;
 
-    @ManyToOne(type => User, { nullable: true })
+    @ManyToOne(type => User, { nullable: true, eager: true })
     assignee?: User;
 
     @Column({ nullable: true })
@@ -23,7 +23,7 @@ export class Log {
     @CreateDateColumn()
     created_at: Date;
 
-    @ManyToOne(type => Task, task => task.logs)
+    @ManyToOne(type => Task, task => task.logs, { onDelete: 'CASCADE' })
     task: Task;
 
 }

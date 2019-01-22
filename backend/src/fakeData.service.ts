@@ -8,6 +8,7 @@ import { Task } from 'task/task.entity';
 import { Log } from 'task/log.entity';
 import { AuthType } from 'auth/authType.enum';
 import { State } from 'task/state.enum';
+import { UserRole } from 'auth/userRole.enum';
 
 @Injectable()
 export class FakeDataService implements OnModuleInit {
@@ -20,7 +21,8 @@ export class FakeDataService implements OnModuleInit {
         private readonly logRepository: Repository<Log>,
     ) {}
     async onModuleInit() {
-        if ((await this.taskRepository.count()) > 15) {
+        const defAdminExists = !!(await this.userRepository.findOne({email: 'admin@admin.cz'}));
+        if (defAdminExists || (await this.taskRepository.count()) > 3) {
             return;
         }
         const password = await bcrypt.hash('kaktus', 10);
@@ -37,26 +39,37 @@ export class FakeDataService implements OnModuleInit {
                 authType: AuthType.EMAIL,
                 password,
             },
+            {
+                fullName: 'Admin Adminový',
+                email: 'admin@admin.cz',
+                authType: AuthType.EMAIL,
+                password: 'admin',
+                role: UserRole.SUPERADMIN,
+            },
         ]) as any;
         const { identifiers: [task1, task2, task3, task4] }: {identifiers: Task[]} = await this.taskRepository.insert([
             {
                 author: user1,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
             },
             {
                 author: user2,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
             },
             {
                 author: user1,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
                 state: State.SOLVING,
             },
             {
                 author: user2,
+                subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
                 state: State.RETURNED,

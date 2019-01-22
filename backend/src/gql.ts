@@ -37,9 +37,11 @@ export abstract class IMutation {
 
     abstract logout(): boolean | Promise<boolean>;
 
-    abstract addTask(issue: string, assigneeId?: string): Task | Promise<Task>;
+    abstract addTask(subject: string, issue: string, assigneeId?: string): Task | Promise<Task>;
 
-    abstract changeTaskState(taskId?: string, comment?: string, state?: State): Task | Promise<Task>;
+    abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string): Task | Promise<Task>;
+
+    abstract deleteTask(taskId?: string): boolean | Promise<boolean>;
 }
 
 export abstract class IQuery {
@@ -54,6 +56,7 @@ export abstract class IQuery {
 
 export class Task {
     id: string;
+    subject: string;
     issue: string;
     author: User;
     assignee: User;

@@ -15,6 +15,7 @@ type Log {
 }
 type Task {
   id: ID!
+  subject: String!
   issue: String!
   author: User!
   assignee: User!
@@ -29,7 +30,8 @@ type Query{
   task(id: ID): Task
 }
 type Mutation {
-  addTask(issue: String!, assigneeId: ID): Task
-  changeTaskState(taskId: ID, comment: String, state: State): Task
+  addTask(subject: String!, issue: String!, assigneeId: ID): Task
+  changeTaskState(taskId: ID, comment: String, state: State, assigneeId: ID): Task
+  deleteTask(taskId: ID): Boolean
 }
 

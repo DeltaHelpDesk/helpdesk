@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { AuthType } from './authType.enum';
 import { Task } from 'task/task.entity';
+import { UserRole } from './userRole.enum';
 
 @Entity()
 export class User {
@@ -36,4 +37,7 @@ export class User {
 
     @OneToMany(type => Task, task => task.assignee)
     assignedTasks: Task[];
+
+    @Column({default: UserRole.DEFAULT})
+    role: UserRole;
 }

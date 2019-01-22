@@ -24,20 +24,32 @@ export class TaskService {
   async findAll(): Promise<Task[]>{
     return await this.taskRepository.find();
   }
-  async addTask(author: User, issue: string, assigneeId?: number): Promise<Task> {
-    const assignee = await this.userRepository.findOne(assigneeId);
-    const task = this.taskRepository.create({author, issue, assignee});
+  async addTask(taskData: {author: User, issue: string, assigneeId?: number, subject?: string}): Promise<Task> {
+    const assignee = await this.userRepository.findOne(taskData.assigneeId);
+    const task = this.taskRepository.create({...taskData, assignee});
     return await this.taskRepository.save(task);
   }
-  async changeTaskState(author: User, taskId: number, comment?: string, state?: State): Promise<Task>{
+  async changeTaskState(author: User, taskId: number, comment?: string, state?: State, assigneeId?: number): Promise<Task>{
     let task = await this.taskRepository.findOne(taskId);
     if (state) {
       task.state = state;
+    }
+    if (assigneeId) {
+      const assignee = await this.userRepository.findOne(assigneeId);
+      task.assignee = assignee;
     }
     task = await this.taskRepository.save(task);
     let log = this.logRepository.create({author, comment, task});
     log = await this.logRepository.save(log);
     task.logs.push(log);
     return task;
+  }
+  async deleteTask(taskId: number){
+    const task = await this.taskRepository.findOne(taskId);
+    if (!task) {
+      return false;
+    }
+    await this.taskRepository.delete(taskId);
+    return true;
   }
 }
