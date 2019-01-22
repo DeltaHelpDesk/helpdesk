@@ -9,7 +9,9 @@ export default class MicrosoftAuthService {
       responseType: ['id_token']
     };
     this.app = new Msal.UserAgentApplication(
-      this.applicationConfig.clientID
+      this.applicationConfig.clientID,
+      null,
+      this.authCallback
     );
   }
 
@@ -18,7 +20,7 @@ export default class MicrosoftAuthService {
       console.log("CALLBACK", token);
     }
     else {
-      log(error + ":" + errorDesc);
+      console.log(error + ":" + errorDesc);
     }
 }
 

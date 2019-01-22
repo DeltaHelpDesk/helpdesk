@@ -52,7 +52,7 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
 
   doLoginOffice = async () => {
     await this.microsoftAuthService.login();
-    return await this.loginByOffice(await this.microsoftAuthService.getToken());
+    return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
   }
 
   loginByOffice = async (token: string): Promise<string> => {

@@ -43,7 +43,7 @@ export class FakeDataService implements OnModuleInit {
                 fullName: 'Admin Adminový',
                 email: 'admin@admin.cz',
                 authType: AuthType.EMAIL,
-                password: 'admin',
+                password: await bcrypt.hash('admin', 10),
                 role: UserRole.SUPERADMIN,
             },
         ]) as any;

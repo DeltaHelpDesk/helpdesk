@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { AuthType } from './authType.enum';
-import MicrosoftGraph from '@microsoft/microsoft-graph-client';
+import * as MicrosoftGraph from '@microsoft/microsoft-graph-client';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -62,17 +62,23 @@ export class AuthService {
                     authType: AuthType.OFFICE,
                     email: userData.mail,
                     fullName: userData.displayName,
-                    otherToken,
+                    // otherToken,
                 });
                 user = await this.userRepository.save(user);
             }
-            const jwtPayload: JwtPayload = { userId: user.id, authType: AuthType.OFFICE, otherToken };
+            const jwtPayload: JwtPayload = {
+                userId: user.id,
+                authType: AuthType.OFFICE,
+                // otherToken
+            };
             const token = this.jwtService.sign(jwtPayload);
             user.token = token;
-            user.otherToken = otherToken;
+            // user.otherToken = otherToken;
             user = await this.userRepository.save(user);
             return user;
-        } catch {
+        } catch (e) {
+            // tslint:disable-next-line:no-console
+            console.error('unknown exception on microsoft office login', e);
             throw new HttpException('Could not authorize Microsoft account', HttpStatus.UNAUTHORIZED);
         }
     }
