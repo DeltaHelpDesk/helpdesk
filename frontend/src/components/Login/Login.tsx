@@ -6,6 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
+import Icon from '@mdi/react';
+import Grid from "@material-ui/core/Grid";
+import { mdiLogin } from '@mdi/js'
 import { WithStyles } from "@material-ui/core";
 
 import * as React from "react";
@@ -23,10 +26,35 @@ const styles = (theme: Theme) => ({
         margin: theme.spacing.unit
     },
     textField: {
-        flexBasis: 200
+        flexBasis: 222
     },
     button: {
         flexBasis: 150
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit
+    },
+    paddingField: {
+        paddingLeft: "0px",
+    },
+    buttonCenter: {
+        textAlign: "center" as "center",
+        // TODO: handle this propely
+    },
+    formStyle: {
+        backgroundColor: "lightgray",
+        padding: "40px 60px",
+        borderRadius: "10px",
+        marginTop: "100px",
+    },
+    loginHeading: {
+        textAlign: "center" as "center",
+        textTransform: "uppercase" as "uppercase",
+        marginTop: "5px",
+
+    },
+    buttonMarginTop: {
+        marginTop: "25px",
     }
 });
 
@@ -79,48 +107,69 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
 
 
         return (
+
             <div className={classes.root}>
-                <form>
-                    <TextField
-                        id="name"
-                        className={classNames(classes.margin, classes.textField)}
-                        variant="filled"
-                        name="name"
-                        label="Zadej jméno"
-                        type="text"
-                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                    />
-                    <TextField
-                        id="filled-adornment-password"
-                        className={classNames(classes.margin, classes.textField)}
-                        variant="filled"
-                        name="password"
-                        type={this.state.showPassword ? "text" : "password"}
-                        label="Heslo"
-                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment variant="filled" position="end">
-                                    <IconButton
-                                        aria-label="Toggle password visibility"
-                                        onClick={this.handleClickShowPassword}
-                                    >
-                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                    <MicrosoftButtonLogin />
-                    <Button
-                        variant="contained"
-                        className={classNames(classes.button, classes.margin)}
-                        onClick={this.handleSubmit}
-                    >
-                        Přihlásit
-                    </Button>
-                </form>
+                <Grid container={true} direction="row" justify="center" alignItems="center">
+                    <form className={classNames(classes.textField, classes.formStyle)}>
+                        <Grid item={true}>
+                            <h2 className={classNames(classes.loginHeading)}>Login form</h2>
+                            <TextField
+                                id="name"
+                                className={classNames(classes.margin, classes.textField, classes.paddingField)}
+                                variant="filled"
+                                name="name"
+                                label="Zadej jméno"
+                                type="text"
+                                onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)} />
+                        </Grid>
+                        <Grid item={true}>
+                            <TextField
+                                id="filled-adornment-password"
+                                className={classNames(classes.margin, classes.textField)}
+                                variant="filled"
+                                name="password"
+                                type={this.state.showPassword ? "text" : "password"}
+                                label="Heslo"
+                                onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment variant="filled" position="end">
+                                            <IconButton
+                                                aria-label="Toggle password visibility"
+                                                onClick={this.handleClickShowPassword}
+                                            >
+                                                {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                        </Grid>
+                        <Grid item={true}>
+                            <div className={classes.buttonCenter}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    color="primary"
+                                    className={classNames(classes.button, classes.margin, classes.buttonMarginTop)}
+                                    onClick={this.handleSubmit}>
+                                    <Icon path={mdiLogin} className={classNames(classes.leftIcon, classes.iconSmall)}
+                                        size={1}
+                                        color="white"
+                                    />
+                                    Přihlásit
+                            </Button>
+                            </div>
+                        </Grid>
+                        <Grid item={true}>
+                            <div className={classes.buttonCenter}>
+                                <MicrosoftButtonLogin />
+                            </div>
+                        </Grid>
+                    </form>
+                </Grid>
             </div>
+
         );
     }
 }
