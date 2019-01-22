@@ -1,4 +1,4 @@
-﻿import { withStyles, Theme } from "@material-ui/core/styles";
+﻿import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from '@material-ui/core/Select';
@@ -24,37 +24,51 @@ const styles = (theme: Theme) => ({
 });
 
 
-interface INewTask {
-    subject: string,
-    issue: string,
-    assigne: string,
+interface INewTaskState {
+    task: {
+        subject: string,
+        issue: string,
+        assigne: string,
+    }
 }
 
-class FilledInputAdornments extends React.Component<INewTask>{
-    constructor(props: INewTask) {
+type NewTaskProps<T> = WithStyles<string> // TODO: handle in better fashion
+
+
+
+class FilledInputAdornments extends React.Component<NewTaskProps<typeof styles>, INewTaskState>{
+    constructor(props: NewTaskProps<typeof styles>) {
         super(props)
         this.state = {
-            subject: " ",
-            issue: " ",
-            assigne: " ",
+            task: {
+                subject: " ",
+                issue: " ",
+                assigne: " ",
+            }
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
-    handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    handleInputChange(e: React.FormEvent<HTMLInputElement>) {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
-        this.setState({
-            [property]: value
-        })
+        this.setState(previousState => ({
+            task: {
+                ...previousState.task,
+                [property]: value
+            }
+        }));
     };
-    handleSelectedEvent(e: React.ChangeEvent<HTMLSelectElement>) {
-        this.setState({
-            assigne: e.target.value
-        })
+    handleSelectedEvent(e: React.FormEvent<HTMLSelectElement>) {
+        this.setState(previousState => ({
+            task: {
+                ...previousState.task,
+                assigne: e.currentTarget.value
+            }
+        }));
     };
     handleSubmit() {
         console.log(this.state)
@@ -72,8 +86,8 @@ class FilledInputAdornments extends React.Component<INewTask>{
 className={classes.items}
                         label="Subject"
                         type="text"
-                        value={this.props.subject}
-                        onChange={(e) => this.handleInputChange(e as React.ChangeEvent<HTMLInputElement>)}
+                        value={this.state.task.subject}
+                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                     />
                     <TextField
                         id="filled-adornment-issue"
@@ -82,12 +96,12 @@ className={classes.items}
                         label="Issue"
 className={classes.items}
                         type="text"
-                        value={this.props.issue}
-                        onChange={(e) => this.handleInputChange(e as React.ChangeEvent<HTMLInputElement>)}
+                        value={this.state.task.issue}
+                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                     />
                     <Select
-                        onChange={(e) => this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)}
-                        input={<Input name="assingne" id="assingne-label" value={this.props.assigne} />}
+                        onChange={(e) => this.handleSelectedEvent(e as React.FormEvent<HTMLSelectElement>)}
+                        input={<Input name="assingne" id="assingne-label" value={this.state.task.assigne} />}
                         name="assingne"
 className={classes.items}
                     >
