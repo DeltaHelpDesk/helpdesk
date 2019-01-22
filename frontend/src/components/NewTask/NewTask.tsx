@@ -62,11 +62,11 @@ class FilledInputAdornments extends React.Component<NewTaskProps<typeof styles>,
             }
         }));
     };
-    handleSelectedEvent(e: React.FormEvent<HTMLSelectElement>) {
+    handleSelectedEvent(e: React.ChangeEvent<HTMLSelectElement>) {
         this.setState(previousState => ({
             task: {
                 ...previousState.task,
-                assigne: e.currentTarget.value
+                assigne: e.target.value
             }
         }));
     };
@@ -100,7 +100,7 @@ className={classes.items}
                         onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                     />
                     <Select
-                        onChange={(e) => this.handleSelectedEvent(e as React.FormEvent<HTMLSelectElement>)}
+                        onChange={(e) => this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)}
                         input={<Input name="assingne" id="assingne-label" value={this.state.task.assigne} />}
                         name="assingne"
 className={classes.items}
