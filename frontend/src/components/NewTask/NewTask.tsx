@@ -10,15 +10,15 @@ import * as React from "react";
 
 const styles = (theme: Theme) => ({
     root: {
-        display: "inline-grid",
-        alignItems: "center",
+        display: "inline-grid"
     },
     marginCenter:{
-        margin: "auto",
+        margin: "0 auto",
         width: "max-content",
+        display: "flex"
     },
     items:{
-        marginTop: "5px",
+        marginTop: "10px",
     }
 
 });
