@@ -45,7 +45,7 @@ function Task(props: { task: ITask }) {
         {task.issue}
       </TableCell>
       <TableCell>
-        {task.assignee.fullName}
+        {task.assignee ? task.assignee.fullName : "Nepřiřazen"}
       </TableCell>
       <TableCell>
         {task.state}
