@@ -109,4 +109,13 @@ export class AuthService {
         await this.userRepository.remove(user);
         return true;
     }
+
+    async getAdmins(): Promise<User[]> {
+        return await this.userRepository.find({
+            where: [
+                { role: UserRole.ADMIN },
+                { role: UserRole.SUPERADMIN }
+            ]
+        });
+    }
 }
