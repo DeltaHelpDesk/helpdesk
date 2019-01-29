@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  lint-backend:
+    docker:
+      - image: kkarczmarczyk/node-yarn:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: cd backend && yarn install
+      - run: cd backend && yarn lint
+  lint-frontend:
+    docker:
+      - image: kkarczmarczyk/node-yarn:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: cd frontend && yarn install
+      - run: cd frontend && yarn lint
+workflows:
+  version: 2
+  lint:
+    jobs:
+    - lint-backend:
+        filters:
+          branches:
+            only:
+            - master
+            - dev
+            - /feature\/.*/
+    - lint-frontend:
+        filters:
+          branches:
+            only:
+            - master
+            - dev
+            - /feature\/.*/

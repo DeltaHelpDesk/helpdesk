@@ -1,18 +1,17 @@
 import * as React from 'react';
 
-// Components
-import Menu from './components/Menu';
-import Todo from './components/Todo';
+import RouterOutput from './Router';
+import "./index.css";
+import { AuthContext } from './graphql/auth';
 
 
 
 class App extends React.Component {
   render() {
     return (
-        <div className="App">
-          <Menu />
-          <Todo name={"Apollo-link-state example"}/>
-        </div>
+        <AuthContext.Provider>
+          <RouterOutput />
+        </AuthContext.Provider>
     );
   }
 }
