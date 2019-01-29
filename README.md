@@ -2,7 +2,8 @@
 ## Project structure
 ### Backend - /backend
 Written using NestJS with TypeORM and GraphQL
-### React frontend - /frontend_react
+`yarn start:dev`
+### React frontend - /frontend
 
 ##Docker
 
