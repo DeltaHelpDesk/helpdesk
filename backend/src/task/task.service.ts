@@ -3,7 +3,7 @@ import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'auth/user.entity';
-import { State } from './state.enum';
+import { TaskState } from './taskState.enum';
 import { Log } from './log.entity';
 
 @Injectable()
@@ -21,15 +21,18 @@ export class TaskService {
     async findOneById(id: number): Promise<Task | undefined> {
         return await this.taskRepository.findOne(id);
     }
+
     async findAll(): Promise<Task[]> {
         return await this.taskRepository.find();
     }
+
     async addTask(taskData: { author: User, issue: string, assigneeId?: number, subject?: string }): Promise<Task> {
         const assignee = await this.userRepository.findOne(taskData.assigneeId);
         const task = this.taskRepository.create({ ...taskData, assignee });
         return await this.taskRepository.save(task);
     }
-    async changeTaskState(author: User, taskId: number, comment?: string, state?: State, assigneeId?: number): Promise<Task> {
+
+    async changeTaskState(author: User, taskId: number, comment?: string, state?: TaskState, assigneeId?: number): Promise<Task> {
         let task = await this.taskRepository.findOne(taskId);
         if(!task) {
             throw new HttpException(`Task with id: ${taskId} not found`, HttpStatus.NOT_FOUND);
@@ -56,6 +59,7 @@ export class TaskService {
         task.logs.push(log);
         return task;
     }
+
     async deleteTask(taskId: number) {
         const task = await this.taskRepository.findOne(taskId);
         if (!task) {

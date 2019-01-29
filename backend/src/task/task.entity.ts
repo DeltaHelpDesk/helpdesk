@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
 import { User } from 'auth/user.entity';
-import { State } from './state.enum';
+import { TaskState } from './taskState.enum';
 import { Log } from './log.entity';
 @Entity()
 export class Task {
@@ -25,8 +25,8 @@ export class Task {
     @CreateDateColumn()
     updated_at: Date;
 
-    @Column({default: State.UNRESOLVED})
-    state: State;
+    @Column({default: TaskState.UNRESOLVED})
+    state: TaskState;
 
     @OneToMany(type => Log, log => log.task, { eager: true })
     logs: Log[];

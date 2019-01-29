@@ -1,12 +1,14 @@
+import { UserRole } from 'auth/userRole.enum';
 import { ParseIntPipe, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
 import { User } from 'auth/user.param.decorator';
 import { User as UserEntity } from 'auth/user.entity';
-import { State } from './state.enum';
+import { TaskState } from './taskState.enum';
 import { GqlAuthGuard } from 'auth/gqlAuth.guard';
-// @UseGuards(GqlAuthGuard) // TODO: for now
+import { GqlRoleGuard } from 'auth/gqlRole.guard';
+@UseGuards(GqlAuthGuard)
 @Resolver('Task')
 export class TaskResolvers {
     constructor(private readonly taskService: TaskService) {}
@@ -16,6 +18,7 @@ export class TaskResolvers {
         return await this.taskService.findAll();
     }
 
+
     @Query('task')
     async findOneById(
         @Args('id', ParseIntPipe)
@@ -24,7 +27,6 @@ export class TaskResolvers {
         return await this.taskService.findOneById(id);
     }
 
-    @UseGuards(GqlAuthGuard)
     @Mutation('addTask')
     async login(
         @Args('subject')
@@ -39,7 +41,7 @@ export class TaskResolvers {
         return await this.taskService.addTask({author, issue, assigneeId, subject});
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(new GqlRoleGuard(UserRole.ADMIN))
     @Mutation('changeTaskState')
     async changeState(
         @User()
@@ -49,14 +51,14 @@ export class TaskResolvers {
         @Args('comment')
         comment: string,
         @Args('state')
-        state: State,
+        state: TaskState,
         @Args('assigneeId')
         assigneeId: number,
     ): Promise<Task> {
         return await this.taskService.changeTaskState(author, stateId, comment, state, assigneeId);
     }
 
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(new GqlRoleGuard(UserRole.ADMIN))
     @Mutation('deleteTask')
     async deleteTask(
         @Args('taskId')
