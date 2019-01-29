@@ -2,11 +2,11 @@ import { Get, Controller } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  constructor() { }
+    constructor() { }
 
-  @Get()
-  root(): { status: string } {
-    return { status: 'ok' };
-  }
+    @Get()
+    root(): { status: string } {
+        return { status: 'ok' };
+    }
 
 }

@@ -18,7 +18,7 @@ type Task {
   subject: String!
   issue: String!
   author: User!
-  assignee: User!
+  assignee: User
   created_at: Date!
   updated_at: Date
   state: State!

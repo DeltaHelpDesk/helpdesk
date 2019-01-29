@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { AuthType } from './authType.enum';
+import { UserRole } from './userRole.enum';
 import * as MicrosoftGraph from '@microsoft/microsoft-graph-client';
 import * as bcrypt from 'bcrypt';
 
@@ -17,7 +18,7 @@ export class AuthService {
     ) {}
     async loginEmail(email: string, textPassword: string): Promise<User | undefined> {
         let user = await this.userRepository.findOne({ email });
-        if (!user || !(await bcrypt.compare(textPassword, user.password))) {
+        if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
             throw new HttpException('Bad email or password', HttpStatus.UNAUTHORIZED);
         }
         const jwtPayload: JwtPayload = { userId: user.id, authType: user.authType };
@@ -30,11 +31,19 @@ export class AuthService {
         return user;
     }
 
-    logout(user: User) {
-        // todo: logout
+    async logout(user: User): Promise<boolean> {
+        if (!user) {
+          return false;
+        }
+        user.token = undefined;
+        await this.userRepository.save(user);
+        return true;
     }
 
-    async createUserEmail(email: string, textPassword: string, fullName: string) {
+    async createUserEmail(email: string, textPassword: string, fullName: string, role?: UserRole) {
+        if (!role) {
+          role = UserRole.DEFAULT;
+        }
         const password = await bcrypt.hash(textPassword, 10);
         const user = this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
         return await this.userRepository.save(user);
