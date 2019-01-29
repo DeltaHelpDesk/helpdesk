@@ -2,11 +2,13 @@ enum AuthType {
     EMAIL
     OFFICE
 }
+
 enum UserRole {
     DEFAULT
     ADMIN
     SUPERADMIN
 }
+
 type User {
     id: ID!
     fullName: String!
@@ -15,6 +17,7 @@ type User {
     updated_at: Date
     role: UserRole
 }
+
 type AuthenticatedUser {
     id: ID!
     fullName: String!
@@ -33,5 +36,6 @@ type Mutation {
     loginOffice(token: String!): AuthenticatedUser
     loginEmail(email: String!, password: String!): AuthenticatedUser
     createUserEmail(email: String!, password: String!, fullName: String!, role: UserRole): User
+    removeUser(email: String!): Boolean
     logout: Boolean
 }

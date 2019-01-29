@@ -100,4 +100,13 @@ export class AuthService {
     checkEmailDomain(email: string): boolean {
         return email.split('@')[1] === 'delta-studenti.cz';
     }
+
+    async removeUser(email: string): Promise<boolean> {
+        const user = await this.userRepository.findOne({ email });
+        if (!user) {
+            throw new HttpException(`User with email: ${email} not found`, HttpStatus.NOT_FOUND);
+        }
+        await this.userRepository.remove(user);
+        return true;
+    }
 }

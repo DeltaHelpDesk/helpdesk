@@ -50,4 +50,13 @@ export class AuthResolvers {
     ) {
         return await this.authService.createUserEmail(email, password, fullName);
     }
+
+    @UseGuards(new GqlRoleGuard(UserRole.SUPERADMIN))
+    @Mutation('removeUser')
+    async removeUser(
+        @Args('email')
+        email: string
+    ) {
+        return await this.authService.removeUser(email);
+    }
 }
