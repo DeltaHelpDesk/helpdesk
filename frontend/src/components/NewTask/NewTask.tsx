@@ -6,6 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 
 import * as React from "react";
+import { Mutation } from 'react-apollo';
+import { ADD_TASK } from './NewTaskQueries';
 
 
 const styles = (theme: Theme) => ({
@@ -41,9 +43,9 @@ class FilledInputAdornments extends React.Component<NewTaskProps<typeof styles>,
         super(props)
         this.state = {
             task: {
-                subject: " ",
-                issue: " ",
-                assigne: " ",
+                subject: "",
+                issue: "",
+                assigne: "",
             }
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -70,56 +72,66 @@ class FilledInputAdornments extends React.Component<NewTaskProps<typeof styles>,
             }
         }));
     };
-    handleSubmit() {
-        console.log(this.state)
+    handleSubmit(e: any, callback: any) {
+        e.preventDefault();
+
+        callback({ variables: {
+            subject: this.state.task.subject,
+            issue: this.state.task.issue,
+            assigneeId: this.state.task.assigne
+         } })
     }
 
     render() {
 	const { classes } = this.props;
         return (
             <div className={classes.marginCenter}>
-                <form className={classes.root}>
-                    <TextField
-                        id="filled-adornment-subject"
-                        variant="filled"
-                        name="subject"
-className={classes.items}
-                        label="Subject"
-                        type="text"
-                        value={this.state.task.subject}
-                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                    />
-                    <TextField
-                        id="filled-adornment-issue"
-                        variant="filled"
-                        name="issue"
-                        label="Issue"
-className={classes.items}
-                        type="text"
-                        value={this.state.task.issue}
-                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                    />
-                    <Select
-                        onChange={(e) => this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)}
-                        input={<Input name="assingne" id="assingne-label" value={this.state.task.assigne} />}
-                        name="assingne"
-className={classes.items}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                    <Button
-                        variant="contained"
-                        onClick={this.handleSubmit}
-className={classes.items}
-                    >
-                        Přidat
-                    </Button>
-                </form>
+                <Mutation mutation={ADD_TASK}>
+                {addTask => (
+                    <form className={classes.root} onSubmit={(e: any) => this.handleSubmit(e, addTask)}>
+                        <TextField
+                            id="filled-adornment-subject"
+                            variant="filled"
+                            name="subject"
+                            className={classes.items}
+                            label="Subject"
+                            type="text"
+                            value={this.state.task.subject}
+                            onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                        />
+                        <TextField
+                            id="filled-adornment-issue"
+                            variant="filled"
+                            name="issue"
+                            label="Issue"
+                            className={classes.items}
+                            type="text"
+                            value={this.state.task.issue}
+                            onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                        />
+                        <Select
+                            onChange={(e) => this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)}
+                            input={<Input name="assingne" id="assingne-label" value={this.state.task.assigne} />}
+                            name="assingne"
+                            className={classes.items}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={1}>Ten</MenuItem>
+                            <MenuItem value={2}>Twenty</MenuItem>
+                            <MenuItem value={3}>Thirty</MenuItem>
+                        </Select>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            className={classes.items}
+                        >
+                            Přidat
+                        </Button>
+                    </form>
+                )}
+                </Mutation>
             </div>
         );
     }
