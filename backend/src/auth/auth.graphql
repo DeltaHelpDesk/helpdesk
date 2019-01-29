@@ -2,12 +2,18 @@ enum AuthType {
   EMAIL
   OFFICE
 }
+enum UserRole {
+    DEFAULT
+    ADMIN
+    SUPERADMIN
+}
 type User {
   id: ID!
   fullName: String!
   email: String!
   created_at: Date!
   updated_at: Date
+  role: UserRole
 }
 type AuthenticatedUser {
   id: ID!
@@ -16,6 +22,7 @@ type AuthenticatedUser {
   created_at: Date!
   updated_at: Date
   token: String!
+  role: UserRole
 }
 
 type Query {
@@ -25,6 +32,6 @@ type Query {
 type Mutation {
   loginOffice(token: String!): AuthenticatedUser
   loginEmail(email: String!, password: String!): AuthenticatedUser
-  createUserEmail(email: String!, password: String!, fullName: String!): User
+  createUserEmail(email: String!, password: String!, fullName: String!, role: UserRole): User
   logout: Boolean
 }

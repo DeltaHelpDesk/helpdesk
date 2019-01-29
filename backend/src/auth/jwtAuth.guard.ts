@@ -1,3 +1,4 @@
+import { User as UserEntity } from './user.entity';
 import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -7,10 +8,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         return super.canActivate(context);
     }
 
-    handleRequest(err, user, info) {
+    handleRequest<TUser = UserEntity>(err: any, user: any, info: any): TUser {
         if (err || !user) {
             throw err || new UnauthorizedException();
         }
-        return user;
+        return user as TUser;
     }
 }

@@ -8,7 +8,7 @@ export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 
     @Query('session')
-    async getSession(@User() user) {
+    async getSession(@User() user?: UserEntity) {
         return user;
     }
 

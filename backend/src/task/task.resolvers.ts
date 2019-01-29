@@ -20,7 +20,7 @@ export class TaskResolvers {
     async findOneById(
         @Args('id', ParseIntPipe)
         id: number,
-    ): Promise<Task> {
+    ): Promise<Task | undefined> {
         return await this.taskService.findOneById(id);
     }
 
@@ -35,7 +35,7 @@ export class TaskResolvers {
         assigneeId: number,
         @User()
         author: UserEntity,
-    ){
+    ): Promise<Task> {
         return await this.taskService.addTask({author, issue, assigneeId, subject});
     }
 
@@ -52,7 +52,7 @@ export class TaskResolvers {
         state: State,
         @Args('assigneeId')
         assigneeId: number,
-    ){
+    ): Promise<Task> {
         return await this.taskService.changeTaskState(author, stateId, comment, state, assigneeId);
     }
 
@@ -61,7 +61,7 @@ export class TaskResolvers {
     async deleteTask(
         @Args('taskId')
         taskId: number,
-    ){
+    ): Promise<boolean> {
         return await this.taskService.deleteTask(taskId);
     }
 
