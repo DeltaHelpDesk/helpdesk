@@ -9,7 +9,7 @@ const client = new ApolloClient({
     if(isLoggedIn()) {
       operation.setContext({
         headers: {
-          authorization: `Bearer ${lastToken}`
+          Authorization: `Bearer ${lastToken}`
         }
       });
     }
