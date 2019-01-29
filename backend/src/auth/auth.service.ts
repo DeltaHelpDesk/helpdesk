@@ -15,7 +15,7 @@ export class AuthService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
         private readonly jwtService: JwtService,
-    ) {}
+    ) { }
     async loginEmail(email: string, textPassword: string): Promise<User | undefined> {
         let user = await this.userRepository.findOne({ email });
         if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
@@ -33,7 +33,7 @@ export class AuthService {
 
     async logout(user: User): Promise<boolean> {
         if (!user) {
-          return false;
+            return false;
         }
         user.token = undefined;
         await this.userRepository.save(user);
@@ -42,7 +42,7 @@ export class AuthService {
 
     async createUserEmail(email: string, textPassword: string, fullName: string, role?: UserRole) {
         if (!role) {
-          role = UserRole.DEFAULT;
+            role = UserRole.DEFAULT;
         }
         const password = await bcrypt.hash(textPassword, 10);
         const user = this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
@@ -99,5 +99,14 @@ export class AuthService {
 
     checkEmailDomain(email: string): boolean {
         return email.split('@')[1] === 'delta-studenti.cz';
+    }
+
+    async removeUser(email: string): Promise<boolean> {
+        const user = await this.userRepository.findOne({ email });
+        if (!user) {
+            throw new HttpException(`User with email: ${email} not found`, HttpStatus.NOT_FOUND);
+        }
+        await this.userRepository.remove(user);
+        return true;
     }
 }

@@ -3,6 +3,7 @@ export enum UserRole {
     ADMIN = 'ADMIN',
     SUPERADMIN = 'SUPERADMIN',
 }
+
 export const UserRoleAscendency = [
     UserRole.DEFAULT,
     UserRole.ADMIN,

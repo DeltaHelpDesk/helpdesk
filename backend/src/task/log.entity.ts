@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { User } from 'auth/user.entity';
-import { State } from './state.enum';
+import { TaskState } from './taskState.enum';
 import { Task } from './task.entity';
 
 @Entity()
@@ -18,7 +18,7 @@ export class Log {
     assignee?: User;
 
     @Column({ nullable: true })
-    state?: State;
+    state?: TaskState;
 
     @CreateDateColumn()
     created_at: Date;
