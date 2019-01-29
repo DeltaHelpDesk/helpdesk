@@ -1,4 +1,4 @@
-export enum State {
+export enum TaskState {
     UNRESOLVED = 'UNRESOLVED',
     SOLVING = 'SOLVING',
     SOLVED = 'SOLVED',

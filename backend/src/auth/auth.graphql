@@ -1,30 +1,41 @@
 enum AuthType {
-  EMAIL
-  OFFICE
+    EMAIL
+    OFFICE
 }
+
+enum UserRole {
+    DEFAULT
+    ADMIN
+    SUPERADMIN
+}
+
 type User {
-  id: ID!
-  fullName: String!
-  email: String!
-  created_at: Date!
-  updated_at: Date
+    id: ID!
+    fullName: String!
+    email: String!
+    created_at: Date!
+    updated_at: Date
+    role: UserRole
 }
+
 type AuthenticatedUser {
-  id: ID!
-  fullName: String!
-  email: String!
-  created_at: Date!
-  updated_at: Date
-  token: String!
+    id: ID!
+    fullName: String!
+    email: String!
+    created_at: Date!
+    updated_at: Date
+    token: String!
+    role: UserRole
 }
 
 type Query {
-  session: AuthenticatedUser
+    session: AuthenticatedUser
 }
 
 type Mutation {
-  loginOffice(token: String!): AuthenticatedUser
-  loginEmail(email: String!, password: String!): AuthenticatedUser
-  createUserEmail(email: String!, password: String!, fullName: String!): User
-  logout: Boolean
+    loginOffice(token: String!): AuthenticatedUser
+    loginEmail(email: String!, password: String!): AuthenticatedUser
+    createUserEmail(email: String!, password: String!, fullName: String!, role: UserRole): User
+    removeUser(email: String!): Boolean
+    logout: Boolean
 }

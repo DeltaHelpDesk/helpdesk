@@ -10,23 +10,23 @@ import { gqlContextFunction } from './gqlContext';
 import { FakeDataService } from 'fakeData.service';
 
 @Module({
-  imports: [
-    GraphQLModule.forRoot({
-      context: gqlContextFunction,
-      typePaths: ['./**/*.graphql'],
-      definitions: {
-        path: join(process.cwd(), 'src/gql.ts'),
-        outputAs: 'class',
-      },
-    }),
-    TypeOrmModule.forRoot(),
-    AuthModule,
-    LocalizationModule,
-    TaskModule,
-  ],
-  controllers: [AppController],
-  providers: [
-    FakeDataService,
-  ],
+    imports: [
+        GraphQLModule.forRoot({
+            context: gqlContextFunction,
+            typePaths: ['./**/*.graphql'],
+            definitions: {
+                path: join(process.cwd(), 'src/gql.ts'),
+                outputAs: 'class',
+            },
+        }),
+        TypeOrmModule.forRoot(),
+        AuthModule,
+        LocalizationModule,
+        TaskModule,
+    ],
+    controllers: [AppController],
+    providers: [
+        FakeDataService,
+    ],
 })
 export class AppModule { }
