@@ -1,10 +1,11 @@
 import * as React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/Login/Login";
 import AdministrationContainer from "./components/Administration/AdministrationContainer";
 import Layout from "./Layout/Layout";
 import TaskList from './components/TaskList/TaskList';
 import NewTask from './components/NewTask/NewTask';
+import { AuthContext } from './graphql/auth';
 
 class Router extends React.Component<{}> {
   render() {
@@ -16,6 +17,9 @@ class Router extends React.Component<{}> {
             <Route path="/admin" component={AdministrationContainer} />
             <Route path="/tasklist" component={TaskList} />
             <Route path="/form" component={NewTask} />
+            <AuthContext.Consumer>
+              {({isLoggedIn}) => !isLoggedIn && <Redirect to="/" exact={true} />}
+            </AuthContext.Consumer>
           </Switch>
         </Layout>
       </BrowserRouter>

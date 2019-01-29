@@ -28,7 +28,6 @@ function Task(props: { task: ITask }) {
               }
             });
           }}>
-            Delete
           <DeleteIcon />
           </Button>
         )}
