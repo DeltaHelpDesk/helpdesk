@@ -30,6 +30,7 @@ type AuthenticatedUser {
 
 type Query {
     session: AuthenticatedUser
+    admins: [User]
 }
 
 type Mutation {
