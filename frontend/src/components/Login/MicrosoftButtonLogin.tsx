@@ -6,38 +6,35 @@ import Icon from '@mdi/react';
 import { mdiWindows } from '@mdi/js'
 import classNames from "classnames";
 
-
-
-
 const styles = (theme: Theme) => ({
-    margin: {
-        margin: theme.spacing.unit,
-    },
-    leftIcon: {
-        marginRight: theme.spacing.unit
-    },
+  margin: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit
+  },
 
 });
 
 function ButtonSizes(props: any) {
-    const { classes } = props;
-    return (
-        <div>
-            <div>
-                <Button variant="contained" size="large" color="primary" className={classes.margin}>
-                    <Icon path={mdiWindows} className={classNames(classes.leftIcon, classes.iconSmall)}
-                        size={1}
-                        color="white"
-                    />
-                    Přihlásit
-                 </Button>
-            </div>
-        </div>
-    );
+  const { classes, onClick } = props;
+  return (
+    <div>
+      <div>
+        <Button variant="contained" size="large" color="primary" className={classes.margin} onClick={onClick}>
+          <Icon path={mdiWindows} className={classNames(classes.leftIcon, classes.iconSmall)}
+            size={1}
+            color="white"
+          />
+          Přihlásit
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 ButtonSizes.propTypes = {
-    classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ButtonSizes);

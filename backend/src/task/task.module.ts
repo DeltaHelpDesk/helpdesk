@@ -6,13 +6,13 @@ import { Task } from './task.entity';
 import { Log } from './log.entity';
 import { TaskResolvers } from './task.resolvers';
 @Module({
-  imports: [
-    AuthModule,
-    TypeOrmModule.forFeature([Task, Log]),
-  ],
-  providers: [
-    TaskService,
-    TaskResolvers,
-  ],
+    imports: [
+        AuthModule,
+        TypeOrmModule.forFeature([Task, Log]),
+    ],
+    providers: [
+        TaskService,
+        TaskResolvers,
+    ],
 })
-export class TaskModule {}
+export class TaskModule { }

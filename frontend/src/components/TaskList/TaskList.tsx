@@ -1,10 +1,10 @@
 import * as React from "react";
-import Task from './Task';
+import Task from "./Task";
 import { Query } from "react-apollo";
 import { withStyles } from "@material-ui/core/styles";
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
-import { GET_TASKS } from './TaskListQueries';
-
+import { Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
+import { GET_TASKS } from "./TaskListQueries";
+import "../../graphql/auth";
 
 export interface ITask {
   id: string;
@@ -13,56 +13,46 @@ export interface ITask {
   assignee: IAssignee;
   author: IAuthor;
 }
-export interface IAssignee{
+export interface IAssignee {
   fullName: string;
 }
-export interface IAuthor{
+export interface IAuthor {
   fullName: string;
 }
 
-const styles = {
-   
-};
+const styles = {};
 
-function TaskList() {
-  return (
-    <Query query={GET_TASKS}>
-      {({ loading, error, data }) => {
-        if (loading) {return "Loading..."};
-        if (error) { return `Error! ${error.message}`};
-        const { tasks } = data;
-        const tableBody = tasks.map((task: ITask) => 
-          <Task key={task.id} task={task} />
-        )
-        return(
+class TaskList extends React.Component<{}> {
+  render() {
+    return (
+      <Query query={GET_TASKS}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return "Loading...";
+          }
+          if (error) {
+            return `Error! ${error.message}`;
+          }
+          const { tasks } = data;
+          const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} />);
+          return (
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>
-                    Author
-                  </TableCell>
-                  <TableCell>
-                    Issue
-                  </TableCell>
-                  <TableCell>
-                    Assignee
-                  </TableCell>
-                  <TableCell>
-                    State
-                  </TableCell>
-                  <TableCell>
-                    Delete
-                  </TableCell>
+                  <TableCell>Author</TableCell>
+                  <TableCell>Issue</TableCell>
+                  <TableCell>Assignee</TableCell>
+                  <TableCell>State</TableCell>
+                  <TableCell>Delete</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {tableBody}
-              </TableBody>
+              <TableBody>{tableBody}</TableBody>
             </Table>
-      );
-      }}
-    </Query>
-  );
+          );
+        }}
+      </Query>
+    );
+  }
 }
 
 export default withStyles(styles)(TaskList);

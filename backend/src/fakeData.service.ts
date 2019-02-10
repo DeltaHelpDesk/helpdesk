@@ -7,7 +7,7 @@ import { User } from 'auth/user.entity';
 import { Task } from 'task/task.entity';
 import { Log } from 'task/log.entity';
 import { AuthType } from 'auth/authType.enum';
-import { State } from 'task/state.enum';
+import { TaskState } from 'task/taskState.enum';
 import { UserRole } from 'auth/userRole.enum';
 
 @Injectable()
@@ -43,7 +43,7 @@ export class FakeDataService implements OnModuleInit {
                 fullName: 'Admin Adminový',
                 email: 'admin@admin.cz',
                 authType: AuthType.EMAIL,
-                password: 'admin',
+                password: await bcrypt.hash('admin', 10),
                 role: UserRole.SUPERADMIN,
             },
         ]) as any;
@@ -65,14 +65,14 @@ export class FakeDataService implements OnModuleInit {
                 subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user2,
-                state: State.SOLVING,
+                state: TaskState.SOLVING,
             },
             {
                 author: user2,
                 subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
-                state: State.RETURNED,
+                state: TaskState.RETURNED,
             },
         ]) as any;
         const { identifiers: [log1, log2, log3, log4, log5] }: {identifiers: Task[]} = await this.logRepository.insert([
@@ -94,12 +94,12 @@ export class FakeDataService implements OnModuleInit {
             },
             {
                 author: user2,
-                state: State.SOLVING,
+                state: TaskState.SOLVING,
                 task: task3,
             },
             {
                 author: user2,
-                state: State.SOLVING,
+                state: TaskState.SOLVING,
                 task: task3,
                 comment: faker.lorem.paragraph(2),
             },

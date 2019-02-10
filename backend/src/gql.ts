@@ -10,6 +10,12 @@ export enum State {
     RETURNED = "RETURNED"
 }
 
+export enum UserRole {
+    DEFAULT = "DEFAULT",
+    ADMIN = "ADMIN",
+    SUPERADMIN = "SUPERADMIN"
+}
+
 export class AuthenticatedUser {
     id: string;
     fullName: string;
@@ -17,6 +23,7 @@ export class AuthenticatedUser {
     created_at: Date;
     updated_at?: Date;
     token: string;
+    role?: UserRole;
 }
 
 export class Log {
@@ -33,7 +40,9 @@ export abstract class IMutation {
 
     abstract loginEmail(email: string, password: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
-    abstract createUserEmail(email: string, password: string, fullName: string): User | Promise<User>;
+    abstract createUserEmail(email: string, password: string, fullName: string, role?: UserRole): User | Promise<User>;
+
+    abstract removeUser(email: string): boolean | Promise<boolean>;
 
     abstract logout(): boolean | Promise<boolean>;
 
@@ -47,6 +56,8 @@ export abstract class IMutation {
 export abstract class IQuery {
     abstract session(): AuthenticatedUser | Promise<AuthenticatedUser>;
 
+    abstract admins(): User[] | Promise<User[]>;
+
     abstract tasks(): Task[] | Promise<Task[]>;
 
     abstract task(id?: string): Task | Promise<Task>;
@@ -59,7 +70,7 @@ export class Task {
     subject: string;
     issue: string;
     author: User;
-    assignee: User;
+    assignee?: User;
     created_at: Date;
     updated_at?: Date;
     state: State;
@@ -72,6 +83,7 @@ export class User {
     email: string;
     created_at: Date;
     updated_at?: Date;
+    role?: UserRole;
 }
 
 export type Date = any;

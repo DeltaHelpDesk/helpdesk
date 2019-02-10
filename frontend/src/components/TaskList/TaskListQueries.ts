@@ -6,10 +6,12 @@ export const GET_TASKS = gql`
     id
     issue
     state
-    author{
+    author {
+      id
       fullName
     }
-    assignee{
+    assignee {
+      id
       fullName
     }
   }

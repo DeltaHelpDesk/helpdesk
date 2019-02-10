@@ -3,7 +3,7 @@ import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { TableRow, TableCell, Button } from '@material-ui/core';
 import { Mutation } from 'react-apollo';
-import { DELETE_TASK } from './TaskListQueries';
+import { DELETE_TASK, GET_TASKS } from './TaskListQueries';
 import DeleteIcon from '@material-ui/icons/Delete';
 import background from 'src/utils/TaskState';
 const styles = {
@@ -11,7 +11,7 @@ const styles = {
 }
 
 // Prepared for Task component
-function Task(props: { task: ITask }) {
+const Task: React.SFC<{ task: ITask }> = props => {
 
   const task: ITask = props.task;
 
@@ -19,8 +19,8 @@ function Task(props: { task: ITask }) {
   const taskId = task.id;
   const DeleteButton = () => {
     return (
-      <Mutation mutation={DELETE_TASK}>
-        {(deleteTask) => (
+      <Mutation mutation={DELETE_TASK}  refetchQueries={() => [{query: GET_TASKS}]}>
+        {deleteTask => (
           <Button variant="contained" color="secondary" onClick={() => {
             deleteTask({
               variables: {
@@ -28,7 +28,6 @@ function Task(props: { task: ITask }) {
               }
             });
           }}>
-            Delete
           <DeleteIcon />
           </Button>
         )}
@@ -46,7 +45,7 @@ function Task(props: { task: ITask }) {
         {task.issue}
       </TableCell>
       <TableCell>
-        {task.assignee.fullName}
+        {task.assignee ? task.assignee.fullName : "Nepřiřazen"}
       </TableCell>
       <TableCell>
         {task.state}
