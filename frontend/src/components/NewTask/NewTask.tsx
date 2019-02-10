@@ -103,7 +103,7 @@ handleSubmit(e: any, callback: (variables: object) => void) {
           const admins = data.admins as IAdmin[];
           return (
             <div className={classes.marginCenter}>
-              <Mutation mutation={ADD_TASK} onCompleted={() => this.handleSuccessfulCreation()} refetchQueries={GET_TASKS}>
+              <Mutation mutation={ADD_TASK} onCompleted={() => this.handleSuccessfulCreation()} refetchQueries={() => [{query: GET_TASKS}]}>
                 {addTask => (
                   <form
                     className={classes.root}
