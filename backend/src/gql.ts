@@ -56,6 +56,8 @@ export abstract class IMutation {
 export abstract class IQuery {
     abstract session(): AuthenticatedUser | Promise<AuthenticatedUser>;
 
+    abstract admins(): User[] | Promise<User[]>;
+
     abstract tasks(): Task[] | Promise<Task[]>;
 
     abstract task(id?: string): Task | Promise<Task>;
