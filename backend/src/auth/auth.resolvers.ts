@@ -5,6 +5,7 @@ import { User } from './user.param.decorator';
 import { User as UserEntity } from './user.entity';
 import { UserRole } from './userRole.enum';
 import { GqlRoleGuard } from './gqlRole.guard';
+import { GqlAuthGuard } from './gqlAuth.guard';
 
 @Resolver('Auth')
 export class AuthResolvers {
@@ -13,6 +14,12 @@ export class AuthResolvers {
     @Query('session')
     async getSession(@User() user?: UserEntity) {
         return user;
+    }
+
+    @UseGuards(GqlAuthGuard)
+    @Query('admins')
+    async getAdmins(): Promise<UserEntity[]> {
+        return await this.authService.getAdmins();
     }
 
     @Mutation('loginOffice')
