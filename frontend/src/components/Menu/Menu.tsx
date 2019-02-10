@@ -42,6 +42,7 @@ function ButtonAppBar(props: any) {
           </Typography>
           <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
           <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
+          <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
         </Toolbar>
       </AppBar>
     </div>

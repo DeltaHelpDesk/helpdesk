@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import AdministrationContainer from "./components/Administration/AdministrationContainer";
 import Layout from "./Layout/Layout";
 import TaskList from './components/TaskList/TaskList';
+import NewTask from './components/NewTask/NewTask';
 import { AuthContext } from './graphql/auth';
 
 class Router extends React.Component<{}> {
@@ -15,6 +16,7 @@ class Router extends React.Component<{}> {
             <Route exact={true} path="/" component={Login} />
             <Route path="/admin" component={AdministrationContainer} />
             <Route path="/tasklist" component={TaskList} />
+            <Route path="/form" component={NewTask} />
             <AuthContext.Consumer>
               {({isLoggedIn}) => !isLoggedIn && <Redirect to="/" exact={true} />}
             </AuthContext.Consumer>
