@@ -67,3 +67,23 @@ p {
   display: flex !important;
   font-family: 'Raleway',sans-serif;
 }
+@media only screen and (min-width:0px)
+{
+    .MuiToolbar-gutters-42
+    {
+        flex-direction:column;
+        padding:20px 0;
+    }
+}
+@media only screen and (min-width:768px)
+{
+    .MuiToolbar-gutters-42
+    {
+        flex-direction:row;
+        padding:inherit;
+    }
+}
+@media only screen and (min-width:1200px)
+{
+    
+}
