@@ -114,8 +114,8 @@ export class AuthService {
         return await this.userRepository.find({
             where: [
                 { role: UserRole.ADMIN },
-                { role: UserRole.SUPERADMIN }
-            ]
+                { role: UserRole.SUPERADMIN },
+            ],
         });
     }
 }

@@ -24,30 +24,46 @@ export const LOGIN_OFFICE = gql`
   }
 `;
 export const GET_SESSION = gql`
-  {
+  query getSession {
     session {
+      id
+      fullName
+      email
+      role
       token
     }
   }
 `;
 
-interface IAuthContextValue {
+export enum UserRole {
+    DEFAULT = "DEFAULT",
+    ADMIN = "ADMIN",
+    SUPERADMIN = "SUPERADMIN"
+}
+export interface IUser {
+    email: string;
+    fullName: string;
+    id: string;
+    role: UserRole;
+}
+export interface IAuthContextValue {
+  user: IUser | {};
   officeToken: null | string;
   token: null | string;
   isLoggedIn: boolean;
-  loginByOffice: (token: string) => any;
-  loginByEmail: (email: string, password: string) => any;
-  doLoginOffice: () => any;
+  loginByOffice: (token: string) => Promise<string> | undefined;
+  loginByEmail: (email: string, password: string) => Promise<string> | undefined;
+  doLoginOffice: () => Promise<string> | undefined;
 }
 
-const defaultContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => null,  loginByEmail: () => null, doLoginOffice: () => null };
+const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: {} };
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
   microsoftAuthService = new MicrosoftAuthService();
   constructor(props: {}) {
     super(props);
-    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice };
+    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice, user: {} };
   }
 
   doLoginOffice = async () => {
@@ -64,6 +80,7 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
       }
     });
     this.setToken(loginByOfficeQuery.token);
+    this.getSessionUser();
     return loginByOfficeQuery.token;
   };
 
@@ -77,8 +94,17 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
       }
     });
     this.setToken(loginByEmailQuery.token);
+    this.getSessionUser();
     return loginByEmailQuery.token;
   };
+
+  getSessionUser = async (): Promise<IUser> => {
+    const { data: { session } }: any = await client.query({
+        query: GET_SESSION
+    });
+    this.setState({ user: session });
+    return session;
+  }
 
   componentDidMount() {
     const token = localStorage.getItem('token');
