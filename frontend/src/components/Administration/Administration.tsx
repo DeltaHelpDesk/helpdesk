@@ -7,11 +7,10 @@ import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
-    border: {
-        border: "1px black solid",
-        display: "inline-block",
-        padding: "20px",
-    },
+    "fixed-square-200":
+    {
+        color: "white",
+    }
 };
 
 function AdministrationItems() {
