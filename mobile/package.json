@@ -9,7 +9,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "gql-download": "apollo service:download --endpoint=http://localhost:3000/graphql ./src/app/types/schema.json",
+    "gql-generate": "apollo client:codegen --includes=./src/app/queries/**.ts --localSchemaFile=./src/app/types/schema.json --target=typescript --tagName=gql --outputFlat src/app/types/types.ts"
   },
   "private": true,
   "dependencies": {
