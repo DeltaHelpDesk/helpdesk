@@ -8,6 +8,7 @@ import "../../graphql/auth";
 
 export interface ITask {
   id: string;
+  subject: string;
   issue: string;
   state: string;
   assignee: IAssignee;
@@ -20,10 +21,14 @@ export interface IAuthor {
   fullName: string;
 }
 
-const styles = {};
+interface ITaskListProps {
+    admin: boolean;
+}
 
-class TaskList extends React.Component<{}> {
+const styles = {};
+class TaskList extends React.Component<ITaskListProps> {
   render() {
+    const { admin = false } = this.props;
     return (
       <Query query={GET_TASKS}>
         {({ loading, error, data }) => {
@@ -34,16 +39,17 @@ class TaskList extends React.Component<{}> {
             return `Error! ${error.message}`;
           }
           const { tasks } = data;
-          const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} />);
+          const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} admin={admin} />);
           return (
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Author</TableCell>
-                  <TableCell>Issue</TableCell>
+                  <TableCell>Subject</TableCell>
+                  {admin && <TableCell>Issue</TableCell>}
                   <TableCell>Assignee</TableCell>
                   <TableCell>State</TableCell>
-                  <TableCell>Delete</TableCell>
+                  {admin && <TableCell>Actions</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>{tableBody}</TableBody>

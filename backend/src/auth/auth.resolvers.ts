@@ -62,7 +62,7 @@ export class AuthResolvers {
     @Mutation('removeUser')
     async removeUser(
         @Args('email')
-        email: string
+        email: string,
     ) {
         return await this.authService.removeUser(email);
     }
