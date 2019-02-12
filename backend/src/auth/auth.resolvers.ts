@@ -11,8 +11,9 @@ import { GqlAuthGuard } from './gqlAuth.guard';
 export class AuthResolvers {
     constructor(private readonly authService: AuthService) { }
 
+    @UseGuards(GqlAuthGuard)
     @Query('session')
-    async getSession(@User() user?: UserEntity) {
+    async getSession(@User() user: UserEntity) {
         return user;
     }
 
