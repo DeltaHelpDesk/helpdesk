@@ -179,7 +179,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                                     size="large"
                                     color="primary"
                                     className={classNames(classes.button, classes.margin, classes.buttonMarginTop)}
-                                    onClick={this.handleSubmit}>
+                                    onClick={this.handleFormSubmit}>
                                     <Icon path={mdiLogin} className={classNames(classes.leftIcon, classes.iconSmall)}
                                         size={1}
                                         color="white"
@@ -190,7 +190,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                         </Grid>
                         <Grid item={true}>
                             <div className={classes.buttonCenter}>
-                                <MicrosoftButtonLogin />
+                                <MicrosoftButtonLogin onClick={this.handleOfficeLogin} />
                             </div>
                         </Grid>
                     </form>
