@@ -7,6 +7,7 @@ import * as React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
+import { Input } from '@material-ui/core';
 
 const styles = {
   grow: {
@@ -40,10 +41,19 @@ function ButtonAppBar(props: any) {
           <Typography variant="h6" className={classes.grow}>
             <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
           </Typography>
+          <input type="checkbox" id="check"/>
+      <label htmlFor="check" className="hamburger">
+        <div className="full-hamburger">
+          <div className="rotate-ham">
+            <div className="inner-hamburger"/>
+          </div>
+        </div>
+      </label>
           <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
           <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
           <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
         </Toolbar>
+        
       </AppBar>
     </div>
   );
