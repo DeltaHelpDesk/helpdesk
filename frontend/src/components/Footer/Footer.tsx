@@ -1,9 +1,9 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
-import "./styles.css"
 
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
+
 
 const style = {
     footerSpan: {
@@ -14,11 +14,12 @@ const style = {
 function Footer(props: any) {
     const { classes } = props;
     return (
-
+    <div className={classes.root}>
         <footer className="footeAnimate">
             <span className={classes.footerSpan}>© 2018 </span>
             <Link className="footerhref" to="/">HelpDesk</Link>
         </footer>
+        </div>
     );
 }
 

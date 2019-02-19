@@ -5,7 +5,6 @@ import "./index.css";
 import { AuthContext } from './graphql/auth';
 
 
-
 class App extends React.Component {
   render() {
     return (
