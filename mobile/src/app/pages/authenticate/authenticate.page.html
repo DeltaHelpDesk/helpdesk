@@ -6,12 +6,13 @@
 
 <ion-content padding>
   <div class="ion-text-center ion-padding-vertical">
-    <img src="/assets/images/logo.png"/>
+    <img src="/assets/images/logo.png" />
   </div>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-item>
       <ion-label position="stacked">Email</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
+      <app-form-control-error [formControl]="loginForm.controls.email"></app-form-control-error>
     </ion-item>
 
     <ion-item>

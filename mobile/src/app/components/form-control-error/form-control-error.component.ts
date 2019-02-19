@@ -1,0 +1,17 @@
+import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'app-form-control-error',
+  templateUrl: './form-control-error.component.html',
+  styleUrls: ['./form-control-error.component.scss']
+})
+export class FormControlErrorComponent implements OnInit {
+  @Input() control: FormControl
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

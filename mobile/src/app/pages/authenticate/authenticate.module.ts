@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
+import {ComponentsModule} from './../../components/components.module';
 
 import {IonicModule} from '@ionic/angular';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    ComponentsModule,
   ],
   declarations: [AuthenticatePage]
 })

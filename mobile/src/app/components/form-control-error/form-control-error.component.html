@@ -1,0 +1,7 @@
+<div *ngIf="formControl.touched">
+    <div [ngSwitch]="formControl.error">
+        <div *ngSwitchCase="1">1</div>
+        <div *ngSwitchCase="2">2</div>
+        <div *ngSwitchDefault>0</div>
+    </div>
+</div>
