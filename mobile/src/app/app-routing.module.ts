@@ -1,5 +1,7 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthenticatedOnlyGuard } from "./guards/authenticated-only.guard";
+import { NotAuthenticatedOnlyGuard } from "./guards/not-authenticated-only.guard";
 
 const routes: Routes = [
   {
@@ -7,11 +9,19 @@ const routes: Routes = [
     redirectTo: 'authenticate',
     pathMatch: 'full'
   },
-  { path: 'authenticate', loadChildren: './pages/authenticate/authenticate.module#AuthenticatePageModule' },
+  {
+    path: 'authenticate',
+    canActivate: [NotAuthenticatedOnlyGuard],
+    loadChildren: './pages/authenticate/authenticate.module#AuthenticatePageModule'
+  },
+  {
+    path: 'tasks',
+    canActivate: [AuthenticatedOnlyGuard],
+    loadChildren: './pages/tasks/task-list/task-list.module#TaskListPageModule'
+  },
   // { path: 'tasks/create', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
   // { path: 'tasks/:id/edit', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
   // { path: 'tasks/:id', loadChildren: './tasks/task-detail/task-detail.module#TaskDetailPageModule' },
-  // { path: 'tasks', loadChildren: './tasks/task-list/task-list.module#TaskListPageModule' },
   // { path: 'devices', loadChildren: './device-list/device-list.module#DeviceListPageModule' },
 ];
 

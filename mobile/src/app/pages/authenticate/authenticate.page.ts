@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticateService } from "../../services/authenticate.service";
+import { ToastController } from "@ionic/angular";
 
 
 @Component({
@@ -10,13 +11,15 @@ import { AuthenticateService } from "../../services/authenticate.service";
   styleUrls: ['./authenticate.page.scss'],
 })
 export class AuthenticatePage {
-  loginForm = this.fb.group({
+
+  protected loginForm = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
   });
 
   constructor(
     private fb: FormBuilder,
+    private toastController: ToastController,
     private router: Router,
     private authService: AuthenticateService
   ) {
@@ -24,14 +27,24 @@ export class AuthenticatePage {
 
   login() {
     console.log(this.loginForm.value);
+
+
     this.authService.emailLogin(this.loginForm.value)
       .subscribe(
-        data => console.log('da', data),
-        error => console.error('err', error)
+        () => {
+          this.presentToast('Přihlášení proběhlo úspěšně');
+          this.router.navigate(['/tasks']);
+        },
+        () => this.presentToast('Chybný uživatelský email nebo heslo')
       );
-    // this.router.navigate(['/tasks']);
+  }
 
-
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 }
 

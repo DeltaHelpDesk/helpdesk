@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -7,11 +6,6 @@ import { FormControl } from '@angular/forms';
   templateUrl: './form-control-error.component.html',
   styleUrls: ['./form-control-error.component.scss']
 })
-export class FormControlErrorComponent implements OnInit {
+export class FormControlErrorComponent {
   @Input() control: FormControl
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }
