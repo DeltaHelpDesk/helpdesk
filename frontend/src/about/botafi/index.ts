@@ -1,7 +1,7 @@
 import image from './image.jpg';
 
 const markdown = `
-# Filip "botafi" Botai
+## Filip "botafi" Botai
 ahoj
 `;
 
