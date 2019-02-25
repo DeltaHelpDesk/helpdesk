@@ -10,11 +10,14 @@ export class NotAuthenticatedOnlyGuard implements CanActivate {
   }
 
   canActivate(): Promise<boolean> {
-    return this.authService.isAuthenticated().then(isAuthenticated => {
-      if(isAuthenticated) {
-        this.router.navigate(['/tasks'])
-      }
-      return !isAuthenticated
-    });
+    return this.authService.getAuthenticatedUser()
+      .then(user => {
+        this.authService.user.next(user);
+        if (user) {
+          this.router.navigate(['/tasks'])
+        }
+
+        return !user;
+      });
   }
 }

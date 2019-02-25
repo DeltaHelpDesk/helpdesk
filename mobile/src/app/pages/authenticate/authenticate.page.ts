@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticateService } from "../../services/authenticate.service";
 import { ToastController } from "@ionic/angular";
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class AuthenticatePage {
   constructor(
     private fb: FormBuilder,
     private toastController: ToastController,
+    private menuController: MenuController,
     private router: Router,
     private authService: AuthenticateService
   ) {

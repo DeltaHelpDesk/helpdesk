@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu *ngIf="isAuthenticated">
+    <ion-menu [disabled]="!(authService.user | async)">
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>
@@ -16,18 +16,19 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <!--<button ion-item menuClose (click)="logout()">-->
-            <!--<ion-icon slot="start" name="log-out"></ion-icon>-->
-            <!--<ion-label>-->
-              <!--Odhlásit se-->
-            <!--</ion-label>-->
-          <!--</button>-->
 
-          <button ion-button menuClose>Close Menu</button>
-
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="logout()">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label>
+                Odhlásit se
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
+
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

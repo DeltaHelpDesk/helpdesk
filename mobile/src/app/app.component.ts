@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticateService } from "./services/authenticate.service";
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public appPages = [
     {
       title: 'Create Task',
@@ -29,20 +29,15 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  protected isAuthenticated = false;
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    protected authService: AuthenticateService
+    protected authService: AuthenticateService,
+    private toastController: ToastController
   ) {
     this.initializeApp();
-  }
-
-  async ngOnInit() {
-    this.isAuthenticated = await this.authService.isAuthenticated();
   }
 
   initializeApp() {
@@ -52,8 +47,17 @@ export class AppComponent implements OnInit {
     });
   }
 
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   async logout() {
     await this.authService.logout();
+    this.presentToast('Odhlášení proběhlo úspěšně');
     this.router.navigate(['/authenticate']);
   }
 }
