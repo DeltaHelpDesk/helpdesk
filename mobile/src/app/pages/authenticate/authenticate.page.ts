@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticateService } from "../../services/authenticate.service";
-import { ToastController } from "@ionic/angular";
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController } from "@ionic/angular";
 
 
 @Component({
@@ -27,10 +26,11 @@ export class AuthenticatePage {
   ) {
   }
 
+  openAbout() {
+    this.router.navigate(['/about']);
+  }
+
   login() {
-    console.log(this.loginForm.value);
-
-
     this.authService.emailLogin(this.loginForm.value)
       .subscribe(
         () => {
