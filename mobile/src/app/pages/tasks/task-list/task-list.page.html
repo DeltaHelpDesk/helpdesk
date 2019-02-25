@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Task List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+  <ion-list>
+    <ion-item-group *ngFor="let item of items">
+      <ion-list-header>
+        <ion-label>{{item.date}}</ion-label>
+      </ion-list-header>
+
+      <ion-item button [routerLink]="['/tasks/', 5]">
+        <ion-label>{{item.description}}</ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

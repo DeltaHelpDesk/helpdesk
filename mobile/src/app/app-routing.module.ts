@@ -1,24 +1,34 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthenticatedOnlyGuard } from "./guards/authenticated-only.guard";
+import { NotAuthenticatedOnlyGuard } from "./guards/not-authenticated-only.guard";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'authenticate',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    path: 'authenticate',
+    canActivate: [NotAuthenticatedOnlyGuard],
+    loadChildren: './pages/authenticate/authenticate.module#AuthenticatePageModule'
   },
   {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  }
+    path: 'tasks',
+    canActivate: [AuthenticatedOnlyGuard],
+    loadChildren: './pages/tasks/task-list/task-list.module#TaskListPageModule'
+  },
+  { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
+  // { path: 'tasks/create', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
+  // { path: 'tasks/:id/edit', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
+  // { path: 'tasks/:id', loadChildren: './tasks/task-detail/task-detail.module#TaskDetailPageModule' },
+  // { path: 'devices', loadChildren: './device-list/device-list.module#DeviceListPageModule' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
