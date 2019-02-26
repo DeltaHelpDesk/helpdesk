@@ -2,11 +2,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-import * as PropTypes from "prop-types";
 import * as React from "react";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
+
 
 const styles = {
     grow: {
@@ -31,7 +31,7 @@ const styles = {
     }
 };
 
-function ButtonAppBar(props: any) {
+const ButtonAppBar: React.SFC<WithStyles<string>> = props => {
     const { classes } = props;
     return (
         <div className={classes.root}>
@@ -59,9 +59,5 @@ function ButtonAppBar(props: any) {
         </div>
     );
 }
-
-ButtonAppBar.propTypes = {
-    classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(ButtonAppBar);
