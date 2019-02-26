@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from 'auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { Log } from './log.entity';
+import { UserRole, checkUserRole } from 'auth/userRole.enum';
 
 @Injectable()
 export class TaskService {
@@ -36,6 +37,9 @@ export class TaskService {
         let task = await this.taskRepository.findOne(taskId);
         if(!task) {
             throw new HttpException(`Task with id: ${taskId} not found`, HttpStatus.NOT_FOUND);
+        }
+        if (!(checkUserRole(author.role, UserRole.ADMIN) || author.id == task.author.id)) {
+            throw new HttpException(`Unauthorized user`, HttpStatus.UNAUTHORIZED);
         }
         if(!comment && !state && !assigneeId) {
             throw new HttpException(`Haven't passed any changes for task`, HttpStatus.BAD_REQUEST);
