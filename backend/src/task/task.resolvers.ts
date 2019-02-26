@@ -41,12 +41,11 @@ export class TaskResolvers {
         return await this.taskService.addTask({author, issue, assigneeId, subject});
     }
 
-    @UseGuards(new GqlRoleGuard(UserRole.ADMIN))
     @Mutation('changeTaskState')
     async changeState(
         @User()
         author: UserEntity,
-        @Args('stateId')
+        @Args('taskId')
         stateId: number,
         @Args('comment')
         comment: string,
