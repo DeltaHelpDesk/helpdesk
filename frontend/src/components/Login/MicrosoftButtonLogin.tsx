@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { withStyles, Theme } from "@material-ui/core/styles";
+import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import Icon from '@mdi/react';
 import { mdiWindows } from '@mdi/js'
@@ -16,7 +15,12 @@ const styles = (theme: Theme) => ({
 
 });
 
-function ButtonSizes(props: any) {
+interface IMicrosoftButtonLoginProps extends WithStyles<string> {
+  onClick: () => void
+}
+
+
+const MicrosoftButtonLogin: React.SFC<IMicrosoftButtonLoginProps> = props => {
   const { classes, onClick } = props;
   return (
     <div>
@@ -33,8 +37,5 @@ function ButtonSizes(props: any) {
   );
 }
 
-ButtonSizes.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(ButtonSizes);
+export default withStyles(styles)(MicrosoftButtonLogin);
