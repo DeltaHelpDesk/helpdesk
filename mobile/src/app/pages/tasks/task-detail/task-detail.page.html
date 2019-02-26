@@ -3,10 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tasks"></ion-back-button>
     </ion-buttons>
-    <ion-title>Task Detail</ion-title>
+    <ion-title>Detail tasku</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-awjodpasj
+  <ion-list *ngIf="task">
+    <ion-item>{{task.issue}}</ion-item>
+  </ion-list>
 </ion-content>

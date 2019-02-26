@@ -19,6 +19,11 @@ const routes: Routes = [
     canActivate: [AuthenticatedOnlyGuard],
     loadChildren: './pages/tasks/task-list/task-list.module#TaskListPageModule'
   },
+  {
+    path: 'tasks/:id',
+    canActivate: [AuthenticatedOnlyGuard],
+    loadChildren: './pages/tasks/task-detail/task-detail.module#TaskDetailPageModule'
+  },
   { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
   // { path: 'tasks/create', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
   // { path: 'tasks/:id/edit', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
