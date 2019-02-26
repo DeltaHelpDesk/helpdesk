@@ -1,5 +1,5 @@
 import { UserRole } from 'auth/userRole.enum';
-import { ParseIntPipe, UseGuards } from '@nestjs/common';
+import { ParseIntPipe, UseGuards, HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
@@ -17,7 +17,6 @@ export class TaskResolvers {
     async getTasks() {
         return await this.taskService.findAll();
     }
-
 
     @Query('task')
     async findOneById(
@@ -38,6 +37,12 @@ export class TaskResolvers {
         @User()
         author: UserEntity,
     ): Promise<Task> {
+        if (!subject) {
+            throw new HttpException('subject', HttpStatus.BAD_REQUEST);
+        }
+        if (!issue) {
+            throw new HttpException('issue', HttpStatus.BAD_REQUEST);
+        }
         return await this.taskService.addTask({author, issue, assigneeId, subject});
     }
 
@@ -46,15 +51,18 @@ export class TaskResolvers {
         @User()
         author: UserEntity,
         @Args('taskId')
-        stateId: number,
+        taskId: number,
         @Args('comment')
-        comment: string,
+        comment?: string,
         @Args('state')
-        state: TaskState,
+        state?: TaskState,
         @Args('assigneeId')
-        assigneeId: number,
+        assigneeId?: number,
     ): Promise<Task> {
-        return await this.taskService.changeTaskState(author, stateId, comment, state, assigneeId);
+        if (!taskId) {
+            throw new HttpException('taskId', HttpStatus.BAD_REQUEST);
+        }
+        return await this.taskService.changeTaskState(author, taskId, comment, state, assigneeId);
     }
 
     @UseGuards(new GqlRoleGuard(UserRole.ADMIN))
