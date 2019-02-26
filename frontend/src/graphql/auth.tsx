@@ -54,9 +54,10 @@ export interface IAuthContextValue {
   loginByOffice: (token: string) => Promise<string> | undefined;
   loginByEmail: (email: string, password: string) => Promise<string> | undefined;
   doLoginOffice: () => Promise<string> | undefined;
+  loading: boolean;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: {} };
+const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: {}, loading: true };
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
@@ -106,10 +107,12 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
     return session;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const token = localStorage.getItem('token');
     if(token) {
       this.setToken(token);
+      try { await this.getSessionUser(); } catch(e) { this.setToken(undefined); }
+      this.setState({loading: false});
     }
   }
 
