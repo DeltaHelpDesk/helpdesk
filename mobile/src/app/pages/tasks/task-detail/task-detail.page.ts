@@ -17,9 +17,8 @@ export class TaskDetailPage implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(({params}) => {
-      console.log('detail params', params, params.id);
-      this.tasksSubscription = this.taskService.getTask({id: params['id']})
+    this.route.paramMap.subscribe(params => {
+      this.tasksSubscription = this.taskService.getTask({id: params.get('id')})
         .valueChanges
         .subscribe(({data}) => {
           this.task = data.task;
