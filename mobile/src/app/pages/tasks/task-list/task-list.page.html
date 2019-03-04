@@ -12,7 +12,21 @@
 <ion-content>
   <ion-list>
     <ion-item [routerLink]="'/tasks/' + task.id" routerDirection="forward" *ngFor="let task of tasks">
-      <ion-label>{{task.subject}}</ion-label>
+      <ion-label>
+        <span [ngSwitch]="task.state">
+          <span *ngSwitchCase='"UNRESOLVED"'>
+            <ion-icon name="close"></ion-icon>
+          </span>
+          <span *ngSwitchCase='"SOLVING"'>
+            <ion-icon name="hammer"></ion-icon>
+          </span>
+          <span *ngSwitchCase='"RETURNED"'>
+            <ion-icon name="checkmark"></ion-icon>
+          </span>
+        </span>
+        {{task.subject}}
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

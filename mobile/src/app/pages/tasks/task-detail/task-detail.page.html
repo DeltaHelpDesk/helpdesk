@@ -9,6 +9,17 @@
 
 <ion-content>
   <ion-list *ngIf="task">
-    <ion-item>{{task.issue}}</ion-item>
+    <ion-item lines="none">
+      <strong>Task: </strong>{{task.subject}}
+    </ion-item>
+    <ion-item lines="none">
+      <strong>Datum: </strong> {{task.created_at|date:'longDate'}}
+    </ion-item>
+    <ion-item lines="none">
+        <strong>Autor: </strong> {{task.author.fullName}}
+    </ion-item>
+    <ion-item lines="none">
+      <strong>Popis: </strong> {{task.issue}}
+    </ion-item>
   </ion-list>
 </ion-content>
