@@ -45,7 +45,6 @@ class TaskList extends React.Component {
                 <TableRow>
                   <TableCell>Author</TableCell>
                   <TableCell>Subject</TableCell>
-                  {isAdmin && <TableCell>Issue</TableCell>}
                   <TableCell>Assignee</TableCell>
                   <TableCell>State</TableCell>
                   {isAdmin && <TableCell>Actions</TableCell>}

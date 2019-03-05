@@ -68,7 +68,7 @@ export abstract class IQuery {
 export class Task {
     id: string;
     subject: string;
-    issue: string;
+    issue?: string;
     author: User;
     assignee?: User;
     created_at: Date;

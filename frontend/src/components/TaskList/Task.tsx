@@ -44,9 +44,6 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
       <TableCell>
         {task.subject}
       </TableCell>
-      { isAdmin && <TableCell>
-        {task.issue}
-      </TableCell> }
       <TableCell>
         {task.assignee ? task.assignee.fullName : "Nepřiřazen"}
       </TableCell>
