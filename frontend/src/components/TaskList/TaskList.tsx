@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
 import { GET_TASKS } from "./TaskListQueries";
 import "../../graphql/auth";
+import Loading from "./../Loading/Loading";
 
 export interface ITask {
   id: string;
@@ -33,7 +34,7 @@ class TaskList extends React.Component<ITaskListProps> {
       <Query query={GET_TASKS}>
         {({ loading, error, data }) => {
           if (loading) {
-            return "Loading...";
+            return <Loading/>;
           }
           if (error) {
             return `Error! ${error.message}`;
