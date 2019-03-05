@@ -19,13 +19,13 @@
       <ion-label position="stacked">Email</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
-    <app-form-control-error [control]="loginForm.controls.email"></app-form-control-error>
+    <form-control-error [control]="loginForm.controls.email"></form-control-error>
 
     <ion-item>
       <ion-label position="stacked">Heslo</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-    <app-form-control-error [control]="loginForm.controls.password"></app-form-control-error>
+    <form-control-error [control]="loginForm.controls.password"></form-control-error>
 
     <ion-button padding expand="full" color="primary" type="submit">Přihlásit se</ion-button>
   </form>
