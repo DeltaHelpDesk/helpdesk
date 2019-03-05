@@ -13,7 +13,7 @@ import './index.css';
 ReactDOM.render(
   <ApolloProvider client={client}>
        <MuiThemeProvider theme={theme}>
-    <App />
+        <App />
     </MuiThemeProvider>
   </ApolloProvider>,
   document.getElementById('root') as HTMLElement

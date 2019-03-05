@@ -1,30 +1,41 @@
-import * as PropTypes from "prop-types";
+
 import * as React from "react";
 
-import { withStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
+import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
 
 
-const style = {
-    footerSpan: {
-        color:"lightslategrey"
-    },    
-};
 
-function Footer(props: any) {
+const styles = (theme:Theme) => createStyles({
+    footer:
+    {
+        backgroundColor:theme.palette.primary.main,
+        position:"absolute",
+        bottom: 0,
+        width:"100%",
+        minHeight:"60px",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center"
+    }
+})
+
+interface IFooterProps extends WithStyles<typeof styles> {
+}
+
+
+
+function Footer(props: IFooterProps) {
     const { classes } = props;
     return (
-    <div className={classes.root}>
-        <footer className="footeAnimate">
-            <span className={classes.footerSpan}>© 2018 </span>
-            <Link className="footerhref" to="/">HelpDesk</Link>
+    <div>
+        <footer className={classes.footer}>
+            <span>© 2018 </span>
+            <Link to="/">HelpDesk</Link>
         </footer>
         </div>
     );
 }
 
-Footer.propTypes = {
-    classes: PropTypes.object.isRequired
-};
 
-export default withStyles(style)(Footer);
+export default withStyles(styles)(Footer);
