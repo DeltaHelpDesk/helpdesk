@@ -4,25 +4,12 @@ body {
   font-family: sans-serif;
 }
 
-
-
-@media only screen and (min-width:0px)
-{
-    .MuiToolbar-gutters-42
-    {
-        flex-direction:column;
-        padding:20px 0;
-    }
+.red-background{
+  background-color: #d84040;
 }
-@media only screen and (min-width:768px)
-{
-    .MuiToolbar-gutters-42
-    {
-        flex-direction:row;
-        padding:inherit;
-    }
+.green-background{
+  background-color:#0eaf0e;
 }
-@media only screen and (min-width:1200px)
-{
-    
+.orange-background{
+  background-color: #ffa500;
 }
