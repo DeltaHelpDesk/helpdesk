@@ -23,7 +23,7 @@
       <ion-label>Datum vytvoření</ion-label>
       <ion-note slot="end">{{task.created_at|date}}</ion-note>
     </ion-item>
-    <ion-item [lines]="!task.issue && 'none'">
+    <ion-item>
       <ion-label>Autor</ion-label>
       <ion-note slot="end">{{task.author.fullName}}</ion-note>
     </ion-item>
