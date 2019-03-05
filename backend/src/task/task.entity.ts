@@ -2,11 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { User } from 'auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { Log } from './log.entity';
-import { filter } from 'lodash';
 @Entity()
 export class Task {
-    filteredKeys = ["issue", "logs"];
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -33,8 +30,4 @@ export class Task {
 
     @OneToMany(type => Log, log => log.task, { eager: true })
     logs: Log[];
-
-    getAnonymised() {
-        return filter(this, (_, key) => !this.filteredKeys.includes(key));
-    }
 }
