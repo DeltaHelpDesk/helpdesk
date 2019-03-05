@@ -17,7 +17,7 @@ const styles = {
     },
     firstItem: {
         color: "white",
-        textDecoration: "none", 
+        textDecoration: "none",
     },
     menuItem: {
         color: "white",
@@ -33,6 +33,9 @@ const styles = {
 
 function ButtonAppBar(props: any) {
     const { classes } = props;
+    function myFunction() {
+        document.getElementById("hamburger-6")!.classList.toggle("is-active")
+    }
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -42,10 +45,10 @@ function ButtonAppBar(props: any) {
                     </Typography>
                     <input type="checkbox" id="check" />
                     <label htmlFor="check" className="hamburger">
-                        <div className="full-hamburger">
-                            <div className="rotate-ham">
-                                <div className="inner-hamburger" />
-                            </div>
+                        <div className="full-hamburger hamburger" id="hamburger-6" onClick={myFunction}>
+                            <span className="line" />
+                            <span className="line" />
+                            <span className="line" />
                         </div>
                     </label>
                     <div className="nav-items">
