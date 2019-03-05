@@ -17,7 +17,7 @@ const styles = {
     },
     firstItem: {
         color: "white",
-        textDecoration: "none",
+        textDecoration: "none", 
     },
     menuItem: {
         color: "white",
@@ -36,7 +36,7 @@ function ButtonAppBar(props: any) {
     return (
         <div className={classes.root}>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar className="flex-direction-column">
                     <Typography variant="h6" className={classes.grow}>
                         <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
                     </Typography>
