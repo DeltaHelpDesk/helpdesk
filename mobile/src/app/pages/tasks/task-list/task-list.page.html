@@ -4,24 +4,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Task List
+      Seznam tasků
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
-  </ion-toolbar>
   <ion-list>
-    <ion-item-group *ngFor="let item of items">
-      <ion-list-header>
-        <ion-label>{{item.date}}</ion-label>
-      </ion-list-header>
-
-      <ion-item button [routerLink]="['/tasks/', 5]">
-        <ion-label>{{item.description}}</ion-label>
-      </ion-item>
-    </ion-item-group>
+    <ion-item [routerLink]="'/tasks/' + task.id" routerDirection="forward" *ngFor="let task of tasks">
+      <ion-label text-wrap>
+        {{task.subject}} [<task-state-indicator [state]="task.state"></task-state-indicator>]
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-item>
   </ion-list>
 </ion-content>

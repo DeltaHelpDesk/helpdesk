@@ -1,18 +1,45 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from "../../../services/task.service";
+import { Subscription } from "rxjs";
+import { TaskList_tasks } from "../../../types/types";
+import { ToastController } from "@ionic/angular";
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.page.html',
   styleUrls: ['./task-list.page.scss'],
 })
-export class TaskListPage {
+export class TaskListPage implements OnInit {
 
-  items: any = [
-    {date: "10. 11. 2018", name: "Jana Stopková", assignTo: "Josef Hájek", description: "Lorem ipsum dolor sit amet..."},
-    {date: "11. 11. 2018", name: "Jana Stopková", assignTo: "Josef Hájek", description: "Looreem iipsuum dooloor siit aameet..."},
-    {date: "12. 11. 2018", name: "Jana Stopková", assignTo: "Josef Hájek", description: "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."}
-  ];
+  tasksSubscription: Subscription;
+  tasks: (TaskList_tasks | null)[] | null;
 
-  constructor() { }
+  constructor(
+    private toastController: ToastController,
+    private taskService: TaskService
+  ) {
+  }
 
+  ngOnInit() {
+    this.tasksSubscription = this.taskService.getTasks()
+      .valueChanges
+      .subscribe(
+        ({data}) => {
+          this.tasks = data.tasks;
+          console.log(this.tasks)
+        },
+        () => this.presentToast('Nepodařilo se načíst seznam tasků'));
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  ngOnDestroy() {
+    this.tasksSubscription.unsubscribe();
+  }
 }

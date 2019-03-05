@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Helpdesk</string>
+    <string name="title_activity_main">Helpdesk</string>
+    <string name="package_name">cz.delta_skola.helpdesk</string>
+    <string name="fileprovider_authority">cz.delta_skola.helpdesk.fileprovider</string>
+    <string name="custom_url_scheme">cz.delta_skola.helpdesk</string>
+</resources>

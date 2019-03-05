@@ -13,20 +13,10 @@ import { Router } from "@angular/router";
 export class AppComponent {
   public appPages = [
     {
-      title: 'Create Task',
-      url: '/tasks/create',
-      icon: 'add'
-    },
-    {
-      title: 'Task List',
+      title: 'Seznam tasků',
       url: '/tasks',
       icon: 'list'
-    },
-    {
-      title: 'Device List',
-      url: '/devices',
-      icon: 'tv'
-    },
+    }
   ];
 
   constructor(
