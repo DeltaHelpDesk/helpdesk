@@ -11,8 +11,8 @@ const styles = {
 }
 
 // Prepared for Task component
-const Task: React.SFC<{ task: ITask, admin: boolean }> = props => {
-  const admin: boolean = props.admin;
+const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
+  const isAdmin: boolean = props.isAdmin;
   const task: ITask = props.task;
 
 
@@ -44,16 +44,13 @@ const Task: React.SFC<{ task: ITask, admin: boolean }> = props => {
       <TableCell>
         {task.subject}
       </TableCell>
-      { admin && <TableCell>
-        {task.subject}
-      </TableCell> }
       <TableCell>
         {task.assignee ? task.assignee.fullName : "Nepřiřazen"}
       </TableCell>
       <TableCell>
         {task.state}
       </TableCell>
-      { admin && <TableCell>
+      { isAdmin && <TableCell>
         <DeleteButton />
       </TableCell> }
     </TableRow>

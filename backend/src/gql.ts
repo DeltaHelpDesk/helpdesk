@@ -1,4 +1,3 @@
-/* tslint:disable */
 export enum AuthType {
     EMAIL = "EMAIL",
     OFFICE = "OFFICE"
@@ -17,7 +16,7 @@ export enum UserRole {
     SUPERADMIN = "SUPERADMIN"
 }
 
-export abstract class AuthenticatedUser {
+export class AuthenticatedUser {
     id: string;
     fullName: string;
     email: string;
@@ -27,7 +26,7 @@ export abstract class AuthenticatedUser {
     role?: UserRole;
 }
 
-export abstract class Log {
+export class Log {
     id: string;
     author: User;
     created_at: Date;
@@ -66,10 +65,10 @@ export abstract class IQuery {
     abstract temp__(): boolean | Promise<boolean>;
 }
 
-export abstract class Task {
+export class Task {
     id: string;
     subject: string;
-    issue: string;
+    issue?: string;
     author: User;
     assignee?: User;
     created_at: Date;
@@ -78,7 +77,7 @@ export abstract class Task {
     logs?: Log[];
 }
 
-export abstract class User {
+export class User {
     id: string;
     fullName: string;
     email: string;

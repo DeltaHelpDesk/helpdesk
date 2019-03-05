@@ -12,7 +12,10 @@
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "lib": [
+        "es2016"
+    ]
   },
   "include": [
     "src/**/*"
@@ -20,5 +23,5 @@
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ]
+  ],
 }

@@ -1,5 +1,5 @@
 import { UserRole } from 'auth/userRole.enum';
-import { ParseIntPipe, UseGuards, HttpException, HttpStatus } from '@nestjs/common';
+import { ParseIntPipe, UseGuards, HttpException, HttpStatus, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
@@ -8,16 +8,19 @@ import { User as UserEntity } from 'auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { GqlAuthGuard } from 'auth/gqlAuth.guard';
 import { GqlRoleGuard } from 'auth/gqlRole.guard';
+import { FilterOnRoleOrUserInterceptor } from 'auth/filterOnRoleOrUser.interceptor';
 @UseGuards(GqlAuthGuard)
 @Resolver('Task')
 export class TaskResolvers {
     constructor(private readonly taskService: TaskService) {}
 
+    @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'author'))
     @Query('tasks')
     async getTasks() {
         return await this.taskService.findAll();
     }
 
+    @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'author'))
     @Query('task')
     async findOneById(
         @Args('id', ParseIntPipe)
