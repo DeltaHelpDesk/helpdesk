@@ -6,10 +6,6 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { User } from './user.entity';
 import { pickBy } from 'lodash';
 
-export interface Response<T> {
-  data: T;
-}
-
 @Injectable()
 export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInterceptor<T | Array<T>, Partial<T> | Array<Partial<T>> > {
     constructor(private filteredKeys: string[], private role?: UserRole | undefined, private userIdKey?: keyof T | undefined) {}
