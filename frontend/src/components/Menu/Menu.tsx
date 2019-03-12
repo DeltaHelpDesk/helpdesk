@@ -5,10 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import * as PropTypes from "prop-types";
 import * as React from "react";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, Theme} from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
 
-const styles = {
+const styles = (theme: Theme) => ({
     grow: {
         flexGrow: 1,
     },
@@ -28,8 +28,39 @@ const styles = {
         '&:hover': {
             background: "rgba(255,255,255,0.5)",
         }
+    },
+    hamburger: {
+        display: "none",
+        position: "absolute" as "absolute",
+        right: "5px",
+        top: "0",
+    },
+    line: {
+        width: "50px",
+        height: "5px",
+        backgroundColor: "#ecf0f1",
+        display: "block",
+        margin: "8px auto",
+        WebkitTransition: "all 0.3s ease-in-out",
+        OTransition: "all 0.3s ease-in-out",
+        transition: "all 0.3s ease-in-out",
+    },
+    fullHamBurger: {
+        background: "#000",
+    },
+    [theme.breakpoints.up('md')]: {
+        hamburger: {
+            display: "unset",
+        },
+        navItems: {
+            display: "none",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+        },
     }
-};
+
+});
 
 function ButtonAppBar(props: any) {
     const { classes } = props;
@@ -44,14 +75,14 @@ function ButtonAppBar(props: any) {
                         <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
                     </Typography>
                     <input type="checkbox" id="check" />
-                    <label htmlFor="check" className="hamburger">
-                        <div className="full-hamburger hamburger" id="hamburger-6" onClick={myFunction}>
-                            <span className="line" />
-                            <span className="line" />
-                            <span className="line" />
+                    <label htmlFor="check" className={classes.hamburger}>
+                        <div className={classes.fullHamBurger + classes.hamburger} id="hamburger-6" onClick={myFunction}>
+                            <span className={classes.line} />
+                            <span className={classes.line} />
+                            <span className={classes.line} />
                         </div>
                     </label>
-                    <div className="nav-items">
+                    <div className={classes.navItems}>
                         <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
                         <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
                         <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
