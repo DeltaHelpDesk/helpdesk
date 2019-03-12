@@ -16,7 +16,7 @@ type Log {
 type Task {
     id: ID!
     subject: String!
-    issue: String!
+    issue: String
     author: User!
     assignee: User
     created_at: Date!
