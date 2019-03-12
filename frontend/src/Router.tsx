@@ -19,6 +19,7 @@ class Router extends React.Component<{}> {
                         <AuthenticatedRoute path="/tasklist" component={TaskList} />
                         <Route path="/" exact={true} component={HomePage} />
                         <AuthenticatedRoute path="/form" component={NewTask} />
+                        <AuthenticatedRoute path="/task/:id" component={TaskDetail} />
                     </Switch>
                 </Layout>
             </BrowserRouter>
