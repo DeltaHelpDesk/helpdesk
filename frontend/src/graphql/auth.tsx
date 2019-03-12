@@ -40,14 +40,22 @@ export enum UserRole {
     ADMIN = "ADMIN",
     SUPERADMIN = "SUPERADMIN"
 }
+
 export interface IUser {
     email: string;
     fullName: string;
     id: string;
     role: UserRole;
 }
+
+export const UserRoleAscendency = [
+    UserRole.DEFAULT,
+    UserRole.ADMIN,
+    UserRole.SUPERADMIN,
+];
+
 export interface IAuthContextValue {
-  user: IUser | {};
+  user: IUser | undefined;
   officeToken: null | string;
   token: null | string;
   isLoggedIn: boolean;
@@ -57,14 +65,20 @@ export interface IAuthContextValue {
   loading: boolean;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: {}, loading: true };
+export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
+    const requiredRoleIndex = UserRoleAscendency.findIndex(role => role === requiredUserRole);
+    const userRoleIndex = UserRoleAscendency.findIndex(role => role === userRole);
+    return userRoleIndex >= requiredRoleIndex;
+}
+
+const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true };
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
   microsoftAuthService = new MicrosoftAuthService();
   constructor(props: {}) {
     super(props);
-    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice, user: {} };
+    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice };
   }
 
   doLoginOffice = async () => {
@@ -112,18 +126,18 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
     if(token) {
       this.setToken(token);
       try { await this.getSessionUser(); } catch(e) { this.setToken(undefined); }
-      this.setState({loading: false});
     }
+    this.setState({ loading: false });
   }
 
   setToken = (token: string | undefined | null) => {
     if(token) {
       lastToken = token;
-      this.setState({token, isLoggedIn: true});
+      this.setState({ token, isLoggedIn: true, loading: false });
       localStorage.setItem('token', token);
     } else {
       lastToken = null;
-      this.setState({isLoggedIn: false, token: null});
+      this.setState({ isLoggedIn: false, token: null });
       localStorage.removeItem('token');
     }
   }
