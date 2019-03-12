@@ -11,12 +11,12 @@ export interface Response<T> {
 }
 
 @Injectable()
-export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInterceptor<T | Array<T>, Response< Partial<T> | Array<Partial<T>> >> {
+export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInterceptor<T | Array<T>, Partial<T> | Array<Partial<T>> > {
     constructor(private filteredKeys: string[], private role?: UserRole | undefined, private userIdKey?: keyof T | undefined) {}
     intercept(
         context: ExecutionContext,
         call$: Observable<T | Array<T>>,
-    ): Observable<Response< Partial<T> | Array<Partial<T>> >> {
+    ): Observable< Partial<T> | Array<Partial<T>> > {
         // get graphql context and user from it
         const ctx = GqlExecutionContext.create(context);
         const user: User = ctx.getContext().req.user;
@@ -50,7 +50,8 @@ export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInte
             } else {
                 filteredData = doFilter(data);
             }
-            return ({ data: filteredData });
+            
+            return filteredData;
         }));
     }
 }
