@@ -16,9 +16,9 @@ class Router extends React.Component<{}> {
                 <Layout>
                     <Switch>
                         <Route path="/login" component={Login} />
-                        <AuthenticatedRoute path="/admin" component={AdministrationContainer} />
+                        <AuthenticatedRoute path="/admin" exact={true} component={AdministrationContainer} />
                         <AuthenticatedRoute path="/tasklist" component={TaskList} />
-                        <AuthenticatedRoute path="/userlist" component={UserList} />
+                        <AuthenticatedRoute path="/admin/userlist" component={UserList} />
                         <Route path="/" exact={true} component={HomePage} />
                         <AuthenticatedRoute path="/form" component={NewTask} />
                     </Switch>
