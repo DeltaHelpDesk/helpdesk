@@ -40,6 +40,11 @@ function AdministrationItems(props:IAdministrationItemsProps) {
         <p>Devices</p>
       </Grid>
       </Card>
+      <Card className="fixed-square-200 flex center-all-inner-items">
+      <Grid item={true}>
+        <p>Users</p>
+      </Grid>
+      </Card>
     </div>
   );
 }
