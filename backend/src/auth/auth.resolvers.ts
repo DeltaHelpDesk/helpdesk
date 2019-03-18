@@ -23,6 +23,12 @@ export class AuthResolvers {
         return await this.authService.getAdmins();
     }
 
+    @UseGuards(new GqlRoleGuard(UserRole.SUPERADMIN))
+    @Query('users')
+    async getUsers(): Promise<UserEntity[]> {
+        return await this.authService.getUsers();
+    }
+
     @Mutation('loginOffice')
     async loginOffice(
         @Args('token')

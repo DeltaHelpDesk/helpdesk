@@ -118,4 +118,8 @@ export class AuthService {
             ],
         });
     }
+
+    async getUsers(): Promise<User[]> {
+        return await this.userRepository.find();
+    }
 }

@@ -7,6 +7,7 @@ import TaskList from './components/TaskList/TaskList';
 import HomePage from './components/Homepage/HomePage';
 import NewTask from './components/NewTask/NewTask';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
+import UserList from "./components/Administration/UserList/UserList";
 import About from './components/About/About';
 
 class Router extends React.Component<{}> {
@@ -19,6 +20,7 @@ class Router extends React.Component<{}> {
                         <Route path="/about" component={About} />
                         <AuthenticatedRoute path="/admin" component={AdministrationContainer} />
                         <AuthenticatedRoute path="/tasklist" component={TaskList} />
+                        <AuthenticatedRoute path="/userlist" component={UserList} />
                         <Route path="/" exact={true} component={HomePage} />
                         <AuthenticatedRoute path="/form" component={NewTask} />
                     </Switch>
