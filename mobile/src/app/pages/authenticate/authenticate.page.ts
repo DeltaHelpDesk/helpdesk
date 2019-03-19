@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticateService } from "../../services/authenticate.service";
 import { MenuController, ToastController } from "@ionic/angular";
+import { markFormGroupTouched } from "../../helpers/form.helper";
 
 
 @Component({
@@ -31,6 +32,11 @@ export class AuthenticatePage {
   }
 
   login() {
+    if (this.loginForm.invalid) {
+      markFormGroupTouched(this.loginForm);
+      return;
+    }
+
     this.authService.emailLogin(this.loginForm.value)
       .subscribe(
         () => {

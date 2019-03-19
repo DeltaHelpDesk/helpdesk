@@ -13,7 +13,7 @@ export const TaskListQuery = gql`
       }
       state
     }
-    
+
   }
 `;
 

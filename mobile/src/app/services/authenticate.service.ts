@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EmailAuthVariables, EmailAuth_loginEmail } from "../types/types";
+import { EmailAuth_loginEmail, EmailAuthVariables } from "../types/types";
 import { Apollo } from "apollo-angular";
 import { EmailAuthMutation } from "../queries/authenticate.query";
 import { tap } from "rxjs/operators";

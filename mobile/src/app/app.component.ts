@@ -16,6 +16,11 @@ export class AppComponent {
       title: 'Seznam tasků',
       url: '/tasks',
       icon: 'list'
+    },
+    {
+      title: 'Vytvořit task',
+      url: '/tasks/create',
+      icon: 'add'
     }
   ];
 

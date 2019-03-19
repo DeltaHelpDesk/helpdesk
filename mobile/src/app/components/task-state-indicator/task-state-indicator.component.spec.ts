@@ -8,9 +8,9 @@ describe('TaskStateIndicatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskStateIndicatorComponent ]
+      declarations: [TaskStateIndicatorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

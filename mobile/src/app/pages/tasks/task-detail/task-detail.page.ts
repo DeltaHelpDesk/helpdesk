@@ -27,7 +27,7 @@ export class TaskDetailPage implements OnInit {
         .valueChanges
         .subscribe(
           ({data}) => {
-          this.task = data.task;
+            this.task = data.task;
           },
           () => this.presentToast('Nepodařilo se načíst detailu tasku'));
     });

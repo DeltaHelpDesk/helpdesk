@@ -12,14 +12,25 @@
 <ion-content padding>
   <form [formGroup]="form" (ngSubmit)="add()">
     <ion-item>
-      <ion-label position="stacked">Subject</ion-label>
+      <ion-label position="stacked">Předmět</ion-label>
       <ion-input type="text" formControlName="subject"></ion-input>
     </ion-item>
+    <form-control-error [control]="loginForm.controls.subject"></form-control-error>
 
     <ion-item>
-      <ion-label position="stacked">Issue</ion-label>
+      <ion-label position="stacked">Popis</ion-label>
       <ion-textarea rows="5" formControlName="issue"></ion-textarea>
     </ion-item>
+    <form-control-error [control]="loginForm.controls.issue"></form-control-error>
+
+    <ion-item>
+      <ion-label>Řešitel</ion-label>
+      <ion-select formControlName="assigneeId" placeholder="Select One">
+        <ion-select-option [value]="admin.id" *ngFor="let admin of admins">{{ admin.fullName }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <form-control-error [control]="loginForm.controls.assigneeId"></form-control-error>
+
     <ion-button padding expand="full" color="primary" type="submit">Add Task</ion-button>
   </form>
 </ion-content>

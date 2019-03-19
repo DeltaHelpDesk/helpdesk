@@ -13,9 +13,10 @@
   <ion-list>
     <ion-item [routerLink]="'/tasks/' + task.id" routerDirection="forward" *ngFor="let task of tasks">
       <ion-label text-wrap>
-        {{task.subject}} [<task-state-indicator [state]="task.state"></task-state-indicator>]
+        {{task.subject}} (
+        <task-state-indicator [state]="task.state"></task-state-indicator>
+        )
       </ion-label>
-      <ion-icon slot="end" name="arrow-forward"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

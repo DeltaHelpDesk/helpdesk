@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
+import { markFormGroupTouched } from "../../../helpers/form.helper";
 
 @Component({
   selector: 'app-task-form',
@@ -7,13 +8,23 @@ import { FormBuilder, Validators } from "@angular/forms";
   styleUrls: ['./task-form.page.scss'],
 })
 export class TaskFormPage {
+  admins: any[];
 
   form = this.fb.group({
     subject: ['', Validators.required],
     issue: ['', Validators.required],
-    // TODO: Device?
+    assigneeId: [null]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
+
+  submitForm() {
+    if (this.form.invalid) {
+      markFormGroupTouched(this.form);
+      return;
+    }
+
+  }
 
 }
