@@ -57,7 +57,7 @@ const styles = (theme: Theme) => ({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-        },
+        },  
     }
 
 });
