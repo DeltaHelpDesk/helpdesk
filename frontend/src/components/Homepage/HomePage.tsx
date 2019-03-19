@@ -37,7 +37,13 @@ const styles = (theme: Theme) => createStyles({
     },
     info: {
         textAlign: "center",
-    }
+    },
+    center: {
+        position: 'fixed',
+        top: "50%",
+        left: "50%",
+        transform: 'translate(-50%,-50%)',
+    },
 
 });
 
@@ -57,21 +63,23 @@ class HomePage extends React.Component<IHomePageProps> {
         const { classes } = this.props;
         return <div>
             <Grid container={true} direction="row" justify="center" alignItems="center">
-                <Grid item={true} xs={12}>
-                    <h1 className={classes.mainH1}>Delta Helpdesk</h1>
-                </Grid>
-                <Grid item={true} xs={12}>
-                    <h2 className={classes.mainH2}>Vítejte na stránkách podpory</h2>
-                </Grid>
-                <Grid item={true} xs={12}>
-                    <p className={classes.info}>Pokud máte problém zašlete požadavek.</p>
-                </Grid>
-                <Grid item={true} xs={4}>
-                    <div className={classes.itemsCenter}>
-                        <Button className={classes.buttonHomepage} onClick={this.redirectToForm} variant="contained" color="primary">Poslat požadavek</Button>
-                        <Button className={classes.buttonHomepage} onClick={this.redirectToLogin} variant="contained" color="primary">Přihlásit se</Button>
-                    </div>
-                </Grid>
+                <div className={classes.center}>
+                    <Grid item={true} xs={12}>
+                        <h1 className={classes.mainH1}>Delta Helpdesk</h1>
+                    </Grid>
+                    <Grid item={true} xs={12}>
+                        <h2 className={classes.mainH2}>Vítejte na stránkách podpory</h2>
+                    </Grid>
+                    <Grid item={true} xs={12}>
+                        <p className={classes.info}>Pokud máte problém zašlete požadavek.</p>
+                    </Grid>
+                    <Grid item={true} xs={12}>
+                        <div className={classes.itemsCenter}>
+                            <Button className={classes.buttonHomepage} onClick={this.redirectToForm} variant="contained" color="primary">Poslat požadavek</Button>
+                            <Button className={classes.buttonHomepage} onClick={this.redirectToLogin} variant="contained" color="primary">Přihlásit se</Button>
+                        </div>
+                    </Grid>
+                </div>
             </Grid>
         </div>;
     }
