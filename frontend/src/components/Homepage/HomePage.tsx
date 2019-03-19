@@ -17,6 +17,7 @@ class HomePage extends React.Component<RouteComponentProps> {
             <Button onClick={this.redirectToForm} variant="contained" color="primary" className="bluebutton" >Poslat požadavek</Button>
             <p>nebo</p>
             <Button onClick={this.redirectToLogin} variant="contained" color="primary" className="bluebutton" >Přihlásit se</Button>
+            
         </div>;
     }
 }

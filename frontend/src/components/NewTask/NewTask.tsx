@@ -9,6 +9,7 @@ import { Mutation, Query } from "react-apollo";
 import { ADD_TASK, ADMINS } from "./NewTaskQueries";
 import { withRouter, RouteComponentProps } from "react-router";
 import { GET_TASKS } from '../TaskList/TaskListQueries';
+import Loading from "./../Loading/Loading";
 
 const styles = (theme: Theme) => ({
   root: {
@@ -95,7 +96,7 @@ handleSubmit(e: any, callback: (variables: object) => void) {
       <Query query={ADMINS}>
         {({ loading, error, data }) => {
           if (loading) {
-            return "Loading...";
+            return <Loading/>;
           }
           if (error) {
             return `${error}`;
