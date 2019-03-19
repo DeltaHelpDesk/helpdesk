@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { withTranslation } from "react-i18next";
 
 export interface ITodoProps {
   name: string;
@@ -36,7 +37,7 @@ const TOGGLE_TODO = gql`
   }
 `;
 
-const TodoForm = () => (
+const TodoForm = withTranslation()(({t}) => (
   <Mutation mutation={ADD_TODO}>
     {addTodo => {
       let input: any;
@@ -57,13 +58,13 @@ const TodoForm = () => (
                 input = node;
               }}
             />
-            <button type="submit">Add Todo</button>
+            <button type="submit">{t('addTodo')}</button>
           </form>
         </div>
       );
     }}
   </Mutation>
-);
+));
 
 const TodoItem = ({ id, completed, text } : {id: number, completed: boolean, text: string}) => (
   <Mutation mutation={TOGGLE_TODO} variables={{ id }}>
