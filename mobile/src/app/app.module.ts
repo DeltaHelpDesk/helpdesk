@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { GraphQLModule } from "./graphql.module";
 import { HttpClientModule } from "@angular/common/http";
 import { IonicStorageModule } from '@ionic/storage';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { IonicStorageModule } from '@ionic/storage';
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,

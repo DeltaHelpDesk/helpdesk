@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from "apollo-angular";
-import { TaskDetailQuery, TaskListQuery } from "../queries/task.query";
-import { TaskDetail, TaskDetailVariables, TaskList } from "../types/types";
+import { TaskDetailQuery, TaskListQuery, AddTaskMutation } from "../queries/task.query";
+import { TaskDetail, TaskDetailVariables, TaskList, AddTaskVariables, AddTask } from "../types/types";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,13 @@ export class TaskService {
   public getTask(variables: TaskDetailVariables | any) {
     return this.apollo.watchQuery<TaskDetail>({
       query: TaskDetailQuery,
+      variables: variables
+    })
+  }
+
+  public addTask(variables: AddTaskVariables) {
+    return this.apollo.mutate({
+      mutation: AddTaskMutation,
       variables: variables
     })
   }

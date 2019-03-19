@@ -35,3 +35,11 @@ export const TaskDetailQuery = gql`
     }
   }
 `;
+
+export const AddTaskMutation = gql`
+  mutation AddTask($subject: String!, $issue: String!, $assigneeId: ID) {
+    addTask(subject: $subject, issue: $issue, assigneeId: $assigneeId) {
+      id
+    }
+  }
+`;

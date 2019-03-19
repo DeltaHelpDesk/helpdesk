@@ -13,16 +13,24 @@
       <ion-label>Předmět</ion-label>
       <ion-note slot="end">{{task.subject}}</ion-note>
     </ion-item>
+
     <ion-item>
       <ion-label>Stav</ion-label>
       <ion-note slot="end">
         <task-state-indicator [state]="task.state"></task-state-indicator>
       </ion-note>
     </ion-item>
+
     <ion-item>
       <ion-label>Datum vytvoření</ion-label>
       <ion-note slot="end">{{task.created_at|date}}</ion-note>
     </ion-item>
+
+    <ion-item>
+      <ion-label>Řešitel</ion-label>
+      <ion-note slot="end">{{task.assignee?.fullName}}</ion-note>
+    </ion-item>
+
     <ion-item>
       <ion-label>Autor</ion-label>
       <ion-note slot="end">{{task.author.fullName}}</ion-note>

@@ -2,6 +2,23 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: AdminList
+// ====================================================
+
+export interface AdminList_admins {
+  __typename: "User";
+  id: string;
+  fullName: string;
+}
+
+export interface AdminList {
+  admins: (AdminList_admins | null)[] | null;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: EmailAuth
 // ====================================================
 
@@ -43,7 +60,7 @@ export interface TaskList_tasks {
   id: string;
   subject: string;
   author: TaskList_tasks_author;
-  assignee: TaskList_tasks_assignee;
+  assignee: TaskList_tasks_assignee | null;
   state: State;
 }
 
@@ -73,9 +90,9 @@ export interface TaskDetail_task {
   id: string;
   subject: string;
   author: TaskDetail_task_author;
-  assignee: TaskDetail_task_assignee;
+  assignee: TaskDetail_task_assignee | null;
   state: State;
-  issue: string;
+  issue: string | null;
   created_at: any;
 }
 
@@ -85,6 +102,28 @@ export interface TaskDetail {
 
 export interface TaskDetailVariables {
   id: string;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: AddTask
+// ====================================================
+
+export interface AddTask_addTask {
+  __typename: "Task";
+  id: string;
+}
+
+export interface AddTask {
+  addTask: AddTask_addTask | null;
+}
+
+export interface AddTaskVariables {
+  subject: string;
+  issue: string;
+  assigneeId?: string | null;
 }
 
 /* tslint:disable */
