@@ -65,7 +65,7 @@ export class AuthResolvers {
         return await this.authService.createUserEmail(email, password, fullName);
     }
 
-    @UseGuards(new GqlRoleGuard(UserRole.SUPERADMIN))
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))    
     @Mutation('removeUser')
     async removeUser(
         @Args('email')
