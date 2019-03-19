@@ -1,23 +1,24 @@
+import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-import * as PropTypes from "prop-types";
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as React from "react";
 
-import { withStyles, Theme} from "@material-ui/core/styles";
+
 import { NavLink } from 'react-router-dom';
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
     grow: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     root: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     firstItem: {
         color: "white",
-        textDecoration: "none",
+        textDecoration: "none"
     },
     menuItem: {
         color: "white",
@@ -26,14 +27,14 @@ const styles = (theme: Theme) => ({
         padding: "10px 15px",
         borderRadius: "5%",
         '&:hover': {
-            background: "rgba(255,255,255,0.5)",
+            background: "rgba(255,255,255,0.5)"
         }
     },
     hamburger: {
         display: "none",
         position: "absolute" as "absolute",
         right: "5px",
-        top: "0",
+        top: "0"
     },
     line: {
         width: "50px",
@@ -43,59 +44,75 @@ const styles = (theme: Theme) => ({
         margin: "8px auto",
         WebkitTransition: "all 0.3s ease-in-out",
         OTransition: "all 0.3s ease-in-out",
-        transition: "all 0.3s ease-in-out",
+        transition: "all 0.3s ease-in-out"
     },
-    fullHamBurger: {
-        background: "#000",
-    },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.down('sm')]: {
         hamburger: {
-            display: "unset",
+            display: "block !important"
         },
         navItems: {
-            display: "none",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-        },  
+            display: "none !important",
+            justifyContent: "center !important",
+            alignItems: "center !important",
+            "flex-direction": "column !important"
+        },
+        grow:{
+            flexGrow: 0
+        }
+    },
+    navItems: {
+        display: "flex",
+        "flex-direction": "row",
+        '&.is-active': {
+            display: "flex !important"
+        }
     }
 
 });
 
-function ButtonAppBar(props: any) {
-    const { classes } = props;
-    function myFunction() {
-        document.getElementById("hamburger-6")!.classList.toggle("is-active")
+interface IMenuProps extends RouteComponentProps, WithStyles<typeof styles> {
+
+}
+
+interface IMenuState {
+    isActive: boolean
+}
+class Hamburger extends React.Component<IMenuProps, IMenuState> {
+
+    constructor(props: IMenuProps) {
+        super(props);
+
+        this.state = {
+            isActive: false
+        }
     }
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar className="flex-direction-column">
-                    <Typography variant="h6" className={classes.grow}>
-                        <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
-                    </Typography>
-                    <input type="checkbox" id="check" />
-                    <label htmlFor="check" className={classes.hamburger}>
-                        <div className={classes.fullHamBurger + classes.hamburger} id="hamburger-6" onClick={myFunction}>
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <div className={classes.root}>
+                <AppBar position="static">
+                    <Toolbar className="flex-direction-column">
+                        <Typography variant="h6" className={classes.grow}>
+                            <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
+                        </Typography>
+                        <div className={classes.hamburger} onClick={() => this.setState({ isActive: !this.state.isActive })}>
                             <span className={classes.line} />
                             <span className={classes.line} />
                             <span className={classes.line} />
                         </div>
-                    </label>
-                    <div className={classes.navItems}>
-                        <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
-                        <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
-                        <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
-                    </div>
-                </Toolbar>
+                        <div className={`${classes.navItems} ${this.state.isActive ? "is-active" : ""}`}>
+                            <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
+                            <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
+                            <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
+                        </div>
+                    </Toolbar>
 
-            </AppBar>
-        </div>
-    );
+                </AppBar>
+            </div>
+        );
+    }
 }
 
-ButtonAppBar.propTypes = {
-    classes: PropTypes.object.isRequired
-};
 
-export default withStyles(styles)(ButtonAppBar);
+export default withRouter(withStyles(styles)(Hamburger));
