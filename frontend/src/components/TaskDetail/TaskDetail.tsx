@@ -1,36 +1,18 @@
 import * as React from "react";
-import Task from "./Task";
 import { Query } from "react-apollo";
 import { withStyles } from "@material-ui/core/styles";
-import { Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
-import { GET_TASKS } from "./TaskListQueries";
 import "../../graphql/auth";
 import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../graphql/auth';
 import { TASK_DETAIL } from './TaskDetailQueries';
-
-export interface ITask {
-  id: string;
-  subject: string;
-  issue: string;
-  state: string;
-  assignee: IAssignee;
-  author: IAuthor;
-}
-export interface IAssignee {
-  fullName: string;
-}
-export interface IAuthor {
-  fullName: string;
-}
+import { RouteComponentProps } from 'react-router';
 
 const styles = {};
-class TaskList extends React.Component {
+class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
     static contextType = ReactAuthContext;
     context : IAuthContextValue;
     render() {
-    const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN))
-    const isOwner = this.context.user.id == "";
-    const { id } = this.props.match;
+    
+    const { id } = this.props.match.params;
     return (
       <Query query={TASK_DETAIL} variables={{ id }}>
         {({ loading, error, data }) => {
@@ -40,10 +22,23 @@ class TaskList extends React.Component {
           if (error) {
             return `Error! ${error.message}`;
           }
-          const { tasks } = data;
+          const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN));
+          const isOwner = (this.context.user === undefined ? false : this.context.user.id === data.task.author.id);
+          const isAuthorized = isAdmin || isOwner;
+          const { task } = data;
+          // const logs = task.logs.map((log: any) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
           // const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
           return (
-            <div></div>
+            <div>
+                <h2>{task.subject}</h2>
+                <div>assignee: {task.assignee.fullName}</div>
+                <div>author: {task.author.fullName}</div>
+                <div>state: {task.state}</div>
+                <div>created at: {task.created_at}</div>
+                {isAuthorized && 
+                    <div>issue: {task.issue}</div>
+                }
+            </div>
           );
         }}
       </Query>

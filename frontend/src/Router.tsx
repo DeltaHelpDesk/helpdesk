@@ -7,6 +7,7 @@ import TaskList from './components/TaskList/TaskList';
 import HomePage from './components/Homepage/HomePage';
 import NewTask from './components/NewTask/NewTask';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
+import TaskDetail from './components/TaskDetail/TaskDetail';
 
 class Router extends React.Component<{}> {
     render() {

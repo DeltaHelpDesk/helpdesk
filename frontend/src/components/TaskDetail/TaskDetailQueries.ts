@@ -6,6 +6,7 @@ export const TASK_DETAIL = gql`
     query getTask($id: ID!) {
         task(id: $id){
             id
+            subject
             issue
             state
             created_at
@@ -20,22 +21,15 @@ export const TASK_DETAIL = gql`
             logs {
                 author {
                     id
-                    fullname
+                    fullName
                 }
                 created_at
                 comment
                 state
-                assignee
+                assignee {
+                    fullName
+                }
             }
-        }
-    }
-`
-
-export const TASK_DETAILsss = gql`
-    {
-        task {
-            id
-            fullName
         }
     }
 `
