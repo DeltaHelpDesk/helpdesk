@@ -2,14 +2,26 @@ Pro spuštění aplikace
 
 
 Spuštění aplikace
-- npm start (v rootu aplikace)
+    npm start (v rootu aplikace)
 
 
 Testování aplikace
-Android studio
-Android SDK tools
+Pro testování aplikace musíme nainstalovat Capacitor, Android Studio a SDK tools pro Android
+Instalce Capacitoru
+Minimálně jednou musíme použít příkaz build v naší aplikaci: npm run build
+Nainstalujeme Capacitor: npm install --save @capacitor/cli @capacitor/core
 
-
+Spuštění aplikace pro testování s pomocí Android studia
+    npx cap init "appName" "appId" (appId = doména aplikace)
+Přidání platformy
+    npx cap add android
+Otevření Android studia
+    npx cap open android
+V případě, že nemáme Android studio nainstalované defaulutně na disku C, přídáme do souboru capacitor.config.json
+    "windowsAndroidStudioPath": "Cesta k souboru"
+Aplikace se spustí a je připravena pro testování
+Pokaždé když spustíme build aplikace je nutné poté nakopírovat změny
+    npx cap copy
 
 src
     app
