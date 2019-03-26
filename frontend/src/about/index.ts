@@ -4,3 +4,7 @@ export { default as botafi } from './botafi';
 export {default as cicina} from "./cicina";
 export {default as jaina} from "./jaina";
 export {default as pepino} from "./pepino";
+export {default as dominik} from "./dominik";
+export {default as falty} from "./falty";
+export {default as janyja} from "./janyja";
+export {default as slamda} from "./slamda";

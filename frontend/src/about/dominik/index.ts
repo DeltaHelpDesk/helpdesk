@@ -1,7 +1,7 @@
 import image from './image.jpg';
 
 const markdown = `
-##Dominik Šlechta
+## Dominik Šlechta
 **Daniel je noob**
 `;
 
