@@ -88,7 +88,7 @@ class NewTask extends React.Component<NewTaskProps, INewTaskState> {
       }
     }));
   }
-  handleSubmit(e: any, callback: (variables: object) => void) {
+  handleSubmit(e: React.FormEvent, callback: (variables: object) => void) {
     e.preventDefault();
     callback({
       variables: {
@@ -126,7 +126,7 @@ class NewTask extends React.Component<NewTaskProps, INewTaskState> {
 
                       <form
                         className={classes.root}
-                        onSubmit={(e: any) => this.handleSubmit(e, addTask)}
+                        onSubmit={(e: React.FormEvent) => this.handleSubmit(e, addTask)}
                       >
                         <h2>Přidat požadavek</h2>
                         <TextField
