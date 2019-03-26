@@ -18,6 +18,7 @@ function Footer(props: any) {
         <footer className="footeAnimate">
             <span className={classes.footerSpan}>© 2018 </span>
             <Link className="footerhref" to="/">HelpDesk</Link>
+            <span><Link className="footerhref" to="/about">About us</Link></span>
         </footer>
     );
 }
