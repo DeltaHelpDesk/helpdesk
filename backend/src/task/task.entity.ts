@@ -13,10 +13,10 @@ export class Task {
     @Column()
     subject: string;
 
-    @ManyToOne(type => User, user => user.createdTasks, { eager: true })
+    @ManyToOne(type => User, user => user.createdTasks, { eager: true, onDelete: 'CASCADE' })
     author: User;
 
-    @ManyToOne(type => User, user => user.assignedTasks, { nullable: true, eager: true })
+    @ManyToOne(type => User, user => user.assignedTasks, { nullable: true, eager: true, onDelete: 'CASCADE' })
     assignee?: User;
 
     @CreateDateColumn()
