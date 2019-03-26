@@ -42,7 +42,7 @@ export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInte
             // filter the object in response or filter array of objects in response
             let filteredData: (Partial<T> | T) | Array<Partial<T> | T>;
             if (Array.isArray(data)) {
-                filteredData = data.map(doFilter) as T;
+                filteredData = data.map(doFilter) as T[];
             } else {
                 filteredData = doFilter(data);
             }
