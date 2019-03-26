@@ -1,4 +1,4 @@
-import image from './image.jpg';
+import image from './image.png';
 
 const markdown = `
 ## Dominik Šlechta
