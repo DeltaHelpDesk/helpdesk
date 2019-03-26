@@ -31,23 +31,22 @@ const styles = (theme: Theme) => createStyles({
         }
     },
     hamburger: {
-        display: "none",
-        position: "absolute" as "absolute",
-        right: "5px",
-        top: "0"
+        background: "transparent",
+        position: "relative" as "relative",
+        width: "50px",
+        height: "50px",
+        display: "flex",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        flexDirection: "column"
     },
     line: {
-        width: "50px",
+        width: "44px",
         height: "5px",
-        backgroundColor: "#ecf0f1",
-        display: "block",
-        margin: "8px auto",
-        WebkitTransition: "all 0.3s ease-in-out",
-        OTransition: "all 0.3s ease-in-out",
-        transition: "all 0.3s ease-in-out"
+        background: "white"
     },
     [theme.breakpoints.down('sm')]: {
-        hamburger: {
+        parent: {
             display: "block !important"
         },
         navItems: {
@@ -56,7 +55,7 @@ const styles = (theme: Theme) => createStyles({
             alignItems: "center !important",
             "flex-direction": "column !important"
         },
-        grow:{
+        grow: {
             flexGrow: 0
         }
     },
@@ -66,6 +65,55 @@ const styles = (theme: Theme) => createStyles({
         '&.is-active': {
             display: "flex !important"
         }
+    },
+    lineOneActive: {
+        animation: "line-one-in",
+        animationDuration: "1s",
+        animationFillMode: "forwards",
+        animationIterationCount: "1",
+        animationTimingFunction: "cubic-bezier(1, -0.01, 0.14, 0.85)"
+    },
+    lineTwoActive: {
+        animation: "line-two-in",
+        animationDuration: "1s",
+        animationFillMode: "forwards",
+        animationIterationCount: "1",
+        animationTimingFunction: "cubic-bezier(1, -0.01, 0.14, 0.85)"
+    },
+    lineThreeActive: {
+        animation: "line-three-in",
+        animationDuration: "1s",
+        animationFillMode: "forwards",
+        animationIterationCount: "1",
+        animationTimingFunction: "cubic-bezier(1, -0.01, 0.14, 0.85)"
+    },
+    lineOneInactive: {
+        animation: "line-one-in",
+        animationDuration: "1s",
+        animationIterationCount: "1",
+        animationTimingFunction: "cubic-bezier(1, -0.01, 0.14, 0.85)",
+        animationDirection: "reverse"
+    },
+    lineTwoInactive: {
+        animation: "line-two-in",
+        animationDuration: "1s",
+        animationIterationCount: "1",
+        animationTimingFunction: "cubic-bezier(1, -0.01, 0.14, 0.85)",
+        animationDirection: "reverse"
+    },
+    lineThreeInactive: {
+        animation: "line-three-in",
+        animationDuration: "1s",
+        animationIterationCount: "1",
+        animationTimingFunction: "cubic-bezier(1, -0.01, 0.14, 0.85)",
+        animationDirection: "reverse"
+    },
+    parent: {
+        display: "none",
+        position: "absolute" as "absolute",
+        width: "50px",
+        height: "50px",
+        right: "0"
     }
 
 });
@@ -86,6 +134,29 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
             isActive: false
         }
     }
+    help() {
+        const line1 = this.detach(document.getElementsByClassName(this.props.classes.line1)[0]);
+        const line2 = this.detach(document.getElementsByClassName(this.props.classes.line2)[0]);
+        const line3 = this.detach(document.getElementsByClassName(this.props.classes.line3)[0]);
+
+        if (line1.getAttribute("class") === `${this.props.classes.line} ${this.props.classes.line1} ${this.props.classes.lineOneInactive}`) {
+            line1.setAttribute("class", `${this.props.classes.line} ${this.props.classes.line1} ${this.props.classes.lineOneActive}`);
+            line2.setAttribute("class", `${this.props.classes.line} ${this.props.classes.line2} ${this.props.classes.lineTwoActive}`);
+            line3.setAttribute("class", `${this.props.classes.line} ${this.props.classes.line3} ${this.props.classes.lineThreeActive}`);
+        } else {
+            line1.setAttribute("class", `${this.props.classes.line} ${this.props.classes.line1} ${this.props.classes.lineOneInactive}`);
+            line2.setAttribute("class", `${this.props.classes.line} ${this.props.classes.line2} ${this.props.classes.lineTwoInactive}`);
+            line3.setAttribute("class", `${this.props.classes.line} ${this.props.classes.line3} ${this.props.classes.lineThreeInactive}`);
+        }
+
+        document.getElementsByClassName(this.props.classes.hamburger)[0].appendChild(line1);
+        document.getElementsByClassName(this.props.classes.hamburger)[0].appendChild(line2);
+        document.getElementsByClassName(this.props.classes.hamburger)[0].appendChild(line3);
+    }
+
+    detach(node: any) {
+        return node.parentElement.removeChild(node);
+    }
 
     render() {
         const { classes } = this.props;
@@ -96,10 +167,12 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
                         <Typography variant="h6" className={classes.grow}>
                             <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
                         </Typography>
-                        <div className={classes.hamburger} onClick={() => this.setState({ isActive: !this.state.isActive })}>
-                            <span className={classes.line} />
-                            <span className={classes.line} />
-                            <span className={classes.line} />
+                        <div className={classes.parent}>
+                            <div className={classes.hamburger} onClick={() => { this.setState({ isActive: !this.state.isActive }); this.help(); }}>
+                                <span className={`${classes.line} ${classes.line1} ${classes.lineOneInactive}`} />
+                                <span className={`${classes.line} ${classes.line2} ${classes.lineTwoInactive}`} />
+                                <span className={`${classes.line} ${classes.line3} ${classes.lineThreeInactive}`} />
+                            </div>
                         </div>
                         <div className={`${classes.navItems} ${this.state.isActive ? "is-active" : ""}`}>
                             <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
