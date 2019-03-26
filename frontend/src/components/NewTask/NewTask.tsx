@@ -10,10 +10,13 @@ import { ADD_TASK, ADMINS } from "./NewTaskQueries";
 import { withRouter, RouteComponentProps } from "react-router";
 import { GET_TASKS } from '../TaskList/TaskListQueries';
 import Loading from "./../Loading/Loading";
+import Grid from '@material-ui/core/Grid';
 
 const styles = (theme: Theme) => ({
   root: {
-    display: "inline-grid"
+    display: "inline-grid",
+    width: "250px",
+    "text-align":"center",
   },
   marginCenter: {
     margin: "0 auto",
@@ -22,7 +25,17 @@ const styles = (theme: Theme) => ({
   },
   items: {
     marginTop: "10px"
-  }
+  },
+  wrapper: {
+    display: "flex",
+    marginTop: "100px",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+
+  },
+
+
 });
 
 interface INewTaskState {
@@ -40,7 +53,7 @@ interface IAdmin {
   role: string;
 }
 
-type NewTaskProps = WithStyles<string> & RouteComponentProps; // TODO: handle in better fashion
+type NewTaskProps = WithStyles<typeof styles> & RouteComponentProps; // TODO: handle in better fashion
 
 class NewTask extends React.Component<NewTaskProps, INewTaskState> {
   constructor(props: NewTaskProps) {
@@ -75,15 +88,15 @@ class NewTask extends React.Component<NewTaskProps, INewTaskState> {
       }
     }));
   }
-handleSubmit(e: any, callback: (variables: object) => void) {
+  handleSubmit(e: any, callback: (variables: object) => void) {
     e.preventDefault();
-       callback({
-        variables: {
-          subject: this.state.task.subject,
-          issue: this.state.task.issue,
-          assigneeId: this.state.task.assigne
-        }
-      });
+    callback({
+      variables: {
+        subject: this.state.task.subject,
+        issue: this.state.task.issue,
+        assigneeId: this.state.task.assigne
+      }
+    });
   }
 
   handleSuccessfulCreation() {
@@ -96,68 +109,76 @@ handleSubmit(e: any, callback: (variables: object) => void) {
       <Query query={ADMINS}>
         {({ loading, error, data }) => {
           if (loading) {
-            return <Loading/>;
+            return <Loading />;
           }
           if (error) {
             return `${error}`;
           }
           const admins = data.admins as IAdmin[];
           return (
-            <div className={classes.marginCenter}>
-              <Mutation mutation={ADD_TASK} onCompleted={() => this.handleSuccessfulCreation()} refetchQueries={() => [{query: GET_TASKS}]}>
-                {addTask => (
-                  <form
-                    className={classes.root}
-                    onSubmit={(e: any) => this.handleSubmit(e, addTask)}
-                  >
-                    <TextField
-                      id="filled-adornment-subject"
-                      variant="filled"
-                      name="subject"
-                      className={classes.items}
-                      label="Subject"
-                      type="text"
-                      value={this.state.task.subject}
-                      required={true}
-                      onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                    />
-                    <TextField
-                      id="filled-adornment-issue"
-                      variant="filled"
-                      name="issue"
-                      label="Issue"
-                      className={classes.items}
-                      type="text"
-                      value={this.state.task.issue}
-                      required={true}
-                      onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                    />
+            <div className={`${classes.marginCenter} ${classes.wrapper}`}>
+              <Grid container={true}>
+                <Grid item={true} xs={12} md={6} >
 
-                    <Select
-                      value={this.state.task.assigne}
-                      onChange={e =>
-                        this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
-                      }
-                      name="assingne"
-                      className={classes.items}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      {admins.map(admin => {
-                        return (
-                          <MenuItem key={admin.id} value={admin.id}>
-                            {admin.fullName}
+
+                  <Mutation mutation={ADD_TASK} onCompleted={() => this.handleSuccessfulCreation()} refetchQueries={() => [{ query: GET_TASKS }]}>
+                    {addTask => (
+
+                      <form
+                        className={classes.root}
+                        onSubmit={(e: any) => this.handleSubmit(e, addTask)}
+                      >
+                        <h2>Přidat požadavek</h2>
+                        <TextField
+                          id="filled-adornment-subject"
+                          variant="filled"
+                          name="subject"
+                          className={classes.items}
+                          label="Subject"
+                          type="text"
+                          value={this.state.task.subject}
+                          required={true}
+                          onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                        />
+                        <TextField
+                          id="filled-adornment-issue"
+                          variant="filled"
+                          name="issue"
+                          label="Issue"
+                          className={classes.items}
+                          type="text"
+                          value={this.state.task.issue}
+                          required={true}
+                          onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                        />
+
+                        <Select
+                          value={this.state.task.assigne}
+                          onChange={e =>
+                            this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
+                          }
+                          name="assingne"
+                          className={classes.items}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
                           </MenuItem>
-                        );
-                      })}
-                    </Select>
-                    <Button variant="contained" type="submit" className={classes.items}>
-                      Přidat
+                          {admins.map(admin => {
+                            return (
+                              <MenuItem key={admin.id} value={admin.id}>
+                                {admin.fullName}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                        <Button variant="contained" type="submit" color="primary" className={classes.items}>
+                          Přidat
                     </Button>
-                  </form>
-                )}
-              </Mutation>
+                      </form>
+                    )}
+                  </Mutation>
+                </Grid>
+              </Grid>
             </div>
           );
         }}
