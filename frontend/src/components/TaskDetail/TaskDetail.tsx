@@ -5,6 +5,7 @@ import "../../graphql/auth";
 import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../graphql/auth';
 import { TASK_DETAIL } from './TaskDetailQueries';
 import { RouteComponentProps } from 'react-router';
+import { ILog } from './Log';
 
 const styles = {};
 class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
@@ -26,7 +27,6 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
           const isOwner = (this.context.user === undefined ? false : this.context.user.id === data.task.author.id);
           const isAuthorized = isAdmin || isOwner;
           const { task } = data;
-          // const logs = task.logs.map((log: any) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
           // const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
           return (
             <div>
@@ -37,6 +37,30 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
                 <div>created at: {task.created_at}</div>
                 {isAuthorized && 
                     <div>issue: {task.issue}</div>
+                }
+
+                {isAuthorized &&
+                    task.logs.map((log: ILog) => {
+                        return (
+                            <div key={log.id}>
+                            <span>
+                                {log.author.fullName}
+                            </span>
+                            <span>
+                                {log.comment}
+                            </span>
+                            <span>
+                                {log.created_at}
+                            </span>
+                            <span>
+                                {log.assignee.fullName}
+                            </span>
+                            <span>
+                                {log.state}
+                            </span>
+                            </div>
+                        )
+                    })                  
                 }
             </div>
           );

@@ -19,6 +19,7 @@ export const TASK_DETAIL = gql`
                 fullName
             }
             logs {
+                id
                 author {
                     id
                     fullName
