@@ -70,7 +70,9 @@ export class AuthResolvers {
     async removeUser(
         @Args('email')
         email: string,
+        @User()
+        currentUser: UserEntity,
     ) {
-        return await this.authService.removeUser(email);
+        return await this.authService.removeUser(email, currentUser);
     }
 }
