@@ -6,6 +6,8 @@ import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from 'src/graphql/auth';
+import { Button } from '@material-ui/core';
 
 
 const styles = {
@@ -53,6 +55,14 @@ const ButtonAppBar: React.SFC<WithStyles<string>> = props => {
                         <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
                         <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
                     </div>
+                        <AuthContext.Consumer>{({logout, user}) =>
+                            user && (
+                            <div>
+                                <span>{user.fullName}</span>
+                                <Button onClick={logout}>Odhlásit se</Button>
+                            </div>
+                            )
+                        }</AuthContext.Consumer>
                 </Toolbar>
 
             </AppBar>

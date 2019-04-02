@@ -9,6 +9,12 @@ export const isLoggedIn = () => {
 
 export let lastToken: string | null = null;
 
+export const LOGOUT = gql`
+  mutation logout {
+    logout
+  }
+`;
+
 export const LOGIN_EMAIL = gql`
   mutation loginEmail($email: String!, $password: String!) {
     loginEmail(email: $email, password: $password) {
@@ -62,6 +68,7 @@ export interface IAuthContextValue {
   loginByOffice: (token: string) => Promise<string> | undefined;
   loginByEmail: (email: string, password: string) => Promise<string> | undefined;
   doLoginOffice: () => Promise<string> | undefined;
+  logout: () => Promise<void> | undefined;
   loading: boolean;
 }
 
@@ -71,15 +78,22 @@ export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
     return userRoleIndex >= requiredRoleIndex;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true };
+const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true, logout: () => undefined };
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
   microsoftAuthService = new MicrosoftAuthService();
   constructor(props: {}) {
     super(props);
-    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice };
+    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice, logout: this.logout };
   }
+
+  logout = async () => {
+      await client.mutate({
+        mutation: LOGOUT,
+      });
+      this.setToken(null);
+  };
 
   doLoginOffice = async () => {
     await this.microsoftAuthService.login();
@@ -137,7 +151,7 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
       localStorage.setItem('token', token);
     } else {
       lastToken = null;
-      this.setState({ isLoggedIn: false, token: null });
+      this.setState({ isLoggedIn: false, token: null, user: undefined });
       localStorage.removeItem('token');
     }
   }
