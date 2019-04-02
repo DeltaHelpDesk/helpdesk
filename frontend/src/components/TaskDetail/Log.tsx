@@ -9,14 +9,3 @@ export interface ILog {
     state: string
     assignee: IUser
 }
-/*
-logs {
-    author {
-        id
-        fullname
-    }
-    created_at
-    comment
-    state
-    assignee
-}

@@ -27,7 +27,6 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
           const isOwner = (this.context.user === undefined ? false : this.context.user.id === data.task.author.id);
           const isAuthorized = isAdmin || isOwner;
           const { task } = data;
-          // const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
           return (
             <div>
                 <h2>{task.subject}</h2>
