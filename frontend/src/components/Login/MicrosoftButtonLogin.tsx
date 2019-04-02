@@ -15,7 +15,7 @@ const styles = (theme: Theme) => ({
 
 });
 
-interface IMicrosoftButtonLoginProps extends WithStyles<string> {
+interface IMicrosoftButtonLoginProps extends WithStyles<typeof styles> {
   onClick: () => void
 }
 
@@ -26,7 +26,7 @@ const MicrosoftButtonLogin: React.SFC<IMicrosoftButtonLoginProps> = props => {
     <div>
       <div>
         <Button variant="contained" size="large" color="primary" className={classes.margin} onClick={onClick}>
-          <Icon path={mdiWindows} className={classNames(classes.leftIcon, classes.iconSmall)}
+          <Icon path={mdiWindows} className={classNames(classes.leftIcon)}
             size={1}
             color="white"
           />
