@@ -15,8 +15,8 @@ const routes: Routes = [
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
-],
-declarations: [TaskListPage]
+  ],
+  declarations: [TaskListPage]
 })
 
 export class TaskListPageModule {

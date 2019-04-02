@@ -21,7 +21,6 @@ export class TaskListPage {
   }
 
   ionViewWillEnter() {
-    console.log('enter')
     this.fetchTasks()
   }
 
@@ -31,7 +30,6 @@ export class TaskListPage {
       .subscribe(
         ({data}) => {
           this.tasks = data.tasks;
-          console.log(this.tasks)
         },
         () => this.presentToast('Nepodařilo se načíst seznam tasků'));
   }
@@ -39,13 +37,12 @@ export class TaskListPage {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }
 
   ionViewDidLeave() {
-    console.log('leave')
     this.tasksSubscription.unsubscribe();
   }
 }

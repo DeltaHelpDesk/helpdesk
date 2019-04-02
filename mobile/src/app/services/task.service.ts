@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from "apollo-angular";
-import { TaskDetailQuery, TaskListQuery, AddTaskMutation } from "../queries/task.query";
-import { TaskDetail, TaskDetailVariables, TaskList, AddTaskVariables, AddTask } from "../types/types";
+import { AddTaskMutation, TaskDetailQuery, TaskListQuery } from "../queries/task.query";
+import { AddTaskVariables, TaskDetail, TaskDetailVariables, TaskList } from "../types/types";
 
 @Injectable({
   providedIn: 'root'
