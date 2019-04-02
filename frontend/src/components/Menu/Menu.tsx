@@ -6,6 +6,7 @@ import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
+import logo from "./logo.png";
 
 
 const styles = {
@@ -28,6 +29,10 @@ const styles = {
         '&:hover': {
             background: "rgba(255,255,255,0.5)",
         }
+    },
+
+    menuLogo: {
+        maxHeight:"65px"
     }
 };
 
@@ -38,7 +43,7 @@ const ButtonAppBar: React.SFC<WithStyles<string>> = props => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.grow}>
-                        <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
+                        <NavLink className={classes.firstItem} to="/"><img className={classes.menuLogo} src={logo}/></NavLink>
                     </Typography>
                     <input type="checkbox" id="check" />
                     <label htmlFor="check" className="hamburger">
