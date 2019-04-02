@@ -18,7 +18,7 @@ const styles = (theme: Theme) => createStyles({
 
 
 
-function DatePickers(props:any) {
+function DatePicker(props:any) {
   const { classes } = props;
   
 
@@ -38,8 +38,8 @@ function DatePickers(props:any) {
   );
 }
 
-DatePickers.propTypes = {
+DatePicker.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DatePickers);
+export default withStyles(styles)(DatePicker);
