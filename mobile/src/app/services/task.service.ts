@@ -12,7 +12,7 @@ export class TaskService {
 
   public getTasks() {
     return this.apollo.watchQuery<TaskList>({
-      query: TaskListQuery,
+      query: TaskListQuery
     })
   }
 

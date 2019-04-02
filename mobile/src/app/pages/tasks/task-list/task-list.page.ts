@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TaskService } from "../../../services/task.service";
 import { Subscription } from "rxjs";
 import { TaskList_tasks } from "../../../types/types";
@@ -9,7 +9,7 @@ import { ToastController } from "@ionic/angular";
   templateUrl: './task-list.page.html',
   styleUrls: ['./task-list.page.scss'],
 })
-export class TaskListPage implements OnInit {
+export class TaskListPage {
 
   tasksSubscription: Subscription;
   tasks: (TaskList_tasks | null)[] | null;
@@ -20,7 +20,12 @@ export class TaskListPage implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    console.log('enter')
+    this.fetchTasks()
+  }
+
+  fetchTasks() {
     this.tasksSubscription = this.taskService.getTasks()
       .valueChanges
       .subscribe(
@@ -39,7 +44,8 @@ export class TaskListPage implements OnInit {
     toast.present();
   }
 
-  ngOnDestroy() {
+  ionViewDidLeave() {
+    console.log('leave')
     this.tasksSubscription.unsubscribe();
   }
 }

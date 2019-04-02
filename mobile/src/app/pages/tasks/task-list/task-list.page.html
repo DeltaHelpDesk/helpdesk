@@ -6,6 +6,11 @@
     <ion-title>
       Seznam tasků
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="fetchTasks()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

@@ -17,14 +17,13 @@ export function createApollo(httpLink: HttpLink, storage: Storage) {
     return {
       headers: {
         ...headers,
-        ...(user && {authorization: `Bearer ${user.token}`})
+        ...(user && {Authorization: `Bearer ${user.token}`})
       }
     }
   });
 
   return {
-    link: auth.concat(http),
-    cache: new InMemoryCache(),
+    link: auth.concat(http)
   };
 }
 

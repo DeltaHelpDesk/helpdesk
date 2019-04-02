@@ -13,7 +13,7 @@ import { markFormGroupTouched } from "../../helpers/form.helper";
 })
 export class AuthenticatePage {
 
-  protected loginForm = this.fb.group({
+  loginForm = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
   });
