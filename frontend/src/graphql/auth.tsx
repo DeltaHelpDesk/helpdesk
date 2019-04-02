@@ -7,7 +7,13 @@ export const isLoggedIn = () => {
   return !!lastToken;
 };
 
-export let lastToken: string | null = null;
+export let lastToken: string | null = localStorage.getItem('token');
+
+export const LOGOUT = gql`
+  mutation logout {
+    logout
+  }
+`;
 
 export const LOGIN_EMAIL = gql`
   mutation loginEmail($email: String!, $password: String!) {
@@ -62,6 +68,7 @@ export interface IAuthContextValue {
   loginByOffice: (token: string) => Promise<string> | undefined;
   loginByEmail: (email: string, password: string) => Promise<string> | undefined;
   doLoginOffice: () => Promise<string> | undefined;
+  logout: () => Promise<void> | undefined;
   loading: boolean;
 }
 
@@ -71,15 +78,23 @@ export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
     return userRoleIndex >= requiredRoleIndex;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true };
+const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true, logout: () => undefined };
+export let lastContextValue: IAuthContextValue = defaultContextValue; // get last context value for things outside of react context, should not be used normally!!!!!!!!!
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
   microsoftAuthService = new MicrosoftAuthService();
   constructor(props: {}) {
     super(props);
-    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice };
+    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice, logout: this.logout };
   }
+
+  logout = async () => {
+      await client.mutate({
+        mutation: LOGOUT,
+      });
+      this.setToken(null);
+  };
 
   doLoginOffice = async () => {
     await this.microsoftAuthService.login();
@@ -121,13 +136,18 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
     return session;
   }
 
+  seeIfSessionIsValid = async () => {
+    try { await this.getSessionUser(); } catch(e) { this.setToken(undefined); }
+  }
+
   async componentDidMount() {
     const token = localStorage.getItem('token');
     if(token) {
       this.setToken(token);
-      try { await this.getSessionUser(); } catch(e) { this.setToken(undefined); }
+      this.seeIfSessionIsValid();
     }
     this.setState({ loading: false });
+    setInterval(this.seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
   }
 
   setToken = (token: string | undefined | null) => {
@@ -137,12 +157,13 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
       localStorage.setItem('token', token);
     } else {
       lastToken = null;
-      this.setState({ isLoggedIn: false, token: null });
+      this.setState({ isLoggedIn: false, token: null, user: undefined });
       localStorage.removeItem('token');
     }
   }
 
   render() {
+    lastContextValue = this.state;
     return <ReactAuthContext.Provider value={this.state}>{this.props.children}</ReactAuthContext.Provider>;
   }
 }
