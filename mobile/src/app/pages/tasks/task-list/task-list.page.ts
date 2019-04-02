@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TaskService } from "../../../services/task.service";
 import { Subscription } from "rxjs";
 import { TaskList_tasks } from "../../../types/types";
@@ -9,7 +9,7 @@ import { ToastController } from "@ionic/angular";
   templateUrl: './task-list.page.html',
   styleUrls: ['./task-list.page.scss'],
 })
-export class TaskListPage implements OnInit {
+export class TaskListPage {
 
   tasksSubscription: Subscription;
   tasks: (TaskList_tasks | null)[] | null;
@@ -20,13 +20,16 @@ export class TaskListPage implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.fetchTasks()
+  }
+
+  fetchTasks() {
     this.tasksSubscription = this.taskService.getTasks()
       .valueChanges
       .subscribe(
         ({data}) => {
           this.tasks = data.tasks;
-          console.log(this.tasks)
         },
         () => this.presentToast('Nepodařilo se načíst seznam tasků'));
   }
@@ -34,12 +37,12 @@ export class TaskListPage implements OnInit {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }
 
-  ngOnDestroy() {
+  ionViewDidLeave() {
     this.tasksSubscription.unsubscribe();
   }
 }

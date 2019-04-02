@@ -15,6 +15,11 @@ const routes: Routes = [
     loadChildren: './pages/authenticate/authenticate.module#AuthenticatePageModule'
   },
   {
+    path: 'tasks/create',
+    canActivate: [AuthenticatedOnlyGuard],
+    loadChildren: './pages/tasks/task-form/task-form.module#TaskFormPageModule'
+  },
+  {
     path: 'tasks',
     canActivate: [AuthenticatedOnlyGuard],
     loadChildren: './pages/tasks/task-list/task-list.module#TaskListPageModule'
@@ -24,8 +29,7 @@ const routes: Routes = [
     canActivate: [AuthenticatedOnlyGuard],
     loadChildren: './pages/tasks/task-detail/task-detail.module#TaskDetailPageModule'
   },
-  { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
-  // { path: 'tasks/create', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
+  {path: 'about', loadChildren: './pages/about/about.module#AboutPageModule'},
   // { path: 'tasks/:id/edit', loadChildren: './tasks/task-form/task-form.module#TaskFormPageModule' },
   // { path: 'tasks/:id', loadChildren: './tasks/task-detail/task-detail.module#TaskDetailPageModule' },
   // { path: 'devices', loadChildren: './device-list/device-list.module#DeviceListPageModule' },
