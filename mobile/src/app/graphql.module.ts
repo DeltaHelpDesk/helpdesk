@@ -23,7 +23,18 @@ export function createApollo(httpLink: HttpLink, storage: Storage) {
   });
 
   return {
-    link: auth.concat(http)
+    link: auth.concat(http),
+    cache: new InMemoryCache(),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'ignore',
+      },
+      query: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all',
+      },
+    }
   };
 }
 
