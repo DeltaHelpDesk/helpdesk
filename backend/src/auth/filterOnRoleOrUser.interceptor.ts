@@ -24,13 +24,10 @@ export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInte
                 let shouldFilter = true;
                 if (!this.role && !this.userIdKey) {
                     shouldFilter = false;
-                } else {
-                    if (this.userIdKey) {
-                        shouldFilter = shouldFilter || Number(dataToFilter[this.userIdKey]) !== Number(user.id);
-                    }
-                    if (this.role) {
-                        shouldFilter = shouldFilter || !checkUserRole((user as User).role, this.role);
-                    }
+                } else if (this.userIdKey && Number(dataToFilter[this.userIdKey]) !== Number(user.id)) {
+                    shouldFilter = false;
+                } else if (this.role && checkUserRole((user as User).role, this.role)) {
+                    shouldFilter = false;
                 }
 
                 if  (shouldFilter) {
@@ -46,7 +43,6 @@ export class FilterOnRoleOrUserInterceptor<T extends object> implements NestInte
             } else {
                 filteredData = doFilter(data);
             }
-            
             return filteredData;
         }));
     }
