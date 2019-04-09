@@ -58,6 +58,8 @@ export abstract class IQuery {
 
     abstract admins(): User[] | Promise<User[]>;
 
+    abstract users(): User[] | Promise<User[]>;
+
     abstract tasks(): Task[] | Promise<Task[]>;
 
     abstract task(id?: string): Task | Promise<Task>;
