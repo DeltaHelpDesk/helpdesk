@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { withStyles, Theme, createStyles,WithStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -30,7 +29,7 @@ function DatePicker(props:IDatePickerProps) {
   const{id,label,type,defaultValue}=props;
 
   return (
-    <form className={classes.container} noValidate>
+    <form className={classes.container} noValidate={true}>
       <TextField
         id={id.toString()}
         label={label}
