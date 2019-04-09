@@ -5,7 +5,8 @@ import "../../graphql/auth";
 import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../graphql/auth';
 import { TASK_DETAIL } from './TaskDetailQueries';
 import { RouteComponentProps } from 'react-router';
-import { ILog } from './Log';
+import LogsTable from './LogsTable';
+
 
 const styles = {};
 class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
@@ -39,28 +40,9 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
                 }
 
                 {isAuthorized &&
-                    task.logs.map((log: ILog) => {
-                        return (
-                            <div key={log.id}>
-                            <span>
-                                {log.author.fullName}
-                            </span>
-                            <span>
-                                {log.comment}
-                            </span>
-                            <span>
-                                {log.created_at}
-                            </span>
-                            <span>
-                                {log.assignee.fullName}
-                            </span>
-                            <span>
-                                {log.state}
-                            </span>
-                            </div>
-                        )
-                    })                  
+                    <LogsTable logs={task.logs} />                
                 }
+
             </div>
           );
         }}
