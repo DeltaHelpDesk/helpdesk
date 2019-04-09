@@ -13,7 +13,7 @@ export const TaskListQuery = gql`
       }
       state
     }
-    
+
   }
 `;
 
@@ -32,6 +32,14 @@ export const TaskDetailQuery = gql`
 
       issue,
       created_at
+    }
+  }
+`;
+
+export const AddTaskMutation = gql`
+  mutation AddTask($subject: String!, $issue: String!, $assigneeId: ID) {
+    addTask(subject: $subject, issue: $issue, assigneeId: $assigneeId) {
+      id
     }
   }
 `;
