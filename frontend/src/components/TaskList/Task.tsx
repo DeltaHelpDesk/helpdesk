@@ -6,15 +6,20 @@ import { Mutation } from 'react-apollo';
 import { DELETE_TASK, GET_TASKS } from './TaskListQueries';
 import DeleteIcon from '@material-ui/icons/Delete';
 import background from 'src/utils/TaskState';
+import { withTranslation } from 'react-i18next';
 const styles = {
 
 }
 
-// Prepared for Task component
-const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
-  const isAdmin: boolean = props.isAdmin;
-  const task: ITask = props.task;
+interface ITaskProps {
+    task: ITask;
+    isAdmin: boolean;
+    t: (s: string) => string;
+}
 
+// Prepared for Task component
+const Task: React.SFC<ITaskProps> = (props: ITaskProps) => {
+  const { isAdmin, task, t } = props;
 
   const taskId = task.id;
   const DeleteButton = () => {
@@ -48,7 +53,7 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
         {task.assignee ? task.assignee.fullName : "Nepřiřazen"}
       </TableCell>
       <TableCell>
-        {task.state}
+        {t(`taskState.${task.state}`)}
       </TableCell>
       { isAdmin && <TableCell>
         <DeleteButton />
@@ -57,4 +62,4 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
   );
 }
 
-export default withStyles(styles)(Task);
+export default withTranslation()(withStyles(styles)(Task));
