@@ -13,10 +13,9 @@ export class Task {
     @Column()
     subject: string;
 
-    @ManyToOne(type => User, user => user.createdTasks, { eager: true, onDelete: 'CASCADE' })
     authorId: number;
 
-    @ManyToOne(type => User, user => user.createdTasks, { eager: true })
+    @ManyToOne(type => User, user => user.createdTasks, { eager: true, onDelete: 'CASCADE' })
     @JoinColumn({ name: 'authorId' })
     author: User;
 
