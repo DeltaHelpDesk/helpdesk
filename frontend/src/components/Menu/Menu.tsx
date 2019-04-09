@@ -114,8 +114,10 @@ const styles = (theme: Theme) => createStyles({
         width: "50px",
         height: "50px",
         right: "0"
+    },
+    menuLogo: {
+        maxHeight:"65px"
     }
-
 });
 
 interface IMenuProps extends RouteComponentProps, WithStyles<typeof styles> {
@@ -133,11 +135,8 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
         this.state = {
             isActive: false
         }
-    },
-
-    menuLogo: {
-        maxHeight:"65px"
     }
+
     help() {
         const line1 = this.detach(document.getElementsByClassName(this.props.classes.line1)[0]);
         const line2 = this.detach(document.getElementsByClassName(this.props.classes.line2)[0]);
