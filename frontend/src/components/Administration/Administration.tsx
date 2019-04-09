@@ -8,6 +8,12 @@ import { Link } from 'react-router-dom';
 const styles = {
     Card:
     {
+      '&$Hover': {
+      background: "#434343",
+      letterSpacing: "1px",
+      boxShadow: "0px 5px 40px -10px rgba(0,0,0,0.57)",
+      transition: "all 0.4s ease 0s",
+      },
         color: "white",
         minHeight: "200px",
         minWidth: "200px",
@@ -15,7 +21,18 @@ const styles = {
         justifyContent:"center",
         alignItems: "center",
         margin:"20px"
-    }
+    },
+    Hover:{},
+    wrapper: {
+      display: "flex",
+      marginTop: "100px",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100%",
+  
+    },
+    
+
 };
 
 
@@ -25,8 +42,8 @@ interface IAdministrationItemsProps extends WithStyles<typeof styles> {
 function AdministrationItems(props:IAdministrationItemsProps) {
   const { classes } = props;
   return (
-    <div className="center-all-inner-items">
-      <Card className={classes.Card}>
+    <div className={classes.wrapper}>
+      <Card classes={{root:classes.Card, hover:classes.Hover}}>
       <Grid item={true}>
         <p>Settings</p>
       </Grid>

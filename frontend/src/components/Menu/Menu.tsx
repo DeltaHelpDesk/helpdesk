@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as React from "react";
 import { NavLink } from 'react-router-dom';
+import logo from "./logo.png";
 import { AuthContext } from '../../graphql/auth';
 
 const styles = (theme: Theme) => createStyles({
@@ -113,8 +114,10 @@ const styles = (theme: Theme) => createStyles({
         width: "50px",
         height: "50px",
         right: "0"
+    },
+    menuLogo: {
+        maxHeight:"65px"
     }
-
 });
 
 interface IMenuProps extends RouteComponentProps, WithStyles<typeof styles> {
@@ -133,6 +136,7 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
             isActive: false
         }
     }
+
     help() {
         const line1 = this.detach(document.getElementsByClassName(this.props.classes.line1)[0]);
         const line2 = this.detach(document.getElementsByClassName(this.props.classes.line2)[0]);
@@ -164,7 +168,7 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
                 <AppBar position="static">
                     <Toolbar className="flex-direction-column">
                         <Typography variant="h6" className={classes.grow}>
-                            <NavLink className={classes.firstItem} to="/">HELPDESK</NavLink>
+                            <NavLink className={classes.firstItem} to="/"><img className={classes.menuLogo} src={logo}/></NavLink>
                         </Typography>
                         <div className={classes.parent}>
                             <div className={classes.hamburger} onClick={() => { this.setState({ isActive: !this.state.isActive }); this.help(); }}>
