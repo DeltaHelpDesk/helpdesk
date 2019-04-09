@@ -21,8 +21,30 @@ export class FakeDataService implements OnModuleInit {
         private readonly logRepository: Repository<Log>,
     ) {}
     async onModuleInit() {
+        // seed admin if not exists
         const defAdminExists = !!(await this.userRepository.findOne({email: 'admin@admin.cz'}));
-        if (defAdminExists || (await this.taskRepository.count()) > 3) {
+        if (!defAdminExists) {
+            this.userRepository.insert({
+                fullName: 'Admin Adminový',
+                email: 'admin@admin.cz',
+                authType: AuthType.EMAIL,
+                password: await bcrypt.hash('admin', 10),
+                role: UserRole.SUPERADMIN,
+            });
+        }
+        // seed random user if not exists
+        const defUserExists = !!(await this.userRepository.findOne({email: 'user@user.cz'}));
+        if (!defUserExists) {
+            this.userRepository.insert({
+                fullName: 'User Júzerovský',
+                email: 'user@user.cz',
+                authType: AuthType.EMAIL,
+                password: await bcrypt.hash('user', 10),
+                role: UserRole.SUPERADMIN,
+            });
+        }
+        // seed other if not already seeded
+        if ((await this.taskRepository.count()) > 3) {
             return;
         }
         const password = await bcrypt.hash('kaktus', 10);
@@ -38,13 +60,6 @@ export class FakeDataService implements OnModuleInit {
                 email: faker.internet.email(),
                 authType: AuthType.EMAIL,
                 password,
-            },
-            {
-                fullName: 'Admin Adminový',
-                email: 'admin@admin.cz',
-                authType: AuthType.EMAIL,
-                password: await bcrypt.hash('admin', 10),
-                role: UserRole.SUPERADMIN,
             },
         ]) as any;
         const { identifiers: [task1, task2, task3, task4] }: {identifiers: Task[]} = await this.taskRepository.insert([

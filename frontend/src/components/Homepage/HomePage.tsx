@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = (theme: Theme) => createStyles({
@@ -13,20 +14,6 @@ const styles = (theme: Theme) => createStyles({
         color: theme.palette.secondary.light,
         textAlign: "center"
     },
-    // fix this
-    mainH1: {
-        textAlign: "center",
-        color: theme.palette.primary.dark,
-        textTransform: "uppercase",
-        fontSize: "60px",
-    },
-    // fix this
-    mainH2: {
-        textAlign: "center",
-        color: theme.palette.primary.dark,
-        textTransform: "uppercase",
-        marginTop: "-15px",
-    },
 
     buttonHomepage: {
         margin: "10px",
@@ -36,13 +23,18 @@ const styles = (theme: Theme) => createStyles({
         textAlign: "center",
     },
     info: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: "18px"
+        },
         textAlign: "center",
+        fontSize: "20px",
     },
     center: {
         position: 'fixed',
         top: "50%",
         left: "50%",
         transform: 'translate(-50%,-50%)',
+        width: "100%",
     },
 
 });
@@ -65,12 +57,12 @@ class HomePage extends React.Component<IHomePageProps> {
             <Grid container={true} direction="row" justify="center" alignItems="center">
                 <div className={classes.center}>
                     <Grid item={true} xs={12}>
-                        <h1 className={classes.mainH1}>Delta Helpdesk</h1>
+                        <Typography component="h1" variant="h1" gutterBottom={true}>Delta helpdesk</Typography>
                     </Grid>
                     <Grid item={true} xs={12}>
-                        <h2 className={classes.mainH2}>Vítejte na stránkách podpory</h2>
+                        <Typography component="h2" variant="h2" gutterBottom={true}>Vítejte na stránkách podpory</Typography>
                     </Grid>
-                    <Grid item={true} xs={12}>
+                    <Grid item={true} xs={12} sm={12}>
                         <p className={classes.info}>Pokud máte problém zašlete požadavek.</p>
                     </Grid>
                     <Grid item={true} xs={12}>

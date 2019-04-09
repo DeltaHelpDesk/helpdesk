@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
+import { Link } from 'react-router-dom';
 
 const styles = {
     Card:
@@ -57,6 +58,13 @@ function AdministrationItems(props:IAdministrationItemsProps) {
         <p>Devices</p>
       </Grid>
       </Card>
+      <Link to="/admin/userlist">
+        <Card className={classes.Card}>
+        <Grid item={true}>
+            <p>Users</p>
+        </Grid>
+        </Card>
+      </Link>
     </div>
   );
 }

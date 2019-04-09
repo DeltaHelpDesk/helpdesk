@@ -27,7 +27,7 @@ export class TaskDetailPage implements OnInit {
         .valueChanges
         .subscribe(
           ({data}) => {
-          this.task = data.task;
+            this.task = data.task;
           },
           () => this.presentToast('Nepodařilo se načíst detailu tasku'));
     });
@@ -36,7 +36,7 @@ export class TaskDetailPage implements OnInit {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }

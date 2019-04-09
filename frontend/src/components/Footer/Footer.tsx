@@ -10,7 +10,7 @@ const styles = (theme: Theme) => createStyles({
     footer:
     {
         backgroundColor: theme.palette.primary.main,
-        position: "absolute",
+        position: "fixed",
         bottom: 0,
         width: "100%",
         minHeight: "60px",
@@ -40,6 +40,7 @@ function Footer(props: IFooterProps) {
         <div>
             <footer className={classes.footer}>
                 <span>&copy; 2018 </span><Link className={classes.helpDeskHref} to="/">HelpDesk</Link>
+                <Link className={classes.helpDeskHref} to="/about">about</Link>
             </footer>
         </div>
     );

@@ -16,6 +16,11 @@ export class AppComponent {
       title: 'Seznam tasků',
       url: '/tasks',
       icon: 'list'
+    },
+    {
+      title: 'Vytvořit task',
+      url: '/tasks/create',
+      icon: 'add'
     }
   ];
 
@@ -24,8 +29,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    protected authService: AuthenticateService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    public authService: AuthenticateService,
   ) {
     this.initializeApp();
   }
@@ -40,7 +45,7 @@ export class AppComponent {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }
