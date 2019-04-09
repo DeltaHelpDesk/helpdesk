@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticateService } from "../../services/authenticate.service";
 import { MenuController, ToastController } from "@ionic/angular";
+import { markFormGroupTouched } from "../../helpers/form.helper";
 
 
 @Component({
@@ -12,7 +13,7 @@ import { MenuController, ToastController } from "@ionic/angular";
 })
 export class AuthenticatePage {
 
-  protected loginForm = this.fb.group({
+  loginForm = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
   });
@@ -31,6 +32,11 @@ export class AuthenticatePage {
   }
 
   login() {
+    if (this.loginForm.invalid) {
+      markFormGroupTouched(this.loginForm);
+      return;
+    }
+
     this.authService.emailLogin(this.loginForm.value)
       .subscribe(
         () => {
@@ -44,7 +50,7 @@ export class AuthenticatePage {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }

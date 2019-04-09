@@ -14,13 +14,13 @@ import { FilterOnRoleOrUserInterceptor } from 'auth/filterOnRoleOrUser.intercept
 export class TaskResolvers {
     constructor(private readonly taskService: TaskService) {}
 
-    @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'author'))
+    @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'authorId'))
     @Query('tasks')
     async getTasks() {
         return await this.taskService.findAll();
     }
 
-    @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'author'))
+    @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'authorId'))
     @Query('task')
     async findOneById(
         @Args('id', ParseIntPipe)

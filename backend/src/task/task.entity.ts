@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { User } from 'auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { Log } from './log.entity';
@@ -14,6 +14,10 @@ export class Task {
     subject: string;
 
     @ManyToOne(type => User, user => user.createdTasks, { eager: true, onDelete: 'CASCADE' })
+    authorId: number;
+
+    @ManyToOne(type => User, user => user.createdTasks, { eager: true })
+    @JoinColumn({ name: 'authorId' })
     author: User;
 
     @ManyToOne(type => User, user => user.assignedTasks, { nullable: true, eager: true, onDelete: 'CASCADE' })

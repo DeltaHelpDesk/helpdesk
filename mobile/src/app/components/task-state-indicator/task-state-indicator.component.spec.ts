@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormControlErrorComponent } from './form-control-error.component';
+import { TaskStateIndicatorComponent } from './task-state-indicator.component';
 
-describe('FormControlErrorComponent', () => {
-  let component: FormControlErrorComponent;
-  let fixture: ComponentFixture<FormControlErrorComponent>;
+describe('TaskStateIndicatorComponent', () => {
+  let component: TaskStateIndicatorComponent;
+  let fixture: ComponentFixture<TaskStateIndicatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormControlErrorComponent]
+      declarations: [TaskStateIndicatorComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormControlErrorComponent);
+    fixture = TestBed.createComponent(TaskStateIndicatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
