@@ -17,31 +17,31 @@ const styles = (theme: Theme) => createStyles({
 
 
 interface IDatePickerProps extends WithStyles<typeof styles>{
-  id:number;
+  id:string;
   label:string;
-  type:Date;
   defaultValue:Date;
+  onChange:(date:Date)=>void
 
 }
+
+
 
 function DatePicker(props:IDatePickerProps) {
-  const { classes } = props;
-  const{id,label,type,defaultValue}=props;
+ 
+    const{id,label,defaultValue,classes,onChange}=props;
 
   return (
-    <form className={classes.container} noValidate={true}>
       <TextField
-        id={id.toString()}
+        id={id}
         label={label}
-        type={type.toString()}
+        type="date"
         defaultValue={defaultValue.toString()}
         className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
+        onChange={(e)=>onChange(new Date(e.target.value))}
       />
-    </form>
+    
   );
 }
+//todo pridat moment js
 
 export default withStyles(styles)(DatePicker);

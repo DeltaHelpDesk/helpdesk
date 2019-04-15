@@ -3,6 +3,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import DatePicker from '../DatePicker/DatePicker';
+
 
 
 const styles = (theme: Theme) => createStyles({
@@ -70,6 +72,7 @@ class HomePage extends React.Component<IHomePageProps> {
                     <Grid item={true} xs={12}>
                         <h2 className={classes.mainH2}>Vítejte na stránkách podpory</h2>
                     </Grid>
+                    <DatePicker id="test" defaultValue={new Date("2019-04-15")} label="datepicker" onChange={(date)=>console.log(date)}/>
                     <Grid item={true} xs={12}>
                         <p className={classes.info}>Pokud máte problém zašlete požadavek.</p>
                     </Grid>
