@@ -21,6 +21,7 @@ export interface IAssignee {
 }
 export interface IAuthor {
   fullName: string;
+  id: number;
 }
 
 const styles = {};
