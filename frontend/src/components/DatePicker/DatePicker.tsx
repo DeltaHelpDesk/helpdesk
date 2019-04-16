@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withStyles, Theme, createStyles,WithStyles } from '@material-ui/core/styles';
+import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const styles = (theme: Theme) => createStyles({
@@ -16,32 +16,34 @@ const styles = (theme: Theme) => createStyles({
 
 
 
-interface IDatePickerProps extends WithStyles<typeof styles>{
-  id:string;
-  label:string;
-  defaultValue:Date;
-  onChange:(date:Date)=>void
+interface IDatePickerProps extends WithStyles<typeof styles> {
+  id: string;
+  label: string;
+  defaultValue: string;
+  onChange: (date: Date) => void
+}
 
+function formatDate(date: string) {
+  return new Date(date);
 }
 
 
+function DatePicker(props: IDatePickerProps) {
 
-function DatePicker(props:IDatePickerProps) {
- 
-    const{id,label,defaultValue,classes,onChange}=props;
-
+  const { id, label, defaultValue, classes, onChange } = props;
+  console.log(defaultValue)
   return (
-      <TextField
-        id={id}
-        label={label}
-        type="date"
-        defaultValue={defaultValue.toString()}
-        className={classes.textField}
-        onChange={(e)=>onChange(new Date(e.target.value))}
-      />
-    
+    <TextField
+      id={id}
+      label={label}
+      type="date"
+      defaultValue={formatDate(defaultValue).toISOString().substring(0, 10)}
+      className={classes.textField}
+      onChange={(e) => onChange(formatDate((e.target.value)))}
+    />
+
   );
 }
-//todo pridat moment js
+
 
 export default withStyles(styles)(DatePicker);
