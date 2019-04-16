@@ -55,7 +55,6 @@ const LetterButton = () => {
     </NavLink>
     )};
 
-
   return (
     <TableRow className={background[task.state]}>
       <TableCell>

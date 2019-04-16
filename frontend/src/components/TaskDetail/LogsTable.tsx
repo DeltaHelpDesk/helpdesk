@@ -52,6 +52,7 @@ function LogsTable(props: ILogsTableProps) {
                     <TableRow>
                         <CustomTableCell>Autor</CustomTableCell>
                         <CustomTableCell>Komentář</CustomTableCell>
+                        <CustomTableCell>Datum vytvoření</CustomTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -59,6 +60,7 @@ function LogsTable(props: ILogsTableProps) {
                         <TableRow className={classes.row} key={log.id}>
                             <CustomTableCell component="th" scope="row">{log.author.fullName}</CustomTableCell>
                             <CustomTableCell align="right">{log.comment}</CustomTableCell>
+                            <CustomTableCell>{log.created_at}</CustomTableCell>
                         </TableRow>
                     ))}
                 </TableBody>
