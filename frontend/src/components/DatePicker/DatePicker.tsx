@@ -20,24 +20,27 @@ interface IDatePickerProps extends WithStyles<typeof styles> {
   id: string;
   label: string;
   defaultValue: string;
-  onChange: (date: Date) => void
+  onChange: (date: string) => void
 }
 
 function formatDate(date: string) {
-  return new Date(date);
+  // Change the format if required
+  // Substring crops the time part from ISO formatted date
+  // e.g.: 2013-03-10T02:00:00Z => 2013-03-10
+  return new Date(date).toISOString().substring(0, 10);
 }
 
 
 function DatePicker(props: IDatePickerProps) {
 
   const { id, label, defaultValue, classes, onChange } = props;
-  console.log(defaultValue)
+
   return (
     <TextField
       id={id}
       label={label}
       type="date"
-      defaultValue={formatDate(defaultValue).toISOString().substring(0, 10)}
+      defaultValue={formatDate(defaultValue)}
       className={classes.textField}
       onChange={(e) => onChange(formatDate((e.target.value)))}
     />
