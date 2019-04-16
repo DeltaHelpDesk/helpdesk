@@ -35,7 +35,6 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
     );
   };
 
-
   return (
     <TableRow className={background[task.state]}>
       <TableCell>

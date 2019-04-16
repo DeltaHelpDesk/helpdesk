@@ -34,3 +34,11 @@ export const TASK_DETAIL = gql`
         }
     }
 `
+
+export const CHANGE_TASK_STATE = gql`
+    mutation changeTaskState($taskId: ID, $comment: String!, state: State,$assigneeId: ID) {
+        changeTaskState(taskId: $taskId, comment: $comment,state: $state, assigneeId: $assigneeId){
+            id
+        }
+    }
+`
