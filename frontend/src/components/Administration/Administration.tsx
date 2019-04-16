@@ -6,14 +6,7 @@ import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
 
 const styles = {
-    Card:
-    {
-      '&$Hover': {
-      background: "#434343",
-      letterSpacing: "1px",
-      boxShadow: "0px 5px 40px -10px rgba(0,0,0,0.57)",
-      transition: "all 0.4s ease 0s",
-      },
+    Card: {
         color: "white",
         minHeight: "200px",
         minWidth: "200px",
@@ -22,7 +15,6 @@ const styles = {
         alignItems: "center",
         margin:"20px"
     },
-    Hover:{},
     wrapper: {
       display: "flex",
       marginTop: "100px",
@@ -43,7 +35,7 @@ function AdministrationItems(props:IAdministrationItemsProps) {
   const { classes } = props;
   return (
     <div className={classes.wrapper}>
-      <Card classes={{root:classes.Card, hover:classes.Hover}}>
+      <Card classes={{ root:classes.Card }}>
       <Grid item={true}>
         <p>Settings</p>
       </Grid>
