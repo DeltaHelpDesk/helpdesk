@@ -1,11 +1,12 @@
 import { ITask } from "./TaskList";
 import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { TableRow, TableCell, Button } from '@material-ui/core';
+import { TableRow, TableCell, Button, Icon } from '@material-ui/core';
 import { Mutation } from 'react-apollo';
 import { DELETE_TASK, GET_TASKS } from './TaskListQueries';
 import DeleteIcon from '@material-ui/icons/Delete';
 import background from 'src/utils/TaskState';
+import { NavLink } from 'react-router-dom';
 const styles = {
 
 }
@@ -34,6 +35,16 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
       </Mutation>
     );
   };
+  const DetailButton = () => {
+    const path = "/task/" + task.id;
+    return (
+    <NavLink to={path}>
+        <Button variant="contained" color="primary">
+            <Icon>edit_icon</Icon>
+        </Button>
+    </NavLink>
+    )};
+    
 
   return (
     <TableRow className={background[task.state]}>
@@ -51,6 +62,7 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
       </TableCell>
       { isAdmin && <TableCell>
         <DeleteButton />
+        <DetailButton />
       </TableCell> }
     </TableRow>
   );
