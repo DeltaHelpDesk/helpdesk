@@ -1,3 +1,9 @@
 {
-    "addTodo": "Add todo"
+    "addTodo": "Add todo",
+    "taskState": {
+        "UNRESOLVED": "Unresolved",
+        "SOLVING": "Solving",
+        "SOLVED": "Solved",
+        "RETURNED": "Returned"
+    }
 }

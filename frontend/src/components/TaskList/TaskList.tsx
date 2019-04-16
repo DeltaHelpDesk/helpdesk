@@ -7,6 +7,7 @@ import { GET_TASKS } from "./TaskListQueries";
 import "../../graphql/auth";
 import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../graphql/auth';
 import Loading from "./../Loading/Loading";
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 export interface ITask {
   id: string;
@@ -24,10 +25,11 @@ export interface IAuthor {
 }
 
 const styles = {};
-class TaskList extends React.Component {
+class TaskList extends React.Component<WithTranslation> {
     static contextType = ReactAuthContext;
     context : IAuthContextValue;
     render() {
+    const { t } = this.props;
     const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN))
     return (
       <Query query={GET_TASKS}>
@@ -44,11 +46,11 @@ class TaskList extends React.Component {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Author</TableCell>
-                  <TableCell>Subject</TableCell>
-                  <TableCell>Assignee</TableCell>
-                  <TableCell>State</TableCell>
-                  {isAdmin && <TableCell>Actions</TableCell>}
+                  <TableCell>{t('author')}</TableCell>
+                  <TableCell>{t('subject')}</TableCell>
+                  <TableCell>{t('assignee')}</TableCell>
+                  <TableCell>{t('state')}</TableCell>
+                  {isAdmin && <TableCell>{t('actions')}</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>{tableBody}</TableBody>
@@ -60,4 +62,4 @@ class TaskList extends React.Component {
   }
 }
 
-export default withStyles(styles)(TaskList);
+export default withStyles(styles)(withTranslation()(TaskList));

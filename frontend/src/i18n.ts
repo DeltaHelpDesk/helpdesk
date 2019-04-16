@@ -16,6 +16,9 @@ i18n
         backend: {
             loadPath: `${process.env.REACT_APP_LOCALIZATION_ENDPOINT}/{{lng}}/{{ns}}`,
             crossDomain: true,
+        },
+        react: {
+            useSuspense: false
         }
     });
 

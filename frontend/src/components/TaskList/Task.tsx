@@ -6,15 +6,14 @@ import { Mutation } from 'react-apollo';
 import { DELETE_TASK, GET_TASKS } from './TaskListQueries';
 import DeleteIcon from '@material-ui/icons/Delete';
 import background from 'src/utils/TaskState';
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 const styles = {
 
 }
 
-interface ITaskProps {
+interface ITaskProps extends WithTranslation {
     task: ITask;
     isAdmin: boolean;
-    t: (s: string) => string;
 }
 
 // Prepared for Task component
@@ -50,7 +49,7 @@ const Task: React.SFC<ITaskProps> = (props: ITaskProps) => {
         {task.subject}
       </TableCell>
       <TableCell>
-        {task.assignee ? task.assignee.fullName : "Nepřiřazen"}
+        {task.assignee ? task.assignee.fullName : t(`notAssigned`)}
       </TableCell>
       <TableCell>
         {t(`taskState.${task.state}`)}
@@ -62,4 +61,4 @@ const Task: React.SFC<ITaskProps> = (props: ITaskProps) => {
   );
 }
 
-export default withTranslation()(withStyles(styles)(Task));
+export default withStyles(styles)(withTranslation()(Task));

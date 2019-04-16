@@ -5,6 +5,7 @@ import { ReactAuthContext, IAuthContextValue, checkUserRole, UserRole } from 'sr
 import { Query } from 'react-apollo';
 import { GET_USER } from './UserListQueries';
 import User from './User';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 export interface IUser {
     id: string;
@@ -17,12 +18,13 @@ export interface IUser {
 
 const styles = {};
 
-class UserList extends React.Component {
+class UserList extends React.Component<WithTranslation> {
     static contextType = ReactAuthContext;
     context : IAuthContextValue;
 
     render() {
-        const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN))
+        const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN));
+        const { t } = this.props;
         return (
             <Query query={GET_USER}>
               {({ loading, error, data }) => {
@@ -39,12 +41,12 @@ class UserList extends React.Component {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell>Role</TableCell>
-                        <TableCell>Created At</TableCell>
-                        <TableCell>Updated At</TableCell>
-                        {isAdmin && <TableCell>Actions</TableCell>}
+                        <TableCell>{t('name')}</TableCell>
+                        <TableCell>{t('email')}</TableCell>
+                        <TableCell>{t('role')}</TableCell>
+                        <TableCell>{t('createdAt')}</TableCell>
+                        <TableCell>{t('updatedAt')}</TableCell>
+                        {isAdmin && <TableCell>{t('actions')}</TableCell>}
                       </TableRow>
                     </TableHead>
                     <TableBody>{tableBody}</TableBody>
@@ -56,4 +58,4 @@ class UserList extends React.Component {
     }
 }
 
-export default withStyles(styles)(UserList);
+export default withStyles(styles)(withTranslation()(UserList));
