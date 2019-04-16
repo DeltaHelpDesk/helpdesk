@@ -20,7 +20,7 @@ interface IDatePickerProps extends WithStyles<typeof styles> {
   id: string;
   label: string;
   defaultValue: string;
-  disabled?:boolean;
+  disabled?: boolean;
   onChange: (date: string) => void
 }
 
@@ -34,7 +34,7 @@ function formatDate(date: string) {
 
 function DatePicker(props: IDatePickerProps) {
 
-  const { id, label, defaultValue, classes,disabled=false, onChange } = props;
+  const { id, label, defaultValue, classes, disabled = false, onChange } = props;
 
   return (
     <TextField
