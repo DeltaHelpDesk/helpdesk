@@ -26,24 +26,24 @@ const DetailForm: React.FC<IStylesExampleProps> = props => {
     const [state, setState] = useState<string>()
 
 
-    function handleCommentChange(e: React.FormEvent<HTMLInputElement>) {
+    const handleCommentChange = (e: React.FormEvent<HTMLInputElement>) => {
         setComment(e.currentTarget.value)
     }
-    function handleSelectedEvent(e: React.ChangeEvent<HTMLSelectElement>){
+    const handleSelectedEvent = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value)
     }
-    function handleSubmit(e: any, callback: (variables: object) => void) {
+    const handleSubmit = (e: any, callback: (variables: object) => void) => {
         e.preventDefault();
-           callback({
+        callback({
             variables: {
-              comment: comment,
-              state: state,
+                comment: comment,
+                state: state,
             }
-          });
-      }
+        });
+    }
 
     return (
-        <Mutation mutation={CHANGE_TASK_STATE} onCompleted={() => handleSuccessfulCreation()} refetchQueries={() => [{ query: GET_TASKS }]}>
+        <Mutation mutation={CHANGE_TASK_STATE}>
             {changeTaskState => (
                 <form
                     onSubmit={(e: any) => handleSubmit(e, changeTaskState)}
