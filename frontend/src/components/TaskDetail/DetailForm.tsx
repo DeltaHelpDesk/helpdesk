@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Theme, createStyles, WithStyles, withStyles, TextField, Select, MenuItem, Button } from '@material-ui/core';
+import { Theme, createStyles, withStyles, TextField, Select, MenuItem, Button } from '@material-ui/core';
 import { useState } from 'react';
 import { Mutation } from 'react-apollo';
 import { GET_TASKS } from '../TaskList/TaskListQueries';
@@ -10,8 +10,9 @@ const styles = (theme: Theme) => createStyles({
 })
 
 
-interface IStylesExampleProps extends WithStyles<typeof styles> {
-    name: string
+interface IProps {
+    taskId: string,
+    taskState: string
 }
 
 enum States {
@@ -21,9 +22,9 @@ enum States {
     RETURNED = 'RETURNED',
 }
 
-const DetailForm: React.FC<IStylesExampleProps> = props => {
-    const [comment, setComment] = useState<string>()
-    const [state, setState] = useState<string>()
+const DetailForm: React.FC<IProps> = props => {
+    const [taskComment, setComment] = useState<string>()
+    const [taskState, setState] = useState<string>(props.taskState)
 
 
     const handleCommentChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -36,14 +37,15 @@ const DetailForm: React.FC<IStylesExampleProps> = props => {
         e.preventDefault();
         callback({
             variables: {
-                comment: comment,
-                state: state,
+                comment: taskComment,
+                state: taskState,
+                taskId: props.taskId
             }
         });
     }
 
     return (
-        <Mutation mutation={CHANGE_TASK_STATE}>
+        <Mutation mutation={CHANGE_TASK_STATE} refetchQueries={() => [{query: GET_TASKS, variables: {id: props.taskId}}]}>
             {changeTaskState => (
                 <form
                     onSubmit={(e: any) => handleSubmit(e, changeTaskState)}
@@ -54,12 +56,12 @@ const DetailForm: React.FC<IStylesExampleProps> = props => {
                         name="comment"
                         label="Comment"
                         type="text"
-                        value={comment}
+                        value={taskComment}
                         required={true}
                         onChange={e => handleCommentChange(e as React.FormEvent<HTMLInputElement>)}
                     />
                     <Select
-                        value={state}
+                        value={taskState}
                         onChange={e =>
                             handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
                         }

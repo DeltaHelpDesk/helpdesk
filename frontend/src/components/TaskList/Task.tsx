@@ -12,7 +12,7 @@ const styles = {
 }
 
 // Prepared for Task component
-const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
+const Task: React.SFC<{ task: ITask, isAdmin: boolean}> = props => {
   const isAdmin: boolean = props.isAdmin;
   const task: ITask = props.task;
 
@@ -45,6 +45,15 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
     </NavLink>
     )};
     
+const LetterButton = () => {
+    const path = "/task/" + task.id;
+    return (
+    <NavLink to={path}>
+        <Button variant="contained" color="primary">
+            <Icon>mail-outline</Icon>
+        </Button>
+    </NavLink>
+    )};
 
   return (
     <TableRow className={background[task.state]}>
@@ -60,10 +69,17 @@ const Task: React.SFC<{ task: ITask, isAdmin: boolean }> = props => {
       <TableCell>
         {task.state}
       </TableCell>
-      { isAdmin && <TableCell>
-        <DeleteButton />
-        <DetailButton />
-      </TableCell> }
+      
+      { (isAdmin) ?
+        <TableCell>
+            <DeleteButton />
+            <DetailButton />
+        </TableCell>
+        :
+        <TableCell>
+            <LetterButton />
+        </TableCell>
+        } 
     </TableRow>
   );
 }

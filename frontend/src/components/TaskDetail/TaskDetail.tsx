@@ -6,6 +6,7 @@ import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '..
 import { TASK_DETAIL } from './TaskDetailQueries';
 import { RouteComponentProps } from 'react-router';
 import LogsTable from './LogsTable';
+import DetailForm from './DetailForm';
 
 
 const styles = {};
@@ -41,6 +42,10 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
 
                 {isAuthorized &&
                     <LogsTable logs={task.logs} />                
+                }
+
+                {isAuthorized &&
+                    <DetailForm taskId={id} taskState={task.state} />                
                 }
 
             </div>
