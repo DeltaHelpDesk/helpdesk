@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Theme, createStyles, withStyles, TextField, Select, MenuItem, Button } from '@material-ui/core';
 import { useState } from 'react';
 import { Mutation } from 'react-apollo';
-import { GET_TASKS } from '../TaskList/TaskListQueries';
+import { TASK_DETAIL } from './TaskDetailQueries';
 import { CHANGE_TASK_STATE } from './TaskDetailQueries';
 
 const styles = (theme: Theme) => createStyles({
@@ -45,7 +45,7 @@ const DetailForm: React.FC<IProps> = props => {
     }
 
     return (
-        <Mutation mutation={CHANGE_TASK_STATE} refetchQueries={() => [{query: GET_TASKS, variables: {id: props.taskId}}]}>
+        <Mutation mutation={CHANGE_TASK_STATE} refetchQueries={() => [{query: TASK_DETAIL, variables: {id: props.taskId}}]}>
             {changeTaskState => (
                 <form
                     onSubmit={(e: any) => handleSubmit(e, changeTaskState)}
