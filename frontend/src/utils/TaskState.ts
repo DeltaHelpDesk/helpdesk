@@ -1,3 +1,10 @@
+export enum States {
+    UNRESOLVED = 'UNRESOLVED',
+    SOLVING = 'SOLVING',
+    SOLVED = 'SOLVED',
+    RETURNED = 'RETURNED',
+}
+
 const unresolved: string = 'UNRESOLVED';
 const solved: string = 'SOLVED';
 const solving: string = 'SOLVING';

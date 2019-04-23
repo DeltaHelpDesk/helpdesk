@@ -1,39 +1,30 @@
 import * as React from 'react';
-import { Theme, createStyles, withStyles, TextField, Select, MenuItem, Button } from '@material-ui/core';
+import { TextField, Select, MenuItem, Button } from '@material-ui/core';
 import { useState } from 'react';
-import { Mutation } from 'react-apollo';
 import { TASK_DETAIL } from './TaskDetailQueries';
 import { CHANGE_TASK_STATE } from './TaskDetailQueries';
-
-const styles = (theme: Theme) => createStyles({
-
-})
-
+import { States } from 'src/utils/TaskState';
+import { Mutation } from "react-apollo";
 
 interface IProps {
     taskId: string,
     taskState: string
 }
 
-enum States {
-    UNRESOLVED = 'UNRESOLVED',
-    SOLVING = 'SOLVING',
-    SOLVED = 'SOLVED',
-    RETURNED = 'RETURNED',
-}
+
 
 const DetailForm: React.FC<IProps> = props => {
-    const [taskComment, setComment] = useState<string>()
-    const [taskState, setState] = useState<string>(props.taskState)
+    const [ taskComment, setComment ] = useState<string>()
+    const [ taskState, setState ] = useState<string>(props.taskState)
 
 
-    const handleCommentChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setComment(e.currentTarget.value)
     }
     const handleSelectedEvent = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value)
     }
-    const handleSubmit = (e: any, callback: (variables: object) => void) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>, callback: (variables: object) => void) => {
         e.preventDefault();
         callback({
             variables: {
@@ -48,7 +39,7 @@ const DetailForm: React.FC<IProps> = props => {
         <Mutation mutation={CHANGE_TASK_STATE} refetchQueries={() => [{query: TASK_DETAIL, variables: {id: props.taskId}}]}>
             {changeTaskState => (
                 <form
-                    onSubmit={(e: any) => handleSubmit(e, changeTaskState)}
+                    onSubmit={(e) => handleSubmit(e, changeTaskState)}
                 >
                     <TextField
                         id="filled-adornment-subject"
@@ -56,9 +47,9 @@ const DetailForm: React.FC<IProps> = props => {
                         name="comment"
                         label="Comment"
                         type="text"
-                        value={taskComment}
+                        value={taskComment || ""}
                         required={false}
-                        onChange={e => handleCommentChange(e as React.FormEvent<HTMLInputElement>)}
+                        onChange={e => handleCommentChange(e as React.ChangeEvent<HTMLInputElement>)}
                     />
                     <Select
                         value={taskState}
@@ -85,4 +76,4 @@ const DetailForm: React.FC<IProps> = props => {
 }
 
 
-export default withStyles(styles)(DetailForm);
+export default DetailForm;
