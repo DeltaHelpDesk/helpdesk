@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactMarkdown from 'react-markdown';
+// import * as ReactMarkdown from 'react-markdown';
 import * as abouts from '../../about';
 
 export default class About extends React.Component {
@@ -17,7 +17,7 @@ export default class About extends React.Component {
                     }}>
                         <img src={image} style={{ maxHeight: "100%" }} />
                         <div>
-                            <ReactMarkdown source={markdown} />
+                            {/* <ReactMarkdown source={markdown} /> */}
                         </div>
                     </div>
                 ))}
