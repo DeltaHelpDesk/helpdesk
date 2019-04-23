@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticateService } from "../../services/authenticate.service";
 import { MenuController, ToastController } from "@ionic/angular";
 import { markFormGroupTouched } from "../../helpers/form.helper";
+import { UserService } from "../../services/user.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class AuthenticatePage {
     private toastController: ToastController,
     private menuController: MenuController,
     private router: Router,
-    private authService: AuthenticateService
+    private authService: AuthenticateService,
+    private userService: UserService
   ) {
   }
 
@@ -39,7 +41,8 @@ export class AuthenticatePage {
 
     this.authService.emailLogin(this.loginForm.value)
       .subscribe(
-        () => {
+        ({data}) => {
+          this.userService.loginEmail(data.loginEmail);
           this.presentToast('Přihlášení proběhlo úspěšně');
           this.router.navigate(['/tasks']);
         },

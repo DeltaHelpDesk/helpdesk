@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthenticateService } from "./services/authenticate.service";
 import { Router } from "@angular/router";
+import { UserService } from "./services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     private toastController: ToastController,
-    public authService: AuthenticateService,
+    public userService: UserService,
   ) {
     this.initializeApp();
   }
@@ -51,7 +51,7 @@ export class AppComponent {
   }
 
   async logout() {
-    await this.authService.logout();
+    await this.userService.logout();
     this.presentToast('Odhlášení proběhlo úspěšně');
     this.router.navigate(['/authenticate']);
   }
