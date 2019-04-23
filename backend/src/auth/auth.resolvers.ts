@@ -52,7 +52,7 @@ export class AuthResolvers {
         return await this.authService.logout(user);
     }
 
-    @UseGuards(new GqlRoleGuard(UserRole.SUPERADMIN))
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))
     @Mutation('createUserEmail')
     async createUserEmail(
         @Args('email')

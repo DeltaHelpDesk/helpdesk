@@ -10,6 +10,9 @@ export class GqlRoleGuard extends GqlAuthGuard {
     }
     canActivate(context: ExecutionContext) {
         const { user } = this.getRequest(context);
+        if (!user) {
+            return false;
+        }
         return checkUserRole((user as User).role, this.role)
     }
 }

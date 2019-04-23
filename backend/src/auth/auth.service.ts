@@ -45,7 +45,7 @@ export class AuthService {
             role = UserRole.DEFAULT;
         }
         const password = await bcrypt.hash(textPassword, 10);
-        const user = this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL });
+        const user = this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL, role: role ? role : UserRole.DEFAULT });
         return await this.userRepository.save(user);
     }
 
