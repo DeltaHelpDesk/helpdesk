@@ -1,0 +1,22 @@
+{
+    "addTodo": "Přidat požadavek",
+    "taskState": {
+        "UNRESOLVED": "Neřešeno",
+        "SOLVING": "Řeší se",
+        "SOLVED": "Vyřešeno",
+        "RETURNED": "Vráceno"
+    },
+    "notAssigned": "Nepřiřazeno",
+    "author": "Autor",
+    "subject": "Předmět",
+    "actions": "Akce",
+    "state": "Stav",
+    "assignee": "Řešitel",
+    "administration": "Administrace",
+    "taskList": "Seznam požadavků",
+    "logout": "Odhlásit se",
+    "userList": "Seznam uživatelů",
+    "name": "Jméno",
+    "email": "Email",
+    "login": "Přihlásit se"
+}

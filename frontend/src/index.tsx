@@ -7,6 +7,8 @@ import theme from './theme';
 import App from './App';
 import client from './graphql/client';
 import './index.css';
+// import i18n (needs to be bundled ;))
+import './i18n';
 
 
 

@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 const styles = {
     Card: {
@@ -28,11 +29,11 @@ const styles = {
 };
 
 
-interface IAdministrationItemsProps extends WithStyles<typeof styles> {
+interface IAdministrationItemsProps extends WithStyles<typeof styles>, WithTranslation {
 }
 
 function AdministrationItems(props:IAdministrationItemsProps) {
-  const { classes } = props;
+  const { classes, t } = props;
   return (
     <div className={classes.wrapper}>
       <Card classes={{ root:classes.Card }}>
@@ -53,7 +54,7 @@ function AdministrationItems(props:IAdministrationItemsProps) {
       <Link to="/admin/userlist">
         <Card className={classes.Card}>
         <Grid item={true}>
-            <p>Users</p>
+            <p>{t(`userList`)}</p>
         </Grid>
         </Card>
       </Link>
@@ -62,5 +63,5 @@ function AdministrationItems(props:IAdministrationItemsProps) {
 }
 
 
-export default withStyles(styles)(AdministrationItems);
+export default withStyles(styles)(withTranslation()(AdministrationItems));
 
