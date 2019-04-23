@@ -12,6 +12,7 @@ import { GraphQLModule } from "./graphql.module";
 import { HttpClientModule } from "@angular/common/http";
 import { IonicStorageModule } from '@ionic/storage';
 import { ReactiveFormsModule } from "@angular/forms";
+import { AuthenticateService } from "./services/authenticate.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { ReactiveFormsModule } from "@angular/forms";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    AuthenticateService
   ],
   bootstrap: [AppComponent]
 })
