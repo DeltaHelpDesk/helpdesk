@@ -57,7 +57,7 @@ const DetailForm: React.FC<IProps> = props => {
                         label="Comment"
                         type="text"
                         value={taskComment}
-                        required={true}
+                        required={false}
                         onChange={e => handleCommentChange(e as React.FormEvent<HTMLInputElement>)}
                     />
                     <Select
