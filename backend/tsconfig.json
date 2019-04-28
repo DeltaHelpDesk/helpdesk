@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "declaration": true,
-    "noImplicitAny": true,
+    "declaration": false,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "removeComments": true,
     "noLib": false,
@@ -14,7 +14,9 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "lib": [
-        "es2016"
+      "es2016",
+      "dom",
+      "esnext.asynciterable"
     ]
   },
   "include": [
@@ -23,5 +25,5 @@
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ],
+  ]
 }

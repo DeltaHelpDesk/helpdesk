@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
-import { User } from 'auth/user.entity';
+import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { Log } from './log.entity';
+
 @Entity()
 export class Task {
     @PrimaryGeneratedColumn()

@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
-import { User } from 'auth/user.entity';
+import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { Task } from './task.entity';
 

@@ -23,7 +23,7 @@ export class AuthResolvers {
         return await this.authService.getAdmins();
     }
 
-    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))    
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))
     @Query('users')
     async getUsers(): Promise<UserEntity[]> {
         return await this.authService.getUsers();
@@ -65,7 +65,7 @@ export class AuthResolvers {
         return await this.authService.createUserEmail(email, password, fullName);
     }
 
-    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))    
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))
     @Mutation('removeUser')
     async removeUser(
         @Args('email')

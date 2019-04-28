@@ -1,14 +1,15 @@
-import { UserRole } from 'auth/userRole.enum';
+import { UserRole } from '../auth/userRole.enum';
 import { ParseIntPipe, UseGuards, HttpException, HttpStatus, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
-import { User } from 'auth/user.param.decorator';
-import { User as UserEntity } from 'auth/user.entity';
+import { User } from '../auth/user.param.decorator';
+import { User as UserEntity } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
-import { GqlAuthGuard } from 'auth/gqlAuth.guard';
-import { GqlRoleGuard } from 'auth/gqlRole.guard';
-import { FilterOnRoleOrUserInterceptor } from 'auth/filterOnRoleOrUser.interceptor';
+import { GqlAuthGuard } from '../auth/gqlAuth.guard';
+import { GqlRoleGuard } from '../auth/gqlRole.guard';
+import { FilterOnRoleOrUserInterceptor } from '../auth/filterOnRoleOrUser.interceptor';
+
 @UseGuards(GqlAuthGuard)
 @Resolver('Task')
 export class TaskResolvers {

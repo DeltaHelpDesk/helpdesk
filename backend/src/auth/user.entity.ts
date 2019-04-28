@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { AuthType } from './authType.enum';
-import { Task } from 'task/task.entity';
+import { Task } from '../task/task.entity';
 import { UserRole } from './userRole.enum';
 
 @Entity()

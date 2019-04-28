@@ -101,16 +101,16 @@ export class AuthService {
         return email.split('@')[1] === 'delta-studenti.cz';
     }
 
-    async removeUser(email: string, currentUser:User): Promise<boolean> {
+    async removeUser(email: string, currentUser: User): Promise<boolean> {
         const user = await this.userRepository.findOne({ email });
         if (!user) {
             throw new HttpException(`User with email: ${email} not found`, HttpStatus.NOT_FOUND);
         }
 
-        if (user.id == currentUser.id) {
-            throw new BadRequestException("Can not delete currently logged in user")
+        if (user.id === currentUser.id) {
+            throw new BadRequestException('Can not delete currently logged in user');
         }
-        
+
         await this.userRepository.remove(user);
         return true;
     }

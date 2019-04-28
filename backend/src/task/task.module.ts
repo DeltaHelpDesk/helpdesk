@@ -1,4 +1,4 @@
-import { AuthModule } from './../auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskService } from './task.service';

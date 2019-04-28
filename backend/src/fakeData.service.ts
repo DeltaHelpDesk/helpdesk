@@ -3,12 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as faker from 'faker';
 import * as bcrypt from 'bcrypt';
-import { User } from 'auth/user.entity';
-import { Task } from 'task/task.entity';
-import { Log } from 'task/log.entity';
-import { AuthType } from 'auth/authType.enum';
-import { TaskState } from 'task/taskState.enum';
-import { UserRole } from 'auth/userRole.enum';
+import { User } from './auth/user.entity';
+import { Task } from './task/task.entity';
+import { Log } from './task/log.entity';
+import { AuthType } from './auth/authType.enum';
+import { TaskState } from './task/taskState.enum';
+import { UserRole } from './auth/userRole.enum';
 
 @Injectable()
 export class FakeDataService implements OnModuleInit {
