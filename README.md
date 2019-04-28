@@ -5,6 +5,15 @@ Written using NestJS with TypeORM and GraphQL
 `yarn start:dev`
 ### React frontend - /frontend
 
+##Without Docker
+### Setup
+Frontend/Backend - `yarn install` / `npm install` 
+
+### Run
+Frontend - `yarn start` / `npm start`
+
+Backend - `yarn start` / `npm start`
+
 ##Docker
 
 ### Setup
@@ -36,5 +45,3 @@ FE - `docker-compose up -d frontend backend`
 FE - `docker-compose up -d frontend`
 
 BE - `docker-compose up -d backend mysql`
-
-a

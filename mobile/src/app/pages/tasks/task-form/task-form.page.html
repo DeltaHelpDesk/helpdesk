@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Formulář pro vytvoření tasku
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="stacked">Předmět</ion-label>
+      <ion-input type="text" formControlName="subject"></ion-input>
+    </ion-item>
+    <form-control-error [control]="form.controls.subject"></form-control-error>
+
+    <ion-item>
+      <ion-label position="stacked">Popis</ion-label>
+      <ion-textarea rows="5" formControlName="issue"></ion-textarea>
+    </ion-item>
+    <form-control-error [control]="form.controls.issue"></form-control-error>
+
+    <ion-item>
+      <ion-label>Řešitel</ion-label>
+      <ion-select formControlName="assigneeId" cancelText="zavřít" placeholder="Vyberte řešitele">
+        <ion-select-option value="">Bez řešitele</ion-select-option>
+        <ion-select-option [value]="admin.id" *ngFor="let admin of admins">{{ admin.fullName }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <form-control-error [control]="form.controls.assigneeId"></form-control-error>
+
+    <ion-button padding expand="full" color="primary" type="submit">Vytvořit task</ion-button>
+  </form>
+</ion-content>

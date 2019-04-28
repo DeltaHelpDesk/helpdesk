@@ -1,0 +1,6 @@
+{
+  "appId": "cz.delta_skola.helpdesk",
+  "appName": "Helpdesk",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
