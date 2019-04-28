@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nginx:
+    image: nginx
+    networks:
+      helpdesk_network:
+        aliases:
+          - nginx
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/home/spravce/default.conf:/etc/nginx/conf.d/default.conf'
+    depends_on:
+      - frontend
+      - backend
+  frontend:
+    image: alpha.deltasystems.cz:5000/helpdesk-frontend
+    environment:
+      PORT: 3000
+      REACT_APP_GRAPHQL_ENDPOINT: http://backend:3001/graphql
+    networks:
+      helpdesk_network:
+        aliases:
+          - frontend
+  backend:
+    image: alpha.deltasystems.cz:5000/helpdesk-backend
+    environment:
+      TYPEORM_CONNECTION: mysql
+      TYPEORM_HOST: mysql
+      TYPEORM_USERNAME: ${DB_USER}
+      TYPEORM_PASSWORD: ${DB_PASSWORD}
+      TYPEORM_DATABASE: ${DB_DATABASE}
+      TYPEORM_PORT: 3306
+      TYPEORM_ENTITIES: src/**/**.entity.ts
+    networks:
+      helpdesk_network:
+        aliases:
+          - backend
+networks:
+  helpdesk_network:
+    driver: 'bridge'
