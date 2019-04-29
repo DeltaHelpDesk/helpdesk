@@ -5,6 +5,9 @@ import "../../graphql/auth";
 import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../graphql/auth';
 import { TASK_DETAIL } from './TaskDetailQueries';
 import { RouteComponentProps } from 'react-router';
+import LogsTable from './LogsTable';
+import DetailForm from './DetailForm';
+
 
 const styles = {};
 class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
@@ -26,8 +29,6 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
           const isOwner = (this.context.user === undefined ? false : this.context.user.id === data.task.author.id);
           const isAuthorized = isAdmin || isOwner;
           const { task } = data;
-          // const logs = task.logs.map((log: any) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
-          // const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
           return (
             <div>
                 <h2>{task.subject}</h2>
@@ -38,6 +39,15 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
                 {isAuthorized && 
                     <div>issue: {task.issue}</div>
                 }
+
+                {isAuthorized &&
+                    <LogsTable logs={task.logs} />                
+                }
+
+                {isAuthorized &&
+                    <DetailForm taskId={id} taskState={task.state} />                
+                }
+
             </div>
           );
         }}

@@ -1,13 +1,12 @@
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import * as React from "react";
-import Task from "./Task";
 import { Query } from "react-apollo";
-import { withStyles } from "@material-ui/core/styles";
-import { Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
-import { GET_TASKS } from "./TaskListQueries";
-import "../../graphql/auth";
-import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../graphql/auth';
-import Loading from "./../Loading/Loading";
 import { withTranslation, WithTranslation } from 'react-i18next';
+import "../../graphql/auth";
+import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '../../graphql/auth';
+import Loading from "./../Loading/Loading";
+import Task from "./Task";
+import { GET_TASKS } from "./TaskListQueries";
 
 export interface ITask {
   id: string;
@@ -22,9 +21,10 @@ export interface IAssignee {
 }
 export interface IAuthor {
   fullName: string;
+  id: number;
 }
 
-const styles = {};
+
 class TaskList extends React.Component<WithTranslation> {
     static contextType = ReactAuthContext;
     context : IAuthContextValue;
@@ -62,4 +62,4 @@ class TaskList extends React.Component<WithTranslation> {
   }
 }
 
-export default withStyles(styles)(withTranslation()(TaskList));
+export default withTranslation()(TaskList);
