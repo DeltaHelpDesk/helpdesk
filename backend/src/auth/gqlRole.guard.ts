@@ -13,6 +13,6 @@ export class GqlRoleGuard extends GqlAuthGuard {
         if (!user) {
             return false;
         }
-        return checkUserRole((user as User).role, this.role)
+        return checkUserRole((user as User).role, this.role);
     }
 }

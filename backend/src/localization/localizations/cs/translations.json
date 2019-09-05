@@ -18,5 +18,8 @@
     "userList": "Seznam uživatelů",
     "name": "Jméno",
     "email": "Email",
-    "login": "Přihlásit se"
+    "login": "Přihlásit se",
+    "role":"Role",
+    "updatedAt": "Poslední aktualizace",
+    "createdAt": "Vytvořeno"
 }
