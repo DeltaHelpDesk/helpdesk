@@ -19,7 +19,7 @@
       "esnext.asynciterable"
     ]
   },
-  "include": [
+  "includes": [
     "src/**/*"
   ],
   "exclude": [

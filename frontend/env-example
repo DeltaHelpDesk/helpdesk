@@ -1,3 +1,4 @@
-REACT_APP_GRAPHQL_ENDPOINT=http://localhost:3000/graphql
-REACT_APP_LOCALIZATION_ENDPOINT=http://localhost:3000/localization
+ENDPOINT=https://delta-helpdesk.herokuapp.com
+REACT_APP_GRAPHQL_ENDPOINT=${ENDPOINT}/graphql
+REACT_APP_LOCALIZATION_ENDPOINT=${ENDPOINT}/localization
 PORT=3001

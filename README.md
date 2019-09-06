@@ -4,21 +4,25 @@
 Written using NestJS with TypeORM and GraphQL
 ### React frontend - /frontend
 
-##Without Docker
-### Setup
+### Without Docker
+#### Setup
 Frontend/Backend - `yarn install` / `npm install` 
 
-### Run
-Frontend - `yarn start` / `npm start`
+#### Run
+Frontend/Backend - `yarn start` / `npm start`
 
-Backend - `yarn start` / `npm start`
+### Docker
 
-##Docker
+#### Setup
 
-### Setup
-Docker for windows - run `init.bat` in powershell/cmd
+##### Windows 10 Pro + NO VirtualBox
+Install Docker Desktop.
 
-Docker toolbox (virtualbox) - run `./init.sh` in Docker quickstart terminal
+##### Windows 10 or older
+Install Docker Toolbox
+
+Docker toolbox (virtualbox) - `bash init.sh` in Git bash
+- This will generate required files (.env, ...)
 
 ### Some useful commands
 #### `docker-compose up [-d] [services]`
@@ -39,7 +43,7 @@ Frontend team
 - storybook (optional)
 
 ### Examples
-FE - `docker-compose up -d frontend backend`
+FE & BE - `docker-compose up -d frontend backend`
 
 FE - `docker-compose up -d frontend`
 

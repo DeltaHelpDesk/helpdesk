@@ -18,6 +18,9 @@ import { FakeDataService } from './fakeData.service';
                 path: join(process.cwd(), 'src/gql.ts'),
                 outputAs: 'class',
             },
+           /* debug: true,
+            introspection: true,
+            playground: true,*/
         }),
         TypeOrmModule.forRoot(),
         AuthModule,
