@@ -3,22 +3,20 @@
 ### Backend - /backend
 Written using NestJS with TypeORM and GraphQL
 ### React frontend - /frontend
+Written using React. **TODO: NextJS**
 
-#### TODO: separate to FE & BE
+**TODO: separate to FE & BE**
 
 ### Dev Cases:
 #### Localy BE+FE, MySQL from Docker
-FE -local development
-BE -local development
-MySQL -Docker
+FE - Local development
+BE - Local development
+MySQL - Docker
 
 we need 3 terminals:   
-
-  - docker-compose up  mysql
-  - cd backend  | yarn start
-  - cd frontend | yarn start
-  
-
+  - `docker-compose up mysql`
+  - `cd backend` | `yarn start`
+  - `cd frontend` | `yarn start`
 
 ### Without Docker
 #### Setup

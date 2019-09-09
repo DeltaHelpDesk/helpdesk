@@ -22,7 +22,7 @@ $ yarn start:hmr
 $ yarn start:prod
 ```
 
-TODO: 
-  - problem with .env (when docker run from localhost), commit .env?
-  - use cross-env & params (not .env)
-  - init docker for MySQL somehow... (split init.sh)
+### TODO
+  - [ ] problem with .env (when docker run from localhost), commit .env?
+  - [ ] use cross-env & params (not .env)
+  - [ ] init docker for MySQL somehow... (split init.sh)
