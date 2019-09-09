@@ -4,6 +4,22 @@
 Written using NestJS with TypeORM and GraphQL
 ### React frontend - /frontend
 
+#### TODO: separate to FE & BE
+
+### Dev Cases:
+#### Localy BE+FE, MySQL from Docker
+FE -local development
+BE -local development
+MySQL -Docker
+
+we need 3 terminals:   
+
+  - docker-compose up  mysql
+  - cd backend  | yarn start
+  - cd frontend | yarn start
+  
+
+
 ### Without Docker
 #### Setup
 Frontend/Backend - `yarn install` / `npm install` 
@@ -48,3 +64,4 @@ FE & BE - `docker-compose up -d frontend backend`
 FE - `docker-compose up -d frontend`
 
 BE - `docker-compose up -d backend mysql`
+
