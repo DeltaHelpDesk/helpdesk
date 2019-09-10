@@ -33,7 +33,7 @@ Frontend/Backend - `yarn start` / `npm start`
 Install Docker Desktop.
 
 ##### Windows 10 or older
-Install Docker Toolbox
+Install Docker Toolbox https://github.com/docker/toolbox/releases
 
 Docker toolbox (virtualbox) - `bash init.sh` in Git bash
 - This will generate required files (.env, ...)
@@ -63,3 +63,5 @@ FE - `docker-compose up -d frontend`
 
 BE - `docker-compose up -d backend mysql`
 
+#### TODO
+https://circleci.com/hooks/github
