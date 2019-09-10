@@ -18,7 +18,8 @@
     "a2": "copyfiles  ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql",
     "a3": "copyfiles  ../env-example ../.env",
     "a4": "copyfiles  ../frontend/env-example ../frontend/.env",
-    "a5": "copyfiles  ../backend/env-example ../backend/.env"
+    "a5": "copyfiles  ../backend/env-example ../backend/.env",
+    "example": "cross-env LOCALE=cz ENVIRONMENT=local nodemon start.js",
 
   },
   "dependencies": {
