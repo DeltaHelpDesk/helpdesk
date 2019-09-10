@@ -10,12 +10,13 @@
     "start:local": "cross-env-shell NODE_ENV=local npm-run-all start",
     "start:dev": "nodemon -L",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "prestart:prod": "rimraf dist && tsc && copyfiles --all 'src/localization/localizations' 'dist/src/localization/localizations'",
     "start:prod": "cross-env-shell NODE_ENV=prod node dist/src/main.js",
+    "prestart:prod": "rimraf dist && tsc && npm-run-all copy:locs",
+    "copy:locs": "ncp src/localization/localizations/ dist/src/localization/localizations/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "postinstall": "npm-run-all --serial prestart:prod a1 a2",
-    "a1": "copyfiles  ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
-    "a2": "copyfiles  ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql"
+    "a1": "ncp ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
+    "a2": "ncp ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql"
   },
   "dependencies": {
     "@microsoft/microsoft-graph-client": "^1.3.0",
@@ -35,6 +36,7 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mysql": "^2.16.0",
+    "ncp": "^2.0.0",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
@@ -56,7 +58,6 @@
     "@types/passport-http-bearer": "^1.0.33",
     "@types/passport-jwt": "^3.0.1",
     "@types/supertest": "^2.0.5",
-    "copyfiles": "^2.1.1",
     "cross-env": "5.2.0",
     "jest": "^23.5.0",
     "nodemon": "^1.18.3",
