@@ -2,22 +2,27 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # incremental rebuild (webpack)
-$ npm run webpack
-$ npm run start:hmr
+$ yarn webpack
+$ yarn start:hmr
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
+
+### TODO
+  - [ ] problem with .env (when docker run from localhost), commit .env?
+  - [ ] use cross-env & params (not .env)
+  - [ ] init docker for MySQL somehow... (split init.sh)
