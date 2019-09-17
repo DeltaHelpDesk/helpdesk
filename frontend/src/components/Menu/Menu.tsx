@@ -25,10 +25,6 @@ const styles = (theme: Theme) => createStyles({
         textDecoration: "none",
         marginLeft: "5px",
         padding: "10px 15px",
-        fontWeight: 500,
-        transform: 'scale(1, 1.1)',
-        letterSpacing: "1.5px",
-        textTransform: "lowercase"
         // borderRadius: "5%",
         // '&:hover': {
         //     background: "rgba(255,255,255,0.5)"
