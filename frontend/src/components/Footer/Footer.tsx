@@ -39,7 +39,11 @@ function Footer(props: IFooterProps) {
     return (
         <div>
             <footer className={classes.footer}>
+<<<<<<< refs/remotes/origin/dev
                 <span>&copy; {new Date().getFullYear()}</span><Link className={classes.helpDeskHref} to="/">HelpDesk</Link>
+=======
+                <span>&copy; {new Date(). getFullYear()}</span><Link className={classes.helpDeskHref} to="/">HelpDesk</Link>
+>>>>>>> Copyright in Footer now displays current year
                 <Link className={classes.helpDeskHref} to="/about">about</Link>
             </footer>
         </div>
