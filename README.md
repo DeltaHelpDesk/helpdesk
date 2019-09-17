@@ -32,10 +32,12 @@ Written using React. **TODO: NextJS**
 #### Setup
 
 ##### Windows 10 Pro + NO VirtualBox
-1. a) Install Docker Desktop.
+1. Install Docker Desktop. -> Use Linux Containers
+2. Go to settings -> Shared Drives
+3. Select one drive
 
 ##### Windows 10 or older
-1. b) Install [Docker Toolbox](https://github.com/docker/toolbox/releases)
+1. Install [Docker Toolbox](https://github.com/docker/toolbox/releases)
 
 
 #### Init
