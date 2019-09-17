@@ -1,19 +1,16 @@
 # Install project
 `yarn install`
 
+# Start project 
+
 ## For local backend
-**/frontend/.env** set: 
-`ENDPOINT=http://localhost:3000`
+`yarn start:local`
 
 ## For remote backend
-**/frontend/.env** set: 
-`ENDPOINT=https://delta-helpdesk.herokuapp.com`
-
-# Start project 
-`yarn start`
+`yarn start` or `yarn start:remote`
 
 # Build
 `yarn build`
 
 # Todos
-Add 'Add user' to menu. Form for adding users is available at /admin/newuser.
+ - [ ] Add 'Add user' to menu. Form for adding users is available at /admin/newuser.

@@ -5,38 +5,51 @@ Written using NestJS with TypeORM and GraphQL
 ### React frontend - /frontend
 Written using React. **TODO: NextJS**
 
-**TODO: separate to FE & BE**
 
-### Dev Cases:
-#### Localy BE+FE, MySQL from Docker
-FE - Local development
-BE - Local development
-MySQL - Docker
+## Installation/Start
 
-we need 3 terminals:   
-  - `docker-compose up mysql`
-  - `cd backend` | `yarn start`
-  - `cd frontend` | `yarn start`
+### Backend
 
-### Without Docker
-#### Setup
-Frontend/Backend - `yarn install` / `npm install` 
+1. `cd backend`
 
-#### Run
-Frontend/Backend - `yarn start` / `npm start`
+2. `yarn install`
+
+3. `yarn copy`
+
+4. 
+   - a) Remote MySQL database: `yarn start:remote`
+   - b) Local docker MySQL database: See: [Docker setup](#Docker) **Not working**
+   - c) Remote production MySQL database: `yarn start:prod`
+
+### Frontend
+
+1. Project directory `cd frontend`
+
+2. 
+   - a) Local backend: `yarn start:local`
+   - b) Remote backend: `yarn start:remote`
 
 ### Docker
 
 #### Setup
 
 ##### Windows 10 Pro + NO VirtualBox
-Install Docker Desktop.
+1. Install Docker Desktop. -> Use Linux Containers
+2. Go to settings -> Shared Drives
+3. Select one drive
 
 ##### Windows 10 or older
-Install Docker Toolbox
+1. Install [Docker Toolbox](https://github.com/docker/toolbox/releases)
 
-Docker toolbox (virtualbox) - `bash init.sh` in Git bash
-- This will generate required files (.env, ...)
+
+#### Init
+
+2. `bash init.sh` in Git bash **TODO: Without init.sh**
+   - This will generate required files (.env, ...)
+
+
+3. `docker-compose up mysql`
+    - This **should** start MySQL server in docker
 
 ### Some useful commands
 #### `docker-compose up [-d] [services]`
@@ -56,10 +69,5 @@ Frontend team
 - frontend
 - storybook (optional)
 
-### Examples
-FE & BE - `docker-compose up -d frontend backend`
-
-FE - `docker-compose up -d frontend`
-
-BE - `docker-compose up -d backend mysql`
-
+#### TODO
+ - [ ] https://circleci.com/hooks/github - Tests

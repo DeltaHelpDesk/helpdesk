@@ -90,7 +90,7 @@ export class FakeDataService implements OnModuleInit {
                 state: TaskState.RETURNED,
             },
         ]) as any;
-        const { identifiers: [log1, log2, log3, log4, log5] }: {identifiers: Task[]} = await this.logRepository.insert([
+        const { identifiers: [log1, log2, log3, log4, log5] }: {identifiers: Log[]} = await this.logRepository.insert([
             {
                 author: user1,
                 comment: faker.lorem.paragraph(2),
