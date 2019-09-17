@@ -4,7 +4,9 @@
 ```bash
 $ yarn install
 
-$ yarn copy
+
+# For local MySQL server
+$ yarn begin
 ```
 
 ## Running the app
