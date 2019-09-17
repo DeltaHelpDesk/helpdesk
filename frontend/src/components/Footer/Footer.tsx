@@ -39,7 +39,7 @@ function Footer(props: IFooterProps) {
     return (
         <div>
             <footer className={classes.footer}>
-                <span>&copy; {new Date().getFullYear()}</span><Link className={classes.helpDeskHref} to="/">HelpDesk</Link>
+                <span>&copy; {new Date(). getFullYear()}</span><Link className={classes.helpDeskHref} to="/">HelpDesk</Link>
                 <Link className={classes.helpDeskHref} to="/about">about</Link>
             </footer>
         </div>
