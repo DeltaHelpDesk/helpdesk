@@ -4,6 +4,7 @@
 ```bash
 $ yarn install
 
+
 # For local MySQL server
 $ yarn begin
 ```
