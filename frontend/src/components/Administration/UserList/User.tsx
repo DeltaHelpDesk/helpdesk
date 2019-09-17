@@ -12,55 +12,56 @@ const styles = {
 
 // Prepared for Task component
 const User: React.SFC<{ user: IUser, isAdmin: boolean }> = props => {
-  const isAdmin: boolean = props.isAdmin;
-  const user: IUser = props.user;
+    const isAdmin: boolean = props.isAdmin;
+    const user: IUser = props.user;
 
 
-  const email = user.email;
-  const DeleteButton = () => {
+    const { email, fullName, role, created_at, updated_at } = user;
+
+    const DeleteButton: React.SFC = () => {
+        return (
+            <Mutation mutation={DELETE_USER} refetchQueries={() => [{ query: GET_USER }, { query: GET_TASKS }]}>
+                {(removeUser: any) => (
+                    <Button variant="contained" color="secondary" onClick={() => {
+                        removeUser({
+                            variables: {
+                                email
+                            }
+                        });
+                    }}>
+                        <DeleteIcon />
+                    </Button>
+                )}
+            </Mutation>
+        );
+    };
+
+
     return (
-      <Mutation mutation={DELETE_USER}  refetchQueries={() => [{query: GET_USER}, {query: GET_TASKS}]}>
-        {(removeUser: any) => (
-          <Button variant="contained" color="secondary" onClick={() => {
-            removeUser({
-              variables: {
-                email
-              }
-            });
-          }}>
-          <DeleteIcon />
-          </Button>
-        )}
-      </Mutation>
+        <TableRow>
+            <TableCell>
+                {fullName}
+            </TableCell>
+            <TableCell>
+                {email}
+            </TableCell>
+            <TableCell>
+                {role}
+            </TableCell>
+            <TableCell>
+                {created_at}
+            </TableCell>
+            <TableCell>
+                {updated_at}
+            </TableCell>
+            {isAdmin && <TableCell>
+                <Button variant="contained" color="primary">
+                    <EditIcon />
+                </Button>
+                <DeleteButton />
+            </TableCell>}
+        </TableRow>
     );
-  };
-
-
-  return (
-    <TableRow>
-      <TableCell>
-        {user.fullName}
-      </TableCell>
-      <TableCell>
-        {user.email}
-      </TableCell>
-      <TableCell>
-        {user.role}
-      </TableCell>
-      <TableCell>
-        {user.created_at}
-      </TableCell>
-      <TableCell>
-        {user.updated_at}
-      </TableCell>
-      { isAdmin && <TableCell>
-          <Button variant="contained" color="primary">
-            <EditIcon />
-          </Button>
-          <DeleteButton />
-      </TableCell> }
-    </TableRow>
-  );
 }
 
 export default withStyles(styles)(User);
