@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts npm-run-all -s a1 a2 a3",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts npm-run-all -s copy-mysql copy-sql copy-env",
     "start:remote": "cross-env-shell NODE_ENV=remote npm-run-all start",
     "start:local": "cross-env-shell NODE_ENV=local npm-run-all start",
     "start:dev": "nodemon -L",
@@ -15,9 +15,9 @@
     "copy:locs": "ncp src/localization/localizations/ dist/src/localization/localizations/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "postinstall": "npm-run-all --serial prestart:prod",
-    "a1": "ncp ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
-    "a2": "ncp ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql",
-    "a3": "cpx \"/local.env-example\" \"/local.env\" -u",
+    "copy-mysql": "ncp ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
+    "copy-sql": "ncp ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql",
+    "copy-env": "cpx \"/local.env-example\" \"/local.env\" -u",
     "begin": "ncp local.env-example local.env"
   },
   "dependencies": {
