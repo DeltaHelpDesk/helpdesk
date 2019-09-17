@@ -3,6 +3,8 @@
 
 ```bash
 $ yarn install
+
+$ yarn copy
 ```
 
 ## Running the app

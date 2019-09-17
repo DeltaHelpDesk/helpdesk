@@ -17,7 +17,8 @@
     "postinstall": "npm-run-all --serial prestart:prod",
     "a1": "ncp ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
     "a2": "ncp ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql",
-    "a3": "cpx \"/local.env-example\" \"/local.env\" -u"
+    "a3": "cpx \"/local.env-example\" \"/local.env\" -u",
+    "begin": "ncp local.env-example local.env"
   },
   "dependencies": {
     "@microsoft/microsoft-graph-client": "^1.3.0",

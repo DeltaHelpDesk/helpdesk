@@ -14,7 +14,9 @@ Written using React. **TODO: NextJS**
 
 2. `yarn install`
 
-3. 
+3. `yarn copy`
+
+4. 
    - a) Remote MySQL database: `yarn start:remote`
    - b) Local docker MySQL database: See: [Docker setup](#Docker) **Not working**
    - c) Remote production MySQL database: `yarn start:prod`
