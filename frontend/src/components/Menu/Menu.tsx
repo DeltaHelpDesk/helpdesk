@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as React from "react";
 import { NavLink } from 'react-router-dom';
-import logo from "./logo.png";
+import logo from "./logo_new.png";
 import { AuthContext } from '../../graphql/auth';
 
 const styles = (theme: Theme) => createStyles({
@@ -25,10 +25,10 @@ const styles = (theme: Theme) => createStyles({
         textDecoration: "none",
         marginLeft: "5px",
         padding: "10px 15px",
-        borderRadius: "5%",
-        '&:hover': {
-            background: "rgba(255,255,255,0.5)"
-        }
+        // borderRadius: "5%",
+        // '&:hover': {
+        //     background: "rgba(255,255,255,0.5)"
+        // }
     },
     hamburger: {
         background: "transparent",
@@ -116,6 +116,7 @@ const styles = (theme: Theme) => createStyles({
         right: "0"
     },
     menuLogo: {
+        paddingTop: "5px",
         maxHeight:"65px"
     }
 });
