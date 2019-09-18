@@ -129,6 +129,12 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
     }
   }
 
+  handleKeywordKeyPress = (e: any) =>{
+    if( e.key === 'Enter' ){
+        this.handleFormSubmit();
+    }
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -158,6 +164,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                                 type={this.state.showPassword ? "text" : "password"}
                                 label="Heslo"
                                 onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                onKeyPress={this.handleKeywordKeyPress}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment variant="filled" position="end">
