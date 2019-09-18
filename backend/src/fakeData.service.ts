@@ -27,7 +27,6 @@ export class FakeDataService implements OnModuleInit {
             this.userRepository.insert({
                 fullName: 'Admin Adminový',
                 email: 'admin@admin.cz',
-                authType: AuthType.EMAIL,
                 password: await bcrypt.hash('admin', 10),
                 role: UserRole.SUPERADMIN,
             });
@@ -38,7 +37,6 @@ export class FakeDataService implements OnModuleInit {
             this.userRepository.insert({
                 fullName: 'User Júzerovský',
                 email: 'user@user.cz',
-                authType: AuthType.EMAIL,
                 password: await bcrypt.hash('user', 10),
                 role: UserRole.SUPERADMIN,
             });
@@ -52,13 +50,11 @@ export class FakeDataService implements OnModuleInit {
             {
                 fullName: faker.name.findName(),
                 email: faker.internet.email(),
-                authType: AuthType.EMAIL,
                 password,
             },
             {
                 fullName: faker.name.findName(),
                 email: faker.internet.email(),
-                authType: AuthType.EMAIL,
                 password,
             },
         ]) as any;

@@ -8,35 +8,53 @@ import { AuthType } from './authType.enum';
 import { UserRole } from './userRole.enum';
 import * as MicrosoftGraph from '@microsoft/microsoft-graph-client';
 import * as bcrypt from 'bcrypt';
+import { LoginToken } from './loginToken.entity';
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
+        @InjectRepository(LoginToken)
+        private readonly tokenRepository: Repository<LoginToken>,
         private readonly jwtService: JwtService,
     ) { }
+
     async loginEmail(email: string, textPassword: string): Promise<User | undefined> {
-        let user = await this.userRepository.findOne({ email });
+        const user = await this.userRepository.findOne({ email });
         if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
             throw new HttpException('Bad email or password', HttpStatus.UNAUTHORIZED);
         }
-        const jwtPayload: JwtPayload = { userId: user.id, authType: user.authType };
-        if (user.authType !== AuthType.EMAIL) {
-            jwtPayload.otherToken = user.otherToken;
-        }
+        const jwtPayload: JwtPayload = { userId: user.id, authType: AuthType.EMAIL };
         const token = this.jwtService.sign(jwtPayload);
+        await this.registerLoginToken(token, user);
+
         user.token = token;
-        user = await this.userRepository.save(user);
         return user;
     }
 
-    async logout(user: User): Promise<boolean> {
-        if (!user) {
+    private async registerLoginToken(token: string, owner: User): Promise<boolean> {
+        if (!token || !owner) {
             return false;
         }
+        let newToken = this.tokenRepository.create({
+            loginProvider: AuthType.EMAIL,
+            ownerid: owner.id,
+            providerKey: token,
+        });
+        newToken = await this.tokenRepository.save(newToken);
+        return true;
+    }
+
+    async logout(user: User): Promise<boolean> {
+        if (!user || !user.token) {
+            return false;
+        }
+        let token = await this.tokenRepository.findOne({ loginProvider: AuthType.EMAIL, providerKey: user.token });
+        if (token) {
+            token = await this.tokenRepository.remove(token);
+        }
         user.token = undefined;
-        await this.userRepository.save(user);
         return true;
     }
 
@@ -45,7 +63,7 @@ export class AuthService {
             role = UserRole.DEFAULT;
         }
         const password = await bcrypt.hash(textPassword, 10);
-        const user = this.userRepository.create({ email, password, fullName, authType: AuthType.EMAIL, role: role ? role : UserRole.DEFAULT });
+        const user = this.userRepository.create({ email, password, fullName, role: role ? role : UserRole.DEFAULT });
         return await this.userRepository.save(user);
     }
 
@@ -59,31 +77,49 @@ export class AuthService {
             const userData = await graphClient
                 .api('/me')
                 .get();
-            if (!userData.mail) {
+            // tslint:disable-next-line:no-console
+            // console.log(userData);
+
+            const mail: string | undefined = userData.mail || userData.userPrincipalName;
+            const microsoftId: string | undefined = userData.id;
+            if (!mail) {
                 throw new HttpException(`Could not authorize, Microsoft graph didn't return email`, HttpStatus.UNAUTHORIZED);
             }
-            if (!this.checkEmailDomain(userData.mail)) {
+            if (!this.checkEmailDomain(mail)) {
                 throw new HttpException(`Email is not on authorized domain`, HttpStatus.UNAUTHORIZED);
             }
-            let user = await this.userRepository.findOne({ email: userData.mail });
+
+            let user = await this.userRepository.findOne({ email: mail });
             if (!user) {
                 user = this.userRepository.create({
-                    authType: AuthType.OFFICE,
-                    email: userData.mail,
+                    email: mail,
                     fullName: userData.displayName,
                     // otherToken,
                 });
                 user = await this.userRepository.save(user);
+                let loginToken = this.tokenRepository.create({
+                    ownerid: user.id,
+                    loginProvider: AuthType.MICROSOFT,
+                    providerKey: microsoftId,
+                });
+                loginToken = await this.tokenRepository.save(loginToken);
             }
+            const tokens = await user.loginTokens;
+            const microsoftToken = tokens.find((x) => x.loginProvider === AuthType.MICROSOFT);
+            if (!microsoftToken || microsoftToken.providerKey !== microsoftId) {
+                throw new HttpException('Invalid Microsoft id', HttpStatus.UNAUTHORIZED);
+            }
+
             const jwtPayload: JwtPayload = {
                 userId: user.id,
-                authType: AuthType.OFFICE,
-                // otherToken
+                authType: AuthType.MICROSOFT,
+                externalToken: microsoftId,
             };
             const token = this.jwtService.sign(jwtPayload);
+            await this.registerLoginToken(token, user);
             user.token = token;
             // user.otherToken = otherToken;
-            user = await this.userRepository.save(user);
+            // user = await this.userRepository.save(user);
             return user;
         } catch (e) {
             // tslint:disable-next-line:no-console
@@ -92,8 +128,26 @@ export class AuthService {
         }
     }
 
-    async validateJwtPayload(token: string, { userId, authType }: JwtPayload): Promise<User | undefined> {
-        const user = await this.userRepository.findOne({ id: userId, token, authType });
+    async validateJwtPayload(token: string, { userId, authType, externalToken }: JwtPayload): Promise<User | undefined> {
+        const user = await this.userRepository.findOne({ id: userId });
+        if (!user) {
+            return user;
+        }
+        const tokens = await user.loginTokens;
+        /// Ověření - pokud je uživatel přihlášen přes externí účet (Fb, Google,...) zda je token validní
+        if (authType !== AuthType.EMAIL && externalToken) {
+            const exToken = tokens.find(x => x.loginProvider === authType && x.providerKey === externalToken);
+            if (!exToken) {
+                return undefined;
+            }
+        }
+        /// Ověření normálního tokenu (NE externího)
+        const t = tokens.find(x => x.providerKey === token);
+        if (!t || t.loginProvider !== AuthType.EMAIL) {
+            return undefined;
+        }
+        /// Doplnění tokenu zpět uživateli
+        user.token = token;
         return user;
     }
 
@@ -108,7 +162,11 @@ export class AuthService {
         }
 
         if (user.id === currentUser.id) {
-            throw new BadRequestException('Can not delete currently logged in user');
+            throw new BadRequestException('Cannot delete currently logged in user');
+        }
+
+        if (user.role === UserRole.SUPERADMIN) {
+            throw new BadRequestException('Cannot remove superadmin');
         }
 
         await this.userRepository.remove(user);

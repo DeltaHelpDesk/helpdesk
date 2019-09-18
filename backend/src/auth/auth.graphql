@@ -1,6 +1,8 @@
 enum AuthType {
     EMAIL
-    OFFICE
+    GOOGLE
+    FACEBOOK
+    MICROSOFT
 }
 
 enum UserRole {
