@@ -14,15 +14,6 @@ services:
     depends_on:
       - frontend
       - backend
-  frontend:
-    image: alpha.deltasystems.cz:5000/helpdesk-frontend
-    environment:
-      PORT: 3000
-      REACT_APP_GRAPHQL_ENDPOINT: http://backend:3001/graphql
-    networks:
-      helpdesk_network:
-        aliases:
-          - frontend
   backend:
     image: alpha.deltasystems.cz:5000/helpdesk-backend
     environment:
