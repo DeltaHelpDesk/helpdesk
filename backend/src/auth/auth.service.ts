@@ -1,4 +1,4 @@
-import { Injectable, Inject, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
 import { JwtPayload } from './jwtPayload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -58,7 +58,10 @@ export class AuthService {
         return true;
     }
 
-    async createUserEmail(email: string, textPassword: string, fullName: string, role?: UserRole) {
+    async createUserEmail(email: string, textPassword: string, fullName: string, role?: UserRole): Promise<User | undefined> {
+        if (!email || !textPassword || !fullName) {
+            return undefined;
+        }
         if (!role) {
             role = UserRole.DEFAULT;
         }
@@ -79,53 +82,61 @@ export class AuthService {
                 .get();
             // tslint:disable-next-line:no-console
             // console.log(userData);
-
-            const mail: string | undefined = userData.mail || userData.userPrincipalName;
             const microsoftId: string | undefined = userData.id;
+            if (!microsoftId) {
+                throw new HttpException(`Could not authorize, Microsoft graph didn't return id`, HttpStatus.UNAUTHORIZED);
+            }
+            const mail: string | undefined = userData.mail || userData.userPrincipalName;
             if (!mail) {
                 throw new HttpException(`Could not authorize, Microsoft graph didn't return email`, HttpStatus.UNAUTHORIZED);
             }
             if (!this.checkEmailDomain(mail)) {
                 throw new HttpException(`Email is not on authorized domain`, HttpStatus.UNAUTHORIZED);
             }
+            const fullName: string = userData.displayName;
 
-            let user = await this.userRepository.findOne({ email: mail });
-            if (!user) {
-                user = this.userRepository.create({
-                    email: mail,
-                    fullName: userData.displayName,
-                    // otherToken,
-                });
-                user = await this.userRepository.save(user);
-                let loginToken = this.tokenRepository.create({
-                    ownerid: user.id,
-                    loginProvider: AuthType.MICROSOFT,
-                    providerKey: microsoftId,
-                });
-                loginToken = await this.tokenRepository.save(loginToken);
-            }
-            const tokens = await user.loginTokens;
-            const microsoftToken = tokens.find((x) => x.loginProvider === AuthType.MICROSOFT);
-            if (!microsoftToken || microsoftToken.providerKey !== microsoftId) {
-                throw new HttpException('Invalid Microsoft id', HttpStatus.UNAUTHORIZED);
-            }
-
-            const jwtPayload: JwtPayload = {
-                userId: user.id,
-                authType: AuthType.MICROSOFT,
-                externalToken: microsoftId,
-            };
-            const token = this.jwtService.sign(jwtPayload);
-            await this.registerLoginToken(token, user);
-            user.token = token;
-            // user.otherToken = otherToken;
-            // user = await this.userRepository.save(user);
-            return user;
+            return await this.loginExteral(AuthType.MICROSOFT, mail, microsoftId, fullName);
         } catch (e) {
             // tslint:disable-next-line:no-console
             console.error('unknown exception on microsoft office login', e);
             throw new HttpException('Could not authorize Microsoft account', HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    private async loginExteral(type: AuthType, mail: string, extrnalId: string, externalFullName: string): Promise<User | undefined> {
+        let user = await this.userRepository.findOne({ email: mail });
+        if (!user) {
+            /// Pokud uživatel neexistuje - vytvoř nového
+            user = this.userRepository.create({
+                email: mail,
+                fullName: externalFullName,
+            });
+            user = await this.userRepository.save(user);
+            /// Vytvoření a přiřazení externího tokenu k uživateli
+            let loginToken = this.tokenRepository.create({
+                ownerid: user.id,
+                loginProvider: type,
+                providerKey: extrnalId,
+            });
+            loginToken = await this.tokenRepository.save(loginToken);
+        }
+        /// Načtení tokenů uživatele
+        const tokens = await user.loginTokens;
+        const externalToken = tokens.find((x) => x.loginProvider === type);
+        if (!externalToken || externalToken.providerKey !== extrnalId) {
+            /// Externí token nesouhlasí
+            throw new HttpException(`Invalid ${type} id`, HttpStatus.UNAUTHORIZED);
+        }
+
+        const jwtPayload: JwtPayload = {
+            userId: user.id,
+            authType: type,
+            externalToken: extrnalId,
+        };
+        const token = this.jwtService.sign(jwtPayload);
+        await this.registerLoginToken(token, user);
+        user.token = token;
+        return user;
     }
 
     async validateJwtPayload(token: string, { userId, authType, externalToken }: JwtPayload): Promise<User | undefined> {
@@ -185,4 +196,35 @@ export class AuthService {
     async getUsers(): Promise<User[]> {
         return await this.userRepository.find();
     }
+
+    async adminEditUser(userId: number, newEmail?: string, newFullName?: string, newClassName?: string, newRole?: UserRole)
+        : Promise<User | undefined> {
+        const user = await this.userRepository.findOne(userId);
+        if (!user) {
+            return undefined;
+        }
+        return await this.editUser(user, newEmail, newFullName, newClassName, newRole);
+    }
+
+    async editUser(user: User, newEmail?: string, newFullName?: string, newClassName?: string, newRole?: UserRole)
+        : Promise<User | undefined> {
+        if (!user) {
+            return undefined;
+        }
+
+        if (newEmail) {
+            user.email = newEmail;
+        }
+        if (newFullName) {
+            user.fullName = newFullName;
+        }
+        if (newClassName) {
+            user.className = newClassName;
+        }
+        if (newRole) {
+            user.role = newRole;
+        }
+        return await this.userRepository.save(user);
+    }
+
 }

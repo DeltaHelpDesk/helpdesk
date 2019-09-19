@@ -38,7 +38,7 @@ export class FakeDataService implements OnModuleInit {
                 fullName: 'User Júzerovský',
                 email: 'user@user.cz',
                 password: await bcrypt.hash('user', 10),
-                role: UserRole.SUPERADMIN,
+                role: UserRole.ADMIN,
             });
         }
         // seed other if not already seeded

@@ -65,6 +65,38 @@ export class AuthResolvers {
         return await this.authService.createUserEmail(email, password, fullName);
     }
 
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.ADMIN))
+    @Mutation('adminEditUser')
+    async adminEditUser(
+        @Args('userId')
+        userId: number,
+        @Args('email')
+        email: string,
+        @Args('fullName')
+        fullName: string,
+        @Args('className')
+        className: string,
+        @Args('role')
+        role: UserRole,
+    ) {
+        return await this.authService.adminEditUser(userId, email, fullName, className, role);
+    }
+
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.DEFAULT))
+    @Mutation('editUser')
+    async editUser(
+        @Args('email')
+        email: string,
+        @Args('fullName')
+        fullName: string,
+        @Args('className')
+        className: string,
+        @User()
+        currentUser: UserEntity,
+    ) {
+        return await this.authService.editUser(currentUser, email, fullName, className, currentUser.role);
+    }
+
     @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))
     @Mutation('removeUser')
     async removeUser(
