@@ -7,10 +7,11 @@ import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { LoginToken } from './loginToken.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([User, LoginToken]),
         PassportModule.register({
             defaultStrategy: 'jwt',
             property: 'user',

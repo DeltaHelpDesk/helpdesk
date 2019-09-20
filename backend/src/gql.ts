@@ -1,6 +1,8 @@
 export enum AuthType {
     EMAIL = "EMAIL",
-    OFFICE = "OFFICE"
+    GOOGLE = "GOOGLE",
+    FACEBOOK = "FACEBOOK",
+    MICROSOFT = "MICROSOFT"
 }
 
 export enum State {
@@ -41,6 +43,10 @@ export abstract class IMutation {
     abstract loginEmail(email: string, password: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
     abstract createUserEmail(email: string, password: string, fullName: string, role?: UserRole): User | Promise<User>;
+
+    abstract adminEditUser(userId: string, email?: string, fullName?: string, className?: string, role?: UserRole): User | Promise<User>;
+
+    abstract editUser(email?: string, fullName?: string, className?: string): User | Promise<User>;
 
     abstract removeUser(email: string): boolean | Promise<boolean>;
 
