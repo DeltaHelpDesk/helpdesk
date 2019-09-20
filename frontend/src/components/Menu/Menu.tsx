@@ -24,15 +24,26 @@ const styles = (theme: Theme) => createStyles({
         color: "white",
         textDecoration: "none",
         marginLeft: "5px",
-        padding: "10px 15px",
+        padding: "10px 15px 2px",
         fontWeight: 500,
         transform: 'scale(1, 1.1)',
         letterSpacing: "1.5px",
-        textTransform: "lowercase"
-        // borderRadius: "5%",
-        // '&:hover': {
-        //     background: "rgba(255,255,255,0.5)"
-        // }
+        textTransform: "lowercase",
+        // '&:hover :before': {
+        //     // width: "100%"
+        // },
+        '&:before': {
+            content: '',
+            position: "absolute",
+            left: "0px",
+            bottom: "22px",
+            height: "2px",
+            width: "100%",
+            backgroundColor: "#ffffff",
+            // -webkit-transition: all .3s ease 0s,
+            // -o-transition: all .3s ease 0s,
+            // transition: all .3s ease 0s
+        }
     },
     hamburger: {
         background: "transparent",
