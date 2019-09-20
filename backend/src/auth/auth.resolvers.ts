@@ -47,6 +47,7 @@ export class AuthResolvers {
         return await this.authService.loginEmail(email, password);
     }
 
+    @UseGuards(GqlAuthGuard)
     @Mutation('logout')
     async logout(@User() user: UserEntity) {
         return await this.authService.logout(user);

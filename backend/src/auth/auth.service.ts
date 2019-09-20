@@ -25,7 +25,8 @@ export class AuthService {
         if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
             throw new HttpException('Bad email or password', HttpStatus.UNAUTHORIZED);
         }
-        const jwtPayload: JwtPayload = { userId: user.id, authType: AuthType.EMAIL };
+        const issued = new Date();
+        const jwtPayload: JwtPayload = { userId: user.id, authType: AuthType.EMAIL, issued };
         const token = this.jwtService.sign(jwtPayload);
         await this.registerLoginToken(token, user);
 
@@ -128,10 +129,12 @@ export class AuthService {
             throw new HttpException(`Invalid ${type} id`, HttpStatus.UNAUTHORIZED);
         }
 
+        const issued = new Date();
         const jwtPayload: JwtPayload = {
             userId: user.id,
             authType: type,
             externalToken: extrnalId,
+            issued,
         };
         const token = this.jwtService.sign(jwtPayload);
         await this.registerLoginToken(token, user);

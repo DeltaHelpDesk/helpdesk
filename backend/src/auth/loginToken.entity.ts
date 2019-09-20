@@ -7,12 +7,10 @@ export class LoginToken {
     @Column({ nullable: false })
     ownerid: number;
 
-    @Column()
     @PrimaryColumn()
     loginProvider: AuthType;
 
     @PrimaryColumn()
-    @Column({ unique: true })
     providerKey: string;
 
     @ManyToOne(type => User, user => user.assignedTasks, { eager: true })
