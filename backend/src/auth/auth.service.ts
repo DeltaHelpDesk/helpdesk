@@ -20,6 +20,9 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ) { }
 
+    /// Počet hodin, než expiruje obyčejný token (NE externí)
+    readonly loginExpirationTime: number = 24;
+
     async loginEmail(email: string, textPassword: string): Promise<User | undefined> {
         const user = await this.userRepository.findOne({ email });
         if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
@@ -28,13 +31,13 @@ export class AuthService {
         const issued = new Date();
         const jwtPayload: JwtPayload = { userId: user.id, authType: AuthType.EMAIL, issued };
         const token = this.jwtService.sign(jwtPayload);
-        await this.registerLoginToken(token, user);
+        await this.registerLoginToken(token, user, issued);
 
         user.token = token;
         return user;
     }
 
-    private async registerLoginToken(token: string, owner: User): Promise<boolean> {
+    private async registerLoginToken(token: string, owner: User, issued: Date): Promise<boolean> {
         if (!token || !owner) {
             return false;
         }
@@ -42,9 +45,16 @@ export class AuthService {
             loginProvider: AuthType.EMAIL,
             ownerid: owner.id,
             providerKey: token,
+            expiration: this.addHours(issued, this.loginExpirationTime),
         });
         newToken = await this.tokenRepository.save(newToken);
         return true;
+    }
+
+    /// Protože JS nic takového sám neumí :)
+    addHours(d: Date, hours: number): Date {
+        d.setUTCHours(d.getUTCHours() + hours);
+        return d;
     }
 
     async logout(user: User): Promise<boolean> {
@@ -137,7 +147,7 @@ export class AuthService {
             issued,
         };
         const token = this.jwtService.sign(jwtPayload);
-        await this.registerLoginToken(token, user);
+        await this.registerLoginToken(token, user, issued);
         user.token = token;
         return user;
     }
@@ -157,7 +167,7 @@ export class AuthService {
         }
         /// Ověření normálního tokenu (NE externího)
         const t = tokens.find(x => x.providerKey === token);
-        if (!t || t.loginProvider !== AuthType.EMAIL) {
+        if (!t || t.loginProvider !== AuthType.EMAIL || (t.expiration && t.expiration < new Date())) {
             return undefined;
         }
         /// Doplnění tokenu zpět uživateli

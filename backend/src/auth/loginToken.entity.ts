@@ -19,4 +19,7 @@ export class LoginToken {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @Column({ nullable: true })
+    expiration?: Date;
 }
