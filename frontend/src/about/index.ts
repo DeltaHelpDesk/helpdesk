@@ -9,3 +9,4 @@ export {default as dominik} from "./dominik";
 export {default as falty} from "./falty";
 export {default as janyja} from "./janyja";
 export {default as slamda} from "./slamda";
+export {default as stermi} from "./stermi";
