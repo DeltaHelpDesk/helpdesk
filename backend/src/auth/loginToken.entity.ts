@@ -4,17 +4,13 @@ import { AuthType } from './authType.enum';
 
 @Entity()
 export class LoginToken {
-    @Column({ nullable: false })
-    ownerid: number;
-
     @PrimaryColumn()
     loginProvider: AuthType;
 
-    @PrimaryColumn()
+    @PrimaryColumn({ length: 500 })
     providerKey: string;
 
     @ManyToOne(type => User, user => user.assignedTasks, { eager: true })
-    @JoinColumn({ name: 'ownerid' })
     owner: User;
 
     @CreateDateColumn()
