@@ -23,7 +23,7 @@ export class AuthResolvers {
         return await this.authService.getAdmins();
     }
 
-    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.ADMIN))
     @Query('users')
     async getUsers(): Promise<UserEntity[]> {
         return await this.authService.getUsers();
