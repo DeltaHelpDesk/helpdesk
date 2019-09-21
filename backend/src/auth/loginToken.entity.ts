@@ -1,13 +1,16 @@
-import { Entity, Column, CreateDateColumn, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { Entity, Column, CreateDateColumn, ManyToOne, JoinColumn, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 import { AuthType } from './authType.enum';
 
 @Entity()
 export class LoginToken {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({ nullable: false })
     loginProvider: AuthType;
 
-    @PrimaryColumn({ length: 500 })
+    @Column({ length: 500, nullable: false })
     providerKey: string;
 
     @ManyToOne(type => User, user => user.assignedTasks, { eager: true })
