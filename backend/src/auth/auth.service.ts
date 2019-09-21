@@ -43,7 +43,7 @@ export class AuthService {
         }
         let newToken = this.tokenRepository.create({
             loginProvider: AuthType.EMAIL,
-            ownerid: owner.id,
+            owner,
             providerKey: token,
             expiration: this.addHours(issued, this.loginExpirationTime),
         });
@@ -116,6 +116,7 @@ export class AuthService {
 
     private async loginExteral(type: AuthType, mail: string, extrnalId: string, externalFullName: string): Promise<User | undefined> {
         let user = await this.userRepository.findOne({ email: mail });
+        let externalToken: LoginToken | undefined;
         if (!user) {
             /// Pokud uživatel neexistuje - vytvoř nového
             user = this.userRepository.create({
@@ -125,15 +126,19 @@ export class AuthService {
             user = await this.userRepository.save(user);
             /// Vytvoření a přiřazení externího tokenu k uživateli
             let loginToken = this.tokenRepository.create({
-                ownerid: user.id,
+                owner: user,
                 loginProvider: type,
                 providerKey: extrnalId,
             });
             loginToken = await this.tokenRepository.save(loginToken);
+            /// Nový token se ihned nepropíše k uživateli a select z dtb je zbytečně zatěžující
+            externalToken = loginToken;
         }
         /// Načtení tokenů uživatele
         const tokens = await user.loginTokens;
-        const externalToken = tokens.find((x) => x.loginProvider === type);
+        if (!externalToken) {
+            externalToken = tokens.find((x) => x.loginProvider === type);
+        }
         if (!externalToken || externalToken.providerKey !== extrnalId) {
             /// Externí token nesouhlasí
             throw new HttpException(`Invalid ${type} id`, HttpStatus.UNAUTHORIZED);
