@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as dotenv from 'dotenv';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ConfigService {
     private readonly envConfig: { [key: string]: string };
 
