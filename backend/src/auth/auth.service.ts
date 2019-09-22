@@ -172,7 +172,7 @@ export class AuthService {
         }
         /// Ověření normálního tokenu (NE externího)
         const t = tokens.find(x => x.providerKey === token);
-        if (!t || t.loginProvider !== AuthType.EMAIL || (t.expiration && t.expiration < new Date())) {
+        if (!t || t.loginProvider !== AuthType.EMAIL || t.expired) {
             return undefined;
         }
         /// Doplnění tokenu zpět uživateli

@@ -9,8 +9,9 @@ import { join } from 'path';
 import { gqlContextFunction } from './gqlContext';
 import { FakeDataService } from './fakeData.service';
 import { ConfigService } from './config/config.service';
-import { ConfigModule } from './config/ConfigModule';
+import { ConfigModule } from './config/config.module';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
+import { AutoJobModule } from './autoJob/autojob.module';
 
 @Module({
     imports: [
@@ -40,6 +41,7 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
         AuthModule,
         LocalizationModule,
         TaskModule,
+        AutoJobModule,
     ],
     controllers: [AppController],
     providers: [

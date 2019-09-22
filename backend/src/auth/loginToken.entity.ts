@@ -21,4 +21,8 @@ export class LoginToken {
 
     @Column({ nullable: true })
     expiration?: Date;
+
+    get expired(): boolean {
+        return !!this.expiration && this.expiration < new Date();
+    }
 }
