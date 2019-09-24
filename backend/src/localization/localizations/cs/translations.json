@@ -6,12 +6,18 @@
         "SOLVED": "Vyřešeno",
         "RETURNED": "Vráceno"
     },
+    "userType": {
+        "SUPERADMIN": "Superadmin",
+        "ADMIN": "Administrátor",
+        "DEFAULT": "Uživatel"
+    },
     "notAssigned": "Nepřiřazeno",
     "author": "Autor",
     "subject": "Předmět",
+    "issue": "Problém",
     "actions": "Akce",
     "state": "Stav",
-    "assignee": "Řešitel",
+    "assignee": "Řeší",
     "administration": "Administrace",
     "taskList": "Seznam požadavků",
     "logout": "Odhlásit se",
@@ -19,7 +25,7 @@
     "name": "Jméno",
     "email": "Email",
     "login": "Přihlásit se",
-    "role":"Role",
+    "role": "Role",
     "updatedAt": "Poslední aktualizace",
     "createdAt": "Vytvořeno"
 }

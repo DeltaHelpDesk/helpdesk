@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { AuthContext } from 'src/graphql/auth';
 
 
 
@@ -52,7 +53,9 @@ class HomePage extends React.Component<IHomePageProps> {
         this.props.history.push("/login");
     }
 
+
     render() {
+
         const { classes } = this.props;
         return <div>
             <Grid container={true} direction="row" justify="center" alignItems="center">
@@ -69,7 +72,10 @@ class HomePage extends React.Component<IHomePageProps> {
                     <Grid item={true} xs={12}>
                         <div className={classes.itemsCenter}>
                             <Button className={classes.buttonHomepage} onClick={this.redirectToForm} variant="contained" color="primary">Poslat požadavek</Button>
-                            <Button className={classes.buttonHomepage} onClick={this.redirectToLogin} variant="contained" color="primary">Přihlásit se</Button>
+                            <AuthContext.Consumer>{({ logout, user }) =>
+                                !user && <Button className={classes.buttonHomepage} onClick={this.redirectToLogin} variant="contained" color="primary">Přihlásit se</Button>
+
+                            }</AuthContext.Consumer>
                         </div>
                     </Grid>
                 </div>

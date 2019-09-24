@@ -2,12 +2,12 @@ import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/s
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Button } from '@material-ui/core';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as React from "react";
 import { NavLink } from 'react-router-dom';
 import logo from "./logo.png";
 import { AuthContext } from '../../graphql/auth';
+import UserLogged from './UserLogged';
 
 const styles = (theme: Theme) => createStyles({
     grow: {
@@ -116,7 +116,7 @@ const styles = (theme: Theme) => createStyles({
         right: "0"
     },
     menuLogo: {
-        maxHeight:"65px"
+        maxHeight: "65px"
     }
 });
 
@@ -168,7 +168,7 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
                 <AppBar position="static">
                     <Toolbar className="flex-direction-column">
                         <Typography variant="h6" className={classes.grow}>
-                            <NavLink className={classes.firstItem} to="/"><img className={classes.menuLogo} src={logo}/></NavLink>
+                            <NavLink className={classes.firstItem} to="/"><img className={classes.menuLogo} src={logo} /></NavLink>
                         </Typography>
                         <div className={classes.parent}>
                             <div className={classes.hamburger} onClick={() => { this.setState({ isActive: !this.state.isActive }); this.help(); }}>
@@ -182,12 +182,13 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
                             <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
                             <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
                         </div>
-                        <AuthContext.Consumer>{({logout, user}) =>
+                        <AuthContext.Consumer>{({ logout, user }) =>
                             user && (
-                            <div>
-                                <span>{user.fullName}</span>
-                                <Button onClick={logout}>Odhlásit se</Button>
-                            </div>
+                                <div>
+                                    {/* <span>{user.fullName}</span> */}
+                                    <UserLogged logout={logout} user={user}/>
+                                    {/* <Button onClick={logout}>Odhlásit se</Button> */}
+                                </div>
                             )
                         }</AuthContext.Consumer>
                     </Toolbar>

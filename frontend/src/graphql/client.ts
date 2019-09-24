@@ -17,7 +17,9 @@ const client = new ApolloClient({
   },
   onError({ networkError, response, forward, operation, ...other }) {
     if ((networkError && (networkError as ServerError).statusCode === 401) || (response && response.errors && (response.errors[0].message as any).statusCode === 401)) {
-        lastContextValue.logout();
+        if (operation.operationName !== 'logout') {
+            lastContextValue.logout();
+        }
     }
     console.error("GraphQL onError handle", { networkError, response, operation, ...other });
     forward(operation);

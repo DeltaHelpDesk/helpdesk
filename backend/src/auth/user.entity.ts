@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { AuthType } from './authType.enum';
 import { Task } from '../task/task.entity';
 import { UserRole } from './userRole.enum';
+import { LoginToken } from './loginToken.entity';
 
 @Entity()
 export class User {
@@ -17,14 +17,10 @@ export class User {
     @Column({ length: 255, nullable: true })
     password?: string;
 
-    @Column({ nullable: true })
+    @Column({ length: 10, nullable: true })
+    className?: string;
+
     token?: string;
-
-    @Column({ nullable: true })
-    otherToken?: string;
-
-    @Column()
-    authType: AuthType;
 
     @CreateDateColumn()
     created_at: Date;
@@ -38,6 +34,9 @@ export class User {
     @OneToMany(type => Task, task => task.assignee)
     assignedTasks: Task[];
 
-    @Column({default: UserRole.DEFAULT})
+    @OneToMany(type => LoginToken, token => token.owner)
+    loginTokens: Promise<LoginToken[]>;
+
+    @Column({ default: UserRole.DEFAULT })
     role: UserRole;
 }

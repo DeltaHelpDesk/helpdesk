@@ -90,10 +90,16 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
   }
 
   logout = async () => {
-      await client.mutate({
-        mutation: LOGOUT,
-      });
-      this.setToken(null);
+    try {
+        await client.mutate({
+            mutation: LOGOUT,
+        });
+    } catch {
+        /// Vynucení smazání tokenu
+    }
+    this.setToken(null);
+
+    window.location.reload();
   };
 
   doLoginOffice = async () => {

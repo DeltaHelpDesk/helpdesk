@@ -3,7 +3,7 @@ services:
   backend:
     image: kkarczmarczyk/node-yarn
     env_file:
-      - backend/.env
+      - backend/local.env
     networks:
       backend:
         aliases:
@@ -34,40 +34,6 @@ services:
     volumes:
     - './dckr/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
     - 'mysql-data:/var/lib/mysql'
-  frontend:
-    image: kkarczmarczyk/node-yarn
-    env_file:
-      - frontend/.env
-    networks:
-      frontend:
-        aliases:
-          - front
-      backend:
-        aliases:
-          - front
-    expose:
-    - '3001'
-    ports:
-    - '${FRONTEND_NODE_PORT}:3001'
-    volumes:
-      - './frontend:/frontend'
-      - './frontend/node_modules:/frontend/node_modules:cached'
-    working_dir: '/frontend'
-    command: ['yarn', 'start']
-  storybook:
-    image: kkarczmarczyk/node-yarn
-    networks:
-      frontend:
-        aliases:
-          - storybook
-    expose:
-    - '9001'
-    ports:
-    - '${STORYBOOK_PORT}:9001'
-    volumes:
-    - './frontend:/frontend'
-    working_dir: '/frontend'
-    command: ['yarn', 'storybook']
   mobile:
     image: kkarczmarczyk/node-yarn
     networks:
@@ -84,8 +50,6 @@ services:
     command: ['yarn', 'start']
 networks:
   backend:
-    driver: 'bridge'
-  frontend:
     driver: 'bridge'
 volumes:
   mysql-data:
