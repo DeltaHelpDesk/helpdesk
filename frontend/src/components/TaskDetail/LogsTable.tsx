@@ -42,9 +42,7 @@ interface ILogsTableProps extends WithStyles<typeof styles> {
     logs: ILog[]
 }
 
-function LogsTable(props: ILogsTableProps) {
-    const { classes, logs } = props;
-
+const LogsTable:React.FunctionComponent<ILogsTableProps> = ({ classes, logs }) => {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
