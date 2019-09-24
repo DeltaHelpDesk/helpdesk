@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import DateFormatter from '../Dates/DateFormatter';
 
 import * as React from "react";
 import { ILog } from './Log';
@@ -58,7 +59,7 @@ const LogsTable:React.FunctionComponent<ILogsTableProps> = ({ classes, logs }) =
                         <TableRow className={classes.row} key={log.id}>
                             <CustomTableCell component="th" scope="row">{log.author.fullName}</CustomTableCell>
                             <CustomTableCell align="right">{log.comment}</CustomTableCell>
-                            <CustomTableCell>{log.created_at}</CustomTableCell>
+                            <CustomTableCell><DateFormatter date={new Date(log.created_at)} relative = {true}/></CustomTableCell>
                         </TableRow>
                     ))}
                 </TableBody>
