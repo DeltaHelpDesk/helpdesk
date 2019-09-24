@@ -7,6 +7,7 @@ import { DELETE_USER, GET_USER } from './UserListQueries';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { GET_TASKS } from 'src/components/TaskList/TaskListQueries';
+import DateFormatComponent from 'src/components/Dates/DateFormatter';
 const styles = {
 }
 
@@ -49,10 +50,10 @@ const User: React.SFC<{ user: IUser, isAdmin: boolean }> = props => {
                 {role}
             </TableCell>
             <TableCell>
-                {created_at}
+                <DateFormatComponent date={created_at} relative={false}/>
             </TableCell>
             <TableCell>
-                {updated_at}
+                <DateFormatComponent date={updated_at} relative={true}/>
             </TableCell>
             {isAdmin && <TableCell>
                 <Button variant="contained" color="primary">

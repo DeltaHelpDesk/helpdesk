@@ -12,6 +12,8 @@ const DateFormatComponent: React.FunctionComponent<IDateProps> = ({ date, relati
 
     const [dateMoment, setDateMoment] = useState<string>();
 
+    // TODO: use without useEffect
+
     useEffect(() => {
         const moment = require('moment');
         let dateString: string ;
