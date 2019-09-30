@@ -165,7 +165,7 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="fixed" >
                     <Toolbar className="flex-direction-column">
                         <Typography variant="h6" className={classes.grow}>
                             <NavLink className={classes.firstItem} to="/"><img className={classes.menuLogo} src={logo} /></NavLink>
