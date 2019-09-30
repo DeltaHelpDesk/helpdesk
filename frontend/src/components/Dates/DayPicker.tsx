@@ -1,38 +1,27 @@
 import * as React from 'react';
-import { Theme, createStyles, WithStyles } from '@material-ui/core/styles';
 import 'react-day-picker/lib/style.css';
 import { DatePicker } from '@y0c/react-datepicker';
 import '@y0c/react-datepicker/assets/styles/calendar.scss';
-
-const styles = (theme: Theme) => createStyles({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200,
-    },
-});
+import { useState } from 'react';
 
 
 
-interface IDatePickerProps extends WithStyles<typeof styles> {
-    onChange: (date: string) => void
+interface IDatePickerProps {
+    onChange?: (date: string) => void
 }
 
 
-const DayPicker: React.FunctionComponent<IDatePickerProps> = () => {
+const DayPicker: React.FunctionComponent<IDatePickerProps> = ({ onChange }) => {
 
-    const [selectedDate, handleDateChange] = React.useState(new Date);
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date);
 
-    const onChange = (date) => {
-        handleDateChange(date);
-      }
+    const handleChange = (date: any) => {
+        setSelectedDate(date);
+        if (onChange) { onChange(date.toString()); }
+    }
 
     return <>
-        <DatePicker onChange={onChange} placeholder={selectedDate.toString()}/>
+        <DatePicker onChange={handleChange} placeholder={selectedDate.toString()} />
     </>;
 }
 
