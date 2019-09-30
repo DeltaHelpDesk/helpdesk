@@ -12,9 +12,9 @@ import { ConfigService } from './config/config.service';
 import { ConfigModule } from './config/config.module';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 import { AutoJobModule } from './autoJob/autojob.module';
-import { User } from 'auth/user.entity';
-import { Task } from 'task/task.entity';
-import { Log } from 'task/log.entity';
+import { User } from './auth/user.entity';
+import { Task } from './task/task.entity';
+import { Log } from './task/log.entity';
 
 @Module({
     imports: [
