@@ -1,163 +1,163 @@
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: string,
-  String: string,
-  Boolean: boolean,
-  Int: number,
-  Float: number,
-  Date: any,
+export interface IScalars {
+    ID: string,
+    String: string,
+    Boolean: boolean,
+    Int: number,
+    Float: number,
+    Date: any,
 };
 
-export type AuthenticatedUser = {
-   __typename?: 'AuthenticatedUser',
-  id: Scalars['ID'],
-  fullName: Scalars['String'],
-  email: Scalars['String'],
-  created_at: Scalars['Date'],
-  updated_at?: Maybe<Scalars['Date']>,
-  token: Scalars['String'],
-  role?: Maybe<UserRole>,
+export interface IAuthenticatedUser {
+    __typename?: 'AuthenticatedUser',
+    id: IScalars['ID'],
+    fullName: IScalars['String'],
+    email: IScalars['String'],
+    created_at: IScalars['Date'],
+    updated_at?: Maybe<IScalars['Date']>,
+    token: IScalars['String'],
+    role?: Maybe<UserRole>,
 };
 
 export enum AuthType {
-  Email = 'EMAIL',
-  Google = 'GOOGLE',
-  Facebook = 'FACEBOOK',
-  Microsoft = 'MICROSOFT'
+    Email = 'EMAIL',
+    Google = 'GOOGLE',
+    Facebook = 'FACEBOOK',
+    Microsoft = 'MICROSOFT'
 }
 
 
-export type Log = {
-   __typename?: 'Log',
-  id: Scalars['ID'],
-  author: User,
-  created_at: Scalars['Date'],
-  comment?: Maybe<Scalars['String']>,
-  state?: Maybe<State>,
-  assignee?: Maybe<User>,
+export interface ILog {
+    __typename?: 'Log',
+    id: IScalars['ID'],
+    author: IUser,
+    created_at: IScalars['Date'],
+    comment?: Maybe<IScalars['String']>,
+    state?: Maybe<State>,
+    assignee?: Maybe<IUser>,
 };
 
-export type Mutation = {
-   __typename?: 'Mutation',
-  loginOffice?: Maybe<AuthenticatedUser>,
-  loginEmail?: Maybe<AuthenticatedUser>,
-  createUserEmail?: Maybe<User>,
-  adminEditUser?: Maybe<User>,
-  editUser?: Maybe<User>,
-  removeUser?: Maybe<Scalars['Boolean']>,
-  logout?: Maybe<Scalars['Boolean']>,
-  addTask?: Maybe<Task>,
-  changeTaskState?: Maybe<Task>,
-  deleteTask?: Maybe<Scalars['Boolean']>,
-};
-
-
-export type MutationLoginOfficeArgs = {
-  token: Scalars['String']
+export interface IMutation {
+    __typename?: 'Mutation',
+    loginOffice?: Maybe<IAuthenticatedUser>,
+    loginEmail?: Maybe<IAuthenticatedUser>,
+    createUserEmail?: Maybe<IUser>,
+    adminEditUser?: Maybe<IUser>,
+    editUser?: Maybe<IUser>,
+    removeUser?: Maybe<IScalars['Boolean']>,
+    logout?: Maybe<IScalars['Boolean']>,
+    addTask?: Maybe<ITask>,
+    changeTaskState?: Maybe<ITask>,
+    deleteTask?: Maybe<IScalars['Boolean']>,
 };
 
 
-export type MutationLoginEmailArgs = {
-  email: Scalars['String'],
-  password: Scalars['String']
+export interface IMutationLoginOfficeArgs {
+    token: IScalars['String']
 };
 
 
-export type MutationCreateUserEmailArgs = {
-  email: Scalars['String'],
-  password: Scalars['String'],
-  fullName: Scalars['String'],
-  role?: Maybe<UserRole>
+export interface IMutationLoginEmailArgs {
+    email: IScalars['String'],
+    password: IScalars['String']
 };
 
 
-export type MutationAdminEditUserArgs = {
-  userId: Scalars['ID'],
-  email?: Maybe<Scalars['String']>,
-  fullName?: Maybe<Scalars['String']>,
-  className?: Maybe<Scalars['String']>,
-  role?: Maybe<UserRole>
+export interface IMutationCreateUserEmailArgs {
+    email: IScalars['String'],
+    password: IScalars['String'],
+    fullName: IScalars['String'],
+    role?: Maybe<UserRole>
 };
 
 
-export type MutationEditUserArgs = {
-  email?: Maybe<Scalars['String']>,
-  fullName?: Maybe<Scalars['String']>,
-  className?: Maybe<Scalars['String']>
+export interface IMutationAdminEditUserArgs {
+    userId: IScalars['ID'],
+    email?: Maybe<IScalars['String']>,
+    fullName?: Maybe<IScalars['String']>,
+    className?: Maybe<IScalars['String']>,
+    role?: Maybe<UserRole>
 };
 
 
-export type MutationRemoveUserArgs = {
-  email: Scalars['String']
+export interface IMutationEditUserArgs {
+    email?: Maybe<IScalars['String']>,
+    fullName?: Maybe<IScalars['String']>,
+    className?: Maybe<IScalars['String']>
 };
 
 
-export type MutationAddTaskArgs = {
-  subject: Scalars['String'],
-  issue: Scalars['String'],
-  assigneeId?: Maybe<Scalars['ID']>
+export interface IMutationRemoveUserArgs {
+    email: IScalars['String']
 };
 
 
-export type MutationChangeTaskStateArgs = {
-  taskId?: Maybe<Scalars['ID']>,
-  comment?: Maybe<Scalars['String']>,
-  state?: Maybe<State>,
-  assigneeId?: Maybe<Scalars['ID']>
+export interface IMutationAddTaskArgs {
+    subject: IScalars['String'],
+    issue: IScalars['String'],
+    assigneeId?: Maybe<IScalars['ID']>
 };
 
 
-export type MutationDeleteTaskArgs = {
-  taskId?: Maybe<Scalars['ID']>
-};
-
-export type Query = {
-   __typename?: 'Query',
-  session?: Maybe<AuthenticatedUser>,
-  admins?: Maybe<Array<Maybe<User>>>,
-  users?: Maybe<Array<Maybe<User>>>,
-  tasks?: Maybe<Array<Maybe<Task>>>,
-  task?: Maybe<Task>,
+export interface IMutationChangeTaskStateArgs {
+    taskId?: Maybe<IScalars['ID']>,
+    comment?: Maybe<IScalars['String']>,
+    state?: Maybe<State>,
+    assigneeId?: Maybe<IScalars['ID']>
 };
 
 
-export type QueryTaskArgs = {
-  id?: Maybe<Scalars['ID']>
+export interface IMutationDeleteTaskArgs {
+    taskId?: Maybe<IScalars['ID']>
+};
+
+export interface IQuery {
+    __typename?: 'Query',
+    session?: Maybe<IAuthenticatedUser>,
+    admins?: Maybe<Array<Maybe<IUser>>>,
+    users?: Maybe<Array<Maybe<IUser>>>,
+    tasks?: Maybe<Array<Maybe<ITask>>>,
+    task?: Maybe<ITask>,
+};
+
+
+export interface IQueryTaskArgs {
+    id?: Maybe<IScalars['ID']>
 };
 
 export enum State {
-  Unresolved = 'UNRESOLVED',
-  Solving = 'SOLVING',
-  Solved = 'SOLVED',
-  Returned = 'RETURNED'
+    Unresolved = 'UNRESOLVED',
+    Solving = 'SOLVING',
+    Solved = 'SOLVED',
+    Returned = 'RETURNED'
 }
 
-export type Task = {
-   __typename?: 'Task',
-  id: Scalars['ID'],
-  subject: Scalars['String'],
-  issue?: Maybe<Scalars['String']>,
-  author: User,
-  assignee?: Maybe<User>,
-  created_at: Scalars['Date'],
-  updated_at?: Maybe<Scalars['Date']>,
-  state: State,
-  logs?: Maybe<Array<Maybe<Log>>>,
+export interface ITask {
+    __typename?: 'Task',
+    id: IScalars['ID'],
+    subject: IScalars['String'],
+    issue?: Maybe<IScalars['String']>,
+    author: IUser,
+    assignee?: Maybe<IUser>,
+    created_at: IScalars['Date'],
+    updated_at?: Maybe<IScalars['Date']>,
+    state: State,
+    logs?: Maybe<Array<Maybe<ILog>>>,
 };
 
-export type User = {
-   __typename?: 'User',
-  id: Scalars['ID'],
-  fullName: Scalars['String'],
-  email: Scalars['String'],
-  created_at: Scalars['Date'],
-  updated_at?: Maybe<Scalars['Date']>,
-  role?: Maybe<UserRole>,
+export interface IUser {
+    __typename?: 'User',
+    id: IScalars['ID'],
+    fullName: IScalars['String'],
+    email: IScalars['String'],
+    created_at: IScalars['Date'],
+    updated_at?: Maybe<IScalars['Date']>,
+    role?: Maybe<UserRole>,
 };
 
 export enum UserRole {
-  Default = 'DEFAULT',
-  Admin = 'ADMIN',
-  Superadmin = 'SUPERADMIN'
+    Default = 'DEFAULT',
+    Admin = 'ADMIN',
+    Superadmin = 'SUPERADMIN'
 }
