@@ -5,10 +5,11 @@ import { TaskService } from './task.service';
 import { Task } from './task.entity';
 import { Log } from './log.entity';
 import { TaskResolvers } from './task.resolvers';
+import { User } from '../auth/user.entity';
 @Module({
     imports: [
         AuthModule,
-        TypeOrmModule.forFeature([Task, Log]),
+        TypeOrmModule.forFeature([User, Task, Log]),
     ],
     providers: [
         TaskService,

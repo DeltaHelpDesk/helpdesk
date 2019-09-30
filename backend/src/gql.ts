@@ -1,3 +1,10 @@
+
+/** ------------------------------------------------------
+ * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+ * -------------------------------------------------------
+ */
+
+/* tslint:disable */
 export enum AuthType {
     EMAIL = "EMAIL",
     GOOGLE = "GOOGLE",
@@ -69,8 +76,6 @@ export abstract class IQuery {
     abstract tasks(): Task[] | Promise<Task[]>;
 
     abstract task(id?: string): Task | Promise<Task>;
-
-    abstract temp__(): boolean | Promise<boolean>;
 }
 
 export class Task {
@@ -93,5 +98,3 @@ export class User {
     updated_at?: Date;
     role?: UserRole;
 }
-
-export type Date = any;
