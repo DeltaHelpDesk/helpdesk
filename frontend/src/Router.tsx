@@ -11,6 +11,7 @@ import UserList from "./components/Administration/UserList/UserList";
 import TaskDetail from './components/TaskDetail/TaskDetail';
 import About from './components/About/About';
 import NewUser from './components/Administration/NewUser/NewUser';
+import TaskBoard from './components/TaskBoard/TaskBoard';
 
 class Router extends React.Component<{}> {
     render() {
@@ -27,6 +28,7 @@ class Router extends React.Component<{}> {
                         <Route path="/" exact={true} component={HomePage} />
                         <AuthenticatedRoute path="/form" component={NewTask} />
                         <AuthenticatedRoute path="/task/:id" component={TaskDetail} />
+                        <AuthenticatedRoute path="/board" component={TaskBoard} />
                     </Switch>
                 </Layout>
             </BrowserRouter>
