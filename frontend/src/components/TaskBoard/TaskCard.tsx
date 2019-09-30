@@ -14,7 +14,7 @@ const TaskCard: React.FunctionComponent<ITaskCardProps> = ({ task }) => {
         const path = "/task/" + task.id;
         return (
             <NavLink to={path}>
-                <Button variant="contained" color="primary">
+                <Button variant="raised" color="primary">
                     <Icon>edit_icon</Icon>
                 </Button>
             </NavLink>
