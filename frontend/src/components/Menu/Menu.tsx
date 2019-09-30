@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as React from "react";
 import { NavLink } from 'react-router-dom';
-import logo from "./logo.png";
+import logo from "./logo_new.png";
 import { AuthContext } from '../../graphql/auth';
 import UserLogged from './UserLogged';
 
@@ -24,10 +24,25 @@ const styles = (theme: Theme) => createStyles({
         color: "white",
         textDecoration: "none",
         marginLeft: "5px",
-        padding: "10px 15px",
-        borderRadius: "5%",
-        '&:hover': {
-            background: "rgba(255,255,255,0.5)"
+        padding: "10px 15px 2px",
+        fontWeight: 500,
+        transform: 'scale(1, 1.1)',
+        letterSpacing: "1.5px",
+        textTransform: "lowercase",
+        // '&:hover :before': {
+        //     // width: "100%"
+        // },
+        '&:before': {
+            content: '',
+            position: "absolute",
+            left: "0px",
+            bottom: "22px",
+            height: "2px",
+            width: "100%",
+            backgroundColor: "#ffffff",
+            // -webkit-transition: all .3s ease 0s,
+            // -o-transition: all .3s ease 0s,
+            // transition: all .3s ease 0s
         }
     },
     hamburger: {
@@ -116,7 +131,8 @@ const styles = (theme: Theme) => createStyles({
         right: "0"
     },
     menuLogo: {
-        maxHeight: "65px"
+        paddingTop: "5px",
+        maxHeight:"65px"
     }
 });
 
@@ -178,9 +194,9 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
                             </div>
                         </div>
                         <div className={`${classes.navItems} ${this.state.isActive ? "is-active" : ""}`}>
-                            <NavLink className={classes.menuItem} to="/admin">{'Administration'.toUpperCase()}</NavLink>
-                            <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'.toUpperCase()}</NavLink>
-                            <NavLink className={classes.menuItem} to="/form">{'New task'.toUpperCase()}</NavLink>
+                            <NavLink className={classes.menuItem} to="/admin">{'Administration'}</NavLink>
+                            <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'}</NavLink>
+                            <NavLink className={classes.menuItem} to="/form">{'New task'}</NavLink>
                         </div>
                         <AuthContext.Consumer>{({ logout, user }) =>
                             user && (

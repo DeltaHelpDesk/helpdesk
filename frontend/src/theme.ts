@@ -5,7 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const rawTheme = createMuiTheme({
   palette: {
     primary: {
-      main: "#40A351",
+      main: "#4c4c4c",
     },
     type: "light" // Indigo is probably a good match with pink
   },
