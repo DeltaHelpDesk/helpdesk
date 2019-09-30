@@ -15,6 +15,7 @@ export interface ITask {
   state: string;
   assignee: IAssignee;
   author: IAuthor;
+  created_at: Date
 }
 export interface IAssignee {
   fullName: string;

@@ -5,7 +5,9 @@ export const GET_TASKS = gql`
   tasks {
     id
     subject
+    issue
     state
+    created_at
     author {
       id
       fullName
