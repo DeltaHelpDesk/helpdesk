@@ -7,6 +7,7 @@ export const GET_TASKS = gql`
     subject
     issue
     state
+    created_at
     author {
       id
       fullName

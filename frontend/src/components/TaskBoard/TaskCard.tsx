@@ -2,6 +2,7 @@ import { Paper, Divider, Button, Icon, Typography } from "@material-ui/core";
 import { ITask } from '../TaskList/TaskList';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import DateFormatComponent from '../Dates/DateFormatter';
 
 
 interface ITaskCardProps {
@@ -28,6 +29,7 @@ const TaskCard: React.FunctionComponent<ITaskCardProps> = ({ task }) => {
                 <Divider style={{ marginTop: '.5rem', marginBottom: '.5rem' }} />
                 <div><strong>Od: </strong>{task.author.fullName}</div>
                 <div><strong>Řeší: </strong>{!task.assignee ? 'Nikdo' : task.assignee.fullName}</div>
+                <div><strong>Vytvořeno: </strong> <DateFormatComponent date={task.created_at} relative={true}/> </div>
                 <div><strong>Popis: </strong>{task.issue}</div>
                 <Divider style={{ marginTop: '.5rem', marginBottom: '.5rem' }} />
                 <div style={{ padding: '1rem' }}>
