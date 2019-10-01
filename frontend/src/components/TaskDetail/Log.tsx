@@ -1,3 +1,5 @@
+/*
+
 import { IAuthor } from '../TaskList/TaskList';
 import { IUser } from 'src/graphql/auth';
 
@@ -9,3 +11,5 @@ export interface ILog {
     state: string
     assignee: IUser
 }
+
+*/
