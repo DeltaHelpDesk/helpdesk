@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import * as React from "react";
 import { ILog } from 'src/graphql/types';
+import DateFormatComponent from '../Dates/DateFormatter';
 
 
 
@@ -60,7 +61,7 @@ function LogsTable(props: ILogsTableProps) {
                         <TableRow className={classes.row} key={log.id}>
                             <CustomTableCell component="th" scope="row">{log.author.fullName}</CustomTableCell>
                             <CustomTableCell align="right">{log.comment}</CustomTableCell>
-                            <CustomTableCell>{log.created_at}</CustomTableCell>
+                            <CustomTableCell><DateFormatComponent date={log.created_at} relative={false}/></CustomTableCell>
                         </TableRow>
                     ))}
                 </TableBody>

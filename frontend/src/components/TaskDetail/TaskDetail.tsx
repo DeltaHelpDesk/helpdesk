@@ -7,6 +7,7 @@ import { TASK_DETAIL } from './TaskDetailQueries';
 import { RouteComponentProps } from 'react-router';
 import LogsTable from './LogsTable';
 import DetailForm from './DetailForm';
+import DateFormatComponent from '../Dates/DateFormatter';
 
 
 const styles = {};
@@ -35,7 +36,7 @@ class TaskList extends React.Component<RouteComponentProps<{id: string}>> {
                 <div>assignee: {task.assignee.fullName}</div>
                 <div>author: {task.author.fullName}</div>
                 <div>state: {task.state}</div>
-                <div>created at: {task.created_at}</div>
+                <div>created at: <DateFormatComponent date={task.created_at} relative={false}/></div>
                 {isAuthorized && 
                     <div>issue: {task.issue}</div>
                 }
