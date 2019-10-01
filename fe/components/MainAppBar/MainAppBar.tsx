@@ -1,4 +1,9 @@
 import * as React from 'react';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Link from 'next/link';
+import { Button } from '@material-ui/core';
 
 const MainAppBar: React.FunctionComponent<{}> = () => {
 
@@ -6,30 +11,16 @@ const MainAppBar: React.FunctionComponent<{}> = () => {
     return <>
         <AppBar position="fixed" >
             <Toolbar className="flex-direction-column">
-                <Typography variant="h6" className={classes.grow}>
-                    <NavLink className={classes.firstItem} to="/"><img className={classes.menuLogo} src={logo} /></NavLink>
+                <Typography variant="h6" >
+                    {/* <Link href="/"><img  src={logo} /></Link> */}
                 </Typography>
-                <div className={classes.parent}>
-                    <div className={classes.hamburger} onClick={() => { this.setState({ isActive: !this.state.isActive }); this.help(); }}>
-                        <span className={`${classes.line} ${classes.line1} ${classes.lineOneInactive}`} />
-                        <span className={`${classes.line} ${classes.line2} ${classes.lineTwoInactive}`} />
-                        <span className={`${classes.line} ${classes.line3} ${classes.lineThreeInactive}`} />
-                    </div>
+               
+                <div>
+                    <Link href='/admin'><Button variant="contained" >Administration</Button></Link>
+                    <Link href='/admin'><Button variant="contained">Task list</Button></Link>
+                    <Link href='/admin'><Button variant="contained">New task</Button></Link>
                 </div>
-                <div className={`${classes.navItems} ${this.state.isActive ? "is-active" : ""}`}>
-                    <NavLink className={classes.menuItem} to="/admin">{'Administration'}</NavLink>
-                    <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'}</NavLink>
-                    <NavLink className={classes.menuItem} to="/form">{'New task'}</NavLink>
-                </div>
-                <AuthContext.Consumer>{({ logout, user }) =>
-                    user && (
-                        <div>
-                            {/* <span>{user.fullName}</span> */}
-                            <UserLogged logout={logout} user={user} />
-                            {/* <Button onClick={logout}>Odhlásit se</Button> */}
-                        </div>
-                    )
-                }</AuthContext.Consumer>
+               
             </Toolbar>
         </AppBar></>;
 }
