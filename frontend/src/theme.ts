@@ -19,7 +19,8 @@ const customTheme = createMuiTheme({
     {
       root:
       {
-        backgroundColor: rawTheme.palette.primary.main,
+        // backgroundColor: rawTheme.palette.primary.main,
+        borderRadius: "0px !important",
       }
     },
   },
