@@ -3,9 +3,8 @@ import { Query } from 'react-apollo';
 import { GET_TASKS } from '../TaskList/TaskListQueries';
 import Loading from '../Loading/Loading';
 import { Grid, Paper, Divider, Typography } from '@material-ui/core';
-import { ITask } from '../TaskList/TaskList';
 import TaskCard from './TaskCard';
-import { States } from '../../utils/TaskState';
+import { ITask, State } from 'src/graphql/types';
 
 
 
@@ -31,21 +30,21 @@ class TaskBoard extends React.Component<{}> {
                                     <div><Typography variant="h6" component="h2">Nezapočaté</Typography></div>
                                     <Divider style={{ marginTop: '.5rem', marginBottom: '.5rem' }} />
 
-                                    {tasks.map(x => x.state === States.UNRESOLVED && <TaskCard task={x} key={x.id} />)}
+                                    {tasks.map(x => x.state === State.Unresolved && <TaskCard task={x} key={x.id} />)}
                                 </Paper>
                             </Grid>
                             <Grid item={true} xs={true} style={{ padding: '2rem' }}>
                                 <Paper style={{ background: '#ffffff', padding: '1rem' }}>
                                     <div><Typography variant="h6" component="h2">Započaté</Typography></div>
                                     <Divider style={{ marginTop: '.5rem', marginBottom: '.5rem' }} />
-                                    {tasks.map(x => x.state === States.SOLVING && <TaskCard task={x} key={x.id} />)}
+                                    {tasks.map(x => x.state === State.Unresolved && <TaskCard task={x} key={x.id} />)}
                                 </Paper>
                             </Grid>
                             <Grid item={true} xs={true} style={{ padding: '2rem' }}>
                                 <Paper style={{ background: '#ffffff', padding: '1rem' }}>
                                     <div><Typography variant="h6" component="h2">Dokončené</Typography></div>
                                     <Divider style={{ marginTop: '.5rem', marginBottom: '.5rem' }} />
-                                    {tasks.map(x => x.state === States.SOLVED && <TaskCard task={x} key={x.id} />)}
+                                    {tasks.map(x => x.state === State.Solved && <TaskCard task={x} key={x.id} />)}
                                 </Paper>
                             </Grid>
                         </Grid>

@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import * as React from "react";
-import { ILog } from './Log';
+import { ILog } from 'src/graphql/types';
 
 
 

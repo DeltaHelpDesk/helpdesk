@@ -1,8 +1,8 @@
 import { Paper, Divider, Button, Icon, Typography } from "@material-ui/core";
-import { ITask } from '../TaskList/TaskList';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import DateFormatComponent from '../Dates/DateFormatter';
+import { ITask } from 'src/graphql/types';
 
 
 interface ITaskCardProps {

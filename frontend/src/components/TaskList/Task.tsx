@@ -1,4 +1,3 @@
-import { ITask } from "./TaskList";
 import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { TableRow, TableCell, Button, Icon } from '@material-ui/core';
@@ -8,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import background from 'src/utils/TaskState';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { ITask } from 'src/graphql/types';
 const styles = {
 
 }
