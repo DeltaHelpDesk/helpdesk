@@ -28,6 +28,16 @@ Written using React. **TODO: NextJS**
 2. 
    - a) Local backend: `yarn start:local`
    - b) Remote backend: `yarn start:remote`
+  
+ 
+### Frontend v2 (Next.js)
+
+1. Project directory `cd fe`
+
+2. `yarn install`
+
+3. `yarn dev`
+
 
 ### Docker
 
