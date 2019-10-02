@@ -29,20 +29,19 @@ const styles = (theme: Theme) => createStyles({
         transform: 'scale(1, 1.1)',
         letterSpacing: "1.5px",
         textTransform: "lowercase",
-        // '&:hover :before': {
-        //     // width: "100%"
-        // },
+        '&:hover': {
+            '&:before': {
+                width: "100%",
+            }
+        },
         '&:before': {
-            content: '',
+            content: `''`,
             position: "absolute",
             left: "0px",
-            bottom: "22px",
+            top: "100%",
             height: "2px",
-            width: "100%",
+            width: "0%",
             backgroundColor: "#ffffff",
-            // -webkit-transition: all .3s ease 0s,
-            // -o-transition: all .3s ease 0s,
-            // transition: all .3s ease 0s
         }
     },
     hamburger: {
@@ -194,9 +193,9 @@ class Hamburger extends React.Component<IMenuProps, IMenuState> {
                             </div>
                         </div>
                         <div className={`${classes.navItems} ${this.state.isActive ? "is-active" : ""}`}>
-                            <NavLink className={classes.menuItem} to="/admin">{'Administration'}</NavLink>
-                            <NavLink className={classes.menuItem} to="/tasklist">{'Tasklist'}</NavLink>
-                            <NavLink className={classes.menuItem} to="/form">{'New task'}</NavLink>
+                            <NavLink className={classes.menuItem} to="/admin">Administration</NavLink>
+                            <NavLink className={classes.menuItem} to="/tasklist">Tasklist</NavLink>
+                            <NavLink className={classes.menuItem} to="/form">New task</NavLink>
                         </div>
                         <AuthContext.Consumer>{({ logout, user }) =>
                             user && (
