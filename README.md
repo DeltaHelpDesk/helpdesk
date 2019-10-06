@@ -1,9 +1,11 @@
 # Project for Delta HelpDesk
 ## Project structure
 ### Backend - /backend
-Written using NestJS with TypeORM and GraphQL
+Written using NestJS with TypeORM and GraphQL.
 ### React frontend - /frontend
-Written using React. **TODO: NextJS**
+Written using React. *Obsolete*
+### NextJS frontend - /fe
+Written using NextJS.
 
 
 ## Installation/Start
@@ -18,14 +20,16 @@ Written using React. **TODO: NextJS**
 
 4. 
    - a) Remote MySQL database: `yarn start:remote`
-   - b) Local docker MySQL database: See: [Docker setup](#Docker) **Not working**
+   - b) Local docker MySQL database: See: [Docker setup](#Docker)
    - c) Remote production MySQL database: `yarn start:prod`
 
-### Frontend
+### Frontend (React)
 
 1. Project directory `cd frontend`
 
-2. 
+2. `yarn install`
+
+3. 
    - a) Local backend: `yarn start:local`
    - b) Remote backend: `yarn start:remote`
   
