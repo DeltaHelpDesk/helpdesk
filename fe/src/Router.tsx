@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, BrowserRouter } from "react-router-dom";
 import Login from "../components/Login/Login";
 import AdministrationContainer from "../components/Administration/AdministrationContainer";
 import MainLayout from "../components/Layouts/Layout";

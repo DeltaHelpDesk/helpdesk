@@ -5,22 +5,18 @@ import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AuthContext, IAuthContextValue } from '../../src/graphql/auth';
+import Link from "next/link";
+import customRoutes from "../../src/Routes";
 
 
 
 
 
-interface IHomePageProps extends RouteComponentProps {
+interface IHomePageProps {
 
 }
 
 class HomePage extends React.Component<IHomePageProps> {
-    redirectToForm = () => {
-        this.props.history.push("/form");
-    }
-    redirectToLogin = () => {
-        this.props.history.push("/login");
-    }
 
 
     render() {
@@ -39,9 +35,17 @@ class HomePage extends React.Component<IHomePageProps> {
                     </Grid>
                     <Grid item={true} xs={12}>
                         <div>
-                            <Button onClick={this.redirectToForm} variant="contained" color="primary">Poslat požadavek</Button>
+                            <Link href={customRoutes.newTask}>
+                                <Button variant="contained" color="primary">
+                                    Poslat požadavek
+                            </Button>
+                            </Link>
                             <AuthContext.Consumer>{({ logout, user }: IAuthContextValue) =>
-                                !user && <Button onClick={this.redirectToLogin} variant="contained" color="primary">Přihlásit se</Button>
+                                !user && <Link href={customRoutes.newTask}>
+                                    <Button variant="contained" color="primary">
+                                        Přihlásit se
+                                    </Button>
+                                </Link>
 
                             }</AuthContext.Consumer>
                         </div>
@@ -51,4 +55,4 @@ class HomePage extends React.Component<IHomePageProps> {
         </div>;
     }
 }
-export default withRouter(HomePage); 
+export default HomePage;
