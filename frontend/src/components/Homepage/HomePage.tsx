@@ -5,6 +5,7 @@ import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AuthContext } from 'src/graphql/auth';
+import helpdesk_bg from "./helpdesk_bg.jpg";
 
 
 
@@ -13,18 +14,28 @@ const styles = (theme: Theme) => createStyles({
         color: theme.palette.primary.dark,
     },
     subheader: {
-        color: theme.palette.secondary.light,
+        color: theme.palette.primary.light,
         textAlign: "center"
     },
 
     buttonHomepage: {
-        margin: "10px",
+        margin: "10px 25px",
+        color: theme.palette.primary.light,
+        backgroundColor: theme.palette.secondary.main,
+        padding: "10px 35px",
+        borderRadius: "0px",
+        fontWeight: "lighter",
+        textTransform: "uppercase",
+        '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+        },
     },
 
     itemsCenter: {
         textAlign: "center",
     },
     info: {
+        color: theme.palette.primary.light,
         [theme.breakpoints.down('sm')]: {
             fontSize: "18px"
         },
@@ -38,7 +49,21 @@ const styles = (theme: Theme) => createStyles({
         transform: 'translate(-50%,-50%)',
         width: "100%",
     },
-
+    background: {
+        position: 'fixed',
+        top: "50%",
+        left: "50%",
+        transform: 'translate(-50%,-50%)',
+        width: "100%",
+        zIndex: -5,
+        [theme.breakpoints.down('sm')]: {
+            height: "100%",
+            width: "auto",
+        },
+    },
+    title : {
+        fontWeight: "bold",
+    },
 });
 
 interface IHomePageProps extends WithStyles<typeof styles>, RouteComponentProps {
@@ -61,7 +86,7 @@ class HomePage extends React.Component<IHomePageProps> {
             <Grid container={true} direction="row" justify="center" alignItems="center">
                 <div className={classes.center}>
                     <Grid item={true} xs={12}>
-                        <Typography component="h1" variant="h1" gutterBottom={true}>Delta helpdesk</Typography>
+                        <Typography component="h1" variant="h1" gutterBottom={true} className={classes.title}>Delta helpdesk</Typography>
                     </Grid>
                     <Grid item={true} xs={12}>
                         <Typography component="h2" variant="h2" gutterBottom={true}>Vítejte na stránkách podpory</Typography>
@@ -71,14 +96,15 @@ class HomePage extends React.Component<IHomePageProps> {
                     </Grid>
                     <Grid item={true} xs={12}>
                         <div className={classes.itemsCenter}>
-                            <Button className={classes.buttonHomepage} onClick={this.redirectToForm} variant="contained" color="primary">Poslat požadavek</Button>
+                            <Button className={classes.buttonHomepage} onClick={this.redirectToForm} variant="contained">Poslat požadavek</Button>
                             <AuthContext.Consumer>{({ logout, user }) =>
-                                !user && <Button className={classes.buttonHomepage} onClick={this.redirectToLogin} variant="contained" color="primary">Přihlásit se</Button>
+                                !user && <Button className={classes.buttonHomepage} onClick={this.redirectToLogin} variant="contained">Přihlásit se</Button>
 
                             }</AuthContext.Consumer>
                         </div>
                     </Grid>
                 </div>
+                <img className={classes.background} src={helpdesk_bg} />
             </Grid>
         </div>;
     }
