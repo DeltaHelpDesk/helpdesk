@@ -1,4 +1,4 @@
-import * as Msal from 'msal';
+/*import * as Msal from 'msal';
 // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-core/README.md
 
 export default class MicrosoftAuthService {
@@ -63,7 +63,7 @@ export default class MicrosoftAuthService {
             }
         );
     };
-}
+} */
 
 // export default class GraphService {
 //   constructor() {
@@ -81,4 +81,3 @@ export default class MicrosoftAuthService {
 //       });
 //   };
 // }
-

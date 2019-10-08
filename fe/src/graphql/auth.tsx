@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import client from './client';
 import * as React from 'react';
-import MicrosoftAuthService from '../services/microsoft';
+// import MicrosoftAuthService from '../services/microsoft';
 import Cookies from 'universal-cookie';
 import { UserTokenCookieKey } from "../Global/Keys";
 
@@ -70,9 +70,7 @@ export interface IAuthContextValue {
     officeToken: null | string;
     token: null | string;
     isLoggedIn: boolean;
-    loginByOffice: (token: string) => Promise<string> | undefined;
-    loginByEmail: (email: string, password: string) => Promise<string> | undefined;
-    doLoginOffice: () => Promise<string> | undefined;
+    login: () => Promise<string> | undefined;
     logout: () => Promise<void> | undefined;
     loading: boolean;
 }
@@ -83,15 +81,15 @@ export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
     return userRoleIndex >= requiredRoleIndex;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined, loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true, logout: () => undefined };
+const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, login: () => undefined, user: undefined, loading: true, logout: () => undefined };
 export let lastContextValue: IAuthContextValue = defaultContextValue; // get last context value for things outside of react context, should not be used normally!!!!!!!!!
 export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
 
 class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
-    microsoftAuthService = new MicrosoftAuthService();
+    // microsoftAuthService = new MicrosoftAuthService();
     constructor(props: {}) {
         super(props);
-        this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice, logout: this.logout };
+        this.state = { ...defaultContextValue, login: this.login, logout: this.logout };
     }
 
     logout = async () => {
@@ -107,37 +105,14 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
         window.location.reload();
     };
 
-    doLoginOffice = async () => {
-        await this.microsoftAuthService.login();
-        return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
+    login = async () => {
+        // await this.microsoftAuthService.login();
+        // return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
+        return '';
     }
 
-    loginByOffice = async (token: string): Promise<string> => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const { data: { loginOffice: loginByOfficeQuery } }: any = await client.mutate({
-            mutation: LOGIN_OFFICE,
-            variables: {
-                token
-            }
-        });
-        this.setToken(loginByOfficeQuery.token);
-        this.getSessionUser();
-        return loginByOfficeQuery.token;
-    };
 
-    loginByEmail = async (email: string, password: string): Promise<string> => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
-            mutation: LOGIN_EMAIL,
-            variables: {
-                email,
-                password
-            }
-        });
-        this.setToken(loginByEmailQuery.token);
-        this.getSessionUser();
-        return loginByEmailQuery.token;
-    };
+
 
     getSessionUser = async (): Promise<IUser> => {
         const { data: { session } }: any = await client.query({
