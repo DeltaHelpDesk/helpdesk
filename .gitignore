@@ -1,4 +1,4 @@
-# Ignore Mac DS_Store files
+za# Ignore Mac DS_Store files
 .DS_Store
 
 # IntelliJ project files
@@ -83,3 +83,4 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 .env
+node_modules
