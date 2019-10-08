@@ -4,9 +4,9 @@ interface IProps {
     role: string;
 }
 
-const RoleView: React.FunctionComponent<IProps> = props => {
+const RoleView: React.FunctionComponent<IProps> = ({role}) => {
     let roleIcon: string;
-    switch (props.role) {
+    switch (role) {
         case "ADMIN" :
            roleIcon ="../image_admin.svg";
             break;
