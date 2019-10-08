@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { GET_TASKS } from 'src/components/TaskList/TaskListQueries';
 import DateFormatComponent from 'src/components/Dates/DateFormatter';
+import RoleView from 'src/components/RoleView/RoleView';
 const styles = {
 }
 
@@ -47,7 +48,7 @@ const User: React.SFC<{ user: IUser, isAdmin: boolean }> = props => {
                 {email}
             </TableCell>
             <TableCell>
-                {role}
+                <RoleView role={role}/>
             </TableCell>
             <TableCell>
                 <DateFormatComponent date={created_at} relative={false}/>
