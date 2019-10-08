@@ -48,7 +48,7 @@ const User: React.SFC<{ user: IUser, isAdmin: boolean }> = props => {
                 {email}
             </TableCell>
             <TableCell>
-                <RoleView role={user.role}/>
+                <RoleView role={role}/>
             </TableCell>
             <TableCell>
                 <DateFormatComponent date={created_at} relative={false}/>
