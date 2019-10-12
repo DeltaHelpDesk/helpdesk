@@ -47,7 +47,7 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
     "typeorm": "^0.2.7",
-    "typescript": "^3.1.6",
+    "typescript": "^3.6.3",
     "wait-on": "^3.1.0"
   },
   "devDependencies": {
