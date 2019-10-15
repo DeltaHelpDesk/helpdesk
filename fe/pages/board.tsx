@@ -11,7 +11,9 @@ class Board extends React.Component<IProps> {
     render() {
         return <>
             <Layout title={'Board'}>
-                <TaskBoard />
+                <div className={"no-select"}>
+                    <TaskBoard />
+                </div>
             </Layout>
         </>;
     }
