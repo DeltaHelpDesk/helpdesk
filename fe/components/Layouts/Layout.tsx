@@ -25,7 +25,10 @@ const Layout: React.FunctionComponent<Props> = ({
             <header>
                 <MainAppBar />
             </header>
-            {children}
+            <div style={{marginTop: '10rem'}}>
+                {children}
+
+            </div>
         </div>
     )
 
