@@ -5,29 +5,28 @@ import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AuthContext } from 'src/graphql/auth';
-import helpdesk_bg from "./helpdesk_bg.jpg";
+import helpdesk_bg from "./helpdesk_bg_trans.png";
 
 
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        color: theme.palette.primary.dark,
+
     },
     subheader: {
-        color: theme.palette.primary.light,
-        textAlign: "center"
+        textAlign: "center",
     },
 
     buttonHomepage: {
         margin: "10px 25px",
-        color: theme.palette.primary.light,
+        color: theme.palette.secondary.contrastText,
         backgroundColor: theme.palette.secondary.main,
         padding: "10px 35px",
         borderRadius: "0px",
-        fontWeight: "lighter",
+        fontWeight: "bold",
         textTransform: "uppercase",
         '&:hover': {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.secondary.light,
         },
     },
 
@@ -35,7 +34,7 @@ const styles = (theme: Theme) => createStyles({
         textAlign: "center",
     },
     info: {
-        color: theme.palette.primary.light,
+        color: theme.palette.text.primary,
         [theme.breakpoints.down('sm')]: {
             fontSize: "18px"
         },
@@ -60,9 +59,11 @@ const styles = (theme: Theme) => createStyles({
             height: "100%",
             width: "auto",
         },
+        backgroundColor: theme.palette.background.default,
     },
     title : {
         fontWeight: "bold",
+        color: theme.palette.text.primary + "!important",
     },
 });
 
