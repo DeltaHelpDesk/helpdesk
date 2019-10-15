@@ -126,6 +126,11 @@ const darkTheme = createMuiTheme({
             dark: "#3b8f49",
             contrastText: "#ffffff",
         },
+        contrast: {
+            main: "#f5f5f5",
+            light: "#ffffff",
+            dark: "#e0e0e0",
+        },
         background: {
             default: "#000000",
             paper: "#4c4c4c",
@@ -134,6 +139,7 @@ const darkTheme = createMuiTheme({
             // Normal texts
             primary: "#ffffff",
         },
+
     },
     typography: {
         useNextVariants: true,
@@ -141,19 +147,15 @@ const darkTheme = createMuiTheme({
             [rawTheme.breakpoints.down('sm')]: {
                 fontSize: "45px", 
             },
-            // textAlign: "center",
             textTransform: "uppercase",
             fontSize: "80px",
-            // padding: "5px",   
             color: "#ffffff",     
         },
         h2: {
             [rawTheme.breakpoints.down('sm')]: {
                 fontSize: "25px"
             },
-            // textAlign: "center",
             fontSize: "50px",
-            // padding: "20px",
             color: "#ffffff",
         }
     },

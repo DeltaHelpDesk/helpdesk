@@ -29,7 +29,9 @@ const styles = (theme: Theme) => createStyles({
         margin: theme.spacing.unit
     },
     textField: {
-        flexBasis: 222
+        flexBasis: 222,
+        width: "100%",
+        backgroundColor: theme.palette.contrast.main + "80",
     },
     button: {
         flexBasis: 150,
@@ -80,6 +82,9 @@ const styles = (theme: Theme) => createStyles({
             width: "auto",
         },
         backgroundColor: theme.palette.background.default,
+    },
+    icon: {
+        color: theme.palette.primary.contrastText,
     }
 });
 
@@ -194,6 +199,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                                             <IconButton
                                                 aria-label="Toggle password visibility"
                                                 onClick={this.handleClickShowPassword}
+                                                className={classes.icon}
                                             >
                                                 {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
