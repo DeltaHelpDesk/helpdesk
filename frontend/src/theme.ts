@@ -77,6 +77,12 @@ const lightTheme = createMuiTheme({
             light: "#5e5e5e",
             dark: "#2b2b2b",
         },
+        // BLACK
+        contrast: {
+            main: "#1a1a1a",
+            light: "#333333",
+            dark: "#000000",
+        },
         background: {
             default: "#ffffff",
             paper: "#cacaca",
@@ -126,6 +132,7 @@ const darkTheme = createMuiTheme({
             dark: "#3b8f49",
             contrastText: "#ffffff",
         },
+        // WHITE
         contrast: {
             main: "#f5f5f5",
             light: "#ffffff",

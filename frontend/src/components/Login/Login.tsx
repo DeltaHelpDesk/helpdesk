@@ -62,9 +62,10 @@ const styles = (theme: Theme) => createStyles({
         marginTop: "100px",
     },
     loginHeading: {
-        textAlign: "center" as "center",
-        textTransform: "uppercase" as "uppercase",
-        margin: "5px 0px 15px",
+        textAlign: "center",
+        fontSize: "2em",
+        textTransform: "lowercase",
+        margin: "5px 0px 25px",
         color: theme.palette.primary.contrastText,
     },
     buttonMarginTop: {
