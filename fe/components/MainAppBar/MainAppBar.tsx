@@ -10,7 +10,7 @@ const MainAppBar: React.FunctionComponent<{}> = () => {
 
     return <>
         <AppBar position="fixed" >
-            <Toolbar className="flex-direction-column">
+            <Toolbar className="d-flex justify-content-around">
                 <Typography variant="h6" >
                     {/* <Link href="/"><img  src={logo} /></Link> */}
                 </Typography>
