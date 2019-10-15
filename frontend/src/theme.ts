@@ -92,18 +92,18 @@ const lightTheme = createMuiTheme({
             [rawTheme.breakpoints.down('sm')]: {
                 fontSize: "45px", 
             },
-            textAlign: "center",
+            // textAlign: "center",
             textTransform: "uppercase",
             fontSize: "80px",
-            padding: "5px",        
+            // padding: "5px",        
         },
         h2: {
             [rawTheme.breakpoints.down('sm')]: {
                 fontSize: "25px"
             },
-            textAlign: "center",
+            // textAlign: "center",
             fontSize: "50px",
-            padding: "20px",
+            // padding: "20px",
             color: "#000000",
         }
     },
@@ -141,18 +141,19 @@ const darkTheme = createMuiTheme({
             [rawTheme.breakpoints.down('sm')]: {
                 fontSize: "45px", 
             },
-            textAlign: "center",
+            // textAlign: "center",
             textTransform: "uppercase",
             fontSize: "80px",
-            padding: "5px",        
+            // padding: "5px",   
+            color: "#ffffff",     
         },
         h2: {
             [rawTheme.breakpoints.down('sm')]: {
                 fontSize: "25px"
             },
-            textAlign: "center",
+            // textAlign: "center",
             fontSize: "50px",
-            padding: "20px",
+            // padding: "20px",
             color: "#ffffff",
         }
     },

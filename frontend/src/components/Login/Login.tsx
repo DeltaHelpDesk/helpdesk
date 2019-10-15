@@ -9,7 +9,8 @@ import Button from "@material-ui/core/Button";
 import Icon from '@mdi/react';
 import Grid from "@material-ui/core/Grid";
 import { mdiLogin } from '@mdi/js'
-import { WithStyles } from "@material-ui/core";
+import { WithStyles, createStyles } from "@material-ui/core";
+import helpdesk_bg from "../helpdesk_bg_trans.png";
 
 import * as React from "react";
 import MicrosoftButtonLogin from './MicrosoftButtonLogin';
@@ -19,7 +20,7 @@ import { ReactAuthContext } from 'src/graphql/auth';
 
 // TODO: type definitons
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
     root: {
         display: "flex",
         // flexWrap: "wrap"
@@ -31,7 +32,17 @@ const styles = (theme: Theme) => ({
         flexBasis: 222
     },
     button: {
-        flexBasis: 150
+        flexBasis: 150,
+        margin: "10px 25px",
+        color: theme.palette.secondary.contrastText,
+        backgroundColor: theme.palette.secondary.main,
+        padding: "10px 35px",
+        borderRadius: "0px",
+        fontWeight: "bold",
+        textTransform: "uppercase",
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.light,
+        },
     },
     leftIcon: {
         marginRight: theme.spacing.unit
@@ -44,19 +55,31 @@ const styles = (theme: Theme) => ({
         // TODO: handle this propely
     },
     formStyle: {
-        backgroundColor: "lightgray",
+        backgroundColor: theme.palette.background.default + "80",
         padding: "40px 60px",
-        borderRadius: "10px",
         marginTop: "100px",
     },
     loginHeading: {
         textAlign: "center" as "center",
         textTransform: "uppercase" as "uppercase",
-        marginTop: "5px",
-
+        margin: "5px 0px 15px",
+        color: theme.palette.primary.contrastText,
     },
     buttonMarginTop: {
         marginTop: "25px",
+    },
+    background: {
+        position: 'fixed',
+        top: "50%",
+        left: "50%",
+        transform: 'translate(-50%,-50%)',
+        width: "100%",
+        zIndex: -5,
+        [theme.breakpoints.down('sm')]: {
+            height: "100%",
+            width: "auto",
+        },
+        backgroundColor: theme.palette.background.default,
     }
 });
 
@@ -184,7 +207,7 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                                 <Button
                                     variant="contained"
                                     size="large"
-                                    color="primary"
+                                    color="secondary"
                                     className={classNames(classes.button, classes.margin, classes.buttonMarginTop)}
                                     onClick={this.handleFormSubmit}>
                                     <Icon path={mdiLogin} className={classNames(classes.leftIcon, classes.iconSmall)}
@@ -197,10 +220,13 @@ class FilledInputAdornments extends React.Component<FilledInputAdornmentsProps<t
                         </Grid>
                         <Grid item={true}>
                             <div className={classes.buttonCenter}>
-                                <MicrosoftButtonLogin onClick={this.handleOfficeLogin} />
+                                <MicrosoftButtonLogin
+                                    onClick={this.handleOfficeLogin}
+                                />
                             </div>
                         </Grid>
                     </form>
+                    <img className={classes.background} src={helpdesk_bg} />
                 </Grid>
             </div>
 

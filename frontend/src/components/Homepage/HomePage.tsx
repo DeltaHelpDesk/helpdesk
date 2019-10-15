@@ -5,7 +5,7 @@ import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AuthContext } from 'src/graphql/auth';
-import helpdesk_bg from "./helpdesk_bg_trans.png";
+import helpdesk_bg from "../helpdesk_bg_trans.png";
 
 
 
