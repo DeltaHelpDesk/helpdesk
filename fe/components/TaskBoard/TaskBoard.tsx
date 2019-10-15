@@ -1,12 +1,5 @@
-import { FunctionComponent } from "react";
-import { Query, useQuery } from "react-apollo";
-import { GET_TASKS } from "../TaskList/TaskListQueries";
-import Loading from "../Loading/Loading";
-import { Grid, Paper, Divider, Typography } from "@material-ui/core";
-import TaskCard from "./TaskCard";
-import { State, ITask } from "../../src/graphql/types";
-import { getUsers } from "../../src/graphql/types/getUsers";
-import { getUsersQuery } from "../../src/graphql/queries";
+import * as React from 'react';
+import Board from 'react-trello'
 
 const TaskBoard: FunctionComponent = () => {
 
@@ -23,37 +16,43 @@ const TaskBoard: FunctionComponent = () => {
                 }
                 const tasks: ITask[] = data.tasks;
 
-                return <>
-                    <Grid container={true}>
-                        <Grid item={true} xs={true} style={{ padding: "2rem" }}>
-                            <Paper style={{ background: "#ffffff", padding: "1rem" }}>
-                                <div><Typography variant="h6" component="h2">Nezapočaté</Typography></div>
-                                <Divider style={{ marginTop: ".5rem", marginBottom: ".5rem" }} />
+    tasksData = {
+        lanes: [
+            {
+                id: 'uncompleted',
+                title: 'Nezapočato',
+                cards: [
+                    { id: 'TaskID', title: 'Write Blog', description: 'Can AI make memes', label: '15/10/2019'},
+                    { id: 'TaskID', title: 'Pay Rent', description: 'Transfer via NEFT', label: '15/10/2019'}
+                ]
+            },
+            {
+                id: 'inprogress',
+                title: 'Pracuje se na tom',
+                cards: [
+                    { id: 'TaskID', title: 'Buy car', description: 'Can AI make memes', label: '15/10/2019'},
+                    { id: 'TaskID', title: 'Rent new house', description: 'Transfer via NEFT', label: '10/10/2019'}
+                ]
+            },
+            {
+                id: 'completed',
+                title: 'Dokončeno',
+                cards: [
+                    { id: 'TaskID', title: 'Steal diamond', description: 'Can AI make memes', label: '15/10/1000'},
+                    { id: 'TaskID', title: 'Break window', description: 'Transfer via NEFT. Konečně se mi podařilo napsat nějaký text abych otestoval, jestli to umí více řádků', label: '14/05/2001'},
+                    { id: 'TaskID', title: 'Kill one person', description: 'Can AI make memes', label: '14/05/1000'},
+                    { id: 'TaskID', title: 'Stay alive', description: 'Zůstat živ ale jen tak na oko aby se neřeklo. Nevím co víc sem napsat aby to bylo na více řádků', label: '19/09/20019'},
+                    { id: 'TaskID', title: 'Nákup', description: 'Když budou mít mléko, tak jich vzít 5', label: '17/05/2008'},
+                    { id: 'TaskID', title: 'Nákup', description: 'Koupit 6 vajec', label: '13/01/2019'},
+                ]
+            }
+        ]
+    };
 
-                                {tasks.map((x) => x.state === State.Unresolved && <TaskCard task={x} key={x.id} />)}
-                            </Paper>
-                        </Grid>
-                        <Grid item={true} xs={true} style={{ padding: "2rem" }}>
-                            <Paper style={{ background: "#ffffff", padding: "1rem" }}>
-                                <div><Typography variant="h6" component="h2">Započaté</Typography></div>
-                                <Divider style={{ marginTop: ".5rem", marginBottom: ".5rem" }} />
-                                {tasks.map((x) => x.state === State.Unresolved && <TaskCard task={x} key={x.id} />)}
-                            </Paper>
-                        </Grid>
-                        <Grid item={true} xs={true} style={{ padding: "2rem" }}>
-                            <Paper style={{ background: "#ffffff", padding: "1rem" }}>
-                                <div><Typography variant="h6" component="h2">Dokončené</Typography></div>
-                                <Divider style={{ marginTop: ".5rem", marginBottom: ".5rem" }} />
-                                {tasks.map((x) => x.state === State.Solved && <TaskCard task={x} key={x.id} />)}
-                            </Paper>
-                        </Grid>
-                    </Grid>
 
-                </>;
-            }}
-        </Query>
-    );
-
-};
-
-export default TaskBoard;
+    render() {
+        return <>
+            <Board data={this.tasksData} editable={true} laneDraggable={false} hideCardDeleteIcon={true}/>
+        </>;
+    }
+}
