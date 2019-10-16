@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import client from './client';
-import * as React from 'react';
+import { Component, createContext } from 'react';
 // import MicrosoftAuthService from '../services/microsoft';
 import Cookies from 'universal-cookie';
 import { UserTokenCookieKey } from "../Global/Keys";
@@ -70,7 +70,8 @@ export interface IAuthContextValue {
     officeToken: null | string;
     token: null | string;
     isLoggedIn: boolean;
-    login: () => Promise<string> | undefined;
+    loginByEmail: (email: string, password: string) => Promise<string> | undefined;
+    // login: () => Promise<string> | undefined;
     logout: () => Promise<void> | undefined;
     loading: boolean;
 }
@@ -81,15 +82,31 @@ export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
     return userRoleIndex >= requiredRoleIndex;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, login: () => undefined, user: undefined, loading: true, logout: () => undefined };
-export let lastContextValue: IAuthContextValue = defaultContextValue; // get last context value for things outside of react context, should not be used normally!!!!!!!!!
-export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
+const defaultContextValue: IAuthContextValue = {
+    officeToken: null,
+    token: null,
+    isLoggedIn: false,
+    // login: () => undefined,
+    loginByEmail: () => undefined,
+    user: undefined,
+    loading: true,
+    logout: () => undefined
+};
 
-class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
+export let lastContextValue: IAuthContextValue = defaultContextValue; // get last context value for things outside of react context, should not be used normally!!!!!!!!!
+
+export const ReactAuthContext = createContext<IAuthContextValue>(defaultContextValue);
+
+class AuthContextProvider extends Component<{}, IAuthContextValue> {
     // microsoftAuthService = new MicrosoftAuthService();
     constructor(props: {}) {
         super(props);
-        this.state = { ...defaultContextValue, login: this.login, logout: this.logout };
+        this.state = {
+            ...defaultContextValue,
+            // login: this.login,
+            loginByEmail: this.loginByEmail,
+            logout: this.logout
+        };
     }
 
     logout = async () => {
@@ -105,13 +122,25 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
         window.location.reload();
     };
 
-    login = async () => {
-        // await this.microsoftAuthService.login();
-        // return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
-        return '';
-    }
+    // login = async () => {
+    //     // await this.microsoftAuthService.login();
+    //     // return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
+    //     return '';
+    // }
 
-
+    loginByEmail = async (email: string, password: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
+            mutation: LOGIN_EMAIL,
+            variables: {
+                email,
+                password
+            }
+        });
+        this.setToken(loginByEmailQuery.token);
+        // await this.getSessionUser();
+        return loginByEmailQuery.token;
+    };
 
 
     getSessionUser = async (): Promise<IUser> => {
@@ -133,7 +162,6 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
         if (token) {
             this.setToken(token);
             this.seeIfSessionIsValid();
-
         }
         this.setState({ loading: false });
         setInterval(this.seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
@@ -150,13 +178,21 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
         const cookies = new Cookies();
         if (token) {
             lastToken = token;
-            this.setState({ token, isLoggedIn: true, loading: false });
+            this.setState({
+                token,
+                isLoggedIn: true,
+                loading: false
+            });
 
             cookies.set(UserTokenCookieKey, token, { path: '/', maxAge: 60 * 60 * 24 });
             // localStorage.setItem('token', token);
         } else {
             lastToken = null;
-            this.setState({ isLoggedIn: false, token: null, user: undefined });
+            this.setState({
+                isLoggedIn: false,
+                token: null,
+                user: undefined
+            });
 
             cookies.remove(UserTokenCookieKey);
             // localStorage.removeItem('token');
@@ -169,4 +205,7 @@ class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
     }
 }
 
-export const AuthContext = { Provider: AuthContextProvider, Consumer: ReactAuthContext.Consumer };
+export const AuthContext = {
+    Provider: AuthContextProvider,
+    Consumer: ReactAuthContext.Consumer
+};

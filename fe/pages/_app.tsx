@@ -1,5 +1,4 @@
-import * as React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import { AuthContext } from '../src/graphql/auth';
 import MainRouter from '../src/Router';
 import fetch from 'node-fetch';
@@ -23,9 +22,9 @@ class HelpDeskApp extends App<{}> {
         const { Component, pageProps } = this.props;
 
         return (
-            <Container>
+            <AuthContext.Provider >
                 <Component {...pageProps} />
-            </Container >
+            </AuthContext.Provider>
         );
 
         // return (
