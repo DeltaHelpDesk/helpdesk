@@ -7,6 +7,7 @@ import LoginPage from '../components/Login/Login';
 const IndexPage: NextPage = () => {
   return (
     <Layout title="Home | HelpDesk">
+        {/* TODO: Params from URL to 'user' */}
       <LoginPage showPassword={false} user={null} />
     </Layout>
   )
