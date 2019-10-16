@@ -7,12 +7,9 @@ import Button from "@material-ui/core/Button";
 import Icon from '@mdi/react';
 import Grid from "@material-ui/core/Grid";
 import { mdiLogin } from '@mdi/js'
-import * as React from "react";
 // import MicrosoftButtonLogin from './MicrosoftButtonLogin';
 import { ReactAuthContext } from '../../src/graphql/auth';
-import { useState } from "react";
-
-
+import { useState, useContext, useEffect } from "react";
 
 
 interface IFilledInputAdornmentsState {
@@ -27,15 +24,21 @@ interface IUser {
 
 // type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
-const LoginPage: React.FunctionComponent<IFilledInputAdornmentsState> = ({ showPassword, user }) => {
-    const contextType = ReactAuthContext;
+const LoginPage: React.FunctionComponent<IFilledInputAdornmentsState> = ({ showPassword, user: loginVars }) => {
 
+    const { loginByEmail, isLoggedIn } = useContext(ReactAuthContext);
+
+    const [filled, setUser] = useState<IUser>(loginVars);
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
 
     const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
+        setUser({
+            ...filled,
+            [property]: value
+        });
         // this.setState(previousState => ({
         //     user: {
         //         ...previousState.user,
@@ -50,10 +53,9 @@ const LoginPage: React.FunctionComponent<IFilledInputAdornmentsState> = ({ showP
     };
 
     const handleFormSubmit = async () => {
-        const { loginByEmail } = this.context;
         try {
-            await loginByEmail(user.name, user.password);
-            //this.props.history.push('/admin');
+            await loginByEmail(filled.name, filled.password);
+            // this.props.history.push('/admin');
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
                 alert(e.graphQLErrors[0].message); // TODO: material ui dialog
@@ -63,25 +65,31 @@ const LoginPage: React.FunctionComponent<IFilledInputAdornmentsState> = ({ showP
         }
     }
 
-   /*const handleOfficeLogin = async () => {
-        const { doLoginOffice } = this.context;
-        try {
-            await doLoginOffice();
-            this.props.history.push('/admin');
-        } catch (e) {
-            if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                alert(e.graphQLErrors[0].message); // TODO: material ui dialog
-            } else {
-                console.error("handle login error", e);
-            }
-        }
-    }*/
+    /*const handleOfficeLogin = async () => {
+         const { doLoginOffice } = this.context;
+         try {
+             await doLoginOffice();
+             this.props.history.push('/admin');
+         } catch (e) {
+             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
+                 alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+             } else {
+                 console.error("handle login error", e);
+             }
+         }
+     }*/
 
     const handleKeywordKeyPress = (e: any) => {
         if (e.key === 'Enter') {
-            this.handleFormSubmit();
+            handleFormSubmit();
         }
     };
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            window.location.href = "/";
+        }
+    }, [])
 
     return (
         <div >

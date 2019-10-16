@@ -1,14 +1,12 @@
-import * as React from "react";
+import { FunctionComponent, useContext } from "react";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { AuthContext, IAuthContextValue } from '../../src/graphql/auth';
+import { ReactAuthContext } from '../../src/graphql/auth';
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
-
-
 
 
 
@@ -16,12 +14,12 @@ interface IHomePageProps {
 
 }
 
-class HomePage extends React.Component<IHomePageProps> {
+const HomePage: FunctionComponent<IHomePageProps> = (props) => {
 
+    const { isLoggedIn, logout } = useContext(ReactAuthContext);
 
-    render() {
-
-        return <div>
+    return (
+        <div>
             <Grid container={true} direction="row" justify="center" alignItems="center">
                 <div >
                     <Grid item={true} xs={12}>
@@ -40,19 +38,23 @@ class HomePage extends React.Component<IHomePageProps> {
                                     Poslat požadavek
                             </Button>
                             </Link>
-                            <AuthContext.Consumer>{({ logout, user }: IAuthContextValue) =>
-                                !user && <Link href={customRoutes.newTask}>
-                                    <Button variant="contained" color="primary">
-                                        Přihlásit se
+                            {
+                                isLoggedIn ?
+                                    <Button variant="contained" color="primary" onClick={logout}>
+                                        Odlásit se se
                                     </Button>
-                                </Link>
-
-                            }</AuthContext.Consumer>
+                                    :
+                                    <Link href={customRoutes.loginRoute}>
+                                        <Button variant="contained" color="primary">
+                                            Přihlásit se
+                                        </Button>
+                                    </Link>
+                            }
                         </div>
                     </Grid>
                 </div>
             </Grid>
-        </div>;
-    }
+        </div>
+    );
 }
 export default HomePage;
