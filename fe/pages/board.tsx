@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Layout from '../components/Layouts/Layout';
 import TaskBoard from '../components/TaskBoard/TaskBoard';
+import { withAuthSync } from '../src/graphql/auth';
 
 interface IProps {
 
@@ -17,5 +18,4 @@ class Board extends React.Component<IProps> {
     }
 }
 
-
-export default Board;
+export default withAuthSync(Board);

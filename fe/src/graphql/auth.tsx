@@ -1,9 +1,11 @@
 import gql from "graphql-tag";
-import client from './client';
-import { Component, createContext } from 'react';
+import client from "./client";
+import { createContext, useEffect, FunctionComponent, useState, useContext } from "react";
 // import MicrosoftAuthService from '../services/microsoft';
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 import { UserTokenCookieKey } from "../Global/Keys";
+import Router from "next/router";
+import customRoutes from "../Routes";
 
 const cookies = new Cookies();
 
@@ -12,7 +14,6 @@ export const isLoggedIn = () => {
 };
 
 export let lastToken: string | null = cookies.get(UserTokenCookieKey);
-// export let lastToken: string | null = localStorage.getItem('token');
 
 export const LOGOUT = gql`
   mutation logout {
@@ -49,7 +50,7 @@ export const GET_SESSION = gql`
 export enum UserRole {
     DEFAULT = "DEFAULT",
     ADMIN = "ADMIN",
-    SUPERADMIN = "SUPERADMIN"
+    SUPERADMIN = "SUPERADMIN",
 }
 
 export interface IUser {
@@ -77,8 +78,8 @@ export interface IAuthContextValue {
 }
 
 export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
-    const requiredRoleIndex = UserRoleAscendency.findIndex(role => role === requiredUserRole);
-    const userRoleIndex = UserRoleAscendency.findIndex(role => role === userRole);
+    const requiredRoleIndex = UserRoleAscendency.findIndex((role) => role === requiredUserRole);
+    const userRoleIndex = UserRoleAscendency.findIndex((role) => role === userRole);
     return userRoleIndex >= requiredRoleIndex;
 }
 
@@ -90,26 +91,32 @@ const defaultContextValue: IAuthContextValue = {
     loginByEmail: () => undefined,
     user: undefined,
     loading: true,
-    logout: () => undefined
+    logout: () => undefined,
 };
 
-export let lastContextValue: IAuthContextValue = defaultContextValue; // get last context value for things outside of react context, should not be used normally!!!!!!!!!
+// get last context value for things outside of react context, should not be used normally!!!!!!!!!
+export let lastContextValue: IAuthContextValue = defaultContextValue;
 
 export const ReactAuthContext = createContext<IAuthContextValue>(defaultContextValue);
 
-class AuthContextProvider extends Component<{}, IAuthContextValue> {
+const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) => {
     // microsoftAuthService = new MicrosoftAuthService();
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            ...defaultContextValue,
-            // login: this.login,
-            loginByEmail: this.loginByEmail,
-            logout: this.logout
-        };
-    }
 
-    logout = async () => {
+    const loginByEmail = async (email: string, password: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
+            mutation: LOGIN_EMAIL,
+            variables: {
+                email,
+                password,
+            },
+        });
+        setToken(loginByEmailQuery.token);
+        // await getSessionUser();
+        return loginByEmailQuery.token;
+    };
+
+    const logout = async () => {
         try {
             await client.mutate({
                 mutation: LOGOUT,
@@ -117,95 +124,153 @@ class AuthContextProvider extends Component<{}, IAuthContextValue> {
         } catch {
             /// Vynucení smazání tokenu
         }
-        this.setToken(null);
-
-        window.location.reload();
+        setToken(null);
+        if (window) {
+            window.localStorage.setItem("logout", Date.now().toString());
+            Router.push(customRoutes.loginRoute);
+            // window.location.reload();
+        }
     };
 
+    const [state, setState] = useState<IAuthContextValue>({
+        ...props,
+        loginByEmail,
+        logout,
+        user: defaultContextValue.user,
+        officeToken: defaultContextValue.officeToken,
+        token: lastToken,
+        isLoggedIn: !!lastToken,
+        // token: defaultContextValue.token,
+        // isLoggedIn: true, // defaultContextValue.isLoggedIn,
+        loading: defaultContextValue.loading,
+    });
+
+    useEffect(() => {
+        const token = getToken();
+        if (token) {
+            setToken(token);
+            seeIfSessionIsValid();
+        }
+        setState({
+            ...state,
+            loading: false,
+        });
+        setInterval(seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
+        // tslint:disable-next-line:no-empty
+        return () => {
+        };
+    }, []);
+
     // login = async () => {
-    //     // await this.microsoftAuthService.login();
-    //     // return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
+    //     // await microsoftAuthService.login();
+    //     // return await loginByOffice((await microsoftAuthService.getToken()) as string);
     //     return '';
     // }
 
-    loginByEmail = async (email: string, password: string): Promise<string> => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
-            mutation: LOGIN_EMAIL,
-            variables: {
-                email,
-                password
-            }
+    const getSessionUser = async (): Promise<IUser> => {
+        const { data: { session } }: any = await client.query({
+            query: GET_SESSION,
         });
-        this.setToken(loginByEmailQuery.token);
-        // await this.getSessionUser();
-        return loginByEmailQuery.token;
+        setState({
+            ...state,
+            user: session,
+        });
+        return session;
     };
 
-
-    getSessionUser = async (): Promise<IUser> => {
-        const { data: { session } }: any = await client.query({
-            query: GET_SESSION
-        });
-        this.setState({ user: session });
-        return session;
-    }
-
-    seeIfSessionIsValid = async () => {
-        try { await this.getSessionUser(); } catch (e) { this.setToken(undefined); }
-    }
-
-    async componentDidMount() {
-
-        const token = this.getToken();
-        //const token = localStorage.getItem('token');
-        if (token) {
-            this.setToken(token);
-            this.seeIfSessionIsValid();
+    const seeIfSessionIsValid = async () => {
+        try {
+            await getSessionUser();
+        } catch (e) {
+            setToken(undefined);
         }
-        this.setState({ loading: false });
-        setInterval(this.seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
-    }
+    };
 
-    getToken = (): string | null => {
+    const getToken = (): string | null => {
+        // tslint:disable-next-line:no-shadowed-variable
         const cookies = new Cookies();
         const token: string | null = cookies.get(UserTokenCookieKey);
-
         return token;
-    }
+    };
 
-    setToken = (token: string | undefined | null) => {
+    const setToken = (token: string | undefined | null) => {
+        // tslint:disable-next-line:no-shadowed-variable
         const cookies = new Cookies();
         if (token) {
             lastToken = token;
-            this.setState({
+            setState({
+                ...state,
                 token,
                 isLoggedIn: true,
-                loading: false
+                loading: false,
             });
 
-            cookies.set(UserTokenCookieKey, token, { path: '/', maxAge: 60 * 60 * 24 });
-            // localStorage.setItem('token', token);
+            cookies.set(UserTokenCookieKey, token, { path: "/", maxAge: 60 * 60 * 24 });
         } else {
             lastToken = null;
-            this.setState({
+            setState({
+                ...state,
                 isLoggedIn: false,
                 token: null,
-                user: undefined
+                user: undefined,
             });
 
             cookies.remove(UserTokenCookieKey);
-            // localStorage.removeItem('token');
         }
-    }
+    };
 
-    render() {
-        lastContextValue = this.state;
-        return <ReactAuthContext.Provider value={this.state}>{this.props.children}</ReactAuthContext.Provider>;
-    }
-}
+    lastContextValue = state;
+    return (
+        <ReactAuthContext.Provider value={state}>
+            {props.children}
+        </ReactAuthContext.Provider>
+    );
+};
 
 export const AuthContext = {
     Provider: AuthContextProvider,
-    Consumer: ReactAuthContext.Consumer
+    Consumer: ReactAuthContext.Consumer,
+};
+
+export const withAuthSync = (WrappedComponent) => {
+
+    const Wrapper = (props: JSX.IntrinsicAttributes) => {
+        const syncLogout = (event: { key: string; }) => {
+            if (event.key === "logout") {
+                console.log("logged out from storage!");
+                Router.push("/login");
+            }
+        };
+
+        // tslint:disable-next-line:no-shadowed-variable
+        const { isLoggedIn } = useContext(ReactAuthContext);
+
+        useEffect(() => {
+            window.addEventListener("storage", syncLogout);
+            if (!isLoggedIn) {
+                Router.push("/");
+                return;
+            }
+
+            return () => {
+                window.removeEventListener("storage", syncLogout);
+                window.localStorage.removeItem("logout");
+            };
+        }, [null]);
+
+        return isLoggedIn && <WrappedComponent {...props} />;
+    };
+
+    Wrapper.getInitialProps = async (ctx: any) => {
+        // console.log(ctx);
+        const token = ""; // ctx.token;
+
+        const componentProps =
+            WrappedComponent.getInitialProps &&
+            (await WrappedComponent.getInitialProps(ctx));
+
+        return { ...componentProps, token };
+    };
+
+    return Wrapper;
 };

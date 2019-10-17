@@ -2,6 +2,8 @@ import App from 'next/app';
 import { AuthContext } from '../src/graphql/auth';
 import MainRouter from '../src/Router';
 import fetch from 'node-fetch';
+import { ApolloProvider } from 'react-apollo';
+import client from '../src/graphql/client';
 
 class HelpDeskApp extends App<{}> {
     static async getInitialProps({ Component, ctx }) {
@@ -23,7 +25,9 @@ class HelpDeskApp extends App<{}> {
 
         return (
             <AuthContext.Provider >
-                <Component {...pageProps} />
+                <ApolloProvider client={client}>
+                    <Component {...pageProps} />
+                </ApolloProvider>
             </AuthContext.Provider>
         );
 
