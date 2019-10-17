@@ -1,9 +1,10 @@
 import gql from "graphql-tag";
 import client from './client';
-import { Component, createContext } from 'react';
+import { Component, createContext, useEffect } from 'react';
 // import MicrosoftAuthService from '../services/microsoft';
 import Cookies from 'universal-cookie';
 import { UserTokenCookieKey } from "../Global/Keys";
+import Router from 'next/router'
 
 const cookies = new Cookies();
 
@@ -118,8 +119,9 @@ class AuthContextProvider extends Component<{}, IAuthContextValue> {
             /// Vynucení smazání tokenu
         }
         this.setToken(null);
-
-        window.location.reload();
+        
+        // window.localStorage.setItem('logout', Date.now().toString())
+        // window.location.reload();
     };
 
     // login = async () => {
@@ -152,7 +154,11 @@ class AuthContextProvider extends Component<{}, IAuthContextValue> {
     }
 
     seeIfSessionIsValid = async () => {
-        try { await this.getSessionUser(); } catch (e) { this.setToken(undefined); }
+        try { 
+            await this.getSessionUser(); 
+        } catch (e) { 
+            this.setToken(undefined); 
+        }
     }
 
     async componentDidMount() {
@@ -209,3 +215,38 @@ export const AuthContext = {
     Provider: AuthContextProvider,
     Consumer: ReactAuthContext.Consumer
 };
+
+export const withAuthSync = WrappedComponent => {
+    const Wrapper = props => {
+        const syncLogout = event => {
+            if (event.key === 'logout') {
+                console.log('logged out from storage!')
+                Router.push('/login')
+            }
+        }
+
+        useEffect(() => {
+           window.addEventListener('storage', syncLogout)
+
+            return () => {
+               window.removeEventListener('storage', syncLogout)
+               window.localStorage.removeItem('logout')
+            }
+        }, [null]);
+
+        return <WrappedComponent {...props} />
+    }
+
+    Wrapper.getInitialProps = async (ctx: any) => {
+        // console.log(ctx);
+        const token = "";// ctx.token;
+
+        const componentProps =
+            WrappedComponent.getInitialProps &&
+            (await WrappedComponent.getInitialProps(ctx))
+
+        return { ...componentProps, token }
+    }
+
+    return Wrapper;
+}
