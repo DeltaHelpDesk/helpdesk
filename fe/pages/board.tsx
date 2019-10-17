@@ -18,5 +18,4 @@ class Board extends React.Component<IProps> {
     }
 }
 
-
 export default withAuthSync(Board);
