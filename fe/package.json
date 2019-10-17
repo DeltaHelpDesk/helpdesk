@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "lint": "tslint -p tsconfig.json -c tslint.json"
   },
   "dependencies": {
     "@material-ui/core": "^4.4.3",
@@ -25,6 +26,7 @@
     "react-apollo": "^3.1.1",
     "react-dom": "^16.10.1",
     "react-router-dom": "^5.1.2",
+    "tslint": "^5.20.0",
     "universal-cookie": "^4.0.2"
   },
   "devDependencies": {
