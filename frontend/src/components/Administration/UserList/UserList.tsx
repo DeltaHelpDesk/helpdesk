@@ -1,11 +1,13 @@
 import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
+import { Table, TableHead, TableRow, TableCell, TableBody, Theme, createStyles, WithStyles } from "@material-ui/core";
 import { ReactAuthContext, IAuthContextValue, checkUserRole, UserRole } from 'src/graphql/auth';
 import { Query } from 'react-apollo';
 import { GET_USER } from './UserListQueries';
 import User from './User';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import helpdesk_bg from "../../helpdesk_bg_trans.png";
+import { RouteComponentProps } from 'react-router';
 
 export interface IUser {
     id: string;
@@ -16,28 +18,89 @@ export interface IUser {
     role: string;
 }
 
-const styles = {};
+const styles = (theme: Theme) => createStyles({
+    root: {
 
-class UserList extends React.Component<WithTranslation> {
+    },
+    subheader: {
+        textAlign: "center",
+    },
+
+    buttonHomepage: {
+        margin: "10px 25px",
+        color: theme.palette.secondary.contrastText,
+        backgroundColor: theme.palette.secondary.main,
+        padding: "10px 35px",
+        borderRadius: "0px",
+        fontWeight: "bold",
+        textTransform: "uppercase",
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.light,
+        },
+    },
+
+    itemsCenter: {
+        textAlign: "center",
+    },
+    info: {
+        color: theme.palette.text.primary,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: "18px"
+        },
+        textAlign: "center",
+        fontSize: "20px",
+    },
+    center: {
+        position: 'fixed',
+        top: "50%",
+        left: "50%",
+        transform: 'translate(-50%,-50%)',
+        width: "100%",
+    },
+    background: {
+        position: 'fixed',
+        top: "50%",
+        left: "50%",
+        transform: 'translate(-50%,-50%)',
+        width: "100%",
+        zIndex: -5,
+        [theme.breakpoints.down('sm')]: {
+            height: "100%",
+            width: "auto",
+        },
+        backgroundColor: theme.palette.background.default,
+    },
+    title : {
+        fontWeight: "bold",
+        color: theme.palette.text.primary + "!important",
+    },
+});
+
+interface IProps extends WithStyles<typeof styles>, RouteComponentProps, WithTranslation {
+
+}
+
+class UserList extends React.Component<IProps> {
     static contextType = ReactAuthContext;
     context : IAuthContextValue;
 
     render() {
         const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN));
         const { t } = this.props;
+        const { classes } = this.props;
         return (
             <Query query={GET_USER}>
               {({ loading, error, data }) => {
                 if (loading) {
                   return "Loading...";
-                }
+                } 
                 if (error) {
                   return `Error! ${error.message}`;
                 }
                 const { users } = data;
                 console.log(users);
                 const tableBody = users.map((user: IUser) => <User key={user.id} user={user} isAdmin={isAdmin} />);
-                return (
+                return <>
                   <Table>
                     <TableHead>
                       <TableRow>
@@ -51,7 +114,8 @@ class UserList extends React.Component<WithTranslation> {
                     </TableHead>
                     <TableBody>{tableBody}</TableBody>
                   </Table>
-                );
+                  <img className={classes.background} src={helpdesk_bg} />
+                </>;
               }}
             </Query>
           );
