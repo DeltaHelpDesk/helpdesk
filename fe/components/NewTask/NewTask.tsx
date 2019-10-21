@@ -7,10 +7,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import * as React from "react";
 import { Mutation, Query } from "react-apollo";
 import { ADD_TASK, ADMINS } from "./NewTaskQueries";
-import { withRouter, RouteComponentProps } from "react-router";
 import { GET_TASKS } from '../TaskList/TaskListQueries';
 import Loading from "./../Loading/Loading";
 import Grid from '@material-ui/core/Grid';
+import Router from "next/router";
 
 
 interface INewTaskState {
@@ -28,10 +28,12 @@ interface IAdmin {
     role: string;
 }
 
-type NewTaskProps = RouteComponentProps; // TODO: handle in better fashion
+interface INewTaskProps {
 
-class NewTask extends React.Component<NewTaskProps, INewTaskState> {
-    constructor(props: NewTaskProps) {
+} // TODO: handle in better fashion
+
+class NewTask extends React.Component<INewTaskProps, INewTaskState> {
+    constructor(props: INewTaskProps) {
         super(props);
         this.state = {
             task: {
@@ -75,7 +77,7 @@ class NewTask extends React.Component<NewTaskProps, INewTaskState> {
     }
 
     handleSuccessfulCreation() {
-        this.props.history.push("/tasklist");
+        Router.push('/');
     }
 
     render() {
@@ -134,8 +136,8 @@ class NewTask extends React.Component<NewTaskProps, INewTaskState> {
                                                     name="assingne"
 
                                                 >
-                                                    <MenuItem value="">
-                                                        <em>None</em>
+                                                    <MenuItem value="" disabled={true} selected={true}>
+                                                        <em>Select one</em>
                                                     </MenuItem>
                                                     {admins.map(admin => {
                                                         return (
@@ -161,4 +163,4 @@ class NewTask extends React.Component<NewTaskProps, INewTaskState> {
     }
 }
 
-export default withRouter(NewTask);
+export default NewTask;
