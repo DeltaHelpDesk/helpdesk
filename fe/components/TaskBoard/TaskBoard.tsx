@@ -1,9 +1,20 @@
 import * as React from 'react';
-import Board from 'react-trello'
+import Board from 'react-trello';
+import { Query } from "react-apollo";
+import { withTranslation, WithTranslation } from 'react-i18next';
+import "../../graphql/auth";
+import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '../../graphql/auth';
+import Loading from "./../Loading/Loading";
+import Task from "./Task";
+import { GET_TASKS } from "./TaskListQueries";
+import { ITask } from 'src/graphql/types';
 
 
 
 class TaskBoard extends React.Component<{}> {
+    
+    static contextType = ReactAuthContext;
+    context: IAuthContextValue;
 
     tasksData = {
         lanes: [
@@ -40,9 +51,32 @@ class TaskBoard extends React.Component<{}> {
 
 
     render() {
-        return <>
-            <Board data={this.tasksData} editable={true} laneDraggable={false} hideCardDeleteIcon={true}/>
-        </>;
+
+        const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN))
+
+        return (
+            <Query query={GET_TASKS}>
+                
+            {({ loading, error, data }) => {
+                if (loading) {
+                    return <Loading />;
+                }
+                if (error) {
+                    return `Error! ${error.message}`;
+                }
+                const { tasks } = data;
+                const boardBody = tasks.map((task: ITask) => {
+                    return ({
+                        id: {task.id},
+                        title: {task},
+                    });
+                });
+                return <>
+                    <Board data={this.tasksData}></Board>
+                </>;
+            }}
+            </Query>
+        );
     }
 }
 
