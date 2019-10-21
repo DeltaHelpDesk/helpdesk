@@ -13,6 +13,7 @@ import Router from "next/router";
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
+import localisation from "../../src/Locales/Localisations";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -104,12 +105,12 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                         :
                         <form >
                             <Grid item={true}>
-                                <h2 >Login form</h2>
+                                <h2 >{localisation.login.title}</h2>
                                 <TextField
                                     id="name"
                                     variant="filled"
                                     name="name"
-                                    label="Zadej jméno"
+                                    label={localisation.login.email}
                                     type="text"
                                     value={filled && filled.name || ""}
                                     onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)} />
@@ -120,7 +121,7 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                                     variant="filled"
                                     name="password"
                                     type={showPassword ? "text" : "password"}
-                                    label="Heslo"
+                                    label={localisation.login.password}
                                     value={filled && filled.password || ""}
                                     onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                     onKeyPress={handleKeywordKeyPress}
@@ -149,8 +150,8 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                                             size={1}
                                             color="white"
                                         />
-                                        Přihlásit
-                        </Button>
+                                        {localisation.login.login}
+                                    </Button>
                                 </div>
                             </Grid>
                             <Grid item={true}>

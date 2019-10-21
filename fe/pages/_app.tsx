@@ -4,6 +4,7 @@ import MainRouter from '../src/Router';
 import fetch from 'node-fetch';
 import { ApolloProvider } from 'react-apollo';
 import client from '../src/graphql/client';
+import HeadComponent from '../components/Layouts/HeadComponent';
 
 class HelpDeskApp extends App<{}> {
     static async getInitialProps({ Component, ctx }) {
@@ -24,11 +25,13 @@ class HelpDeskApp extends App<{}> {
         const { Component, pageProps } = this.props;
 
         return (
-            <AuthContext.Provider >
-                <ApolloProvider client={client}>
-                    <Component {...pageProps} />
-                </ApolloProvider>
-            </AuthContext.Provider>
+            <HeadComponent>
+                <AuthContext.Provider >
+                    <ApolloProvider client={client}>
+                        <Component {...pageProps} />
+                    </ApolloProvider>
+                </AuthContext.Provider>
+            </HeadComponent>
         );
 
         // return (
