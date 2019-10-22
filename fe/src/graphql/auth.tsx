@@ -6,6 +6,7 @@ import Cookies from "universal-cookie";
 import { UserTokenCookieKey } from "../Global/Keys";
 import Router from "next/router";
 import customRoutes from "../Routes";
+import { withToastManager } from "react-toast-notifications";
 
 const cookies = new Cookies();
 
@@ -234,7 +235,7 @@ export const AuthContext = {
 
 export const withAuthSync = (WrappedComponent, minRole: UserRole = UserRole.DEFAULT) => {
 
-    const Wrapper = (props: JSX.IntrinsicAttributes) => {
+    const Wrapper = (props: any) => {
         const syncLogout = (event: { key: string; }) => {
             if (event.key === "logout") {
                 console.log("logged out from storage!");
@@ -244,11 +245,17 @@ export const withAuthSync = (WrappedComponent, minRole: UserRole = UserRole.DEFA
 
         // tslint:disable-next-line:no-shadowed-variable
         const { isLoggedIn, user } = useContext(ReactAuthContext);
+        const { toastManager } = props;
 
         useEffect(() => {
             window.addEventListener("storage", syncLogout);
             if (!isLoggedIn) {
                 // TODO: Informovat - Přihlašte se
+                toastManager.add("Musíte se přihásit", {
+                    appearance: "error",
+                    autoDismiss: true,
+                    pauseOnHover: true,
+                });
                 Router.push(customRoutes.loginRoute);
                 return;
             }
@@ -259,6 +266,11 @@ export const withAuthSync = (WrappedComponent, minRole: UserRole = UserRole.DEFA
 
             if (user && !checkUserRole(user.role, minRole)) {
                 console.log("Nemáte dostatečné oprávnění");
+                toastManager.add("Nemáte dostatečná oprávnění", {
+                    appearance: "error",
+                    autoDismiss: true,
+                    pauseOnHover: true,
+                });
                 Router.back();
                 // TODO: Informovat - Nedostatek práv
                 return;
@@ -284,5 +296,5 @@ export const withAuthSync = (WrappedComponent, minRole: UserRole = UserRole.DEFA
         return { ...componentProps, token };
     };
 
-    return Wrapper;
+    return withToastManager(Wrapper);
 };

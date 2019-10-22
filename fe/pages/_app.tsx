@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import { ApolloProvider } from 'react-apollo';
 import client from '../src/graphql/client';
 import HeadComponent from '../components/Layouts/HeadComponent';
+import { ToastProvider } from 'react-toast-notifications';
 
 class HelpDeskApp extends App<{}> {
     static async getInitialProps({ Component, ctx }) {
@@ -13,7 +14,6 @@ class HelpDeskApp extends App<{}> {
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx);
         }
-
 
         return { pageProps };
     }
@@ -28,7 +28,9 @@ class HelpDeskApp extends App<{}> {
             <HeadComponent>
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
-                        <Component {...pageProps} />
+                        <ToastProvider placement="bottom-center" >
+                            <Component {...pageProps} />
+                        </ToastProvider>
                     </ApolloProvider>
                 </AuthContext.Provider>
             </HeadComponent>
