@@ -14,7 +14,7 @@ import './i18n';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-       <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme.darkTheme}>
         <App />
     </MuiThemeProvider>
   </ApolloProvider>,
