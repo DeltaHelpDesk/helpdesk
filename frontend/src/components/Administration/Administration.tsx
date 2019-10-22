@@ -19,8 +19,10 @@ const styles = (theme: Theme) => createStyles({
         textTransform: "lowercase",
         backgroundColor: "#ffffff00",
         border: "#ffffff 3px solid",
+        borderRadius: "0px",
         '&:hover': {
             backgroundColor: theme.palette.contrast.light + "50",
+            cursor: ""
         },
     },
     wrapper: {
