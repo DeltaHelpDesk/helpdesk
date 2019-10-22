@@ -232,23 +232,35 @@ export const AuthContext = {
     Consumer: ReactAuthContext.Consumer,
 };
 
-export const withAuthSync = (WrappedComponent) => {
+export const withAuthSync = (WrappedComponent, minRole: UserRole = UserRole.DEFAULT) => {
 
     const Wrapper = (props: JSX.IntrinsicAttributes) => {
         const syncLogout = (event: { key: string; }) => {
             if (event.key === "logout") {
                 console.log("logged out from storage!");
-                Router.push("/login");
+                Router.push(customRoutes.loginRoute);
             }
         };
 
         // tslint:disable-next-line:no-shadowed-variable
-        const { isLoggedIn } = useContext(ReactAuthContext);
+        const { isLoggedIn, user } = useContext(ReactAuthContext);
 
         useEffect(() => {
             window.addEventListener("storage", syncLogout);
             if (!isLoggedIn) {
-                Router.push("/");
+                // TODO: Informovat - Přihlašte se
+                Router.push(customRoutes.loginRoute);
+                return;
+            }
+            // console.log(isLoggedIn);
+            // console.log(user && user.role);
+            // console.log(minRole);
+            // console.log(user && !checkUserRole(user.role, minRole));
+
+            if (user && !checkUserRole(user.role, minRole)) {
+                console.log("Nemáte dostatečné oprávnění");
+                Router.back();
+                // TODO: Informovat - Nedostatek práv
                 return;
             }
 
