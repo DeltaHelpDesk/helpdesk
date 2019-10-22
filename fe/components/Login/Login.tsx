@@ -59,6 +59,7 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
         try {
             await loginByEmail(filled.name, filled.password);
             Router.push(customRoutes.administration);
+            return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
                 alert(e.graphQLErrors[0].message); // TODO: material ui dialog
