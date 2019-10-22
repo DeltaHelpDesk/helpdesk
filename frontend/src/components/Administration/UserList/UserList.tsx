@@ -19,44 +19,6 @@ export interface IUser {
 }
 
 const styles = (theme: Theme) => createStyles({
-    root: {
-
-    },
-    subheader: {
-        textAlign: "center",
-    },
-
-    buttonHomepage: {
-        margin: "10px 25px",
-        color: theme.palette.secondary.contrastText,
-        backgroundColor: theme.palette.secondary.main,
-        padding: "10px 35px",
-        borderRadius: "0px",
-        fontWeight: "bold",
-        textTransform: "uppercase",
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light,
-        },
-    },
-
-    itemsCenter: {
-        textAlign: "center",
-    },
-    info: {
-        color: theme.palette.text.primary,
-        [theme.breakpoints.down('sm')]: {
-            fontSize: "18px"
-        },
-        textAlign: "center",
-        fontSize: "20px",
-    },
-    center: {
-        position: 'fixed',
-        top: "50%",
-        left: "50%",
-        transform: 'translate(-50%,-50%)',
-        width: "100%",
-    },
     background: {
         position: 'fixed',
         top: "50%",
@@ -69,10 +31,6 @@ const styles = (theme: Theme) => createStyles({
             width: "auto",
         },
         backgroundColor: theme.palette.background.default,
-    },
-    title : {
-        fontWeight: "bold",
-        color: theme.palette.text.primary + "!important",
     },
 });
 

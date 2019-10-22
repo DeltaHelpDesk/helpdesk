@@ -24,7 +24,7 @@ const User: React.SFC<{ user: IUser, isAdmin: boolean }> = props => {
         return (
             <Mutation mutation={DELETE_USER} refetchQueries={() => [{ query: GET_USER }, { query: GET_TASKS }]}>
                 {(removeUser: any) => (
-                    <Button variant="contained" color="secondary" onClick={() => {
+                    <Button variant="contained" color="primary" onClick={() => {
                         removeUser({
                             variables: {
                                 email
