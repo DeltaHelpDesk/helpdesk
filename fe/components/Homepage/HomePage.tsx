@@ -9,8 +9,6 @@ import Link from "next/link";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 
-
-
 interface IHomePageProps {
 
 }
@@ -57,6 +55,7 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
                         }
                     </div>
                 </div>
+                <img className={classes.background} src={helpdesk_bg} />
             </Grid>
         </div>
     );

@@ -5,6 +5,8 @@ import fetch from 'node-fetch';
 import { ApolloProvider } from 'react-apollo';
 import client from '../src/graphql/client';
 import HeadComponent from '../components/Layouts/HeadComponent';
+import theme from '../src/theme';
+import { MuiThemeProvider } from '@material-ui/core';
 import { ToastProvider } from 'react-toast-notifications';
 
 class HelpDeskApp extends App<{}> {
@@ -28,8 +30,10 @@ class HelpDeskApp extends App<{}> {
             <HeadComponent>
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
-                        <ToastProvider placement="bottom-center" >
+                        <MuiThemeProvider theme={theme.darkTheme}>
                             <Component {...pageProps} />
+                        </MuiThemeProvider>
+                        <ToastProvider placement="bottom-center" >
                         </ToastProvider>
                     </ApolloProvider>
                 </AuthContext.Provider>
