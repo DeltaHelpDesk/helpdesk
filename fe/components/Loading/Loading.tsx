@@ -3,6 +3,10 @@ import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/s
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
+interface IProps {
+    isLinear?: boolean,
+    linearWidth?: string
+}
 
 const CircularIndeterminate = () => {
     return (
