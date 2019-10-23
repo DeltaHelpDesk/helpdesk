@@ -29,7 +29,7 @@ const MainAppBar: React.FunctionComponent<{}> = () => {
                             <Link href={customRoutes.taskBoard}><Button variant="contained">Task list</Button></Link>
                         </div>
                         <div>
-                            <Link href="/admin"><Button variant="contained">New task</Button></Link>
+                            <Link href={customRoutes.newTask}><Button variant="contained">New task</Button></Link>
 
                         </div>
                         <div>

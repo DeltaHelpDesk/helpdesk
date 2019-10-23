@@ -7,11 +7,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import * as React from "react";
 import { Mutation, Query } from "react-apollo";
 import { ADD_TASK, ADMINS } from "./NewTaskQueries";
-import { GET_TASKS } from '../TaskList/TaskListQueries';
+import { GET_TASKS } from "../TaskList/TaskListQueries";
 import Loading from "./../Loading/Loading";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 import Router from "next/router";
-
+import { withAuthSync } from "../../src/auth/authWrapper";
 
 interface INewTaskState {
     task: {
@@ -28,6 +28,7 @@ interface IAdmin {
     role: string;
 }
 
+// tslint:disable-next-line:no-empty-interface
 interface INewTaskProps {
 
 } // TODO: handle in better fashion
@@ -39,8 +40,8 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
             task: {
                 subject: "",
                 issue: "",
-                assigne: ""
-            }
+                assigne: "",
+            },
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,19 +51,19 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
-        this.setState(previousState => ({
+        this.setState((previousState) => ({
             task: {
                 ...previousState.task,
-                [property]: value
-            }
+                [property]: value,
+            },
         }));
     }
     handleSelectedEvent(e: React.ChangeEvent<HTMLSelectElement>) {
-        this.setState(previousState => ({
+        this.setState((previousState) => ({
             task: {
                 ...previousState.task,
-                assigne: e.target.value
-            }
+                assigne: e.target.value,
+            },
         }));
     }
     handleSubmit(e: React.FormEvent, callback: (variables: object) => void) {
@@ -71,13 +72,13 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
             variables: {
                 subject: this.state.task.subject,
                 issue: this.state.task.issue,
-                assigneeId: this.state.task.assigne
-            }
+                assigneeId: this.state.task.assigne,
+            },
         });
     }
 
     handleSuccessfulCreation() {
-        Router.push('/');
+        Router.push("/");
     }
 
     render() {
@@ -96,8 +97,9 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                             <Grid container={true}>
                                 <Grid item={true} xs={12} md={6} >
 
-
-                                    <Mutation mutation={ADD_TASK} onCompleted={() => this.handleSuccessfulCreation()} refetchQueries={() => [{ query: GET_TASKS }]}>
+                                    <Mutation mutation={ADD_TASK}
+                                        onCompleted={() => this.handleSuccessfulCreation()}
+                                        refetchQueries={() => [{ query: GET_TASKS }]}>
                                         {(addTask: any) => (
 
                                             <form
@@ -114,7 +116,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     type="text"
                                                     value={this.state.task.subject}
                                                     required={true}
-                                                    onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                                    onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                                 />
                                                 <TextField
                                                     id="filled-adornment-issue"
@@ -125,12 +127,12 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     type="text"
                                                     value={this.state.task.issue}
                                                     required={true}
-                                                    onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                                    onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                                 />
 
                                                 <Select
                                                     value={this.state.task.assigne}
-                                                    onChange={e =>
+                                                    onChange={(e) =>
                                                         this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
                                                     }
                                                     name="assingne"
@@ -139,7 +141,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     <MenuItem value="" disabled={true} selected={true}>
                                                         <em>Select one</em>
                                                     </MenuItem>
-                                                    {admins.map(admin => {
+                                                    {admins.map((admin) => {
                                                         return (
                                                             <MenuItem key={admin.id} value={admin.id}>
                                                                 {admin.fullName}
@@ -149,7 +151,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                 </Select>
                                                 <Button variant="contained" type="submit" color="primary" >
                                                     Přidat
-                    </Button>
+                                                </Button>
                                             </form>
                                         )}
                                     </Mutation>
@@ -163,4 +165,4 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
     }
 }
 
-export default NewTask;
+export default withAuthSync(NewTask);

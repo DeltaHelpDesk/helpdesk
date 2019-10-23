@@ -1,11 +1,11 @@
 import ApolloClient from "apollo-boost";
 import resolvers from "./resolvers.js";
 import typeDefs from "./typedefs.js";
-import { lastToken, isLoggedIn, lastContextValue } from './auth';
-import { ServerError } from 'apollo-link-http-common';
-import fetcher from 'node-fetch';
+import { lastToken, isLoggedIn, lastContextValue } from "./auth";
+import { ServerError } from "apollo-link-http-common";
+import fetcher from "node-fetch";
 
-const apiUri = 'https://delta-helpdesk.herokuapp.com/graphql';
+const apiUri = "https://delta-helpdesk.herokuapp.com/graphql";
 
 const client = new ApolloClient({
     uri: apiUri,
@@ -14,14 +14,15 @@ const client = new ApolloClient({
         if (isLoggedIn()) {
             operation.setContext({
                 headers: {
-                    Authorization: `Bearer ${lastToken}`
-                }
+                    Authorization: `Bearer ${lastToken}`,
+                },
             });
         }
     },
     onError({ networkError, response, forward, operation, ...other }) {
-        if ((networkError && (networkError as ServerError).statusCode === 401) || (response && response.errors && (response.errors[0].message as any).statusCode === 401)) {
-            if (operation.operationName !== 'logout') {
+        if ((networkError && (networkError as ServerError).statusCode === 401) ||
+            (response && response.errors && (response.errors[0].message as any).statusCode === 401)) {
+            if (operation.operationName !== "logout") {
                 lastContextValue.logout();
             }
         }
@@ -31,8 +32,8 @@ const client = new ApolloClient({
     clientState: {
         defaults: {},
         resolvers,
-        typeDefs
-    }
+        typeDefs,
+    },
 });
 
 export default client;
