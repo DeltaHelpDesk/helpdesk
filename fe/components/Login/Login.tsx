@@ -58,7 +58,11 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
 
         try {
             await loginByEmail(filled.name, filled.password);
-            Router.push(customRoutes.administration);
+            if (window) {
+                window.location.href = customRoutes.administration;
+            } else {
+                Router.push(customRoutes.administration);
+            }
             return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {

@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import client from "./client";
-import { createContext, useEffect, FunctionComponent, useState, useContext } from "react";
+import { createContext, useEffect, FunctionComponent, useState } from "react";
 // import MicrosoftAuthService from '../services/microsoft';
 import Cookies from "universal-cookie";
 import { UserTokenCookieKey } from "../Global/Keys";
@@ -125,10 +125,16 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
             /// Vynucení smazání tokenu
         }
         setToken(null);
-        if (window) {
-            window.localStorage.setItem("logout", Date.now().toString());
-            Router.push(customRoutes.loginRoute);
-            // window.location.reload();
+        try {
+            if (window) {
+                window.localStorage.setItem("logout", Date.now().toString());
+                window.location.reload();
+            } else {
+                Router.push(customRoutes.loginRoute);
+            }
+            // tslint:disable-next-line:no-empty
+        } catch {
+
         }
     };
 
@@ -230,59 +236,4 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
 export const AuthContext = {
     Provider: AuthContextProvider,
     Consumer: ReactAuthContext.Consumer,
-};
-
-export const withAuthSync = (WrappedComponent, minRole: UserRole = UserRole.DEFAULT) => {
-
-    const Wrapper = (props: JSX.IntrinsicAttributes) => {
-        const syncLogout = (event: { key: string; }) => {
-            if (event.key === "logout") {
-                console.log("logged out from storage!");
-                Router.push(customRoutes.loginRoute);
-            }
-        };
-
-        // tslint:disable-next-line:no-shadowed-variable
-        const { isLoggedIn, user } = useContext(ReactAuthContext);
-
-        useEffect(() => {
-            window.addEventListener("storage", syncLogout);
-            if (!isLoggedIn) {
-                // TODO: Informovat - Přihlašte se
-                Router.push(customRoutes.loginRoute);
-                return;
-            }
-            // console.log(isLoggedIn);
-            // console.log(user && user.role);
-            // console.log(minRole);
-            // console.log(user && !checkUserRole(user.role, minRole));
-
-            if (user && !checkUserRole(user.role, minRole)) {
-                console.log("Nemáte dostatečné oprávnění");
-                Router.back();
-                // TODO: Informovat - Nedostatek práv
-                return;
-            }
-
-            return () => {
-                window.removeEventListener("storage", syncLogout);
-                window.localStorage.removeItem("logout");
-            };
-        }, [null]);
-
-        return isLoggedIn && <WrappedComponent {...props} />;
-    };
-
-    Wrapper.getInitialProps = async (ctx: any) => {
-        // console.log(ctx);
-        const token = ""; // ctx.token;
-
-        const componentProps =
-            WrappedComponent.getInitialProps &&
-            (await WrappedComponent.getInitialProps(ctx));
-
-        return { ...componentProps, token };
-    };
-
-    return Wrapper;
 };
