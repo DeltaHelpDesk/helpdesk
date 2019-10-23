@@ -1,17 +1,15 @@
+import { FunctionComponent } from "react";
 import Grid from "@material-ui/core/Grid";
-import Card from '@material-ui/core/Card';
-import * as React from "react";
-
+import Card from "@material-ui/core/Card";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
 
-
-
+// tslint:disable-next-line:no-empty-interface
 interface IAdministrationItemsProps {
 }
 
-const AdministrationItems: React.FunctionComponent<IAdministrationItemsProps> = () => {
+const AdministrationItems: FunctionComponent<IAdministrationItemsProps> = () => {
     return (
         <div>
             <Card>
@@ -38,8 +36,6 @@ const AdministrationItems: React.FunctionComponent<IAdministrationItemsProps> = 
             </Link>
         </div>
     );
-}
-
+};
 
 export default AdministrationItems;
-
