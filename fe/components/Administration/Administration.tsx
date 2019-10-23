@@ -3,7 +3,8 @@ import Card from '@material-ui/core/Card';
 import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Link } from 'react-router-dom';
+import Link from "next/link";
+import customRoutes from "../../src/Routes";
 
 
 
@@ -28,7 +29,7 @@ const AdministrationItems: React.FunctionComponent<IAdministrationItemsProps> = 
                     <p>Hardware</p>
                 </Grid>
             </Card>
-            <Link to="/admin/userlist">
+            <Link href={customRoutes.userList}>
                 <Card >
                     <Grid item={true}>
                         <p>Seznam uživatelů</p>

@@ -35,31 +35,33 @@ const SettingsPage: React.FunctionComponent = () => {
     return <>
         <HeadComponent>
             <Layout title="Settings">
-                <h1 className={'h1-responsive'}>{localisation.common.settings}</h1>
-                <div className={'pt-5 pb-5'}>
-                    <h2 className={'h2-responsive'}>{localisation.settings.language}</h2>
-                    <Select
-                        //value={this.state.task.assigne}
-                        onChange={e => {
-                            const lang: string = e.target.value.toString();
-                            handleLangChange(lang)
-                        }}
-                        value={language}
-                        name="language"
+                <div className={'d-flex flex-column'}>
+                    <h1 className={'h1-responsive'}>{localisation.common.settings}</h1>
+                    <div className={'pt-5 pb-5'}>
+                        <h2 className={'h2-responsive'}>{localisation.settings.language}</h2>
+                        <Select
+                            //value={this.state.task.assigne}
+                            onChange={e => {
+                                const lang: string = e.target.value.toString();
+                                handleLangChange(lang)
+                            }}
+                            value={language}
+                            name="language"
 
-                    >
-                        <MenuItem value="" disabled={true} selected={true}>
-                            <em>Select one</em>
-                        </MenuItem>
-                        {langs.map((lang, index) => {
-                            return (
-                                <MenuItem key={index} value={lang.lang}>
-                                    {lang.name}
-                                </MenuItem>
-                            );
-                        })}
-                    </Select>
+                        >
+                            <MenuItem value="" disabled={true} selected={true}>
+                                <em>Select one</em>
+                            </MenuItem>
+                            {langs.map((lang, index) => {
+                                return (
+                                    <MenuItem key={index} value={lang.lang}>
+                                        {lang.name}
+                                    </MenuItem>
+                                );
+                            })}
+                        </Select>
 
+                    </div>
                 </div>
             </Layout>
         </HeadComponent>

@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import { GET_USER } from './UserListQueries';
 import UserComponent from './User';
 import { IUser } from "../../../src/graphql/types";
+import Loading from "../../Loading/Loading";
 
 
 
@@ -19,7 +20,9 @@ class UserList extends React.Component<{}> {
             <Query query={GET_USER}>
                 {({ loading, error, data }: any) => {
                     if (loading) {
-                        return <>Loading...</>;
+                        return <>
+                            <Loading isLinear={true} />
+                        </>;
                     }
                     if (error) {
                         return <>Error! ${error.message}</>;

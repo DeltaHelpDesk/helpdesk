@@ -35,7 +35,7 @@ class TaskList extends React.Component<{}> {
         return (
             <Query query={GET_TASKS}>
                 {({ loading, error, data }: any) => {
-                    if (loading) {  
+                    if (loading) {
                         return <Loading />;
                     }
                     if (error) {
@@ -49,7 +49,7 @@ class TaskList extends React.Component<{}> {
                                 <TableRow>
                                     <TableCell>Autor</TableCell>
                                     <TableCell>Předmět</TableCell>
-                                    { 
+                                    {
                                         // TODO: Vymyslet lepší název pro řešitele 
                                     }
                                     <TableCell>Řešitel</TableCell>
