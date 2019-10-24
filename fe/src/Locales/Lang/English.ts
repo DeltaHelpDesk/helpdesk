@@ -26,8 +26,12 @@ const englishLang: ILocalisedStrings = {
         errorOnClient: 'An error has occured on client'
     },
     settings: {
+        title: 'Settings',
         languageSelect: 'Select language',
         language: 'Language',
+        theme: 'Theme',
+        light: 'Light',
+        dark: 'Dark'
     }
 }
 

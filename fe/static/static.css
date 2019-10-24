@@ -28,3 +28,8 @@ body {
 .animated-transition {
     transition: 0.5s;
 }
+
+.admin-card {
+    width: 15rem;
+    height: 15rem;
+}
