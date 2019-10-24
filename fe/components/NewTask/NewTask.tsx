@@ -116,7 +116,8 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     type="text"
                                                     value={this.state.task.subject}
                                                     required={true}
-                                                    onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                                    onChange={(e) =>
+                                                        this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                                 />
                                                 <TextField
                                                     id="filled-adornment-issue"
@@ -127,12 +128,14 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     type="text"
                                                     value={this.state.task.issue}
                                                     required={true}
-                                                    onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                                    onChange={(e) =>
+                                                        this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                                 />
 
                                                 <Select
                                                     value={this.state.task.assigne}
                                                     onChange={(e) =>
+                                                        // tslint:disable-next-line: max-line-length
                                                         this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
                                                     }
                                                     name="assingne"
