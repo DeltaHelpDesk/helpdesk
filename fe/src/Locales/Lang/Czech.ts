@@ -26,8 +26,12 @@ const czechLang: ILocalisedStrings = {
         errorOnClient: 'Nastala chyba na klientu'
     },
     settings: {
+        title: 'Nastavení',
         languageSelect: 'Výběr jazyka',
         language: 'Jazyk',
+        theme: 'Téma',
+        light: 'Světlé',
+        dark: 'Tmavé'
     }
 }
 

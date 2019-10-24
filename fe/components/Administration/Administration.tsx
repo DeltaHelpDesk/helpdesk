@@ -9,33 +9,33 @@ import customRoutes from "../../src/Routes";
 interface IAdministrationItemsProps {
 }
 
-const AdministrationItems: FunctionComponent<IAdministrationItemsProps> = () => {
-    return (
-        <div>
-            <Card>
-                <Grid item={true}>
-                    <p>Nastavení</p>
-                </Grid>
+const AdministrationItems: React.FunctionComponent<IAdministrationItemsProps> = () => {
+    return <>
+        <Grid item={true}>
+            <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+                <p className="h4-responsive">Nastavení</p>
             </Card>
-            <Card >
-                <Grid item={true}>
-                    <p>Seznam požadavků</p>
-                </Grid>
+        </Grid>
+        <Grid item={true}>
+            <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+                <p className="h4-responsive">Seznam požadavků</p>
             </Card>
-            <Card >
-                <Grid item={true}>
-                    <p>Hardware</p>
-                </Grid>
+        </Grid>
+        <Grid item={true}>
+            <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+                <p className="h4-responsive">Hardware</p>
             </Card>
+        </Grid>
+        <Grid item={true}>
             <Link href={customRoutes.userList}>
-                <Card >
-                    <Grid item={true}>
-                        <p>Seznam uživatelů</p>
-                    </Grid>
+                <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+                    <p className="h4-responsive">Seznam uživatelů</p>
                 </Card>
             </Link>
-        </div>
-    );
-};
+        </Grid>
+
+    </>;
+}
+
 
 export default AdministrationItems;

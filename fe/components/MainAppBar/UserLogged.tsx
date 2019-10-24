@@ -6,9 +6,13 @@ import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import { GetFirstLetters } from '../../utils/TextHelper';
 import localisation from '../../src/Locales/Localisations';
+import Router from 'next/router';
+import customRoutes from '../../src/Routes';
+import Divider from '@material-ui/core/Divider';
 
 interface ILoggedInProps {
     logout: () => Promise<void> | undefined,
@@ -43,7 +47,25 @@ const UserLogged: React.FunctionComponent<ILoggedInProps> = ({ logout, user }) =
                 style={{ backgroundColor: '#ffffff !important' }}
             >
 
-                <MenuItem>{user.fullName}</MenuItem>
+                <MenuItem style={{height: '6rem'}}>
+
+                    <div className='row align-items-center'>
+                        <div className='col-4'>
+                            <Avatar>{GetFirstLetters(user.fullName)}</Avatar>
+                        </div>
+                        <div className='col-8 h6-responsive'>
+                            {user.fullName}
+                        </div>
+                    </div>
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={() => { Router.push(customRoutes.settings) }}>
+                    <ListItemIcon>
+                        <SettingsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={localisation.settings.title} />
+                </MenuItem>
+                <Divider />
                 <MenuItem onClick={() => { logout() }}>
                     <ListItemIcon>
                         <ExitToAppIcon />

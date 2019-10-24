@@ -4,7 +4,8 @@ const customRoutes = {
     newTask: "/new",
     administration: "/admin",
     taskBoard: "/board",
-    userList: "/admin/users"
+    userList: "/admin/users",
+    settings: "/settings"
 };
 
 export default customRoutes;

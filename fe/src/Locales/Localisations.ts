@@ -45,8 +45,12 @@ interface ILocalisedErrors {
 }
 
 interface ILocalisedSettings {
+    title: string,
     languageSelect: string,
     language: string,
+    theme: string,
+    dark: string,
+    light: string
 }
 
 
