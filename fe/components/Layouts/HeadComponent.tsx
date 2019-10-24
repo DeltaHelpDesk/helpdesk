@@ -1,10 +1,7 @@
-import * as React from 'react';
-import Head from 'next/head';
+import { FunctionComponent } from "react";
+import Head from "next/head";
 
-const HeadComponent: React.FunctionComponent = ({ children }) => {
-
-    //@ts-ignore
-
+const HeadComponent: FunctionComponent = ({ children }) => {
 
     return <>
         <Head>
@@ -24,6 +21,6 @@ const HeadComponent: React.FunctionComponent = ({ children }) => {
         {children}
 
     </>;
-}
+};
 
 export default HeadComponent;

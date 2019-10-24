@@ -3,15 +3,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 /* import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem"; */
-
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import { ADD_USER } from "./NewUserQueries";
 import { withRouter, RouteComponentProps } from "react-router";
-import Grid from '@material-ui/core/Grid';
-import { GET_USER } from '../UserList/UserListQueries';
-
-
+import Grid from "@material-ui/core/Grid";
+import { GET_USER } from "../UserList/UserListQueries";
 
 interface INewUserState {
     user: {
@@ -30,8 +27,8 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
             user: {
                 fullName: "",
                 email: "",
-                password: ""
-            }
+                password: "",
+            },
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,11 +38,11 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
-        this.setState(previousState => ({
+        this.setState((previousState) => ({
             user: {
                 ...previousState.user,
-                [property]: value
-            }
+                [property]: value,
+            },
         }));
     }
 
@@ -55,8 +52,8 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
             variables: {
                 fullName: this.state.user.fullName,
                 email: this.state.user.email,
-                password: this.state.user.password
-            }
+                password: this.state.user.password,
+            },
         });
     }
 
@@ -69,7 +66,9 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
             <div >
                 <Grid container={true}>
                     <Grid item={true} xs={12} md={6} >
-                        <Mutation mutation={ADD_USER} onCompleted={() => this.handleSuccessfulCreation()} refetchQueries={() => [{ query: GET_USER }]}>
+                        <Mutation mutation={ADD_USER}
+                            onCompleted={() => this.handleSuccessfulCreation()}
+                            refetchQueries={() => [{ query: GET_USER }]}>
                             {(addUser: any) => (
                                 <form
 
@@ -85,7 +84,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                                         type="text"
                                         value={this.state.user.fullName}
                                         required={true}
-                                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                     />
                                     <TextField
                                         id="filled-adornment-issue"
@@ -96,7 +95,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                                         type="text"
                                         value={this.state.user.email}
                                         required={true}
-                                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                     />
                                     <TextField
                                         id="filled-adornment-subject"
@@ -107,11 +106,11 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                                         type="password"
                                         value={this.state.user.password}
                                         required={true}
-                                        onChange={e => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                     />
                                     <Button variant="contained" type="submit" color="primary" >
                                         Přidat
-                </Button>
+                                    </Button>
                                 </form>
                             )}
                         </Mutation>

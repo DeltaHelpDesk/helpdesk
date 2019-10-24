@@ -1,5 +1,5 @@
+import { FunctionComponent } from "react";
 import { Paper, Divider, Button, Icon, Typography } from "@material-ui/core";
-import * as React from "react";
 import DateFormatComponent from "../Dates/DateFormatter";
 import { ITask } from "../../src/graphql/types";
 import Link from "next/link";
@@ -8,7 +8,7 @@ interface ITaskCardProps {
     task: ITask;
 }
 
-const TaskCard: React.FunctionComponent<ITaskCardProps> = ({ task }) => {
+const TaskCard: FunctionComponent<ITaskCardProps> = ({ task }) => {
 
     const DetailButton = () => {
         const path = "/task/" + task.id;

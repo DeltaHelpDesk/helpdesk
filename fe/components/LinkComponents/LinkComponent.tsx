@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Link from 'next/link';
-import { Button, PropTypes } from '@material-ui/core';
+import { FunctionComponent } from "react";
+import Link from "next/link";
+import { Button, PropTypes } from "@material-ui/core";
 
 interface IProps {
-    href: string,
-    isButton?: boolean,
-    text: string,
-    variant?: "text" | "outlined" | "contained",
-    color?: PropTypes.Color,
+    href: string;
+    isButton?: boolean;
+    text: string;
+    variant?: "text" | "outlined" | "contained";
+    color?: PropTypes.Color;
 }
 
-const LinkComponent: React.FunctionComponent<IProps> = ({ href, isButton = false, text, variant = 'contained', color = 'primary' }) => {
+const LinkComponent: FunctionComponent<IProps> = ({ href, isButton = false, text, variant = "contained", color = "primary" }) => {
 
     return <>
         <Link href={href}>
@@ -20,6 +20,6 @@ const LinkComponent: React.FunctionComponent<IProps> = ({ href, isButton = false
             </div>
         </Link>
     </>;
-}
+};
 
 export default LinkComponent;

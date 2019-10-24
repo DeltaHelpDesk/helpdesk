@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,9 +8,9 @@ import { AuthContext } from "../../src/graphql/auth";
 import UserLogged from "./UserLogged";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from "@material-ui/icons/Person";
 
-const MainAppBar: React.FunctionComponent<{}> = () => {
+const MainAppBar: FunctionComponent<{}> = () => {
 
     return <>
         <AppBar position="fixed" >

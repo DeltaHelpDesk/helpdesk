@@ -1,42 +1,40 @@
-import * as React from 'react';
-import { TextField, Select, MenuItem, Button } from '@material-ui/core';
-import { useState } from 'react';
-import { TASK_DETAIL } from './TaskDetailQueries';
-import { CHANGE_TASK_STATE } from './TaskDetailQueries';
+import * as React from "react";
+import { TextField, Select, MenuItem, Button } from "@material-ui/core";
+import { useState } from "react";
+import { TASK_DETAIL } from "./TaskDetailQueries";
+import { CHANGE_TASK_STATE } from "./TaskDetailQueries";
 import { Mutation } from "react-apollo";
-import { State } from '../../src/graphql/types';
+import { State } from "../../src/graphql/types";
 
 interface IProps {
-    taskId: string,
-    taskState: string
+    taskId: string;
+    taskState: string;
 }
 
-
-
-const DetailForm: React.FC<IProps> = props => {
-    const [taskComment, setComment] = useState<string>()
-    const [taskState, setState] = useState<string>(props.taskState)
-
+const DetailForm: React.FC<IProps> = (props) => {
+    const [taskComment, setComment] = useState<string>();
+    const [taskState, setState] = useState<string>(props.taskState);
 
     const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setComment(e.currentTarget.value)
-    }
+        setComment(e.currentTarget.value);
+    };
     const handleSelectedEvent = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setState(e.target.value)
-    }
+        setState(e.target.value);
+    };
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>, callback: (variables: object) => void) => {
         e.preventDefault();
         callback({
             variables: {
                 comment: taskComment,
                 state: taskState,
-                taskId: props.taskId
-            }
+                taskId: props.taskId,
+            },
         });
-    }
+    };
 
     return (
-        <Mutation mutation={CHANGE_TASK_STATE} refetchQueries={() => [{ query: TASK_DETAIL, variables: { id: props.taskId } }]}>
+        <Mutation mutation={CHANGE_TASK_STATE}
+            refetchQueries={() => [{ query: TASK_DETAIL, variables: { id: props.taskId } }]}>
             {(changeTaskState: any) => (
                 <form
                     onSubmit={(e) => handleSubmit(e, changeTaskState)}
@@ -49,16 +47,16 @@ const DetailForm: React.FC<IProps> = props => {
                         type="text"
                         value={taskComment || ""}
                         required={false}
-                        onChange={e => handleCommentChange(e as React.ChangeEvent<HTMLInputElement>)}
+                        onChange={(e) => handleCommentChange(e as React.ChangeEvent<HTMLInputElement>)}
                     />
                     <Select
                         value={taskState}
-                        onChange={e =>
+                        onChange={(e) =>
                             handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
                         }
                         name="assingne"
                     >
-                        {Object.keys(State).map(state => {
+                        {Object.keys(State).map((state) => {
                             return (
                                 <MenuItem key={state} value={state}>
                                     {state}
@@ -72,8 +70,7 @@ const DetailForm: React.FC<IProps> = props => {
                 </form>
             )}
         </Mutation>
-    )
-}
-
+    );
+};
 
 export default DetailForm;

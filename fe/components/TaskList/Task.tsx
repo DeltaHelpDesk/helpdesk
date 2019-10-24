@@ -1,14 +1,14 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { TableRow, TableCell, Button, Icon } from '@material-ui/core';
-import { Mutation } from 'react-apollo';
-import { DELETE_TASK, GET_TASKS } from './TaskListQueries';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { NavLink } from 'react-router-dom';
-import { ITask } from '../../src/graphql/types';
+import { TableRow, TableCell, Button, Icon } from "@material-ui/core";
+import { Mutation } from "react-apollo";
+import { DELETE_TASK, GET_TASKS } from "./TaskListQueries";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { NavLink } from "react-router-dom";
+import { ITask } from "../../src/graphql/types";
 const styles = {
 
-}
+};
 
 interface ITaskProps {
     task: ITask;
@@ -16,7 +16,7 @@ interface ITaskProps {
 }
 
 // Prepared for Task component
-const Task: React.FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
+const Task: FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
 
     const taskId = task.id;
     const DeleteButton = () => {
@@ -26,8 +26,8 @@ const Task: React.FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
                     <Button variant="contained" color="secondary" onClick={() => {
                         deleteTask({
                             variables: {
-                                taskId
-                            }
+                                taskId,
+                            },
                         });
                     }}>
                         <DeleteIcon />
@@ -44,7 +44,7 @@ const Task: React.FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
                     <Icon>edit_icon</Icon>
                 </Button>
             </NavLink>
-        )
+        );
     };
 
     const LetterButton = () => {
@@ -55,7 +55,7 @@ const Task: React.FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
                     <Icon>mail-outline</Icon>
                 </Button>
             </NavLink>
-        )
+        );
     };
 
     return (
@@ -67,7 +67,7 @@ const Task: React.FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
                 {task.subject}
             </TableCell>
             <TableCell>
-                {task.assignee ? task.assignee.fullName : 'Nepřiřazeno'}
+                {task.assignee ? task.assignee.fullName : "Nepřiřazeno"}
             </TableCell>
             <TableCell>
                 {task.state}
@@ -85,6 +85,6 @@ const Task: React.FunctionComponent<ITaskProps> = ({ task, isAdmin }) => {
             }
         </TableRow>
     );
-}
+};
 
 export default Task;

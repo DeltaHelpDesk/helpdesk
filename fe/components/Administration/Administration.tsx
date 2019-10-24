@@ -9,33 +9,32 @@ import customRoutes from "../../src/Routes";
 interface IAdministrationItemsProps {
 }
 
-const AdministrationItems: React.FunctionComponent<IAdministrationItemsProps> = () => {
+const AdministrationItems: FunctionComponent<IAdministrationItemsProps> = () => {
     return <>
         <Grid item={true}>
-            <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+            <Card className={"d-flex justify-content-center align-items-center admin-card"}>
                 <p className="h4-responsive">Nastavení</p>
             </Card>
         </Grid>
         <Grid item={true}>
-            <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+            <Card className={"d-flex justify-content-center align-items-center admin-card"}>
                 <p className="h4-responsive">Seznam požadavků</p>
             </Card>
         </Grid>
         <Grid item={true}>
-            <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+            <Card className={"d-flex justify-content-center align-items-center admin-card"}>
                 <p className="h4-responsive">Hardware</p>
             </Card>
         </Grid>
         <Grid item={true}>
             <Link href={customRoutes.userList}>
-                <Card className={'d-flex justify-content-center align-items-center admin-card'}>
+                <Card className={"d-flex justify-content-center align-items-center admin-card"}>
                     <p className="h4-responsive">Seznam uživatelů</p>
                 </Card>
             </Link>
         </Grid>
 
     </>;
-}
-
+};
 
 export default AdministrationItems;
