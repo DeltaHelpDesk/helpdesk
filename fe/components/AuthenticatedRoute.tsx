@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactAuthContext } from '../src/graphql/auth';
+import { ReactAuthContext } from "../src/graphql/auth";
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from "@material-ui/core";
 
 export default class AuthenticatedRoute extends React.Component<RouteProps> {
     static contextType = ReactAuthContext;

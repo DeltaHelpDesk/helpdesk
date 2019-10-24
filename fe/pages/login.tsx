@@ -1,24 +1,24 @@
-import * as React from 'react';
-import Link from 'next/link';
-import Layout from '../components/Layouts/Layout';
-import { NextPage } from 'next';
-import LoginPageComponent from '../components/Login/Login';
-import Head from 'next/head';
-import localisation from '../src/Locales/Localisations';
+import * as React from "react";
+import Link from "next/link";
+import Layout from "../components/Layouts/Layout";
+import { NextPage } from "next";
+import LoginPageComponent from "../components/Login/Login";
+import Head from "next/head";
+import localisation from "../src/Locales/Localisations";
 
 const LoginPage: NextPage = () => {
     return <>
-        {/* <Layout title="Login"> */}
-        <Head>
-            <title>{localisation.login.login}</title>
-        </Head>
-        <div className={'pt-5'}>
+        <Layout title="Login">
+            <Head>
+                <title>{localisation.login.login}</title>
+            </Head>
+            <div className={"pt-5"}>
 
-            <LoginPageComponent showPassword={false} user={null} />
-        </div>
+                <LoginPageComponent showPassword={false} user={null} />
+            </div>
 
-        {/* </Layout> */}
+        </Layout>
     </>;
-}
+};
 
 export default LoginPage;

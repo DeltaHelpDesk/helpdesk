@@ -1,16 +1,15 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { FunctionComponent } from "react";
+import { useEffect, useState } from "react";
 
+const Kaomoji: FunctionComponent = () => {
 
-const Kaomoji: React.FunctionComponent = () => {
-
-    const [kaomoji, setKaomoji] = useState<string>('');
+    const [kaomoji, setKaomoji] = useState<string>("");
 
     const faces: string[] = [
-        '(•_•)',
-        '¯\\_(ツ)_/¯',
-        '( ´･･)ﾉ',
-        '(._.`)'
+        "(•_•)",
+        "¯\\_(ツ)_/¯",
+        "( ´･･)ﾉ",
+        "(._.`)",
     ];
 
     useEffect(() => {
@@ -19,13 +18,12 @@ const Kaomoji: React.FunctionComponent = () => {
     });
 
     return <>
-        <div className='d-flex justify-content-center'>
-            <h1 className='display-3'>
+        <div className="d-flex justify-content-center">
+            <h1 className="display-3">
                 {kaomoji}
             </h1>
         </div>
     </>;
-}
-
+};
 
 export default Kaomoji;

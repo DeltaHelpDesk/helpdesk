@@ -1,21 +1,17 @@
 import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 import * as React from "react";
-import { ILog } from '../../src/graphql/types';
-
-
+import { ILog } from "../../src/graphql/types";
 
 const CustomTableCell = TableCell;
 
-
-
 interface ILogsTableProps {
-    logs: ILog[]
+    logs: ILog[];
 }
 
 function LogsTable(props: ILogsTableProps) {
@@ -32,7 +28,7 @@ function LogsTable(props: ILogsTableProps) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {logs.map(log => (
+                    {logs.map((log) => (
                         <TableRow key={log.id}>
                             <CustomTableCell component="th" scope="row">{log.author.fullName}</CustomTableCell>
                             <CustomTableCell align="right">{log.comment}</CustomTableCell>
@@ -44,6 +40,5 @@ function LogsTable(props: ILogsTableProps) {
         </Paper>
     );
 }
-
 
 export default LogsTable;

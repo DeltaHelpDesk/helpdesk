@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-
+import gql from "graphql-tag";
 
 export const ADD_TASK = gql`
     mutation addTask($subject: String!, $issue: String!, $assigneeId: ID) {
@@ -18,7 +16,7 @@ export const ADD_TASK = gql`
             }
         }
     }
-`
+`;
 
 export const ADMINS = gql`
     {
@@ -27,4 +25,4 @@ export const ADMINS = gql`
             fullName
         }
     }
-`
+`;

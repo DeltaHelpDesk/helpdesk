@@ -1,35 +1,32 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { TableRow, TableCell, Button } from '@material-ui/core';
-import { Mutation } from 'react-apollo';
-import { DELETE_USER, GET_USER } from './UserListQueries';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import { GET_TASKS } from '../../TaskList/TaskListQueries';
+import { TableRow, TableCell, Button } from "@material-ui/core";
+import { Mutation } from "react-apollo";
+import { DELETE_USER, GET_USER } from "./UserListQueries";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import { GET_TASKS } from "../../TaskList/TaskListQueries";
 import { IUser } from "../../../src/graphql/types";
 import DateFormatComponent from "../../Dates/DateFormatter";
 
-
 interface IUserComponentProps {
-    user: IUser,
-    isAdmin: boolean
+    user: IUser;
+    isAdmin: boolean;
 }
 
-const UserComponent: React.FunctionComponent<IUserComponentProps> = ({ user, isAdmin }) => {
-
-
+const UserComponent: FunctionComponent<IUserComponentProps> = ({ user, isAdmin }) => {
 
     const { email, fullName, role, created_at, updated_at } = user;
 
-    const DeleteButton: React.FunctionComponent = () => {
+    const DeleteButton: FunctionComponent = () => {
         return (
             <Mutation mutation={DELETE_USER} refetchQueries={() => [{ query: GET_USER }, { query: GET_TASKS }]}>
                 {(removeUser: any) => (
                     <Button variant="contained" color="secondary" onClick={() => {
                         removeUser({
                             variables: {
-                                email
-                            }
+                                email,
+                            },
                         });
                     }}>
                         <DeleteIcon />
@@ -38,7 +35,6 @@ const UserComponent: React.FunctionComponent<IUserComponentProps> = ({ user, isA
             </Mutation>
         );
     };
-
 
     return (
         <TableRow>
@@ -65,6 +61,6 @@ const UserComponent: React.FunctionComponent<IUserComponentProps> = ({ user, isA
             </TableCell>}
         </TableRow>
     );
-}
+};
 
 export default UserComponent;

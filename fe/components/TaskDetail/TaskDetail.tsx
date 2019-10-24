@@ -1,14 +1,13 @@
-import * as React from "react";
+import { Component } from "react";
 import { Query } from "react-apollo";
-import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from '../../src/graphql/auth';
-import { TASK_DETAIL } from './TaskDetailQueries';
-import { RouteComponentProps } from 'react-router';
-import LogsTable from './LogsTable';
-import DetailForm from './DetailForm';
-
+import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from "../../src/graphql/auth";
+import { TASK_DETAIL } from "./TaskDetailQueries";
+import { RouteComponentProps } from "react-router";
+import LogsTable from "./LogsTable";
+import DetailForm from "./DetailForm";
 
 const styles = {};
-class TaskList extends React.Component<RouteComponentProps<{ id: string }>> {
+class TaskList extends Component<RouteComponentProps<{ id: string }>> {
     static contextType = ReactAuthContext;
     static context: IAuthContextValue;
     render() {
@@ -23,8 +22,12 @@ class TaskList extends React.Component<RouteComponentProps<{ id: string }>> {
                     if (error) {
                         return <>Error! {error.message}</>;
                     }
-                    const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN));
-                    const isOwner = (this.context.user === undefined ? false : this.context.user.id === data.task.author.id);
+                    const isAdmin = (this.context.user === undefined ?
+                        false :
+                        checkUserRole(this.context.user.role, UserRole.ADMIN));
+                    const isOwner = (this.context.user === undefined ?
+                        false :
+                        this.context.user.id === data.task.author.id);
                     const isAuthorized = isAdmin || isOwner;
                     const { task } = data;
                     return (

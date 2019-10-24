@@ -1,17 +1,14 @@
-import * as React from 'react';
+import { SFC } from "react";
 import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
-import Button from '@material-ui/core/Button';
-import Icon from '@mdi/react';
-import { mdiWindows } from '@mdi/js'
-
-
+import Button from "@material-ui/core/Button";
+import Icon from "@mdi/react";
+import { mdiWindows } from "@mdi/js";
 
 interface IMicrosoftButtonLoginProps {
-    onClick: () => void
+    onClick: () => void;
 }
 
-
-const MicrosoftButtonLogin: React.SFC<IMicrosoftButtonLoginProps> = ({ onClick }) => {
+const MicrosoftButtonLogin: SFC<IMicrosoftButtonLoginProps> = ({ onClick }) => {
     return (
         <div>
             <div>
@@ -25,7 +22,6 @@ const MicrosoftButtonLogin: React.SFC<IMicrosoftButtonLoginProps> = ({ onClick }
             </div>
         </div>
     );
-}
-
+};
 
 export default MicrosoftButtonLogin;

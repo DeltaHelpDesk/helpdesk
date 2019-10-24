@@ -110,8 +110,8 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                         :
                         <form>
                             <Grid item={true}>
-                                <div style={{ width: '25rem' }}>
-                                    <h2 className={'h1-responsive pb-5'}>{localisation.login.title}</h2>
+                                <div style={{ width: "25rem" }}>
+                                    <h2 className={"h1-responsive pb-5"}>{localisation.login.title}</h2>
                                 </div>
                                 <TextField
                                     id="name"
@@ -120,8 +120,8 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                                     label={localisation.login.email}
                                     type="text"
                                     value={filled && filled.name || ""}
-                                    style={{ width: '25rem' }}
-                                    className={' pb-5'}
+                                    style={{ width: "25rem" }}
+                                    className={" pb-5"}
                                     onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)} />
                             </Grid>
                             <Grid item={true}>
@@ -134,8 +134,8 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                                     value={filled && filled.password || ""}
                                     onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)}
                                     onKeyPress={handleKeywordKeyPress}
-                                    style={{ width: '25rem' }}
-                                    className={' pb-5'}
+                                    style={{ width: "25rem" }}
+                                    className={" pb-5"}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment variant="filled" position="end">
@@ -156,7 +156,7 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                                         variant="contained"
                                         size="large"
                                         color="primary"
-                                        style={{ width: '25rem' }}
+                                        style={{ width: "25rem" }}
                                         onClick={handleFormSubmit}>
                                         <Icon path={mdiLogin}
                                             size={1}

@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import * as React from "react";
+import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 
 const styles = (theme: Theme) => createStyles({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -14,14 +14,12 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-
-
 interface IDatePickerProps extends WithStyles<typeof styles> {
   id: string;
   label: string;
   defaultValue: string;
   disabled?: boolean;
-  onChange: (date: string) => void
+  onChange: (date: string) => void;
 }
 
 function formatDate(date: string) {
@@ -30,7 +28,6 @@ function formatDate(date: string) {
   // e.g.: 2013-03-10T02:00:00Z => 2013-03-10
   return new Date(date).toISOString().substring(0, 10);
 }
-
 
 function DatePicker(props: IDatePickerProps) {
 
@@ -49,6 +46,5 @@ function DatePicker(props: IDatePickerProps) {
 
   );
 }
-
 
 export default withStyles(styles)(DatePicker);
