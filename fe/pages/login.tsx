@@ -8,15 +8,10 @@ import localisation from "../src/Locales/Localisations";
 
 const LoginPage: NextPage = () => {
     return <>
-        <Layout title="Login">
-            <Head>
-                <title>{localisation.login.login}</title>
-            </Head>
+        <Layout title={localisation.login.login}>
             <div className={"pt-5"}>
-
                 <LoginPageComponent showPassword={false} user={null} />
             </div>
-
         </Layout>
     </>;
 };

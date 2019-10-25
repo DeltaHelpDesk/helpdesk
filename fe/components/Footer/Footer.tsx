@@ -1,9 +1,7 @@
-import * as React from 'react';
-import Link from 'next/link';
+import * as React from "react";
+import Link from "next/link";
 
-
-
-const Footer: Rea = () => {
+function Footer(props) {
     const { classes } = props;
     return (
         <div>
