@@ -15,12 +15,7 @@ const MainAppBar: React.FunctionComponent<{}> = () => {
     return <>
         <AppBar position="fixed" >
             <Toolbar >
-                <Typography variant="h6" >
-                    <Link href="/">
-                        Helpdesk
-                        {/* <img src={logo} /> */}
-                    </Link>
-                </Typography>
+                <img src="/static/logo_new.png" />
                 <div className={"d-flex justify-content-end"} style={{ width: "100%" }}>
                     <div className={"d-flex justify-content-around align-items-center"} style={{ width: "25vw" }}>
                         <div>

@@ -23,12 +23,12 @@ const lightTheme = createMuiTheme({
             dark: "#2b2b2b",
         },
         // BLACK
-        contrast: {
-            main: "#1a1a1a",
-            light: "#333333",
-            dark: "#000000",
-            contrastText: "",
-        },
+        // contrast: {
+        //     main: "#1a1a1a",
+        //     light: "#333333",
+        //     dark: "#000000",
+        //     contrastText: "",
+        // },
         background: {
             default: "#ffffff",
             paper: "#cacaca",
@@ -79,11 +79,11 @@ const darkTheme = createMuiTheme({
             contrastText: "#ffffff",
         },
         // WHITE
-        contrast: {
-            main: "#f5f5f5",
-            light: "#ffffff",
-            dark: "#e0e0e0",
-        },
+        // contrast: {
+        //     main: "#f5f5f5",
+        //     light: "#ffffff",
+        //     dark: "#e0e0e0",
+        // },
         background: {
             default: "#000000",
             paper: "#4c4c4c",

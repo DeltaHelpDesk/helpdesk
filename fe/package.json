@@ -11,6 +11,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^3.0.1",
+    "@material-ui/styles": "^4.5.2",
     "@mdi/font": "^3.2.89",
     "@mdi/js": "^3.2.89",
     "@mdi/react": "^1.1.0",
