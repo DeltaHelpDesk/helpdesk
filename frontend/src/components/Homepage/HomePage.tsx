@@ -105,7 +105,7 @@ class HomePage extends React.Component<IHomePageProps> {
                         </div>
                     </Grid>
                 </div>
-                <img className={classes.background} src={helpdesk_bg} />
+                {/* <img className={classes.background} src={helpdesk_bg} /> */}
             </Grid>
         </div>;
     }
