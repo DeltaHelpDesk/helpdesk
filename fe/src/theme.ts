@@ -1,11 +1,11 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 
 const rawTheme = createMuiTheme({
-  palette: {
-    error: {
-        main: "#eb4444",
-    }
-  },
+    palette: {
+        error: {
+            main: "#eb4444",
+        },
+    },
 });
 
 const lightTheme = createMuiTheme({
@@ -41,25 +41,25 @@ const lightTheme = createMuiTheme({
     typography: {
         // useNextVariants: true,
         h1: {
-            [rawTheme.breakpoints.down('sm')]: {
-                fontSize: "45px", 
+            [rawTheme.breakpoints.down("sm")]: {
+                fontSize: "45px",
             },
             // textAlign: "center",
             textTransform: "uppercase",
             fontSize: "80px",
-            // padding: "5px",        
+            // padding: "5px",
         },
         h2: {
-            [rawTheme.breakpoints.down('sm')]: {
-                fontSize: "25px"
+            [rawTheme.breakpoints.down("sm")]: {
+                fontSize: "25px",
             },
             // textAlign: "center",
             fontSize: "50px",
             // padding: "20px",
             color: "#000000",
-        }
+        },
     },
-})
+});
 
 const darkTheme = createMuiTheme({
     ...rawTheme,
@@ -96,21 +96,21 @@ const darkTheme = createMuiTheme({
     typography: {
         // useNextVariants: true,
         h1: {
-            [rawTheme.breakpoints.down('sm')]: {
-                fontSize: "45px", 
+            [rawTheme.breakpoints.down("sm")]: {
+                fontSize: "45px",
             },
             textTransform: "uppercase",
             fontSize: "80px",
-            color: "#ffffff",     
+            color: "#ffffff",
         },
         h2: {
-            [rawTheme.breakpoints.down('sm')]: {
-                fontSize: "25px"
+            [rawTheme.breakpoints.down("sm")]: {
+                fontSize: "25px",
             },
             fontSize: "50px",
             color: "#ffffff",
-        }
+        },
     },
-})
+});
 
-export default {lightTheme, darkTheme};
+export default { lightTheme, darkTheme };
