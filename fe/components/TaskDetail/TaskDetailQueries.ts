@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-
+import gql from "graphql-tag";
 
 export const TASK_DETAIL = gql`
     query getTask($id: ID!) {
@@ -33,7 +31,7 @@ export const TASK_DETAIL = gql`
             }
         }
     }
-`
+`;
 
 export const CHANGE_TASK_STATE = gql`
     mutation changeTaskState($taskId: ID, $comment: String, $state: State,$assigneeId: ID) {
@@ -41,4 +39,4 @@ export const CHANGE_TASK_STATE = gql`
             id
         }
     }
-`
+`;

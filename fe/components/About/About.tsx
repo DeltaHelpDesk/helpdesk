@@ -1,11 +1,11 @@
-import * as React from "react";
+import { Component } from "react";
 // import * as ReactMarkdown from 'react-markdown';
 
-export default class About extends React.Component {
+export default class About extends Component {
     render() {
         return (
             <div>
-                
+
             </div>
         );
     }

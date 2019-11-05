@@ -1,19 +1,19 @@
-import * as React from 'react'
-import ListItem from './ListItem'
-import { User } from '../interfaces'
+import { FunctionComponent } from "react";
+import ListItem from "./ListItem";
+import { User } from "../interfaces";
 
-type Props = {
-  items: User[]
+interface IProps {
+    items: User[];
 }
 
-const List: React.FunctionComponent<Props> = ({ items }) => (
-  <ul>
-    {items.map(item => (
-      <li key={item.id}>
-        <ListItem data={item} />
-      </li>
-    ))}
-  </ul>
-)
+const List: FunctionComponent<IProps> = ({ items }) => (
+    <ul>
+        {items.map((item) => (
+            <li key={item.id}>
+                <ListItem data={item} />
+            </li>
+        ))}
+    </ul>
+);
 
-export default List
+export default List;

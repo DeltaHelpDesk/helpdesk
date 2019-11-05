@@ -1,15 +1,15 @@
-import * as React from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
-import MainAppBar from '../MainAppBar/MainAppBar'
+import { FunctionComponent } from "react";
+import Link from "next/link";
+import Head from "next/head";
+import MainAppBar from "../MainAppBar/MainAppBar";
 
-type Props = {
-    title?: string
+interface IProps {
+    title?: string;
 }
 
-const Layout: React.FunctionComponent<Props> = ({
+const Layout: FunctionComponent<IProps> = ({
     children,
-    title = 'Helpdesk',
+    title = "Helpdesk",
 }) => (
         <div>
             <Head>
@@ -19,10 +19,10 @@ const Layout: React.FunctionComponent<Props> = ({
             <header>
                 <MainAppBar />
             </header>
-            <div style={{ marginTop: '10rem' }}>
+            <div style={{ marginTop: "10rem" }}>
                 {children}
             </div>
         </div>
-    )
+    );
 
 export default Layout;

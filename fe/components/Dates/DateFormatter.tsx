@@ -1,13 +1,12 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import moment from 'moment';
+import { useEffect, useState, FunctionComponent } from "react";
+import moment from "moment";
 
 interface IDateProps {
-    date: Date,
-    relative?: boolean,
+    date: Date;
+    relative?: boolean;
 }
 
-const DateFormatComponent: React.FunctionComponent<IDateProps> = ({ date, relative = false }) => {
+const DateFormatComponent: FunctionComponent<IDateProps> = ({ date, relative = false }) => {
 
     const [dateMoment, setDateMoment] = useState<string>("");
 
@@ -16,14 +15,13 @@ const DateFormatComponent: React.FunctionComponent<IDateProps> = ({ date, relati
     useEffect(() => {
         const dateString: string = relative
             ? moment(date).calendar()
-            : moment(date).format('DD/MM/YYYY, hh:mm');
+            : moment(date).format("DD/MM/YYYY, hh:mm");
         setDateMoment(dateString);
     });
 
     return <>
         {dateMoment}
     </>;
-}
+};
 
 export default DateFormatComponent;
-

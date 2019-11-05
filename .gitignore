@@ -84,3 +84,4 @@ fabric.properties
 .idea/httpRequests
 .env
 node_modules
+yarn-error.log

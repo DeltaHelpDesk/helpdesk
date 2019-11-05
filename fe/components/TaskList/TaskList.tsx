@@ -1,11 +1,11 @@
+import { Component } from "react";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import * as React from "react";
 import { Query } from "react-apollo";
-import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '../../src/graphql/auth';
+import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from "../../src/graphql/auth";
 import Loading from "./../Loading/Loading";
 import Task from "./Task";
 import { GET_TASKS } from "./TaskListQueries";
-import { ITask } from '../../src/graphql/types';
+import { ITask } from "../../src/graphql/types";
 
 /*
 export interface ITask {
@@ -23,15 +23,16 @@ export interface IAssignee {
 export interface IAuthor {
   fullName: string;
   id: number;
-} 
+}
 */
 
-
-class TaskList extends React.Component<{}> {
+class TaskList extends Component<{}> {
     static contextType = ReactAuthContext;
     static context: IAuthContextValue;
     render() {
-        const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN))
+        const isAdmin = (this.context.user === undefined ?
+            false :
+            checkUserRole(this.context.user.role, UserRole.ADMIN));
         return (
             <Query query={GET_TASKS}>
                 {({ loading, error, data }: any) => {
@@ -50,7 +51,7 @@ class TaskList extends React.Component<{}> {
                                     <TableCell>Autor</TableCell>
                                     <TableCell>Předmět</TableCell>
                                     {
-                                        // TODO: Vymyslet lepší název pro řešitele 
+                                        // TODO: Vymyslet lepší název pro řešitele
                                     }
                                     <TableCell>Řešitel</TableCell>
                                     <TableCell>Stav</TableCell>
