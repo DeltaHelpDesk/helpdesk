@@ -8,12 +8,11 @@ import { AuthContext } from "../../src/graphql/auth";
 import UserLogged from "./UserLogged";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import PersonIcon from '@material-ui/icons/Person';
-import { withStyles, Theme, createStyles, WithStyles, makeStyles} from '@material-ui/core';
-
+import PersonIcon from "@material-ui/icons/Person";
+import { Theme, makeStyles } from "@material-ui/core";
 
 const MainAppBar: React.FunctionComponent<{}> = (props) => {
-    const useStyles = makeStyles(theme => ({
+    const useStyles = makeStyles((theme) => ({
         // grow: {
         //     flexGrow: 1
         // },
@@ -25,22 +24,22 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
         //     textDecoration: "none"
         // },
         menuItem: {
-            color: "white",
-            textDecoration: "none",
-            marginLeft: "5px",
-            padding: "10px 15px 2px",
-            fontWeight: 500,
-            transform: 'scale(1, 1.1)',
-            letterSpacing: "1.5px",
-            textTransform: "lowercase",
-            width: "100%",
-            '&:hover': {
-                color: theme.palette.secondary.main,
-                '&:before': {
+            "color": "white",
+            "textDecoration": "none",
+            "marginLeft": "5px",
+            "padding": "10px 15px 2px",
+            "fontWeight": 500,
+            "transform": "scale(1, 1.1)",
+            "letterSpacing": "1.5px",
+            "textTransform": "lowercase",
+            "width": "100%",
+            "&:hover": {
+                "color": theme.palette.secondary.main,
+                "&:before": {
                     width: "100%",
-                }
+                },
             },
-            '&:before': {
+            "&:before": {
                 // content: `''`,
                 // position: "absolute",
                 // left: "0px",
@@ -48,7 +47,7 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
                 // height: "2px",
                 // width: "0%",
                 // backgroundColor: "#ffffff",
-            }
+            },
         },
         // hamburger: {
         //     background: "transparent",
@@ -80,11 +79,11 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
         //     }
         // },
         navItems: {
-            display: "flex",
+            "display": "flex",
             "flex-direction": "row",
-            '&.is-active': {
-                display: "flex !important"
-            }
+            "&.is-active": {
+                display: "flex !important",
+            },
         },
         // lineOneActive: {
         //     animation: "line-one-in",
@@ -137,8 +136,8 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
         // },
         menuLogo: {
             padding: "5px 0px",
-            maxHeight:"70px",
-        }
+            maxHeight: "70px",
+        },
     }));
 
     const classes = useStyles(props);

@@ -1,78 +1,77 @@
 import { FunctionComponent, useContext } from "react";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { withStyles, Theme, createStyles, WithStyles, makeStyles} from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { ReactAuthContext } from '../../src/graphql/auth';
+import { Theme, makeStyles } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { ReactAuthContext } from "../../src/graphql/auth";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import theme from "../../src/theme";
 
+// tslint:disable-next-line:no-empty-interface
 interface IHomePageProps {
 
 }
 
-
 const HomePage: FunctionComponent<IHomePageProps> = (props) => {
-    const useStyles = makeStyles(theme => ({
+    const useStyles = makeStyles((currentTheme) => ({
         root: {
-    
+
         },
         subheader: {
             textAlign: "center",
         },
-    
+
         buttonHomepage: {
-            margin: "10px 25px",
-            color: theme.palette.secondary.contrastText,
-            backgroundColor: theme.palette.secondary.main,
-            padding: "10px 35px",
-            borderRadius: "0px",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-            '&:hover': {
-                backgroundColor: theme.palette.secondary.light,
+            "margin": "10px 25px",
+            "color": currentTheme.palette.secondary.contrastText,
+            "backgroundColor": currentTheme.palette.secondary.main,
+            "padding": "10px 35px",
+            "borderRadius": "0px",
+            "fontWeight": "bold",
+            "textTransform": "uppercase",
+            "&:hover": {
+                backgroundColor: currentTheme.palette.secondary.light,
             },
         },
-    
+
         itemsCenter: {
             textAlign: "center",
         },
         info: {
-            color: theme.palette.text.primary,
-            [theme.breakpoints.down('sm')]: {
-                fontSize: "18px"
+            color: currentTheme.palette.text.primary,
+            [currentTheme.breakpoints.down("sm")]: {
+                fontSize: "18px",
             },
             textAlign: "center",
             fontSize: "20px",
         },
         center: {
-            position: 'fixed',
+            position: "fixed",
             top: "50%",
             left: "50%",
-            transform: 'translate(-50%,-50%)',
+            transform: "translate(-50%,-50%)",
             width: "100%",
         },
         background: {
-            position: 'fixed',
+            position: "fixed",
             top: "50%",
             left: "50%",
-            transform: 'translate(-50%,-50%)',
+            transform: "translate(-50%,-50%)",
             width: "100%",
             zIndex: -5,
-            [theme.breakpoints.down('sm')]: {
+            [currentTheme.breakpoints.down("sm")]: {
                 height: "100%",
                 width: "auto",
             },
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: currentTheme.palette.background.default,
         },
-        title : {
+        title: {
             fontWeight: "bold",
-            color: theme.palette.text.primary + "!important",
+            color: currentTheme.palette.text.primary + "!important",
         },
-    })
+    }),
     );
 
     const { isLoggedIn, logout } = useContext(ReactAuthContext);
@@ -82,7 +81,7 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
     return (
         <div>
             <Grid className={classes.center} container={true} direction="row" justify="center" alignItems="center">
-                <div className={'d-flex flex-column'}>
+                <div className={"d-flex flex-column"}>
                     <Grid item={true} xs={12}>
                         <Typography className={classes.title} component="h1" variant="h1" gutterBottom={true}>
                             Delta helpdesk
@@ -96,7 +95,7 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
                     <Grid item={true} xs={12} sm={12}>
                         <p className={classes.info}>{localisation.common.subtitleHomepage}</p>
                     </Grid>
-                    <div className={'d-flex justify-content-around pt-5'} style={{ width: '100%' }}>
+                    <div className={"d-flex justify-content-around pt-5"} style={{ width: "100%" }}>
                         <Link href={customRoutes.newTask}>
                             <Button className={classes.buttonHomepage} variant="contained" color="primary">
                                 {localisation.task.sendNew}
@@ -121,5 +120,5 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
             </Grid>
         </div>
     );
-}
+};
 export default HomePage;
