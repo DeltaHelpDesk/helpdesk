@@ -31,10 +31,10 @@ class HelpDeskApp extends App<{}> {
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
                         <MuiThemeProvider theme={theme.darkTheme}>
-                            <Component {...pageProps} />
+                            <ToastProvider placement="bottom-center" >
+                                <Component {...pageProps} />
+                            </ToastProvider>
                         </MuiThemeProvider>
-                        <ToastProvider placement="bottom-center" >
-                        </ToastProvider>
                     </ApolloProvider>
                 </AuthContext.Provider>
             </HeadComponent>
