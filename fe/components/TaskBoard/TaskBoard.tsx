@@ -5,69 +5,122 @@ import { Query } from "react-apollo";
 import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '../../src/graphql/auth';
 import Loading from "./../Loading/Loading";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
-import { ITask } from '../../src/graphql/types';
+import { ITask, State } from '../../src/graphql/types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { tasksBoardQuery } from '../../src/graphql/queries';
 
-type Asignee = {
-    id: number;
-    fullName: string;
+// type Asignee = {
+//     id: number;
+//     fullName: string;
+// }
+
+// type Author = {
+//     id: number;
+//     fullName: string;
+// }
+
+
+// interface Task {
+//     id: number;
+//     subject: string;
+//     issue: string;
+//     created_at: Date;
+//     state: string;
+//     asignee: Asignee;
+//     author: Author;
+// }
+
+// interface TasksData {
+//     tasks: Task[];
+// }
+
+// function Taskyhehe() {
+//     const { data } = useQuery<TasksData>(tasksBoardQuery);
+
+//     const boardData = {
+//         lanes: [
+//             {
+//                 id: 'uncompleted',
+//                 title: 'Nezapočato',
+//                 cards: data.tasks
+//             },
+//             {
+//                 id: 'inprogress',
+//                 title: 'Pracuje se na tom',
+//                 cards: data.tasks
+//             },
+//             {
+//                 id: 'completed',
+//                 title: 'Dokončeno',
+//                 cards: data.tasks
+//             }
+//         ]
+//     };
+
+//     return (
+//         boardData
+//     );
+// }
+
+interface ICard {
+    id: string,
+    title: string,
+    description: string,
+    label?: string,
+    draggable?: boolean,
+    metadata?: {}
 }
 
-type Author = {
-    id: number;
-    fullName: string;
+interface IProps {
+
 }
 
-interface Task {
-    id: number;
-    subject: string;
-    issue: string;
-    created_at: Date;
-    state: string;
-    asignee: Asignee;
-    author: Author;
-}
+const TaskBoard: React.FunctionComponent<IProps> = () => {
+    const { loading, error, data } = useQuery(tasksBoardQuery);
 
-interface TasksData {
-    tasks: Task[];
-}
+    if (loading)
+        return <> Loading... </>;
 
-function Taskyhehe(){
-    const{ data } = useQuery<TasksData>(tasksBoardQuery);
+    if (error)
+        return <> Error... </>;
+
+    const tasks: Array<ITask> = data.tasks;
+
+    let tasksCompleted: Array<ICard> = [];
+    tasks.filter(x => x.state === State.Solved)
+        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: x.created_at, draggable: true }]);
+    let tasksSolving: Array<ICard> = [];
+    tasks.filter(x => x.state === State.Solving)
+        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: x.created_at, draggable: true }]);
+    let tasksNotStarted: Array<ICard> = [];
+    tasks.filter(x => x.state === State.Unresolved)
+        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: x.created_at, draggable: true }]);
+
 
     const boardData = {
         lanes: [
             {
                 id: 'uncompleted',
                 title: 'Nezapočato',
-                cards: data.tasks
+                cards: tasksNotStarted
             },
             {
                 id: 'inprogress',
                 title: 'Pracuje se na tom',
-                cards: data.tasks
+                cards: tasksSolving
             },
             {
                 id: 'completed',
                 title: 'Dokončeno',
-                cards: data.tasks
+                cards: tasksCompleted
             }
         ]
     };
 
-    return (
-        boardData
-    );
-}
-
-class TaskBoard extends React.Component<{}> {
-    render(){
-        return<>
-            <Board data={Taskyhehe}/>
-        </>
-    }
+    return <>
+        <Board data={boardData} />
+    </>
 }
 
 export default TaskBoard;
