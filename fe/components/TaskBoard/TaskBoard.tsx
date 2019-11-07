@@ -58,10 +58,14 @@ function Taskyhehe(){
     };
 
     return (
-
-    )
+        boardData
+    );
 }
 
 class TaskBoard extends React.Component<{}> {
-    
+    render(){
+        return<>
+            <Board data={Taskyhehe}/>
+        </>
+    }
 }
