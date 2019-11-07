@@ -6,15 +6,22 @@ import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '..
 import Loading from "./../Loading/Loading";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
 import { ITask } from '../../src/graphql/types';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
+import { tasksBoardQuery } from '../../src/graphql/queries';
 
 const TaskBoard: FunctionComponent = () => {
 
     // const { loading, data, error } = useQuery<getUsers>(getUsersQuery);
 
 class TaskBoard extends React.Component<{}> {
-    
-    static contextType = ReactAuthContext;
-    context: IAuthContextValue;
+
+    const { loading, error, data } = useQuery(tasksBoardQuery);
+
+    if(loading) return Loading;
+    if(error) return 'Errrrrrrohr! ${error.message}';
+
+    {data.tasks.map(task => (tasksData.lanes.cards.add(task)))}
 
     tasksData = {
         lanes: [
@@ -51,8 +58,6 @@ class TaskBoard extends React.Component<{}> {
 
 
     render() {
-
-        const isAdmin = (this.context.user === undefined ? false : checkUserRole(this.context.user.role, UserRole.ADMIN))
 
         return <>
             
