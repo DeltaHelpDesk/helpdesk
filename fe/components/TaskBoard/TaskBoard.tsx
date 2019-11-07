@@ -10,55 +10,60 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { tasksBoardQuery } from '../../src/graphql/queries';
 
-const Tasks = ({onTaskSelected}) => (
-    <Query query={tasksBoardQuery}>
-        {({ loading, error, data }) => {
-            if(loading) return Loading;
-            if(error) return 'Erohr! ${error.message}';
+type Asignee = {
+    id: number;
+    fullName: string;
+}
 
-            return (
-                <select name="task" onChange={onTaskSelected}>
-                    {data.tasks.map(task => (
-                        <option key={task.id} value={task.subject}>
-                            {task.issue}
-                        </option>
-                    ))}
-                </select>
-            );
-        }}
-    </Query>
-);
+type Author = {
+    id: number;
+    fullName: string;
+}
 
-class TaskBoard extends React.Component<{}> {
-    tasksData = {
+interface Task {
+    id: number;
+    subject: string;
+    issue: string;
+    created_at: Date;
+    state: string;
+    asignee: Asignee;
+    author: Author;
+}
+
+interface TasksData {
+    tasks: Task[];
+}
+
+function Taskyhehe(){
+    const{ data } = useQuery<TasksData>(tasksBoardQuery);
+
+    const boardData = {
         lanes: [
             {
                 id: 'uncompleted',
                 title: 'Nezapočato',
-                cards: [Tasks]
+                cards: data.tasks
             },
             {
                 id: 'inprogress',
                 title: 'Pracuje se na tom',
-                cards: [Tasks]
+                cards: data.tasks
             },
             {
                 id: 'completed',
                 title: 'Dokončeno',
-                cards: [Tasks]
+                cards: data.tasks
             }
         ]
     };
 
+    return (
 
-    render() {
+    )
+}
 
-        return <>
-            
-            <Board data={this.tasksData}/>
-            
-        </>;
-    }
+class TaskBoard extends React.Component<{}> {
+    
 }
 
 export default TaskBoard;
