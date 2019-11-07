@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const tasksBoardQuery = gql`query {
+export const tasksBoardQuery = gql`query {
     tasks {
       id
       subject
@@ -18,5 +18,3 @@ const tasksBoardQuery = gql`query {
     }
   }`;
 
-
-export {tasksBoardQuery};
