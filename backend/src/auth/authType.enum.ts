@@ -3,4 +3,5 @@ export enum AuthType {
     GOOGLE = 'GOOGLE',
     FACEBOOK = 'FACEBOOK',
     MICROSOFT = 'MICROSOFT',
+    GITHUB = 'GITHUB',
 }

@@ -9,7 +9,8 @@ export enum AuthType {
     EMAIL = "EMAIL",
     GOOGLE = "GOOGLE",
     FACEBOOK = "FACEBOOK",
-    MICROSOFT = "MICROSOFT"
+    MICROSOFT = "MICROSOFT",
+    GITHUB = "GITHUB"
 }
 
 export enum State {
@@ -46,6 +47,8 @@ export class Log {
 
 export abstract class IMutation {
     abstract loginOffice(token: string): AuthenticatedUser | Promise<AuthenticatedUser>;
+
+    abstract loginExternal(email: string, name: string, provider: AuthType, token: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
     abstract loginEmail(email: string, password: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
