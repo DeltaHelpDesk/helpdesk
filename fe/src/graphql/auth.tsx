@@ -128,7 +128,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
 
     const loginExternal = async (email: string, name: string, provider: AuthType, token: string): Promise<string> => {
         // tslint:disable-next-line:no-shadowed-variable
-        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
+        const { data: { loginExternal: loginByExternalQuery } }: any = await client.mutate({
             mutation: LOGIN_EXTERNAL,
             variables: {
                 email,
@@ -137,8 +137,8 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
                 token,
             },
         });
-        setToken(loginByEmailQuery.token);
-        return loginByEmailQuery.token;
+        setToken(loginByExternalQuery.token);
+        return loginByExternalQuery.token;
     };
 
     const logout = async () => {

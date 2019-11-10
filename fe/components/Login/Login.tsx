@@ -95,7 +95,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         const email: string = user._profile.email;
         const name: string = user._profile.name;
         const provider: AuthType = AuthType.Google;
-        const token: string = user._token.accessToken;
+        const token: string = user._profile.id;
 
         console.log(email);
         console.log(name);
@@ -105,7 +105,11 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         await externalLogin(email, name, provider, token);
     };
 
-    const googleLoginFail = async (error: any) => {
+    const facebookLoginSuccess = async (user: any) => {
+        console.log(user);
+    };
+
+    const onExternalLoginFail = async (error: any) => {
         console.log(error);
     };
 
@@ -241,13 +245,21 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
                                         provider="google"
                                         onLoginSuccess={googleLoginSuccess}
-                                        onLoginFailure={googleLoginFail}
+                                        onLoginFailure={onExternalLoginFail}
                                     >
                                         <span>Přihlásit se přes Google</span>
                                         {/* <GoogleLoginButton>
                                             <span>Přihlásit se přes Google</span>
                                         </GoogleLoginButton> */}
                                     </SocialButton>
+                                    {/* FB vyžaduje HTTPS
+                                    <SocialButton appId=" 435595847139770"
+                                        provider="facebook"
+                                        onLoginSuccess={facebookLoginSuccess}
+                                        onLoginFailure={onExternalLoginFail}
+                                    >
+                                        <span>Přihlásit se přes Facebook</span>
+                                    </SocialButton> */}
                                     {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
                                 </div>
                             </Grid>
