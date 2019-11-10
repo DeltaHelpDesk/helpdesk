@@ -1,0 +1,10 @@
+overwrite: true
+schema: "https://delta-helpdesk.herokuapp.com/graphql"
+generates:
+  src/graphql/types.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true

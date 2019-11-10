@@ -4,7 +4,7 @@ import { GET_TASKS } from "../TaskList/TaskListQueries";
 import Loading from "../Loading/Loading";
 import { Grid, Paper, Divider, Typography } from "@material-ui/core";
 import TaskCard from "./TaskCard";
-import { ITask, State } from "../../src/graphql/types";
+import { State, ITask } from "../../src/graphql/types";
 
 class TaskBoard extends Component<{}> {
 
