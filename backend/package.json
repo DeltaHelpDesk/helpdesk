@@ -11,7 +11,7 @@
     "start:local": "cross-env-shell NODE_ENV=local npm-run-all start",
     "start:dev": "nodemon -L",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "start:prod": "cross-env-shell NODE_ENV=prod node dist/src/main.js",
+    "start:prod": "cross-env-shell NODE_ENV=production node dist/src/main.js",
     "copy:locs": "ncp src/localization/localizations/ dist/src/localization/localizations/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "copy-mysql": "ncp ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
