@@ -25,9 +25,9 @@ import { Log } from './task/log.entity';
                 path: join(process.cwd(), 'src/gql.ts'),
                 outputAs: 'class',
             },
-            /* debug: true,
-             introspection: true,
-             playground: true,*/
+            debug: true,
+            introspection: true,
+            playground: true,
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
