@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, FunctionComponent } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
@@ -15,6 +15,8 @@ import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 import { withToastManager, useToasts } from "react-toast-notifications";
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import SocialButton from "./SocialButton";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -28,7 +30,7 @@ interface IUser {
 
 // type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
-const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
+const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
     const { loginByEmail, isLoggedIn } = useContext(ReactAuthContext);
     const { addToast } = useToasts();
@@ -84,6 +86,18 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
             }
         }
         setLoading(false);
+    };
+
+    const googleLoginSuccess = async (user: any) => {
+        console.log(user);
+        console.log(user._profile);
+        console.log(user._profile.email);
+        console.log(user._provider);
+        console.log(user._token.accessToken);
+    };
+
+    const googleLoginFail = async (error: any) => {
+        console.log(error);
     };
 
     /*const handleOfficeLogin = async () => {
@@ -180,6 +194,16 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                             </Grid>
                             <Grid item={true}>
                                 <div >
+                                    <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
+                                        provider="google"
+                                        onLoginSuccess={googleLoginSuccess}
+                                        onLoginFailure={googleLoginFail}
+                                    >
+                                        <span>Přihlásit se přes Google</span>
+                                        {/* <GoogleLoginButton>
+                                            <span>Přihlásit se přes Google</span>
+                                        </GoogleLoginButton> */}
+                                    </SocialButton>
                                     {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
                                 </div>
                             </Grid>
