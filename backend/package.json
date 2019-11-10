@@ -11,7 +11,7 @@
     "start:dev": "nodemon -L",
     "start:debug": "nodemon --config nodemon-debug.json",
     "start:prod": "cross-env-shell NODE_ENV=prod node dist/src/main.js",
-    "prestart:prod": "rimraf dist && tsc && npm-run-all copy:locs",
+    "prestart:prod": "rimraf dist && npm-run-all copy:locs",
     "copy:locs": "ncp src/localization/localizations/ dist/src/localization/localizations/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "postinstall": "npm-run-all --serial prestart:prod",
