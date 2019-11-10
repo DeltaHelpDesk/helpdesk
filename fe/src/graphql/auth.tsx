@@ -6,6 +6,7 @@ import Cookies from "universal-cookie";
 import { UserTokenCookieKey } from "../Global/Keys";
 import Router from "next/router";
 import customRoutes from "../Routes";
+import { AuthType } from "./types";
 
 const cookies = new Cookies();
 
@@ -28,6 +29,15 @@ export const LOGIN_EMAIL = gql`
     }
   }
 `;
+
+export const LOGIN_EXTERNAL = gql`
+  mutation loginExternal($email: String!, $name: String!, $provider: AuthType!, $token: String! ) {
+    loginExternal(email: $email, name: $name, provider: $provider, token: $token) {
+      token
+    }
+  }
+`;
+
 export const LOGIN_OFFICE = gql`
   mutation loginOffice($token: String!) {
     loginOffice(token: $token) {
@@ -71,8 +81,8 @@ export interface IAuthContextValue {
     officeToken: null | string;
     token: null | string;
     isLoggedIn: boolean;
+    loginExternal: (email: string, name: string, provider: AuthType, token: string) => Promise<string> | undefined;
     loginByEmail: (email: string, password: string) => Promise<string> | undefined;
-    // login: () => Promise<string> | undefined;
     logout: () => Promise<void> | undefined;
     loading: boolean;
 }
@@ -87,8 +97,8 @@ const defaultContextValue: IAuthContextValue = {
     officeToken: null,
     token: null,
     isLoggedIn: false,
-    // login: () => undefined,
     loginByEmail: () => undefined,
+    loginExternal: () => undefined,
     user: undefined,
     loading: true,
     logout: () => undefined,
@@ -113,6 +123,21 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         });
         setToken(loginByEmailQuery.token);
         // await getSessionUser();
+        return loginByEmailQuery.token;
+    };
+
+    const loginExternal = async (email: string, name: string, provider: AuthType, token: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
+            mutation: LOGIN_EXTERNAL,
+            variables: {
+                email,
+                name,
+                provider,
+                token,
+            },
+        });
+        setToken(loginByEmailQuery.token);
         return loginByEmailQuery.token;
     };
 
@@ -141,6 +166,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
     const [state, setState] = useState<IAuthContextValue>({
         ...props,
         loginByEmail,
+        loginExternal,
         logout,
         user: defaultContextValue.user,
         officeToken: defaultContextValue.officeToken,

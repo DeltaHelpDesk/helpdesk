@@ -17,6 +17,7 @@ import localisation from "../../src/Locales/Localisations";
 import { withToastManager, useToasts } from "react-toast-notifications";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import SocialButton from "./SocialButton";
+import { AuthType } from "../../src/graphql/types";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -32,7 +33,7 @@ interface IUser {
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
-    const { loginByEmail, isLoggedIn } = useContext(ReactAuthContext);
+    const { loginByEmail, isLoggedIn, loginExternal } = useContext(ReactAuthContext);
     const { addToast } = useToasts();
 
     const [filled, setUser] = useState<IUser>(loginVars);
@@ -90,14 +91,57 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
 
     const googleLoginSuccess = async (user: any) => {
         console.log(user);
-        console.log(user._profile);
-        console.log(user._profile.email);
-        console.log(user._provider);
-        console.log(user._token.accessToken);
+
+        const email: string = user._profile.email;
+        const name: string = user._profile.name;
+        const provider: AuthType = AuthType.Google;
+        const token: string = user._token.accessToken;
+
+        console.log(email);
+        console.log(name);
+        console.log(provider);
+        console.log(token);
+
+        await externalLogin(email, name, provider, token);
     };
 
     const googleLoginFail = async (error: any) => {
         console.log(error);
+    };
+
+    const externalLogin = async (email: string, name: string, provider: AuthType, token: string) => {
+        if (!email || !name || !provider || !token) {
+            // TODO: Localization
+            addToast("Vráceny neplatné údaje", {
+                appearance: "error",
+                autoDismiss: true,
+            });
+            return;
+        }
+        setLoading(true);
+
+        try {
+            await loginExternal(email, name, provider, token);
+            if (window) {
+                window.location.href = customRoutes.administration;
+            } else {
+                Router.push(customRoutes.administration);
+            }
+            return;
+        } catch (e) {
+            if (e && e.graphQLErrors && e.graphQLErrors[0]) {
+                addToast(e.graphQLErrors[0].message, {
+                    appearance: "error",
+                    autoDismiss: true,
+                    pauseOnHover: true,
+                });
+                // TODO: material ui dialog
+                console.log(e.graphQLErrors[0].message);
+            } else {
+                console.error("handle login error", e);
+            }
+        }
+        setLoading(false);
     };
 
     /*const handleOfficeLogin = async () => {
