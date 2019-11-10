@@ -6,6 +6,7 @@ import { User as UserEntity } from './user.entity';
 import { UserRole } from './userRole.enum';
 import { GqlRoleGuard } from './gqlRole.guard';
 import { GqlAuthGuard } from './gqlAuth.guard';
+import { AuthType } from './authType.enum';
 
 @Resolver('Auth')
 export class AuthResolvers {
@@ -27,6 +28,20 @@ export class AuthResolvers {
     @Query('users')
     async getUsers(): Promise<UserEntity[]> {
         return await this.authService.getUsers();
+    }
+
+    @Mutation('loginExternal')
+    async loginExternal(
+        @Args('email')
+        email: string,
+        @Args('name')
+        name: string,
+        @Args('provider')
+        provider: AuthType,
+        @Args('token')
+        token: string,
+    ) {
+        return await this.authService.loginExternal(provider, email, token, name);
     }
 
     @Mutation('loginOffice')

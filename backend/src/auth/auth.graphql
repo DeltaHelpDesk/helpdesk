@@ -3,6 +3,7 @@ enum AuthType {
     GOOGLE
     FACEBOOK
     MICROSOFT
+    GITHUB
 }
 
 enum UserRole {
@@ -38,6 +39,7 @@ type Query {
 
 type Mutation {
     loginOffice(token: String!): AuthenticatedUser
+    loginExternal(email: String!, name: String!, provider: AuthType!, token: String! ): AuthenticatedUser
     loginEmail(email: String!, password: String!): AuthenticatedUser
     createUserEmail(email: String!, password: String!, fullName: String!, role: UserRole): User
     adminEditUser(userId: ID!, email: String, fullName: String, className: String, role: UserRole): User

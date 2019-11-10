@@ -106,7 +106,7 @@ export class AuthService {
             }
             const fullName: string = userData.displayName;
 
-            return await this.loginExteral(AuthType.MICROSOFT, mail, microsoftId, fullName);
+            return await this.loginExternal(AuthType.MICROSOFT, mail, microsoftId, fullName);
         } catch (e) {
             // tslint:disable-next-line:no-console
             console.error('unknown exception on microsoft office login', e);
@@ -114,7 +114,7 @@ export class AuthService {
         }
     }
 
-    private async loginExteral(type: AuthType, mail: string, extrnalId: string, externalFullName: string): Promise<User | undefined> {
+    async loginExternal(type: AuthType, mail: string, externalId: string, externalFullName: string): Promise<User | undefined> {
         let user = await this.userRepository.findOne({ email: mail });
         let externalToken: LoginToken | undefined;
         if (!user) {
@@ -128,7 +128,7 @@ export class AuthService {
             let loginToken = this.tokenRepository.create({
                 owner: user,
                 loginProvider: type,
-                providerKey: extrnalId,
+                providerKey: externalId,
             });
             loginToken = await this.tokenRepository.save(loginToken);
             /// Nový token se ihned nepropíše k uživateli a select z dtb je zbytečně zatěžující
@@ -139,7 +139,7 @@ export class AuthService {
         if (!externalToken) {
             externalToken = tokens.find((x) => x.loginProvider === type);
         }
-        if (!externalToken || externalToken.providerKey !== extrnalId) {
+        if (!externalToken || externalToken.providerKey !== externalId) {
             /// Externí token nesouhlasí
             throw new HttpException(`Invalid ${type} id`, HttpStatus.UNAUTHORIZED);
         }
@@ -148,7 +148,7 @@ export class AuthService {
         const jwtPayload: JwtPayload = {
             userId: user.id,
             authType: type,
-            externalToken: extrnalId,
+            externalToken: externalId,
             issued,
         };
         const token = this.jwtService.sign(jwtPayload);
