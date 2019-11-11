@@ -8,9 +8,9 @@ import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { mdiLogin, mdiGoogle, mdiFacebook } from "@mdi/js";
+import { mdiLogin, mdiGoogle, mdiFacebook, mdiMicrosoft } from "@mdi/js";
 import Router from "next/router";
-// import MicrosoftButtonLogin from './MicrosoftButtonLogin';
+import MicrosoftButtonLogin from "./MicrosoftButtonLogin";
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
@@ -33,7 +33,7 @@ interface IUser {
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
-    const { loginByEmail, isLoggedIn, loginExternal } = useContext(ReactAuthContext);
+    const { loginByEmail, isLoggedIn, loginExternal, doLoginByMicrosoft } = useContext(ReactAuthContext);
 
     const [filled, setUser] = useState<IUser>(loginVars);
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
@@ -99,6 +99,10 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const facebookLoginSuccess = async (user: any) => {
         console.log(user);
     };
+    const microsoftLoginSuccess = async (err: any, data: any) => {
+        console.log(err);
+        console.log(data);
+    };
 
     const onExternalLoginFail = async (error: any) => {
         console.log(error);
@@ -130,19 +134,22 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         setLoading(false);
     };
 
-    /*const handleOfficeLogin = async () => {
-         const { doLoginOffice } = this.context;
-         try {
-             await doLoginOffice();
-             this.props.history.push('/admin');
-         } catch (e) {
-             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                 alert(e.graphQLErrors[0].message); // TODO: material ui dialog
-             } else {
-                 console.error("handle login error", e);
-             }
-         }
-     }*/
+    const handleOfficeLogin = async () => {
+        try {
+            await doLoginByMicrosoft();
+            if (window) {
+                window.location.href = customRoutes.administration;
+            } else {
+                Router.push(customRoutes.administration);
+            }
+        } catch (e) {
+            if (e && e.graphQLErrors && e.graphQLErrors[0]) {
+                alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+            } else {
+                console.error("handle login error", e);
+            }
+        }
+    }
 
     const handleKeywordKeyPress = (e: any) => {
         if (e.key === "Enter") {
@@ -269,7 +276,9 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     </Button>
                                 </SocialButton>
                             </Tooltip>
-                            {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
+                        </Grid>
+                        <Grid item={true}>
+                            <MicrosoftButtonLogin onClick={handleOfficeLogin} />
                         </Grid>
                     </Grid>
                 </Paper>
