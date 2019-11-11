@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import client from "./client";
 import { createContext, useEffect, FunctionComponent, useState } from "react";
-// import MicrosoftAuthService from '../services/microsoft';
+import MicrosoftAuthService from "../services/microsoft";
 import Cookies from "universal-cookie";
 import { UserTokenCookieKey } from "../Global/Keys";
 import Router from "next/router";
@@ -83,6 +83,8 @@ export interface IAuthContextValue {
     isLoggedIn: boolean;
     loginExternal: (email: string, name: string, provider: AuthType, token: string) => Promise<string> | undefined;
     loginByEmail: (email: string, password: string) => Promise<string> | undefined;
+    loginByMicrosoft: (token: string) => Promise<string> | undefined;
+    doLoginByMicrosoft: () => Promise<string> | undefined;
     logout: () => Promise<void> | undefined;
     loading: boolean;
 }
@@ -99,6 +101,8 @@ const defaultContextValue: IAuthContextValue = {
     isLoggedIn: false,
     loginByEmail: () => undefined,
     loginExternal: () => undefined,
+    loginByMicrosoft: () => undefined,
+    doLoginByMicrosoft: () => undefined,
     user: undefined,
     loading: true,
     logout: () => undefined,
@@ -141,6 +145,33 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         return loginByExternalQuery.token;
     };
 
+    const doLoginByMicrosoft = async (): Promise<string> => {
+        const microsoftAuthService = new MicrosoftAuthService();
+        const acc = await microsoftAuthService.login();
+        const id = acc.accountIdentifier;
+        const email = acc.userName;
+        const name = acc.name;
+        return await loginExternal(email, name, AuthType.Microsoft, id);
+        // const res = await microsoftAuthService.getToken();
+        // if (!res) {
+        //     return "";
+        // }
+        // return await loginByMicrosoft(res.accessToken);
+    };
+
+    const loginByMicrosoft = async (token: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginOffice: loginByOfficeQuery } }: any = await client.mutate({
+            mutation: LOGIN_OFFICE,
+            variables: {
+                token,
+            },
+        });
+        this.setToken(loginByOfficeQuery.token);
+        // this.getSessionUser();
+        return loginByOfficeQuery.token;
+    };
+
     const logout = async () => {
         try {
             await client.mutate({
@@ -167,6 +198,8 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         ...props,
         loginByEmail,
         loginExternal,
+        doLoginByMicrosoft,
+        loginByMicrosoft,
         logout,
         user: defaultContextValue.user,
         officeToken: defaultContextValue.officeToken,
@@ -192,12 +225,6 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         return () => {
         };
     }, []);
-
-    // login = async () => {
-    //     // await microsoftAuthService.login();
-    //     // return await loginByOffice((await microsoftAuthService.getToken()) as string);
-    //     return '';
-    // }
 
     const getSessionUser = async (): Promise<IUser> => {
         const { data: { session } }: any = await client.query({

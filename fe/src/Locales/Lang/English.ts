@@ -13,6 +13,9 @@ const englishLang: ILocalisedStrings = {
     },
     login: {
         login: "Log in",
+        loginGoogle: "Log in with Google",
+        loginFacebook: "Log in with Facebook",
+        loginMicrosoft: "Log in with Microsoft",
         logout: "Log out",
         email: "Email",
         password: "Password",

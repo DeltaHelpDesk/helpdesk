@@ -8,14 +8,14 @@ import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { mdiLogin, mdiGoogle } from "@mdi/js";
+import { mdiLogin, mdiGoogle, mdiFacebook, mdiMicrosoft } from "@mdi/js";
 import Router from "next/router";
-// import MicrosoftButtonLogin from './MicrosoftButtonLogin';
+import MicrosoftButtonLogin from "./MicrosoftButtonLogin";
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import { Typography } from "@material-ui/core";
+import { Typography, Tooltip } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import { AuthType } from "../../src/graphql/types";
 
@@ -33,7 +33,7 @@ interface IUser {
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
-    const { loginByEmail, isLoggedIn, loginExternal } = useContext(ReactAuthContext);
+    const { loginByEmail, isLoggedIn, loginExternal, doLoginByMicrosoft } = useContext(ReactAuthContext);
 
     const [filled, setUser] = useState<IUser>(loginVars);
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
@@ -99,6 +99,10 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const facebookLoginSuccess = async (user: any) => {
         console.log(user);
     };
+    const microsoftLoginSuccess = async (err: any, data: any) => {
+        console.log(err);
+        console.log(data);
+    };
 
     const onExternalLoginFail = async (error: any) => {
         console.log(error);
@@ -130,19 +134,22 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         setLoading(false);
     };
 
-    /*const handleOfficeLogin = async () => {
-         const { doLoginOffice } = this.context;
-         try {
-             await doLoginOffice();
-             this.props.history.push('/admin');
-         } catch (e) {
-             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                 alert(e.graphQLErrors[0].message); // TODO: material ui dialog
-             } else {
-                 console.error("handle login error", e);
-             }
-         }
-     }*/
+    const handleOfficeLogin = async () => {
+        try {
+            await doLoginByMicrosoft();
+            if (window) {
+                window.location.href = customRoutes.administration;
+            } else {
+                Router.push(customRoutes.administration);
+            }
+        } catch (e) {
+            if (e && e.graphQLErrors && e.graphQLErrors[0]) {
+                alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+            } else {
+                console.error("handle login error", e);
+            }
+        }
+    };
 
     const handleKeywordKeyPress = (e: any) => {
         if (e.key === "Enter") {
@@ -173,13 +180,13 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                             </Typography>
                         </Grid>
                         <Grid item={true}>
-
                             <TextField
                                 id="name"
                                 variant="filled"
                                 name="name"
                                 label={localisation.login.email}
                                 type="text"
+                                autoComplete="email"
                                 value={filled && filled.name || ""}
                                 style={{ width: "25rem" }}
                                 className={" pb-5"}
@@ -191,6 +198,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 variant="filled"
                                 name="password"
                                 type={showPwd ? "text" : "password"}
+                                autoComplete="current-password"
                                 label={localisation.login.password}
                                 value={filled && filled.password || ""}
                                 onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)}
@@ -212,50 +220,65 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                             />
                         </Grid>
                         <Grid item={true}>
-                            <div >
+                            <Button
+                                variant="contained"
+                                size="large"
+                                color="primary"
+                                style={{ width: "25rem" }}
+                                onClick={handleFormSubmit}>
+                                <Icon path={mdiLogin}
+                                    size={1}
+                                    color="white"
+                                />
+                                {localisation.login.login}
+                            </Button>
+                        </Grid>
+                        <Grid item={true}>
+                            <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
+                                provider="google"
+
+                                onLoginSuccess={googleLoginSuccess}
+                                onLoginFailure={onExternalLoginFail}
+                            >
                                 <Button
                                     variant="contained"
-                                    size="large"
                                     color="primary"
-                                    style={{ width: "25rem" }}
-                                    onClick={handleFormSubmit}>
-                                    <Icon path={mdiLogin}
+                                    size="large"
+                                    style={{ width: "25rem" }}>
+                                    <Icon path={mdiGoogle}
                                         size={1}
                                         color="white"
                                     />
-                                    {localisation.login.login}
+                                    {localisation.login.loginGoogle}
                                 </Button>
-                            </div>
+                            </SocialButton>
                         </Grid>
                         <Grid item={true}>
-                            <div >
-                                <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
-                                    provider="google"
-
-                                    onLoginSuccess={googleLoginSuccess}
+                            {/* TODO: FB vyžaduje HTTPS */}
+                            <Tooltip title="Až bude HTTPS">
+                                <SocialButton appId=" 515939249183955"
+                                    provider="facebook"
+                                    scope="name,email"
+                                    onLoginSuccess={facebookLoginSuccess}
                                     onLoginFailure={onExternalLoginFail}
                                 >
                                     <Button
                                         variant="contained"
+                                        color="primary"
+                                        disabled={true}
                                         size="large"
                                         style={{ width: "25rem" }}>
-                                        <Icon path={mdiGoogle}
+                                        <Icon path={mdiFacebook}
                                             size={1}
                                             color="white"
                                         />
-                                        Přihlásit se přes Google
+                                        {localisation.login.loginFacebook}
                                     </Button>
                                 </SocialButton>
-                                {/* FB vyžaduje HTTPS
-                                    <SocialButton appId=" 435595847139770"
-                                        provider="facebook"
-                                        onLoginSuccess={facebookLoginSuccess}
-                                        onLoginFailure={onExternalLoginFail}
-                                    >
-                                        <span>Přihlásit se přes Facebook</span>
-                                    </SocialButton> */}
-                                {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
-                            </div>
+                            </Tooltip>
+                        </Grid>
+                        <Grid item={true}>
+                            <MicrosoftButtonLogin onClick={handleOfficeLogin} />
                         </Grid>
                     </Grid>
                 </Paper>

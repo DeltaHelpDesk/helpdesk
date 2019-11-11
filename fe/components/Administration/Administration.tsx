@@ -11,66 +11,66 @@ interface IAdministrationItemsProps {
 }
 
 const AdministrationItems: FunctionComponent<IAdministrationItemsProps> = (props) => {
-        const useStyles = makeStyles((currentTheme) => ({
-            root: {
-    
+    const useStyles = makeStyles((currentTheme) => ({
+        root: {
+
+        },
+        subheader: {
+            textAlign: "center",
+        },
+
+        buttonHomepage: {
+            "margin": "10px 25px",
+            "color": currentTheme.palette.secondary.contrastText,
+            "backgroundColor": currentTheme.palette.secondary.main,
+            "padding": "10px 35px",
+            "borderRadius": "0px",
+            "fontWeight": "bold",
+            "textTransform": "uppercase",
+            "&:hover": {
+                backgroundColor: currentTheme.palette.secondary.light,
             },
-            subheader: {
-                textAlign: "center",
+        },
+
+        itemsCenter: {
+            textAlign: "center",
+        },
+        info: {
+            color: currentTheme.palette.text.primary,
+            [currentTheme.breakpoints.down("sm")]: {
+                fontSize: "18px",
             },
-    
-            buttonHomepage: {
-                "margin": "10px 25px",
-                "color": currentTheme.palette.secondary.contrastText,
-                "backgroundColor": currentTheme.palette.secondary.main,
-                "padding": "10px 35px",
-                "borderRadius": "0px",
-                "fontWeight": "bold",
-                "textTransform": "uppercase",
-                "&:hover": {
-                    backgroundColor: currentTheme.palette.secondary.light,
-                },
+            textAlign: "center",
+            fontSize: "20px",
+        },
+        center: {
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            width: "100%",
+        },
+        background: {
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            width: "100%",
+            zIndex: -5,
+            [currentTheme.breakpoints.down("sm")]: {
+                height: "100%",
+                width: "auto",
             },
-    
-            itemsCenter: {
-                textAlign: "center",
-            },
-            info: {
-                color: currentTheme.palette.text.primary,
-                [currentTheme.breakpoints.down("sm")]: {
-                    fontSize: "18px",
-                },
-                textAlign: "center",
-                fontSize: "20px",
-            },
-            center: {
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: "100%",
-            },
-            background: {
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: "100%",
-                zIndex: -5,
-                [currentTheme.breakpoints.down("sm")]: {
-                    height: "100%",
-                    width: "auto",
-                },
-                backgroundColor: currentTheme.palette.background.default,
-            },
-            title: {
-                fontWeight: "bold",
-                color: currentTheme.palette.text.primary + "!important",
-            },
-        }),
-        );
-    
-        const classes = useStyles(props);
+            backgroundColor: currentTheme.palette.background.default,
+        },
+        title: {
+            fontWeight: "bold",
+            color: currentTheme.palette.text.primary + "!important",
+        },
+    }),
+    );
+
+    const classes = useStyles(props);
 
     return <>
         <Grid item={true}>

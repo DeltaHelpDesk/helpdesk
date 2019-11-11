@@ -60,13 +60,18 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
         <AppBar position="fixed" >
             <Toolbar >
                 <Link href="/">
-                    <div style={{cursor: "pointer"}}>
+                    <div style={{ cursor: "pointer" }}>
                         <img src="/static/logo_new.png" className={classes.menuLogo} />
                     </div>
                 </Link>
                 <div className={classes.grow} />
                 <Typography variant="body1" component="div">
-                    <Grid container direction="row" alignItems="center" alignContent="center" justify="flex-end" spacing={2}>
+                    <Grid container
+                        direction="row"
+                        alignItems="center"
+                        alignContent="center"
+                        justify="flex-end"
+                        spacing={2}>
                         <Grid item>
                             <Link href="/admin"><a className={classes.menuItem}>Administration</a></Link>
                         </Grid>
