@@ -7,15 +7,13 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import Grid from "@material-ui/core/Grid";
-import { mdiLogin } from "@mdi/js";
+import { mdiLogin, mdiGoogle } from "@mdi/js";
 import Router from "next/router";
 // import MicrosoftButtonLogin from './MicrosoftButtonLogin';
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import { withToastManager, useToasts } from "react-toast-notifications";
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import SocialButton from "./SocialButton";
 import { AuthType } from "../../src/graphql/types";
 
@@ -34,7 +32,6 @@ interface IUser {
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
     const { loginByEmail, isLoggedIn, loginExternal } = useContext(ReactAuthContext);
-    const { addToast } = useToasts();
 
     const [filled, setUser] = useState<IUser>(loginVars);
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
@@ -57,10 +54,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const handleFormSubmit = async () => {
         if (!filled || !filled.name || !filled.password) {
             // TODO: Localization
-            addToast("Musíte vyplnit údaje", {
-                appearance: "error",
-                autoDismiss: true,
-            });
+            // TODO: Info - Neplatné jméno nebo heslo
             return;
         }
         setLoading(true);
@@ -75,11 +69,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
             return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                addToast(e.graphQLErrors[0].message, {
-                    appearance: "error",
-                    autoDismiss: true,
-                    pauseOnHover: true,
-                });
                 // TODO: material ui dialog
                 console.log(e.graphQLErrors[0].message);
             } else {
@@ -115,11 +104,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
 
     const externalLogin = async (email: string, name: string, provider: AuthType, token: string) => {
         if (!email || !name || !provider || !token) {
-            // TODO: Localization
-            addToast("Vráceny neplatné údaje", {
-                appearance: "error",
-                autoDismiss: true,
-            });
+            // TODO: Dialog
             return;
         }
         setLoading(true);
@@ -134,11 +119,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
             return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                addToast(e.graphQLErrors[0].message, {
-                    appearance: "error",
-                    autoDismiss: true,
-                    pauseOnHover: true,
-                });
                 // TODO: material ui dialog
                 console.log(e.graphQLErrors[0].message);
             } else {
@@ -244,13 +224,20 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 <div >
                                     <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
                                         provider="google"
+
                                         onLoginSuccess={googleLoginSuccess}
                                         onLoginFailure={onExternalLoginFail}
                                     >
-                                        <span>Přihlásit se přes Google</span>
-                                        {/* <GoogleLoginButton>
-                                            <span>Přihlásit se přes Google</span>
-                                        </GoogleLoginButton> */}
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            style={{ width: "25rem" }}>
+                                            <Icon path={mdiGoogle}
+                                                size={1}
+                                                color="white"
+                                            />
+                                            Přihlásit se přes Google
+                                    </Button>
                                     </SocialButton>
                                     {/* FB vyžaduje HTTPS
                                     <SocialButton appId=" 435595847139770"
@@ -270,4 +257,4 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     );
 };
 
-export default withToastManager(LoginPage);
+export default LoginPage;

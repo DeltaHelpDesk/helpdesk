@@ -29,8 +29,6 @@
     "react-localization": "^1.0.15",
     "react-router-dom": "^5.1.2",
     "react-social-login": "^3.4.6",
-    "react-social-login-buttons": "^3.0.0",
-    "react-toast-notifications": "^2.2.5",
     "tslint": "^5.20.0",
     "universal-cookie": "^4.0.2"
   },
