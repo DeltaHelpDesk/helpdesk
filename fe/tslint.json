@@ -6,7 +6,8 @@
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js",
       "src/graphql/types.ts",
-      "src/graphql/*.js"
+      "src/graphql/*.js",
+      "src/graphql/types.tsx"
     ]
   },
   "rules": {

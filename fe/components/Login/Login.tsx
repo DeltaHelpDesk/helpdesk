@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, FunctionComponent } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
@@ -7,14 +7,15 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import Grid from "@material-ui/core/Grid";
-import { mdiLogin } from "@mdi/js";
+import { mdiLogin, mdiGoogle } from "@mdi/js";
 import Router from "next/router";
 // import MicrosoftButtonLogin from './MicrosoftButtonLogin';
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import { withToastManager, useToasts } from "react-toast-notifications";
+import SocialButton from "./SocialButton";
+import { AuthType } from "../../src/graphql/types";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -28,10 +29,9 @@ interface IUser {
 
 // type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
-const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
+const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
-    const { loginByEmail, isLoggedIn } = useContext(ReactAuthContext);
-    const { addToast } = useToasts();
+    const { loginByEmail, isLoggedIn, loginExternal } = useContext(ReactAuthContext);
 
     const [filled, setUser] = useState<IUser>(loginVars);
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
@@ -54,10 +54,7 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
     const handleFormSubmit = async () => {
         if (!filled || !filled.name || !filled.password) {
             // TODO: Localization
-            addToast("Musíte vyplnit údaje", {
-                appearance: "error",
-                autoDismiss: true,
-            });
+            // TODO: Info - Neplatné jméno nebo heslo
             return;
         }
         setLoading(true);
@@ -72,11 +69,56 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
             return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                addToast(e.graphQLErrors[0].message, {
-                    appearance: "error",
-                    autoDismiss: true,
-                    pauseOnHover: true,
-                });
+                // TODO: material ui dialog
+                console.log(e.graphQLErrors[0].message);
+            } else {
+                console.error("handle login error", e);
+            }
+        }
+        setLoading(false);
+    };
+
+    const googleLoginSuccess = async (user: any) => {
+        console.log(user);
+
+        const email: string = user._profile.email;
+        const name: string = user._profile.name;
+        const provider: AuthType = AuthType.Google;
+        const token: string = user._profile.id;
+
+        console.log(email);
+        console.log(name);
+        console.log(provider);
+        console.log(token);
+
+        await externalLogin(email, name, provider, token);
+    };
+
+    const facebookLoginSuccess = async (user: any) => {
+        console.log(user);
+    };
+
+    const onExternalLoginFail = async (error: any) => {
+        console.log(error);
+    };
+
+    const externalLogin = async (email: string, name: string, provider: AuthType, token: string) => {
+        if (!email || !name || !provider || !token) {
+            // TODO: Dialog
+            return;
+        }
+        setLoading(true);
+
+        try {
+            await loginExternal(email, name, provider, token);
+            if (window) {
+                window.location.href = customRoutes.administration;
+            } else {
+                Router.push(customRoutes.administration);
+            }
+            return;
+        } catch (e) {
+            if (e && e.graphQLErrors && e.graphQLErrors[0]) {
                 // TODO: material ui dialog
                 console.log(e.graphQLErrors[0].message);
             } else {
@@ -180,6 +222,31 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
                             </Grid>
                             <Grid item={true}>
                                 <div >
+                                    <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
+                                        provider="google"
+
+                                        onLoginSuccess={googleLoginSuccess}
+                                        onLoginFailure={onExternalLoginFail}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            size="large"
+                                            style={{ width: "25rem" }}>
+                                            <Icon path={mdiGoogle}
+                                                size={1}
+                                                color="white"
+                                            />
+                                            Přihlásit se přes Google
+                                    </Button>
+                                    </SocialButton>
+                                    {/* FB vyžaduje HTTPS
+                                    <SocialButton appId=" 435595847139770"
+                                        provider="facebook"
+                                        onLoginSuccess={facebookLoginSuccess}
+                                        onLoginFailure={onExternalLoginFail}
+                                    >
+                                        <span>Přihlásit se přes Facebook</span>
+                                    </SocialButton> */}
                                     {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
                                 </div>
                             </Grid>
@@ -190,4 +257,4 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
     );
 };
 
-export default withToastManager(LoginPage);
+export default LoginPage;
