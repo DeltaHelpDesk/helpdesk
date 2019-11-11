@@ -28,6 +28,7 @@ const englishLang: ILocalisedStrings = {
     settings: {
         title: "Settings",
         languageSelect: "Select language",
+        themeSelect: "Select theme",
         language: "Language",
         theme: "Theme",
         light: "Light",

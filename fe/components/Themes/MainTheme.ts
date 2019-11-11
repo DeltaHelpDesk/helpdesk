@@ -5,22 +5,20 @@ const cookieHelper = new CookieHelper();
 
 const getTheme = (): Theme => {
 
-    const dark: boolean = cookieHelper.getDarkMode();
+    const theme = cookieHelper.getThemeName();
+    // console.log(dark);
 
     const mainTheme = createMuiTheme({
         palette: {
-            type: dark ? 'dark' : 'light',
+            type: theme === "dark" ? "dark" : "light",
             primary: {
-                main: '#40a351'
+                main: "#40a351",
             },
         },
     });
 
     return mainTheme;
 
-}
-
-
-
+};
 
 export default getTheme;

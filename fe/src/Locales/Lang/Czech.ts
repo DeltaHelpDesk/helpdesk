@@ -28,6 +28,7 @@ const czechLang: ILocalisedStrings = {
     settings: {
         title: "Nastavení",
         languageSelect: "Výběr jazyka",
+        themeSelect: "Výběr téma",
         language: "Jazyk",
         theme: "Téma",
         light: "Světlé",

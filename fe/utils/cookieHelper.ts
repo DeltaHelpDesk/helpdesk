@@ -1,27 +1,25 @@
 import Cookies from "universal-cookie";
 
 class CookieHelper {
-
+    static getDefaultTheme = (): string => "dark";
 
     cookies = new Cookies();
 
-    getDarkMode = (): boolean => {
-        const dark = this.cookies.get("darkMode");
-        console.log('Dark', dark);
-        if (dark == null || dark == undefined) {
-            this.setDarkMode(false);
-            return false;
+    getThemeName = (): string => {
+        const theme = this.cookies.get("theme");
+        if (!theme) {
+            const setVal = CookieHelper.getDefaultTheme();
+            this.setTheme(setVal);
+            return setVal;
         }
 
-        return dark;
+        return theme;
     }
 
-    setDarkMode = (dark: boolean): void => {
-        console.log("Setting dark mode: ", dark);
-        this.cookies.set("darkMode", dark, { path: '/', maxAge: 60 * 60 * 24 });
+    setTheme = (theme: string): void => {
+        this.cookies.set("theme", theme, { path: "/", maxAge: 60 * 60 * 24 });
     }
 
-    
 }
 
 export default CookieHelper;

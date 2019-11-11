@@ -1,14 +1,15 @@
-import * as React from 'react';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useState, useEffect, useRef } from 'react';
-import Router from 'next/router';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import localisation, { ILangOption, langs } from '../../src/Locales/Localisations';
-import mainTheme from '../Themes/MainTheme';
-import CookieHelper from '../../utils/cookieHelper';
+import * as React from "react";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import { useState, useEffect, useRef } from "react";
+import Router from "next/router";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import localisation, { ILangOption, langs } from "../../src/Locales/Localisations";
+import mainTheme from "../Themes/MainTheme";
+import CookieHelper from "../../utils/cookieHelper";
+import getTheme from "../Themes/MainTheme";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,62 +24,42 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const DarkModeSelect: React.FunctionComponent = () => {
-
-    const [dark, setDark] = useState<boolean>(null);
-
-    const darkRef = useRef<string>(null);
-
     const cookieHelper = new CookieHelper();
 
-    const classes = useStyles(mainTheme);
+    const [theme, setTheme] = useState<string>("dark");
+
+    const classes = useStyles(getTheme());
 
     useEffect(() => {
-
-        const dark = cookieHelper.getDarkMode();
-        setDark(dark);
-        darkRef.current = dark ? "dark" : "light";
-    });
+        const currentTheme = cookieHelper.getThemeName();
+        setTheme(currentTheme);
+    }, []);
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         const value = event.target.value as string;
 
-        console.log(value);
+        cookieHelper.setTheme(value);
+        setTheme(value);
 
-        darkRef.current = value;
-
-        if (value == "light") {
-            cookieHelper.setDarkMode(false);
-        }
-        else {
-            cookieHelper.setDarkMode(true);
-        }
         setTimeout(() => {
             Router.reload();
-
         }, 500);
-
-
-
 
     };
 
-    if (!darkRef.current)
-        return <></>;
-
-
     return <>
         <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-helper-label" shrink>{localisation.settings.languageSelect}</InputLabel>
+            <InputLabel id="select-theme-helper-label" shrink>{localisation.settings.themeSelect}</InputLabel>
             <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select"
-                value={darkRef.current}
+                labelId="select-theme-helper-label"
+                id="select-theme"
+                value={theme}
                 onChange={handleChange}>
-                <MenuItem value={"dark"}>Dark</MenuItem>
-                <MenuItem value={"light"}>Light</MenuItem>
+                <MenuItem value="dark" key="0">Dark</MenuItem>
+                <MenuItem value="light" key="1">Light</MenuItem>
             </Select>
         </FormControl>
     </>;
-}
+};
 
 export default DarkModeSelect;
