@@ -7,6 +7,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { mdiLogin } from "@mdi/js";
 import Router from "next/router";
 // import MicrosoftButtonLogin from './MicrosoftButtonLogin';
@@ -15,6 +16,7 @@ import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 import { withToastManager, useToasts } from "react-toast-notifications";
+import { Typography } from "@material-ui/core";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -112,82 +114,89 @@ const LoginPage: React.FunctionComponent<ILoginProps> = ({ showPassword, user: l
         }
     }, []);
 
-    return (
-        <div >
-            <Grid container={true} direction="column" justify="center" alignItems="center">
-                {
-                    (loading)
-                        ?
-                        <Loading />
-                        :
-                        <form>
-                            <Grid item={true}>
-                                <div style={{ width: "25rem" }}>
-                                    <h2 className={"h1-responsive pb-5"}>{localisation.login.title}</h2>
-                                </div>
-                                <TextField
-                                    id="name"
-                                    variant="filled"
-                                    name="name"
-                                    label={localisation.login.email}
-                                    type="text"
-                                    value={filled && filled.name || ""}
+    if (loading) {
+        return <>
+            <Loading />
+        </>;
+    }
+
+    return <>
+        <Grid container direction="row" justify="center">
+            <Grid item>
+                <Paper style={{ padding: '2rem' }} >
+                    <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
+                        <Grid item>
+                            <Typography variant="h4" component="div">
+                                {localisation.login.title}
+                            </Typography>
+                        </Grid>
+                        <Grid item={true}>
+
+
+                            <TextField
+                                id="name"
+                                variant="filled"
+                                name="name"
+                                label={localisation.login.email}
+                                type="text"
+                                value={filled && filled.name || ""}
+                                style={{ width: "25rem" }}
+                                className={" pb-5"}
+                                onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)} />
+                        </Grid>
+                        <Grid item={true}>
+                            <TextField
+                                id="filled-adornment-password"
+                                variant="filled"
+                                name="password"
+                                type={showPwd ? "text" : "password"}
+                                label={localisation.login.password}
+                                value={filled && filled.password || ""}
+                                onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                onKeyPress={handleKeywordKeyPress}
+                                style={{ width: "25rem" }}
+                                className={" pb-5"}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment variant="filled" position="end">
+                                            <IconButton
+                                                aria-label="Toggle password visibility"
+                                                onClick={() => { setShowPwd(!showPwd) }}
+                                            >
+                                                {showPwd ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </Grid>
+                        <Grid item={true}>
+                            <div >
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    color="primary"
                                     style={{ width: "25rem" }}
-                                    className={" pb-5"}
-                                    onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)} />
-                            </Grid>
-                            <Grid item={true}>
-                                <TextField
-                                    id="filled-adornment-password"
-                                    variant="filled"
-                                    name="password"
-                                    type={showPassword ? "text" : "password"}
-                                    label={localisation.login.password}
-                                    value={filled && filled.password || ""}
-                                    onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)}
-                                    onKeyPress={handleKeywordKeyPress}
-                                    style={{ width: "25rem" }}
-                                    className={" pb-5"}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment variant="filled" position="end">
-                                                <IconButton
-                                                    aria-label="Toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                >
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item={true}>
-                                <div >
-                                    <Button
-                                        variant="contained"
-                                        size="large"
-                                        color="primary"
-                                        style={{ width: "25rem" }}
-                                        onClick={handleFormSubmit}>
-                                        <Icon path={mdiLogin}
-                                            size={1}
-                                            color="white"
-                                        />
-                                        {localisation.login.login}
-                                    </Button>
-                                </div>
-                            </Grid>
-                            <Grid item={true}>
-                                <div >
-                                    {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
-                                </div>
-                            </Grid>
-                        </form>
-                }
+                                    onClick={handleFormSubmit}>
+                                    <Icon path={mdiLogin}
+                                        size={1}
+                                        color="white"
+                                    />
+                                    {localisation.login.login}
+                                </Button>
+                            </div>
+                        </Grid>
+                        <Grid item={true}>
+                            <div >
+                                {/* <MicrosoftButtonLogin onClick={handleOfficeLogin} /> */}
+                            </div>
+                        </Grid>
+                    </Grid>
+                </Paper>
             </Grid>
-        </div>
-    );
-};
+        </Grid>
+
+    </>;
+}
 
 export default withToastManager(LoginPage);
