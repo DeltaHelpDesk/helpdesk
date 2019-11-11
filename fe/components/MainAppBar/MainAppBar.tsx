@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "next/link";
-import { Button } from "@material-ui/core";
+import { Button, CssBaseline } from "@material-ui/core";
 import { AuthContext } from "../../src/graphql/auth";
 import UserLogged from "./UserLogged";
 import customRoutes from "../../src/Routes";
@@ -56,9 +56,14 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
     const classes = useStyles(props);
 
     return <>
+        <CssBaseline />
         <AppBar position="fixed" >
             <Toolbar >
-                <img src="/static/logo_new.png" className={classes.menuLogo} />
+                <Link href="/">
+                    <div style={{cursor: "pointer"}}>
+                        <img src="/static/logo_new.png" className={classes.menuLogo} />
+                    </div>
+                </Link>
                 <div className={classes.grow} />
                 <Typography variant="body1" component="div">
                     <Grid container direction="row" alignItems="center" alignContent="center" justify="flex-end" spacing={2}>
