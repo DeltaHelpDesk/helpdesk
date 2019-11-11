@@ -15,7 +15,7 @@ interface IHomePageProps {
 }
 
 const HomePage: FunctionComponent<IHomePageProps> = (props) => {
-    const useStyles = makeStyles((currentTheme) => ({
+    const useStyles = makeStyles(() => ({
         root: {
 
         },
@@ -25,25 +25,25 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
 
         buttonHomepage: {
             "margin": "10px 25px",
-            "color": currentTheme.palette.secondary.contrastText,
-            "backgroundColor": currentTheme.palette.secondary.main,
+            // "color": currentTheme.palette.secondary.contrastText,
+            // "backgroundColor": currentTheme.palette.secondary.main,
             "padding": "10px 35px",
             "borderRadius": "0px",
             "fontWeight": "bold",
             "textTransform": "uppercase",
-            "&:hover": {
-                backgroundColor: currentTheme.palette.secondary.light,
-            },
+            // "&:hover": {
+            //     backgroundColor: currentTheme.palette.secondary.light,
+            // },
         },
 
         itemsCenter: {
             textAlign: "center",
         },
         info: {
-            color: currentTheme.palette.text.primary,
-            [currentTheme.breakpoints.down("sm")]: {
-                fontSize: "18px",
-            },
+            // color: currentTheme.palette.text.primary,
+            // [currentTheme.breakpoints.down("sm")]: {
+            //     fontSize: "18px",
+            // },
             textAlign: "center",
             fontSize: "20px",
         },
@@ -61,15 +61,15 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
             transform: "translate(-50%,-50%)",
             width: "100%",
             zIndex: -5,
-            [currentTheme.breakpoints.down("sm")]: {
-                height: "100%",
-                width: "auto",
-            },
-            backgroundColor: currentTheme.palette.background.default,
+            // [currentTheme.breakpoints.down("sm")]: {
+            //     height: "100%",
+            //     width: "auto",
+            // },
+            // backgroundColor: currentTheme.palette.primary,
         },
         title: {
             fontWeight: "bold",
-            color: currentTheme.palette.text.primary + "!important",
+            // color: currentTheme.palette.text.primary + "!important",
         },
     }),
     );
@@ -80,42 +80,53 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
 
     return (
         <div>
-            <Grid className={classes.center} container={true} direction="row" justify="center" alignItems="center">
-                <div className={"d-flex flex-column"}>
-                    <Grid item={true} xs={12}>
-                        <Typography className={classes.title} component="h1" variant="h1" gutterBottom={true}>
-                            Delta helpdesk
+            <Grid className={classes.center} container={true} direction="column" justify="center" alignItems="center" alignContent="center">
+                <Grid item={true}>
+                    <Typography className={classes.title} component="h1" variant="h1" gutterBottom={true}>
+                        Delta helpdesk
                             </Typography>
+                </Grid>
+                <Grid item={true}>
+                    <Typography className={classes.subheader} component="h2" variant="h2" gutterBottom={true}>
+                        {localisation.common.welcome}
+                    </Typography>
+                </Grid>
+                <Grid item={true}>
+                    <Typography className={classes.info} variant="body1" component="p">
+                        {localisation.common.subtitleHomepage}
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Grid container direction="row" justify="center" spacing={6}>
+
+                        <Grid item>
+                            <Link href={customRoutes.newTask}>
+                                <Button className={classes.buttonHomepage} variant="contained" color="primary">
+                                    {localisation.task.sendNew}
+                                </Button>
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            {
+                                isLoggedIn
+                                    ? <></>
+                                    // <Button variant="contained" color="primary" onClick={logout}>
+                                    //     {localisation.login.logout}
+                                    // </Button>
+                                    :
+                                    <Link href={customRoutes.loginRoute}>
+                                        <Button className={classes.buttonHomepage} variant="contained" color="primary">
+                                            {localisation.login.login}
+                                        </Button>
+                                    </Link>
+                            }
+                        </Grid>
+
                     </Grid>
-                    <Grid item={true} xs={12}>
-                        <Typography className={classes.subheader} component="h2" variant="h2" gutterBottom={true}>
-                            {localisation.common.welcome}
-                        </Typography>
-                    </Grid>
-                    <Grid item={true} xs={12} sm={12}>
-                        <p className={classes.info}>{localisation.common.subtitleHomepage}</p>
-                    </Grid>
-                    <div className={"d-flex justify-content-around pt-5"} style={{ width: "100%" }}>
-                        <Link href={customRoutes.newTask}>
-                            <Button className={classes.buttonHomepage} variant="contained" color="primary">
-                                {localisation.task.sendNew}
-                            </Button>
-                        </Link>
-                        {
-                            isLoggedIn
-                                ? <></>
-                                // <Button variant="contained" color="primary" onClick={logout}>
-                                //     {localisation.login.logout}
-                                // </Button>
-                                :
-                                <Link href={customRoutes.loginRoute}>
-                                    <Button className={classes.buttonHomepage} variant="contained" color="primary">
-                                        {localisation.login.login}
-                                    </Button>
-                                </Link>
-                        }
-                    </div>
-                </div>
+                </Grid>
+
+
+
                 <img src="/static/helpdesk_bg_trans.png" className={classes.background} />
             </Grid>
         </div>

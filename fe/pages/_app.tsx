@@ -6,6 +6,7 @@ import client from "../src/graphql/client";
 import HeadComponent from "../components/Layouts/HeadComponent";
 import theme from "../src/theme";
 import { MuiThemeProvider } from "@material-ui/core";
+import ThemeContainer from "../components/Themes/ThemeProvider";
 
 class HelpDeskApp extends App<{}> {
 
@@ -37,9 +38,9 @@ class HelpDeskApp extends App<{}> {
             <HeadComponent>
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
-                        <MuiThemeProvider theme={theme.darkTheme}>
-                            <Component {...pageProps} />
-                        </MuiThemeProvider>
+                        <ThemeContainer>
+                                <Component {...pageProps} />
+                        </ThemeContainer>
                     </ApolloProvider>
                 </AuthContext.Provider>
             </HeadComponent>
