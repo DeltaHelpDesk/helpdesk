@@ -6,7 +6,6 @@ import client from "../src/graphql/client";
 import HeadComponent from "../components/Layouts/HeadComponent";
 import theme from "../src/theme";
 import { MuiThemeProvider } from "@material-ui/core";
-import { ToastProvider } from "react-toast-notifications";
 
 class HelpDeskApp extends App<{}> {
 
@@ -39,9 +38,7 @@ class HelpDeskApp extends App<{}> {
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
                         <MuiThemeProvider theme={theme.darkTheme}>
-                            <ToastProvider placement="bottom-center" >
-                                <Component {...pageProps} />
-                            </ToastProvider>
+                            <Component {...pageProps} />
                         </MuiThemeProvider>
                     </ApolloProvider>
                 </AuthContext.Provider>

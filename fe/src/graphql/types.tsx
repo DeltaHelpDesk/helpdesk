@@ -24,7 +24,8 @@ export enum AuthType {
     Email = 'EMAIL',
     Google = 'GOOGLE',
     Facebook = 'FACEBOOK',
-    Microsoft = 'MICROSOFT'
+    Microsoft = 'MICROSOFT',
+    Github = 'GITHUB'
 }
 
 
@@ -41,6 +42,7 @@ export interface ILog {
 export interface IMutation {
     __typename?: 'Mutation',
     loginOffice?: Maybe<IAuthenticatedUser>,
+    LoginExternal?: Maybe<IAuthenticatedUser>,
     loginEmail?: Maybe<IAuthenticatedUser>,
     createUserEmail?: Maybe<IUser>,
     adminEditUser?: Maybe<IUser>,
@@ -61,6 +63,14 @@ export interface IMutationLoginOfficeArgs {
 export interface IMutationLoginEmailArgs {
     email: IScalars['String'],
     password: IScalars['String']
+};
+
+
+export interface IMutationLoginExternalArgs {
+    email: IScalars['String'],
+    name: IScalars['String'],
+    provider: AuthType,
+    token: IScalars['String'],
 };
 
 

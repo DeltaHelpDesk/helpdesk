@@ -2,7 +2,6 @@ import { UserRole, ReactAuthContext, checkUserRole } from "../graphql/auth";
 import Router from "next/router";
 import customRoutes from "../Routes";
 import { useContext, useEffect } from "react";
-import { withToastManager, useToasts } from "react-toast-notifications";
 
 export const withAuthSync = (WrappedComponent: any, minRole: UserRole = UserRole.DEFAULT) => {
 
@@ -16,15 +15,9 @@ export const withAuthSync = (WrappedComponent: any, minRole: UserRole = UserRole
 
         const showError = (text: string) => {
             console.log(text);
-            addToast(text, {
-                appearance: "error",
-                autoDismiss: true,
-                pauseOnHover: true,
-            });
         };
 
         const { isLoggedIn, user } = useContext(ReactAuthContext);
-        const { addToast } = useToasts();
 
         useEffect(() => {
             window.addEventListener("storage", syncLogout);
@@ -61,5 +54,5 @@ export const withAuthSync = (WrappedComponent: any, minRole: UserRole = UserRole
         return { ...componentProps, token };
     };
 
-    return withToastManager(Wrapper);
+    return Wrapper;
 };
