@@ -103,7 +103,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
             {
                 id: 'uncompleted',
                 title: 'Nezapočato',
-                cards: tasksNotStarted
+                cards: tasksNotStarted,
             },
             {
                 id: 'inprogress',
@@ -119,6 +119,6 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
     };
 
     return <>
-        <Board data={boardData} />
+        <Board data={boardData} editable={true} draggable={true}/>
     </>
 }
