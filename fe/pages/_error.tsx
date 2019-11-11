@@ -18,7 +18,7 @@ class Error extends Component<IProps> {
     render() {
         return <>
             <HeadComponent>
-                <Paper style={{ padding: '2rem', height: "100vh", maxHeight: "100vh", maxWidth: "100vw" }} square>
+                <Paper style={{ padding: "2rem", height: "100vh", maxHeight: "100vh", maxWidth: "100vw" }} square>
                     <Grid container direction="column" justify="center" alignContent="center" spacing={8} alignItems="center" style={{ height: "100%" }}>
                         <Grid item>
                             <Typography variant="h3" component="div">
@@ -29,20 +29,20 @@ class Error extends Component<IProps> {
                             <Typography variant="h6" component="div">
                                 {
                                     this.props.statusCode
-                                        ? localisation.formatString(localisation.error.errorCodeOccured, this.props.statusCode.toString())
+                                        ? localisation.formatString(localisation.error.errorCodeOccured,
+                                            this.props.statusCode.toString())
                                         : localisation.error.errorOnClient
                                 }
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Link href='/'>
+                            <Link href="/">
                                 <Button variant="contained" color="primary" >Go home</Button>
                             </Link>
                         </Grid>
                     </Grid>
                 </Paper>
             </HeadComponent>
-
 
         </>;
     }

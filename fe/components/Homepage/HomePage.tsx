@@ -24,13 +24,13 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
         },
 
         buttonHomepage: {
-            "margin": "10px 25px",
+            margin: "10px 25px",
             // "color": currentTheme.palette.secondary.contrastText,
             // "backgroundColor": currentTheme.palette.secondary.main,
-            "padding": "10px 35px",
-            "borderRadius": "0px",
-            "fontWeight": "bold",
-            "textTransform": "uppercase",
+            padding: "10px 35px",
+            borderRadius: "0px",
+            fontWeight: "bold",
+            textTransform: "uppercase",
             // "&:hover": {
             //     backgroundColor: currentTheme.palette.secondary.light,
             // },
@@ -80,7 +80,13 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
 
     return (
         <div>
-            <Grid className={classes.center} container={true} direction="column" justify="center" alignItems="center" alignContent="center">
+            <Grid
+                className={classes.center}
+                container={true}
+                direction="column"
+                justify="center"
+                alignItems="center"
+                alignContent="center">
                 <Grid item={true}>
                     <Typography className={classes.title} component="h1" variant="h1" gutterBottom={true}>
                         Delta helpdesk
@@ -124,8 +130,6 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
 
                     </Grid>
                 </Grid>
-
-
 
                 <img src="/static/helpdesk_bg_trans.png" className={classes.background} />
             </Grid>

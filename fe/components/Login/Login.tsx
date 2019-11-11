@@ -149,7 +149,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                 console.error("handle login error", e);
             }
         }
-    }
+    };
 
     const handleKeywordKeyPress = (e: any) => {
         if (e.key === "Enter") {
