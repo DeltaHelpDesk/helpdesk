@@ -28,6 +28,9 @@ interface ILocalisedTasks {
 
 interface ILocalisedLogin {
     login: string;
+    loginGoogle: string;
+    loginFacebook: string;
+    loginMicrosoft: string;
     logout: string;
     title: string;
     email: string;

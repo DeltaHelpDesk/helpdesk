@@ -13,6 +13,9 @@ const czechLang: ILocalisedStrings = {
     },
     login: {
         login: "Přihlásit se",
+        loginGoogle: "Přihlásit se přes Google",
+        loginFacebook: "Přihlásit se přes Facebook",
+        loginMicrosoft: "Přihlásit se přes Microsoft",
         logout: "Odhlásit se",
         email: "Email",
         password: "Heslo",
