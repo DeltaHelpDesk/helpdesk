@@ -7,6 +7,7 @@ import HeadComponent from "../components/Layouts/HeadComponent";
 import theme from "../src/theme";
 import { MuiThemeProvider } from "@material-ui/core";
 import { ToastProvider } from "react-toast-notifications";
+import ThemeContainer from "../components/Themes/ThemeProvider";
 
 class HelpDeskApp extends App<{}> {
 
@@ -38,11 +39,11 @@ class HelpDeskApp extends App<{}> {
             <HeadComponent>
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
-                        <MuiThemeProvider theme={theme.darkTheme}>
+                        <ThemeContainer>
                             <ToastProvider placement="bottom-center" >
                                 <Component {...pageProps} />
                             </ToastProvider>
-                        </MuiThemeProvider>
+                        </ThemeContainer>
                     </ApolloProvider>
                 </AuthContext.Provider>
             </HeadComponent>
