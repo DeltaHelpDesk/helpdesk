@@ -8,8 +8,9 @@ const styles = (theme: Theme) => createStyles({
     flexWrap: "wrap",
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+      // TODO: Fix
+  //  marginLeft: theme.spacing.unit,
+   // marginRight: theme.spacing.unit,
     width: 200,
   },
 });
