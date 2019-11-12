@@ -5,6 +5,7 @@ import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Theme, makeStyles } from "@material-ui/core";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
+import Background from "../Background/Background";
 
 // tslint:disable-next-line:no-empty-interface
 interface IAdministrationItemsProps {
@@ -95,7 +96,7 @@ const AdministrationItems: FunctionComponent<IAdministrationItemsProps> = (props
                 </Card>
             </Link>
         </Grid>
-        <img src="/static/helpdesk_bg_trans.png" className={classes.background} />
+        <Background />
     </>;
 };
 

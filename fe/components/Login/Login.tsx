@@ -18,6 +18,7 @@ import localisation from "../../src/Locales/Localisations";
 import { Typography, Tooltip } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import { AuthType } from "../../src/graphql/types";
+import Background from "../Background/Background";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -170,7 +171,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     }
 
     return <>
-        <Grid container direction="row" justify="center">
+        <Grid container direction="row" justify="center" style={{ backgroundColor: "transparent" }}>
             <Grid item>
                 <Paper style={{ padding: "2rem" }} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
@@ -284,6 +285,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                 </Paper>
             </Grid>
         </Grid>
+    <Background />
     </>;
 };
 

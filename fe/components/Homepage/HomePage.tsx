@@ -8,6 +8,7 @@ import { ReactAuthContext } from "../../src/graphql/auth";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
+import Background from "../Background/Background";
 
 // tslint:disable-next-line:no-empty-interface
 interface IHomePageProps {
@@ -54,21 +55,9 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
             transform: "translate(-50%,-50%)",
             width: "100%",
         },
-        background: {
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "100%",
-            zIndex: -5,
-            // [currentTheme.breakpoints.down("sm")]: {
-            //     height: "100%",
-            //     width: "auto",
-            // },
-            // backgroundColor: currentTheme.palette.primary,
-        },
         title: {
             fontWeight: "bold",
+            textTransform: "uppercase",
             // color: currentTheme.palette.text.primary + "!important",
         },
     }),
@@ -131,7 +120,7 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
                     </Grid>
                 </Grid>
 
-                <img src="/static/helpdesk_bg_trans.png" className={classes.background} />
+                <Background />
             </Grid>
         </div>
     );
