@@ -120,7 +120,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
     };
 
     return <>
-        <Board data={boardData} editable={true} draggable={true}/>
+        <Board data={boardData} draggable={true}/>
     </>
 }
 
