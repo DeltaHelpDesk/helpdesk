@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p $PORT",
         "type-check": "tsc",
         "lint": "tslint -p tsconfig.json -c tslint.json",
         "codegen": "graphql-codegen --config codegen.yml"
