@@ -171,7 +171,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     }
 
     return <>
-        <Grid container direction="row" justify="center" style={{ backgroundColor: "transparent" }}>
+        <Grid container direction="row" justify="center">
             <Grid item>
                 <Paper style={{ padding: "2rem" }} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
