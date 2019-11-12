@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: theme.mixins.toolbar,
         content: {
             flexGrow: 1,
-            backgroundColor: theme.palette.background.default,
+            // backgroundColor: theme.palette.background.default,
             padding: theme.spacing(3),
         },
         search: {

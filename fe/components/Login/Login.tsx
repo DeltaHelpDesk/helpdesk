@@ -18,6 +18,7 @@ import localisation from "../../src/Locales/Localisations";
 import { Typography, Tooltip } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import { AuthType } from "../../src/graphql/types";
+import Background from "../Background/Background";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -284,6 +285,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                 </Paper>
             </Grid>
         </Grid>
+    <Background />
     </>;
 };
 
