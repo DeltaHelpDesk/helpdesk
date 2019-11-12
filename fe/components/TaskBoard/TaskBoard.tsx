@@ -144,6 +144,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
     }
 
     return <>
+        <Board data={boardData} draggable={true}/>
         <Board data={boardData} editable={true} draggable={true} handleDragEnd={handleCardChange} />
     </>
 }
