@@ -10,15 +10,14 @@ import ThemeContainer from "../components/Themes/ThemeProvider";
 
 class HelpDeskApp extends App<{}> {
 
-    static async getInitialProps({ Component, ctx }) {
-        let pageProps = {};
-
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
-
-        return { pageProps };
-    }
+    // https://github.com/zeit/next.js/blob/master/errors/opt-out-automatic-prerendering.md
+    // static async getInitialProps({ Component, ctx }) {
+    //     let pageProps = {};
+    //     if (Component.getInitialProps) {
+    //         pageProps = await Component.getInitialProps(ctx);
+    //     }
+    //     return { pageProps };
+    // }
 
     componentDidMount() {
         // Remove the server-side injected CSS.
