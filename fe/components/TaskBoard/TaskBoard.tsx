@@ -9,6 +9,7 @@ import { ITask, State } from '../../src/graphql/types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { tasksBoardQuery } from '../../src/graphql/queries';
+import DateFormatComponent from '../Dates/DateFormatter';
 
 // type Asignee = {
 //     id: number;
@@ -80,7 +81,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
     const { loading, error, data } = useQuery(tasksBoardQuery);
 
     if (loading)
-        return <> Loading... </>;
+        return <> <Loading/> </>;
 
     if (error)
         return <> Error... </>;
@@ -89,13 +90,13 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
 
     let tasksCompleted: Array<ICard> = [];
     tasks.filter(x => x.state === State.Solved)
-        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: x.created_at, draggable: true }]);
+        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: DateFormatComponent.getFormattedDate(x.created_at, true), draggable: true }]);
     let tasksSolving: Array<ICard> = [];
     tasks.filter(x => x.state === State.Solving)
-        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: x.created_at, draggable: true }]);
+        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: DateFormatComponent.getFormattedDate(x.created_at, true), draggable: true }]);
     let tasksNotStarted: Array<ICard> = [];
     tasks.filter(x => x.state === State.Unresolved)
-        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: x.created_at, draggable: true }]);
+        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: DateFormatComponent.getFormattedDate(x.created_at, true), draggable: true }]);
 
 
     const boardData = {
