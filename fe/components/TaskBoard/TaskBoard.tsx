@@ -90,37 +90,61 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
 
     let tasksCompleted: Array<ICard> = [];
     tasks.filter(x => x.state === State.Solved)
-        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: DateFormatComponent.getFormattedDate(x.created_at, true), draggable: true }]);
+        .map(x => tasksCompleted = [
+            ...tasksCompleted, 
+            { id: x.id, 
+                title: x.subject, 
+                description: x.issue, 
+                label: DateFormatComponent.getFormattedDate(x.created_at, true), 
+                draggable: true }]);
     let tasksSolving: Array<ICard> = [];
     tasks.filter(x => x.state === State.Solving)
-        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: DateFormatComponent.getFormattedDate(x.created_at, true), draggable: true }]);
+        .map(x => tasksCompleted = [
+            ...tasksCompleted, 
+            { id: x.id, 
+                title: x.subject, 
+                description: x.issue, 
+                label: DateFormatComponent.getFormattedDate(x.created_at, true), 
+                draggable: true
+            }]);
     let tasksNotStarted: Array<ICard> = [];
     tasks.filter(x => x.state === State.Unresolved)
-        .map(x => tasksCompleted = [...tasksCompleted, { id: x.id, title: x.subject, description: x.issue, label: DateFormatComponent.getFormattedDate(x.created_at, true), draggable: true }]);
+        .map(x => tasksCompleted = [
+            ...tasksCompleted, 
+            { id: x.id, 
+                title: x.subject, 
+                description: x.issue, 
+                label: DateFormatComponent.getFormattedDate(x.created_at, true), 
+                draggable: true
+            }]);
 
 
     const boardData = {
         lanes: [
             {
-                id: 'uncompleted',
+                id: "uncompleted",
                 title: 'Nezapočato',
                 cards: tasksNotStarted,
             },
             {
-                id: 'inprogress',
+                id: "inprogress",
                 title: 'Pracuje se na tom',
                 cards: tasksSolving
             },
             {
-                id: 'completed',
+                id: "completed",
                 title: 'Dokončeno',
                 cards: tasksCompleted
             }
         ]
     };
 
+    const handleCardChange = (cardId : number, sourceLaneId : string, targetLaneId : string, position: number, cardDetails: any) => {
+        console.log(sourceLaneId)
+    }
+
     return <>
-        <Board data={boardData} editable={true} draggable={true}/>
+        <Board data={boardData} editable={true} draggable={true} handleDragEnd={handleCardChange} />
     </>
 }
 
