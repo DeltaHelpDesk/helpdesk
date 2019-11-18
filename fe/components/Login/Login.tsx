@@ -255,28 +255,24 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                             </SocialButton>
                         </Grid>
                         <Grid item={true}>
-                            {/* TODO: FB vyžaduje HTTPS */}
-                            <Tooltip title="Až bude HTTPS">
-                                <SocialButton appId=" 515939249183955"
-                                    provider="facebook"
-                                    scope="name,email"
-                                    onLoginSuccess={facebookLoginSuccess}
-                                    onLoginFailure={onExternalLoginFail}
-                                >
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        disabled={true}
-                                        size="large"
-                                        style={{ width: "25rem" }}>
-                                        <Icon path={mdiFacebook}
-                                            size={1}
-                                            color="white"
-                                        />
-                                        {localisation.login.loginFacebook}
-                                    </Button>
-                                </SocialButton>
-                            </Tooltip>
+                            <SocialButton appId=" 515939249183955"
+                                provider="facebook"
+                                scope="name,email"
+                                onLoginSuccess={facebookLoginSuccess}
+                                onLoginFailure={onExternalLoginFail}
+                            >
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="large"
+                                    style={{ width: "25rem" }}>
+                                    <Icon path={mdiFacebook}
+                                        size={1}
+                                        color="white"
+                                    />
+                                    {localisation.login.loginFacebook}
+                                </Button>
+                            </SocialButton>
                         </Grid>
                         <Grid item={true}>
                             <MicrosoftButtonLogin onClick={handleOfficeLogin} />
@@ -285,7 +281,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                 </Paper>
             </Grid>
         </Grid>
-    <Background />
+        <Background />
     </>;
 };
 
