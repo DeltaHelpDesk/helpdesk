@@ -237,7 +237,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                         <Grid item={true}>
                             <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
                                 provider="google"
-
                                 onLoginSuccess={googleLoginSuccess}
                                 onLoginFailure={onExternalLoginFail}
                             >
@@ -255,7 +254,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                             </SocialButton>
                         </Grid>
                         <Grid item={true}>
-                            <SocialButton appId=" 515939249183955"
+                            <SocialButton appId="515939249183955"
                                 provider="facebook"
                                 scope="name,email"
                                 onLoginSuccess={facebookLoginSuccess}
