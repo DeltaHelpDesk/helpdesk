@@ -264,7 +264,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    disabled={true}
                                     size="large"
                                     style={{ width: "25rem" }}>
                                     <Icon path={mdiFacebook}
