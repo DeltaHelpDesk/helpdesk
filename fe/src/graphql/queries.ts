@@ -18,21 +18,30 @@ export const tasksBoardQuery = gql`query {
     }
   }`;
 
-export const updateTaskBoardQuery = gql`query {
-    tasks {
+export const updateTaskBoardQuery = gql`mutation changeTaskState(
+    $taskId: ID!
+    $comment: String!
+    $state: State!
+  ) {
+    changeTaskState(
+      taskId: $taskId
+      comment: $comment
+      state: $state
+    ) {
       id
       subject
       issue
-      created_at
-      state
-      assignee {
-        id
-        fullName
-      }
       author {
         id
         fullName
       }
+      assignee {
+        id
+        fullName
+      }
+      created_at
+      updated_at
+      state
     }
   }`;
 
