@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Board from 'react-trello-for-timeline';
-import { Query } from "react-apollo";
+import { useMutation } from '@apollo/react-hooks';
 //import "../../graphql/auth";
 import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '../../src/graphql/auth';
 import Loading from "./../Loading/Loading";
@@ -8,61 +8,9 @@ import { GET_TASKS } from "../TaskList/TaskListQueries";
 import { ITask, State } from '../../src/graphql/types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { tasksBoardQuery } from '../../src/graphql/queries';
+import { tasksBoardQuery, updateTaskBoardQuery } from '../../src/graphql/queries';
 import DateFormatComponent from '../Dates/DateFormatter';
-
-// type Asignee = {
-//     id: number;
-//     fullName: string;
-// }
-
-// type Author = {
-//     id: number;
-//     fullName: string;
-// }
-
-
-// interface Task {
-//     id: number;
-//     subject: string;
-//     issue: string;
-//     created_at: Date;
-//     state: string;
-//     asignee: Asignee;
-//     author: Author;
-// }
-
-// interface TasksData {
-//     tasks: Task[];
-// }
-
-// function Taskyhehe() {
-//     const { data } = useQuery<TasksData>(tasksBoardQuery);
-
-//     const boardData = {
-//         lanes: [
-//             {
-//                 id: 'uncompleted',
-//                 title: 'Nezapočato',
-//                 cards: data.tasks
-//             },
-//             {
-//                 id: 'inprogress',
-//                 title: 'Pracuje se na tom',
-//                 cards: data.tasks
-//             },
-//             {
-//                 id: 'completed',
-//                 title: 'Dokončeno',
-//                 cards: data.tasks
-//             }
-//         ]
-//     };
-
-//     return (
-//         boardData
-//     );
-// }
+import axios from 'axios';
 
 interface ICard {
     id: string,
@@ -79,7 +27,9 @@ interface IProps {
 
 const TaskBoard: React.FunctionComponent<IProps> = () => {
     const { loading, error, data } = useQuery(tasksBoardQuery);
-
+    const [changeTaskState, { error: errorMutation, data: dataMutation }] = useMutation<
+        {changeTaskState : ICard}>(updateTaskBoardQuery);
+    
     if (loading)
         return <> <Loading/> </>;
 
@@ -99,8 +49,8 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
                 draggable: true }]);
     let tasksSolving: Array<ICard> = [];
     tasks.filter(x => x.state === State.Solving)
-        .map(x => tasksCompleted = [
-            ...tasksCompleted, 
+        .map(x => tasksSolving = [
+            ...tasksSolving, 
             { id: x.id, 
                 title: x.subject, 
                 description: x.issue, 
@@ -109,8 +59,8 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
             }]);
     let tasksNotStarted: Array<ICard> = [];
     tasks.filter(x => x.state === State.Unresolved)
-        .map(x => tasksCompleted = [
-            ...tasksCompleted, 
+        .map(x => tasksNotStarted = [
+            ...tasksNotStarted, 
             { id: x.id, 
                 title: x.subject, 
                 description: x.issue, 
@@ -122,25 +72,29 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
     const boardData = {
         lanes: [
             {
-                id: "uncompleted",
+                id: "UNRESOLVED",
                 title: 'Nezapočato',
                 cards: tasksNotStarted,
             },
             {
-                id: "inprogress",
+                id: "SOLVING",
                 title: 'Pracuje se na tom',
                 cards: tasksSolving
             },
             {
-                id: "completed",
+                id: "SOLVED",
                 title: 'Dokončeno',
                 cards: tasksCompleted
             }
         ]
     };
 
-    const handleCardChange = (cardId : number, sourceLaneId : string, targetLaneId : string, position: number, cardDetails: any) => {
-        console.log(sourceLaneId)
+    const handleCardChange = async (cardId : number, sourceLaneId : string, targetLaneId : string, position: number, cardDetails: any, description: string)=> {
+        const res = await changeTaskState({variables:{
+            taskId: cardId, 
+            comment: "TASK STATE CHANGED", 
+            state: targetLaneId
+          }});           
     }
 
     return <>
