@@ -18,3 +18,21 @@ export const tasksBoardQuery = gql`query {
     }
   }`;
 
+export const updateTaskBoardQuery = gql`query {
+    tasks {
+      id
+      subject
+      issue
+      created_at
+      state
+      assignee {
+        id
+        fullName
+      }
+      author {
+        id
+        fullName
+      }
+    }
+  }`;
+
