@@ -82,27 +82,21 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     };
 
     const googleLoginSuccess = async (user: any) => {
-        console.log(user);
-
         const email: string = user._profile.email;
         const name: string = user._profile.name;
         const provider: AuthType = AuthType.Google;
         const token: string = user._profile.id;
 
-        console.log(email);
-        console.log(name);
-        console.log(provider);
-        console.log(token);
-
         await externalLogin(email, name, provider, token);
     };
 
     const facebookLoginSuccess = async (user: any) => {
-        console.log(user);
-    };
-    const microsoftLoginSuccess = async (err: any, data: any) => {
-        console.log(err);
-        console.log(data);
+        const email: string = user._profile.email;
+        const name: string = user._profile.name;
+        const provider: AuthType = AuthType.Facebook;
+        const token: string = user._profile.id;
+
+        await externalLogin(email, name, provider, token);
     };
 
     const onExternalLoginFail = async (error: any) => {
@@ -112,6 +106,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const externalLogin = async (email: string, name: string, provider: AuthType, token: string) => {
         if (!email || !name || !provider || !token) {
             // TODO: Dialog
+            console.log("Prázdné vstupní údaje");
             return;
         }
         setLoading(true);
@@ -237,7 +232,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                         <Grid item={true}>
                             <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
                                 provider="google"
-
                                 onLoginSuccess={googleLoginSuccess}
                                 onLoginFailure={onExternalLoginFail}
                             >
@@ -255,9 +249,8 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                             </SocialButton>
                         </Grid>
                         <Grid item={true}>
-                            <SocialButton appId=" 515939249183955"
+                            <SocialButton appId="515939249183955"
                                 provider="facebook"
-                                scope="name,email"
                                 onLoginSuccess={facebookLoginSuccess}
                                 onLoginFailure={onExternalLoginFail}
                             >
