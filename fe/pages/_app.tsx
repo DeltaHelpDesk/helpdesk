@@ -7,6 +7,7 @@ import HeadComponent from "../components/Layouts/HeadComponent";
 import theme from "../src/theme";
 import { MuiThemeProvider } from "@material-ui/core";
 import ThemeContainer from "../components/Themes/ThemeProvider";
+import ScrollButton from "../components/ScrollTop/ScrollTop";
 
 class HelpDeskApp extends App<{}> {
 
