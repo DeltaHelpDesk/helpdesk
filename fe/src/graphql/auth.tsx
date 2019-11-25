@@ -1,4 +1,3 @@
-import gql from "graphql-tag";
 import client from "./client";
 import { createContext, useEffect, FunctionComponent, useState } from "react";
 import MicrosoftAuthService from "../services/microsoft";
@@ -7,6 +6,8 @@ import { UserTokenCookieKey } from "../Global/Keys";
 import Router from "next/router";
 import customRoutes from "../Routes";
 import { AuthType } from "./types";
+import { LOGIN_EMAIL, LOGIN_EXTERNAL, LOGIN_OFFICE, LOGOUT } from "./mutations";
+import { GET_SESSION } from "./queries";
 
 const cookies = new Cookies();
 
@@ -16,46 +17,7 @@ export const isLoggedIn = () => {
 
 export let lastToken: string | null = cookies.get(UserTokenCookieKey);
 
-export const LOGOUT = gql`
-  mutation logout {
-    logout
-  }
-`;
 
-export const LOGIN_EMAIL = gql`
-  mutation loginEmail($email: String!, $password: String!) {
-    loginEmail(email: $email, password: $password) {
-      token
-    }
-  }
-`;
-
-export const LOGIN_EXTERNAL = gql`
-  mutation loginExternal($email: String!, $name: String!, $provider: AuthType!, $token: String! ) {
-    loginExternal(email: $email, name: $name, provider: $provider, token: $token) {
-      token
-    }
-  }
-`;
-
-export const LOGIN_OFFICE = gql`
-  mutation loginOffice($token: String!) {
-    loginOffice(token: $token) {
-      token
-    }
-  }
-`;
-export const GET_SESSION = gql`
-  query getSession {
-    session {
-      id
-      fullName
-      email
-      role
-      token
-    }
-  }
-`;
 
 export enum UserRole {
     DEFAULT = "DEFAULT",

@@ -9,14 +9,14 @@
         "lint": "tslint -p tsconfig.json -c tslint.json",
         "codegen": "graphql-codegen --config codegen.yml",
         "format:generated": "prettier --write \"generated/**/*.ts\"",
-        "schema": "apollo service:download  generated/schema.json --config=apollo.config.onlyRemote.js",
-        "gen:types": "apollo client:codegen generated --target=typescript --outputFlat --config=apollo.config.onlyRemote.js",
-        "gen": "npm-run-all --serial gen:types format:generated",
+        "schema": "apollo client:download-schema --endpoint=https://delta-helpdesk.herokuapp.com/graphql/ ./src/graphql/graphql-schema.json",
+        "generate": "apollo client:codegen --localSchemaFile=./src/graphql/graphql-schema.json --target=typescript --includes=./src/graphql/**/*.ts --tagName=gql --addTypename --globalTypesFile=./src/graphql/graphql-global-types.ts types",
         "typescript": "tsc -p ./tsconfig.json --pretty --noEmit"
     },
     "dependencies": {
         "@material-ui/core": "^4.5.2",
         "@material-ui/icons": "^3.0.1",
+        "@material-ui/lab": "^4.0.0-alpha.33",
         "@material-ui/styles": "^4.5.2",
         "@mdi/font": "^3.2.89",
         "@mdi/js": "^3.2.89",
