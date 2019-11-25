@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import Layout from "../../components/Layouts/Layout";
-import UserList from "../../components/Administration/UserList/UserList";
+import UserListContainer from "../../components/Administration/UserList/UserListContainer";
 
 const UserListPage: NextPage = () => {
     return (
         <Layout title="User list">
-            <UserList />
+            <UserListContainer />
         </Layout>
     );
 };
