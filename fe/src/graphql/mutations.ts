@@ -45,3 +45,35 @@ export const deleteTaskMutation = gql`
     deleteTask(taskId: $taskId)
   }
 `;
+
+
+export const LOGOUT = gql`
+  mutation logout {
+    logout
+  }
+`;
+
+export const LOGIN_EMAIL = gql`
+  mutation loginEmail($email: String!, $password: String!) {
+    loginEmail(email: $email, password: $password) {
+      token
+    }
+  }
+`;
+
+export const LOGIN_EXTERNAL = gql`
+  mutation loginExternal($email: String!, $name: String!, $provider: AuthType!, $token: String! ) {
+    loginExternal(email: $email, name: $name, provider: $provider, token: $token) {
+      token
+    }
+  }
+`;
+
+export const LOGIN_OFFICE = gql`
+  mutation loginOffice($token: String!) {
+    loginOffice(token: $token) {
+      token
+    }
+  }
+`;
+
