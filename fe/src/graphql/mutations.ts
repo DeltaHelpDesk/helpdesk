@@ -46,7 +46,6 @@ export const deleteTaskMutation = gql`
   }
 `;
 
-
 export const LOGOUT = gql`
   mutation logout {
     logout
@@ -76,4 +75,3 @@ export const LOGIN_OFFICE = gql`
     }
   }
 `;
-

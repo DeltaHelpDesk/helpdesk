@@ -10,15 +10,6 @@ import ThemeContainer from "../components/Themes/ThemeProvider";
 
 class HelpDeskApp extends App<{}> {
 
-    // https://github.com/zeit/next.js/blob/master/errors/opt-out-automatic-prerendering.md
-    // static async getInitialProps({ Component, ctx }) {
-    //     let pageProps = {};
-    //     if (Component.getInitialProps) {
-    //         pageProps = await Component.getInitialProps(ctx);
-    //     }
-    //     return { pageProps };
-    // }
-
     componentDidMount() {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector("#jss-server-side");
@@ -38,18 +29,12 @@ class HelpDeskApp extends App<{}> {
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
                         <ThemeContainer>
-                                <Component {...pageProps} />
+                            <Component {...pageProps} />
                         </ThemeContainer>
                     </ApolloProvider>
                 </AuthContext.Provider>
             </HeadComponent>
         );
-
-        // return (
-        //     <AuthContext.Provider>
-        //         <MainRouter />
-        //     </AuthContext.Provider>
-        // );
     }
 
 }

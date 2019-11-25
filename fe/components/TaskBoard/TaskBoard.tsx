@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { FunctionComponent } from "react";
 import { Query, useQuery } from "react-apollo";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
 import Loading from "../Loading/Loading";
@@ -8,9 +8,9 @@ import { State, ITask } from "../../src/graphql/types";
 import { getUsers } from "../../src/graphql/types/getUsers";
 import { getUsersQuery } from "../../src/graphql/queries";
 
-const TaskBoard: React.FunctionComponent = () => {
+const TaskBoard: FunctionComponent = () => {
 
-    const {loading, data, error} = useQuery<getUsers>(getUsersQuery);
+    // const { loading, data, error } = useQuery<getUsers>(getUsersQuery);
 
     return (
         <Query query={GET_TASKS}>
@@ -54,6 +54,6 @@ const TaskBoard: React.FunctionComponent = () => {
         </Query>
     );
 
-}
+};
 
-export default TaskBoard;;
+export default TaskBoard;

@@ -40,8 +40,7 @@ const UserList: FunctionComponent = () => {
                 <UserComponent key={user.id} user={user} isAdmin={isAdmin} />)
         }
 
-
     </>;
-}
+};
 
 export default withAuthSync(UserList);

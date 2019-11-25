@@ -17,8 +17,6 @@ export const isLoggedIn = () => {
 
 export let lastToken: string | null = cookies.get(UserTokenCookieKey);
 
-
-
 export enum UserRole {
     DEFAULT = "DEFAULT",
     ADMIN = "ADMIN",
