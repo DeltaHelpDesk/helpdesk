@@ -17,7 +17,7 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
             flexGrow: 1,
         },
         menuItem: {
-            alignItems: 'center',
+            "alignItems": "center",
             "textDecoration": "none",
             "marginLeft": "5px",
             "padding": "10px 15px 2px",
@@ -33,7 +33,7 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
                 },
             },
             "&:active": {
-                "color": "#ffffff80",
+                color: "#ffffff80",
             },
             "&:before": {
                 // content: `''`,
@@ -101,7 +101,7 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
                                         <div>
                                             {/* <span>{user.fullName}</span> */}
                                             <Link href={customRoutes.loginRoute}>
- 
+
                                                 <a className={classes.menuItem}>
                                                     <Grid container alignItems="center">
                                                         <Grid item>

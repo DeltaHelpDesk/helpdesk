@@ -36,19 +36,19 @@ interface IUser {
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
     const useStyles = makeStyles(() => ({
         fbButton: {
-            backgroundColor: "#4267b2",
+            "backgroundColor": "#4267b2",
             "&:hover": {
                 backgroundColor: "#314d85",
             },
         },
 
         gglButton: {
-            backgroundColor: "#dd4b39",
+            "backgroundColor": "#dd4b39",
             "&:hover": {
                 backgroundColor: "#b12e1e",
             },
         }
-    }),
+,    }),
     );
 
     const { loginByEmail, isLoggedIn, loginExternal, doLoginByMicrosoft } = useContext(ReactAuthContext);
