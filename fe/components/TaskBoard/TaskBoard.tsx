@@ -7,10 +7,11 @@ import Loading from "./../Loading/Loading";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { getTasksQuery, updateTaskBoardQuery } from '../../src/graphql/queries';
+import { getTasksQuery } from '../../src/graphql/queries';
 import DateFormatComponent from '../Dates/DateFormatter';
 import { getTasks } from '../../src/graphql/types/getTasks';
 import { State } from '../../src/graphql/graphql-global-types';
+import { updateTaskBoardQuery } from '../../src/graphql/mutations';
 
 interface ICard {
     id: string,

@@ -87,30 +87,3 @@ export const getSessionQuery = gql`
   }
 `;
 
-export const updateTaskBoardQuery = gql`mutation changeTaskState(
-    $taskId: ID!
-    $comment: String!
-    $state: State!
-  ) {
-    changeTaskState(
-      taskId: $taskId
-      comment: $comment
-      state: $state
-    ) {
-      id
-      subject
-      issue
-      author {
-        id
-        fullName
-      }
-      assignee {
-        id
-        fullName
-      }
-      created_at
-      updated_at
-      state
-    }
-  }`;
-
