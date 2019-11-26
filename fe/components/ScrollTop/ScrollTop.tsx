@@ -1,27 +1,26 @@
-import React from 'react';
+import React from "react";
 import { FunctionComponent } from "react";
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Fab from '@material-ui/core/Fab';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Zoom from '@material-ui/core/Zoom';
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import Fab from "@material-ui/core/Fab";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import Zoom from "@material-ui/core/Zoom";
 
-interface Props {
+interface IProps {
   children: React.ReactElement;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      position: 'fixed',
+      position: "fixed",
       bottom: theme.spacing(2),
       right: theme.spacing(2),
     },
   }),
 );
 
-function ScrollTop(props: Props) {
-  const { children } = props;
+const ScrollTop: FunctionComponent<IProps> = ({ children }) => {
   const classes = useStyles({});
 
   const trigger = useScrollTrigger({
@@ -30,7 +29,7 @@ function ScrollTop(props: Props) {
   });
 
   const handleClick = () => {
-    window.scrollTo(0,0)
+    window.scroll({top: 0, left: 0, behavior: "smooth" });
   };
 
   return (
@@ -42,7 +41,7 @@ function ScrollTop(props: Props) {
   );
 }
 
-const ScrollButton: FunctionComponent<{}> = () => {
+const ScrollButton = () => {
   return (
     <React.Fragment>
       <ScrollTop>
@@ -52,6 +51,6 @@ const ScrollButton: FunctionComponent<{}> = () => {
       </ScrollTop>
     </React.Fragment>
   );
-}
+};
 
-export default ScrollButton
+export default ScrollButton;

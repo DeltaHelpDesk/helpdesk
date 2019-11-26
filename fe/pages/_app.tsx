@@ -36,11 +36,11 @@ class HelpDeskApp extends App<{}> {
 
         return (
             <HeadComponent>
+                <ScrollButton/>
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
                         <ThemeContainer>
                                 <Component {...pageProps} />
-                                <ScrollButton/>
                         </ThemeContainer>
                     </ApolloProvider>
                 </AuthContext.Provider>
