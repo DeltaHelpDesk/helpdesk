@@ -6,8 +6,8 @@ import { UserTokenCookieKey } from "../Global/Keys";
 import Router from "next/router";
 import customRoutes from "../Routes";
 import { AuthType } from "./types";
-import { LOGIN_EMAIL, LOGIN_EXTERNAL, LOGIN_OFFICE, LOGOUT } from "./mutations";
-import { GET_SESSION } from "./queries";
+import { loginEmailMutation, loginExternalMutation, loginOfficeMutation, logoutMutation } from "./mutations";
+import { getSessionQuery } from "./queries";
 
 const cookies = new Cookies();
 
@@ -79,7 +79,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
     const loginByEmail = async (email: string, password: string): Promise<string> => {
         // tslint:disable-next-line:no-shadowed-variable
         const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
-            mutation: LOGIN_EMAIL,
+            mutation: loginEmailMutation,
             variables: {
                 email,
                 password,
@@ -93,7 +93,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
     const loginExternal = async (email: string, name: string, provider: AuthType, token: string): Promise<string> => {
         // tslint:disable-next-line:no-shadowed-variable
         const { data: { loginExternal: loginByExternalQuery } }: any = await client.mutate({
-            mutation: LOGIN_EXTERNAL,
+            mutation: loginExternalMutation,
             variables: {
                 email,
                 name,
@@ -122,7 +122,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
     const loginByMicrosoft = async (token: string): Promise<string> => {
         // tslint:disable-next-line:no-shadowed-variable
         const { data: { loginOffice: loginByOfficeQuery } }: any = await client.mutate({
-            mutation: LOGIN_OFFICE,
+            mutation: loginOfficeMutation,
             variables: {
                 token,
             },
@@ -135,7 +135,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
     const logout = async () => {
         try {
             await client.mutate({
-                mutation: LOGOUT,
+                mutation: logoutMutation,
             });
         } catch {
             /// Vynucení smazání tokenu
@@ -188,7 +188,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
 
     const getSessionUser = async (): Promise<IUser> => {
         const { data: { session } }: any = await client.query({
-            query: GET_SESSION,
+            query: getSessionQuery,
         });
         setState({
             ...state,

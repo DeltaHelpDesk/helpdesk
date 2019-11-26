@@ -46,13 +46,13 @@ export const deleteTaskMutation = gql`
   }
 `;
 
-export const LOGOUT = gql`
+export const logoutMutation = gql`
   mutation logout {
     logout
   }
 `;
 
-export const LOGIN_EMAIL = gql`
+export const loginEmailMutation = gql`
   mutation loginEmail($email: String!, $password: String!) {
     loginEmail(email: $email, password: $password) {
       token
@@ -60,7 +60,7 @@ export const LOGIN_EMAIL = gql`
   }
 `;
 
-export const LOGIN_EXTERNAL = gql`
+export const loginExternalMutation = gql`
   mutation loginExternal($email: String!, $name: String!, $provider: AuthType!, $token: String! ) {
     loginExternal(email: $email, name: $name, provider: $provider, token: $token) {
       token
@@ -68,7 +68,7 @@ export const LOGIN_EXTERNAL = gql`
   }
 `;
 
-export const LOGIN_OFFICE = gql`
+export const loginOfficeMutation = gql`
   mutation loginOffice($token: String!) {
     loginOffice(token: $token) {
       token
