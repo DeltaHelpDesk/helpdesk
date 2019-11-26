@@ -17,6 +17,7 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
             flexGrow: 1,
         },
         menuItem: {
+            "alignItems": "center",
             "textDecoration": "none",
             "marginLeft": "5px",
             "padding": "10px 15px 2px",
@@ -25,10 +26,14 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
             "letterSpacing": "1.5px",
             "textTransform": "lowercase",
             "width": "100%",
+            "color": "white",
             "&:hover": {
                 "&:before": {
                     width: "100%",
                 },
+            },
+            "&:active": {
+                color: "#ffffff80",
             },
             "&:before": {
                 // content: `''`,
@@ -96,9 +101,16 @@ const MainAppBar: React.FunctionComponent<{}> = (props) => {
                                         <div>
                                             {/* <span>{user.fullName}</span> */}
                                             <Link href={customRoutes.loginRoute}>
+
                                                 <a className={classes.menuItem}>
-                                                    <PersonIcon />
-                                                    {localisation.login.login}
+                                                    <Grid container alignItems="center">
+                                                        <Grid item>
+                                                            <PersonIcon />
+                                                        </Grid>
+                                                        <Grid item>
+                                                            {localisation.login.login}
+                                                        </Grid>
+                                                    </Grid>
                                                 </a>
                                             </Link>
                                             {/* <Button onClick={logout}>Odhlásit se</Button> */}

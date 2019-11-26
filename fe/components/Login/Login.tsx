@@ -19,6 +19,7 @@ import { Typography, Tooltip } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import { AuthType } from "../../src/graphql/types";
 import Background from "../Background/Background";
+import { Theme, makeStyles } from "@material-ui/core";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -33,6 +34,22 @@ interface IUser {
 // type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
+    const useStyles = makeStyles(() => ({
+        fbButton: {
+            "backgroundColor": "#4267b2",
+            "&:hover": {
+                backgroundColor: "#314d85",
+            },
+        },
+
+        gglButton: {
+            "backgroundColor": "#dd4b39",
+            "&:hover": {
+                backgroundColor: "#b12e1e",
+            },
+        }
+,    }),
+    );
 
     const { loginByEmail, isLoggedIn, loginExternal, doLoginByMicrosoft } = useContext(ReactAuthContext);
 
@@ -165,10 +182,12 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         </>;
     }
 
+    const classes = useStyles({});
+
     return <>
         <Grid container direction="row" justify="center">
             <Grid item>
-                <Paper style={{ padding: "2rem" }} >
+                <Paper style={{ padding: "2rem", position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)"}} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
                         <Grid item>
                             <Typography variant="h4" component="div">
@@ -239,7 +258,8 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     variant="contained"
                                     color="primary"
                                     size="large"
-                                    style={{ width: "25rem" }}>
+                                    style={{ width: "25rem"}}
+                                    className={classes.gglButton}>
                                     <Icon path={mdiGoogle}
                                         size={1}
                                         color="white"
@@ -258,7 +278,8 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     variant="contained"
                                     color="primary"
                                     size="large"
-                                    style={{ width: "25rem" }}>
+                                    style={{ width: "25rem" }}
+                                    className={classes.fbButton}>
                                     <Icon path={mdiFacebook}
                                         size={1}
                                         color="white"
