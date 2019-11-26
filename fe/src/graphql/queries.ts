@@ -75,16 +75,6 @@ query getTasks{
 }
 `;
 
-export const updateTaskBoardQuery = gql`mutation changeTaskState(
-    $taskId: ID!
-    $comment: String!
-    $state: State!
-  ) {
-    changeTaskState(
-      taskId: $taskId
-      comment: $comment
-      state: $state
-    ) {
 export const getSessionQuery = gql`
   query getSession {
     session {
@@ -96,8 +86,17 @@ export const getSessionQuery = gql`
     }
   }
 `;
-export const updateTaskBoardQuery = gql`query {
-    tasks {
+
+export const updateTaskBoardQuery = gql`mutation changeTaskState(
+    $taskId: ID!
+    $comment: String!
+    $state: State!
+  ) {
+    changeTaskState(
+      taskId: $taskId
+      comment: $comment
+      state: $state
+    ) {
       id
       subject
       issue

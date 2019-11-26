@@ -5,12 +5,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from '../../src/graphql/auth';
 import Loading from "./../Loading/Loading";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
-import { ITask, State } from '../../src/graphql/types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { tasksBoardQuery, updateTaskBoardQuery } from '../../src/graphql/queries';
+import { getTasksQuery, updateTaskBoardQuery } from '../../src/graphql/queries';
 import DateFormatComponent from '../Dates/DateFormatter';
-import axios from 'axios';
+import { getTasks } from '../../src/graphql/types/getTasks';
+import { State } from '../../src/graphql/graphql-global-types';
 
 interface ICard {
     id: string,
@@ -26,7 +26,7 @@ interface IProps {
 }
 
 const TaskBoard: React.FunctionComponent<IProps> = () => {
-    const { loading, error, data } = useQuery(tasksBoardQuery);
+    const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
     const [changeTaskState, { error: errorMutation, data: dataMutation }] = useMutation<
         {changeTaskState : ICard}>(updateTaskBoardQuery);
     
@@ -36,10 +36,10 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
     if (error)
         return <> Error... </>;
 
-    const tasks: Array<ITask> = data.tasks;
+    const {tasks} = data;
 
     let tasksCompleted: Array<ICard> = [];
-    tasks.filter(x => x.state === State.Solved)
+    tasks.filter(x => x.state === State.SOLVED)
         .map(x => tasksCompleted = [
             ...tasksCompleted, 
             { id: x.id, 
@@ -48,7 +48,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
                 label: DateFormatComponent.getFormattedDate(x.created_at, true), 
                 draggable: true }]);
     let tasksSolving: Array<ICard> = [];
-    tasks.filter(x => x.state === State.Solving)
+    tasks.filter(x => x.state === State.SOLVING)
         .map(x => tasksSolving = [
             ...tasksSolving, 
             { id: x.id, 
@@ -58,7 +58,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
                 draggable: true
             }]);
     let tasksNotStarted: Array<ICard> = [];
-    tasks.filter(x => x.state === State.Unresolved)
+    tasks.filter(x => x.state === State.UNRESOLVED)
         .map(x => tasksNotStarted = [
             ...tasksNotStarted, 
             { id: x.id, 
@@ -101,3 +101,5 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
         <Board data={boardData} editable={true} draggable={true} handleDragEnd={handleCardChange} />
     </>
 }
+
+export default TaskBoard;
