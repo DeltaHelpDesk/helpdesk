@@ -25,26 +25,17 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
         },
 
         buttonHomepage: {
-            margin: "10px 25px",
-            // "color": currentTheme.palette.secondary.contrastText,
-            // "backgroundColor": currentTheme.palette.secondary.main,
+            margin: "50px 25px 0px",
             padding: "10px 35px",
             borderRadius: "0px",
             fontWeight: "bold",
             textTransform: "uppercase",
-            // "&:hover": {
-            //     backgroundColor: currentTheme.palette.secondary.light,
-            // },
         },
 
         itemsCenter: {
             textAlign: "center",
         },
         info: {
-            // color: currentTheme.palette.text.primary,
-            // [currentTheme.breakpoints.down("sm")]: {
-            //     fontSize: "18px",
-            // },
             textAlign: "center",
             fontSize: "20px",
         },
@@ -58,7 +49,6 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
         title: {
             fontWeight: "bold",
             textTransform: "uppercase",
-            // color: currentTheme.palette.text.primary + "!important",
         },
     }),
     );

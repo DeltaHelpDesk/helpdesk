@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Theme, makeStyles } from "@material-ui/core";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
