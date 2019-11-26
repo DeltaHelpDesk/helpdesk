@@ -6,6 +6,14 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum AuthType {
+  EMAIL = "EMAIL",
+  FACEBOOK = "FACEBOOK",
+  GITHUB = "GITHUB",
+  GOOGLE = "GOOGLE",
+  MICROSOFT = "MICROSOFT",
+}
+
 export enum State {
   RETURNED = "RETURNED",
   SOLVED = "SOLVED",

@@ -75,7 +75,7 @@ query getTasks{
 }
 `;
 
-export const GET_SESSION = gql`
+export const getSessionQuery = gql`
   query getSession {
     session {
       id
