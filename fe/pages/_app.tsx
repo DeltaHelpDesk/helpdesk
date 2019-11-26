@@ -41,7 +41,6 @@ class HelpDeskApp extends App<{}> {
                     <ApolloProvider client={client}>
                         <ThemeContainer>
                                 <Component {...pageProps} />
-                                <ScrollButton/>
                         </ThemeContainer>
                     </ApolloProvider>
                 </AuthContext.Provider>
