@@ -7,26 +7,24 @@ import { mdiWindows } from "@mdi/js";
 
 interface IMicrosoftButtonLoginProps {
     onClick: () => void;
+    className?: string;
 }
 
-const MicrosoftButtonLogin: SFC<IMicrosoftButtonLoginProps> = ({ onClick }) => {
+const MicrosoftButtonLogin: SFC<IMicrosoftButtonLoginProps> = ({ onClick, className = null }) => {
     return (
-        <div>
-            <div>
                 <Button
                     variant="contained"
                     size="large"
                     color="primary"
                     onClick={onClick}
-                    style={{ width: "25rem" }}>
+                    style={{ width: "25rem" }}
+                    className = {className}>
                     <Icon path={mdiWindows}
                         size={1}
                         color="white"
                     />
-                    {localisation.login.loginMicrosoft}
+                    {/* {localisation.login.loginMicrosoft} */}
                 </Button>
-            </div>
-        </div>
     );
 };
 

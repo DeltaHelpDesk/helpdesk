@@ -35,6 +35,15 @@ interface IUser {
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
     const useStyles = makeStyles(() => ({
+        button: {
+            borderRadius: "0px",
+        },
+
+        socialButton: {
+            margin: "0px 1%",
+            width: "30% !important",
+        },
+
         fbButton: {
             "backgroundColor": "#4267b2",
             "&:hover": {
@@ -47,6 +56,18 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
             "&:hover": {
                 backgroundColor: "#b12e1e",
             },
+        },
+
+        msButton: {
+            "backgroundColor": "#3ebede",
+            "&:hover": {
+                backgroundColor: "#007f9f",
+            },
+        },
+
+        title: {
+            fontWeight: "bold",
+            textTransform: "uppercase",
         }
 ,    }),
     );
@@ -240,6 +261,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 size="large"
                                 color="primary"
                                 style={{ width: "25rem" }}
+                                className={classes.button}
                                 onClick={handleFormSubmit}>
                                 <Icon path={mdiLogin}
                                     size={1}
@@ -248,7 +270,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 {localisation.login.login}
                             </Button>
                         </Grid>
-                        <Grid item={true}>
+                        <Grid item={true} style={{width: "100%"}}>
                             <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
                                 provider="google"
                                 onLoginSuccess={googleLoginSuccess}
@@ -259,16 +281,14 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     color="primary"
                                     size="large"
                                     style={{ width: "25rem"}}
-                                    className={classes.gglButton}>
+                                    className={`${classes.gglButton} ${classes.socialButton} ${classes.button}`}>
                                     <Icon path={mdiGoogle}
                                         size={1}
                                         color="white"
                                     />
-                                    {localisation.login.loginGoogle}
+                                    {/* {localisation.login.loginGoogle} */}
                                 </Button>
                             </SocialButton>
-                        </Grid>
-                        <Grid item={true}>
                             <SocialButton appId="515939249183955"
                                 provider="facebook"
                                 onLoginSuccess={facebookLoginSuccess}
@@ -279,17 +299,15 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     color="primary"
                                     size="large"
                                     style={{ width: "25rem" }}
-                                    className={classes.fbButton}>
+                                    className={`${classes.fbButton} ${classes.socialButton} ${classes.button}`}>
                                     <Icon path={mdiFacebook}
                                         size={1}
                                         color="white"
                                     />
-                                    {localisation.login.loginFacebook}
+                                    {/* {localisation.login.loginFacebook} */}
                                 </Button>
                             </SocialButton>
-                        </Grid>
-                        <Grid item={true}>
-                            <MicrosoftButtonLogin onClick={handleOfficeLogin} />
+                            <MicrosoftButtonLogin className={`${classes.msButton} ${classes.socialButton} ${classes.button}`} onClick={handleOfficeLogin} />
                         </Grid>
                     </Grid>
                 </Paper>
