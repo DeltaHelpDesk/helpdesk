@@ -102,9 +102,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
           }});
     };
 
-    return <>
-        <Board data={boardData} editable draggable handleDragEnd={handleCardChange} />
-    </>;
+    return <Board data={boardData} editable draggable handleDragEnd={handleCardChange} />;
 };
 
 export default TaskBoard;
