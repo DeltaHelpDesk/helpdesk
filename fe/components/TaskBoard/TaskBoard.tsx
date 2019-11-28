@@ -22,6 +22,7 @@ interface ICard {
     metadata?: {};
 }
 
+// tslint:disable-next-line: no-empty-interface
 interface IProps {}
 
 const TaskBoard: React.FunctionComponent<IProps> = () => {
@@ -37,7 +38,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
 
     const {tasks} = data;
 
-    let tasksCompleted: Array<ICard> = [];
+    let tasksCompleted: ICard[] = [];
     tasks.filter((x) => x.state === State.SOLVED)
         .map((x) => tasksCompleted = [
             ...tasksCompleted,
@@ -46,7 +47,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
                 description: x.issue,
                 label: DateFormatComponent.getFormattedDate(x.created_at, true),
                 draggable: true }]);
-    let tasksSolving: Array<ICard> = [];
+    let tasksSolving: ICard[] = [];
     tasks.filter((x) => x.state === State.SOLVING)
         .map((x) => tasksSolving = [
             ...tasksSolving,
@@ -56,7 +57,7 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
                 label: DateFormatComponent.getFormattedDate(x.created_at, true),
                 draggable: true,
             }]);
-    let tasksNotStarted: Array<ICard> = [];
+    let tasksNotStarted: ICard[] = [];
     tasks.filter((x) => x.state === State.UNRESOLVED)
         .map((x) => tasksNotStarted = [
             ...tasksNotStarted,
