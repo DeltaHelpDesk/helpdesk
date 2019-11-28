@@ -86,4 +86,3 @@ export const getSessionQuery = gql`
     }
   }
 `;
-

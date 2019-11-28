@@ -6,11 +6,11 @@ interface IDateProps {
     relative?: boolean;
 }
 
-const getFormattedDate = (date: string, relative = false) => { 
+const getFormattedDate = (date: string, relative = false) => {
     return relative
             ? moment(date).calendar()
-            : moment(date).format('DD/MM/YYYY, hh:mm');
-}
+            : moment(date).format("DD/MM/YYYY, hh:mm");
+};
 
 const DateFormatComponent: React.FunctionComponent<IDateProps> = ({ date, relative = false }) => {
 
