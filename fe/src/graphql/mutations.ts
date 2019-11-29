@@ -52,6 +52,33 @@ export const logoutMutation = gql`
   }
 `;
 
+export const updateTaskBoardQuery = gql`mutation changeTaskBoardState(
+    $taskId: ID!
+    $comment: String!
+    $state: State!
+  ) {
+    changeTaskState(
+      taskId: $taskId
+      comment: $comment
+      state: $state
+    ) {
+      id
+      subject
+      issue
+      author {
+        id
+        fullName
+      }
+      assignee {
+        id
+        fullName
+      }
+      created_at
+      updated_at
+      state
+    }
+  }`;
+
 export const loginEmailMutation = gql`
   mutation loginEmail($email: String!, $password: String!) {
     loginEmail(email: $email, password: $password) {
