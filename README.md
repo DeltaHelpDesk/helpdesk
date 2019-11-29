@@ -9,7 +9,7 @@ Written using NextJS.
 
 Backend | Frontend
 ------- | --------
-TODO | [![Build Status](https://semaphoreci.com/api/v1/deltahelpdesk/helpdesk/branches/nextjs/shields_badge.svg)](https://semaphoreci.com/deltahelpdesk/helpdesk)
+*ToDo* | [![Build Status](https://semaphoreci.com/api/v1/deltahelpdesk/helpdesk/branches/nextjs/shields_badge.svg)](https://semaphoreci.com/deltahelpdesk/helpdesk)
 
 ## Installation/Start
 
