@@ -17,7 +17,6 @@ const MicrosoftButtonLogin: SFC<IMicrosoftButtonLoginProps> = ({ onClick, classN
                     size="large"
                     color="primary"
                     onClick={onClick}
-                    style={{ width: "25rem" }}
                     className = {className}>
                     <Icon path={mdiWindows}
                         size={1}
