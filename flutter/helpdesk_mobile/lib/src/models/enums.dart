@@ -4,7 +4,7 @@ enum UserRole {
   SUPERADMIN
 }
 
-enum State {
+enum Status {
   UNRESOLVED,
   SOLVING,
   SOLVED,

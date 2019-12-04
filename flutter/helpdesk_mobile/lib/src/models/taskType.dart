@@ -10,7 +10,7 @@ class TaskType {
   UserType assignee;
   DateTime created_at;
   DateTime updated_at;
-  State state;
+  Status state;
   List<LogType> logs;
 
   TaskType();
@@ -35,10 +35,10 @@ class TaskType {
     task.state = json['state'] == null
         ? null
         : json['state'] == 'SOLVED'
-            ? State.SOLVED
+            ? Status.SOLVED
             : json['state'] == 'RETURNED'
-                ? State.RETURNED
-                : json['state'] == 'SOLVING' ? State.SOLVING : State.UNRESOLVED;
+                ? Status.RETURNED
+                : json['state'] == 'SOLVING' ? Status.SOLVING : Status.UNRESOLVED;
     task.logs = logs;
 
     return task;

@@ -6,7 +6,7 @@ void main() {
   final HttpLink httpLink = HttpLink(
     uri: "https://delta-helpdesk.herokuapp.com/graphql",
     headers: <String, String>{
-      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJhdXRoVHlwZSI6IkVNQUlMIiwiaXNzdWVkIjoiMjAxOS0xMS0xMVQyMjozMToyMC43ODVaIiwiaWF0IjoxNTczNTExNDgwLCJleHAiOjE1NzM2ODQyODB9.zrcygQ_ZpD2M0iJpJn1k5RtaJHsnee19E1oKqercLLU',
+      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJhdXRoVHlwZSI6IkVNQUlMIiwiaXNzdWVkIjoiMjAxOS0xMi0wNFQxMDo0OTozNC45ODhaIiwiaWF0IjoxNTc1NDU2NTc0LCJleHAiOjE1NzU2MjkzNzR9.UO5K2FLBwL2GXIXD2QvOLQBQ1q_VfgTL5bib1L-hDSs',
     },
   );
   final ValueNotifier<GraphQLClient> client = ValueNotifier(
