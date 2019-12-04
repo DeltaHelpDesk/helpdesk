@@ -15,6 +15,7 @@ import { AutoJobModule } from './autoJob/autojob.module';
 import { User } from './auth/user.entity';
 import { Task } from './task/task.entity';
 import { Log } from './task/log.entity';
+import { ClientConfigModule } from 'clientConfig/clientConfig.module';
 
 @Module({
     imports: [
@@ -45,6 +46,7 @@ import { Log } from './task/log.entity';
         LocalizationModule,
         TaskModule,
         AutoJobModule,
+        ClientConfigModule,
         TypeOrmModule.forFeature([User, Task, Log]),
     ],
     controllers: [AppController],
