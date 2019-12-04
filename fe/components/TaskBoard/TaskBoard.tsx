@@ -1,59 +1,114 @@
-import { FunctionComponent } from "react";
-import { Query, useQuery } from "react-apollo";
+import * as React from "react";
+import Board from "react-trello-for-timeline";
+import { useMutation } from "@apollo/react-hooks";
+// import "../../graphql/auth";
+import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from "../../src/graphql/auth";
+import Loading from "./../Loading/Loading";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
-import Loading from "../Loading/Loading";
-import { Grid, Paper, Divider, Typography } from "@material-ui/core";
-import TaskCard from "./TaskCard";
-import { State, ITask } from "../../src/graphql/types";
-import { getUsers } from "../../src/graphql/types/getUsers";
-import { getUsersQuery } from "../../src/graphql/queries";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
+import { getTasksQuery } from "../../src/graphql/queries";
+import { getFormattedDate } from "../Dates/DateFormatter";
+import { getTasks } from "../../src/graphql/types/getTasks";
+import { State } from "../../src/graphql/graphql-global-types";
+import { updateTaskBoardQuery } from "../../src/graphql/mutations";
 
-const TaskBoard: FunctionComponent = () => {
+interface ICard {
+    id: string;
+    title: string;
+    description: string;
+    label?: string;
+    draggable?: boolean;
+    metadata?: {};
+}
 
-    // const { loading, data, error } = useQuery<getUsers>(getUsersQuery);
+// tslint:disable-next-line: no-empty-interface
+interface IProps { }
 
-    return (
-        <Query query={GET_TASKS}>
-            {({ loading, error, data }: any) => {
-                if (loading) {
-                    return <Loading />;
-                }
-                if (error) {
-                    return <>Error! ${error.message}</>;
-                }
-                const tasks: ITask[] = data.tasks;
+const TaskBoard: React.FunctionComponent<IProps> = () => {
+    const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
+    const [changeTaskState, { error: errorMutation, data: dataMutation }] = useMutation<
+        { changeTaskState: ICard }>(updateTaskBoardQuery);
+    if (loading) {
+        return <Loading />;
+    }
+    if (error) {
+        return <> Error... </>;
+    }
 
-                return <>
-                    <Grid container={true}>
-                        <Grid item={true} xs={true} style={{ padding: "2rem" }}>
-                            <Paper style={{ background: "#ffffff", padding: "1rem" }}>
-                                <div><Typography variant="h6" component="h2">Nezapočaté</Typography></div>
-                                <Divider style={{ marginTop: ".5rem", marginBottom: ".5rem" }} />
+    const { tasks } = data;
 
-                                {tasks.map((x) => x.state === State.Unresolved && <TaskCard task={x} key={x.id} />)}
-                            </Paper>
-                        </Grid>
-                        <Grid item={true} xs={true} style={{ padding: "2rem" }}>
-                            <Paper style={{ background: "#ffffff", padding: "1rem" }}>
-                                <div><Typography variant="h6" component="h2">Započaté</Typography></div>
-                                <Divider style={{ marginTop: ".5rem", marginBottom: ".5rem" }} />
-                                {tasks.map((x) => x.state === State.Unresolved && <TaskCard task={x} key={x.id} />)}
-                            </Paper>
-                        </Grid>
-                        <Grid item={true} xs={true} style={{ padding: "2rem" }}>
-                            <Paper style={{ background: "#ffffff", padding: "1rem" }}>
-                                <div><Typography variant="h6" component="h2">Dokončené</Typography></div>
-                                <Divider style={{ marginTop: ".5rem", marginBottom: ".5rem" }} />
-                                {tasks.map((x) => x.state === State.Solved && <TaskCard task={x} key={x.id} />)}
-                            </Paper>
-                        </Grid>
-                    </Grid>
+    let tasksCompleted: ICard[] = [];
+    tasks.filter((x) => x.state === State.SOLVED)
+        .map((x) => tasksCompleted = [
+            ...tasksCompleted,
+            {
+                id: x.id,
+                title: x.subject,
+                description: x.issue,
+                label: getFormattedDate(x.created_at, true),
+                draggable: true,
+            }]);
+    let tasksSolving: ICard[] = [];
+    tasks.filter((x) => x.state === State.SOLVING)
+        .map((x) => tasksSolving = [
+            ...tasksSolving,
+            {
+                id: x.id,
+                title: x.subject,
+                description: x.issue,
+                label: getFormattedDate(x.created_at, true),
+                draggable: true,
+            }]);
+    let tasksNotStarted: ICard[] = [];
+    tasks.filter((x) => x.state === State.UNRESOLVED)
+        .map((x) => tasksNotStarted = [
+            ...tasksNotStarted,
+            {
+                id: x.id,
+                title: x.subject,
+                description: x.issue,
+                label: getFormattedDate(x.created_at, true),
+                draggable: true,
+            }]);
 
-                </>;
-            }}
-        </Query>
-    );
+    const boardData = {
+        lanes: [
+            {
+                id: "UNRESOLVED",
+                title: "Nezapočato",
+                cards: tasksNotStarted,
+            },
+            {
+                id: "SOLVING",
+                title: "Pracuje se na tom",
+                cards: tasksSolving,
+            },
+            {
+                id: "SOLVED",
+                title: "Dokončeno",
+                cards: tasksCompleted,
+            },
+        ],
+    };
 
+    const handleCardChange = async (
+        cardId: number,
+        sourceLaneId: string,
+        targetLaneId: string,
+        position: number,
+        cardDetails: any,
+        description: string) => {
+        const res = await changeTaskState({
+            variables: {
+                taskId: cardId,
+                comment: "TASK STATE CHANGED",
+                state: targetLaneId,
+            },
+        });
+    };
+
+    return <Board data={boardData} editable draggable handleDragEnd={handleCardChange} />;
 };
 
 export default TaskBoard;

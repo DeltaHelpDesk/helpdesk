@@ -81,7 +81,7 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
                     <DateFormatComponent date={created_at} relative={false} />
                 </TableCell>
                 <TableCell>
-                    <DateFormatComponent date={updated_at} relative={true} />
+                    <DateFormatComponent date={updated_at} relative={false} />
                 </TableCell>
                 {isAdmin && <TableCell>
                     <Button variant="contained" color="primary">
