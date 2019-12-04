@@ -92,6 +92,31 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
         ],
     };
 
+    // tslint:disable-next-line: no-shadowed-variable
+    const CustomCard = (ICard) => {
+        return (
+          <div>
+            <header
+              style={{
+                borderBottom: "1px solid #eee",
+                paddingBottom: 6,
+                marginBottom: 10,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}>
+              <div style={{fontSize: 14, fontWeight: "bold"}}>{ICard.title}</div>
+              <div style={{fontSize: 11}}>{ICard.label}</div>
+            </header>
+            <div style={{fontSize: 12, color: "#BD3B36"}}>
+              <div style={{padding: "5px 0px"}}>
+                <i>{ICard.description}</i>
+              </div>
+            </div>
+          </div>
+        );
+      };
+
     const handleCardChange = async (
         cardId: number,
         sourceLaneId: string,
@@ -108,7 +133,10 @@ const TaskBoard: React.FunctionComponent<IProps> = () => {
         });
     };
 
-    return <Board data={boardData} editable draggable handleDragEnd={handleCardChange} />;
+    return <Board data={boardData} customCardLayout laneDraggable={false}
+    draggable handleDragEnd={handleCardChange}>
+        <CustomCard />
+    </Board>;
 };
 
 export default TaskBoard;
