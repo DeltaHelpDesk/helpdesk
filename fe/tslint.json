@@ -1,25 +1,40 @@
 {
-  "extends": ["tslint:recommended"],
-  "linterOptions": {
-    "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js",
-      "src/graphql/types.ts",
-      "src/graphql/*.js",
-      "src/graphql/types.tsx"
-    ]
-  },
-  "rules": {
-    "member-access": [true, "no-public"],
-    "ordered-imports": [false],
-    "object-literal-sort-keys": false,
-    "no-console": false,
-    "jsx-no-lambda": false
-  },
-
-  "jsRules": {
-    "object-literal-sort-keys": false,
-    "no-console": false
-  }
+    "extends": [
+        "tslint:recommended"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "config/**/*.js",
+            "node_modules/**/*.ts",
+            "coverage/lcov-report/*.js",
+            "src/graphql/types.ts",
+            "src/graphql/*.js",
+            "src/graphql/types.tsx"
+        ]
+    },
+    "rules": {
+        "member-access": [
+            true,
+            "no-public"
+        ],
+        "ordered-imports": [
+            false
+        ],
+        "object-literal-sort-keys": false,
+        "no-console": false,
+        "jsx-no-lambda": false,
+        "max-line-length": [
+            true,
+            {
+                "limit": 120,
+                "ignore-pattern": "^import |^export {(.*?)} |className={* |style={{ *}}",
+                "check-strings": false,
+                "check-regex": false
+            }
+        ]
+    },
+    "jsRules": {
+        "object-literal-sort-keys": false,
+        "no-console": false
+    }
 }

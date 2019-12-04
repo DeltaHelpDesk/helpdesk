@@ -12,18 +12,17 @@ interface IMicrosoftButtonLoginProps {
 
 const MicrosoftButtonLogin: SFC<IMicrosoftButtonLoginProps> = ({ onClick, className = null }) => {
     return (
-                <Button
-                    variant="contained"
-                    size="large"
-                    color="primary"
-                    onClick={onClick}
-                    className = {className}>
-                    <Icon path={mdiWindows}
-                        size={1}
-                        color="white"
-                    />
-                    {/* {localisation.login.loginMicrosoft} */}
-                </Button>
+        <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            onClick={onClick}
+            className={className}>
+            <Icon path={mdiWindows}
+                size={1}
+                color="white"
+            />
+        </Button>
     );
 };
 

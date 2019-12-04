@@ -271,7 +271,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 {localisation.login.login}
                             </Button>
                         </Grid>
-                        <Grid item sm={12} style={{ width: "100%", paddingTop: "0px"}}>
+                        <Grid item sm={12} style={{ width: "100%", paddingTop: "0px" }}>
                             <Grid container={true} direction={"row"} alignItems={"stretch"}  >
                                 <Grid item sm>
                                     <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
@@ -289,7 +289,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                                 size={1}
                                                 color="white"
                                             />
-                                            {/* {localisation.login.loginGoogle} */}
                                         </Button>
                                     </SocialButton>
                                 </Grid>
@@ -308,7 +307,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                                 size={1}
                                                 color="white"
                                             />
-                                            {/* {localisation.login.loginFacebook} */}
                                         </Button>
                                     </SocialButton>
                                 </Grid>
