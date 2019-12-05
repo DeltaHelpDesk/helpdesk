@@ -25,6 +25,8 @@ type AuthenticatedUser {
     id: ID!
     fullName: String!
     email: String!
+    language: String!
+    theme: String,
     created_at: Date!
     updated_at: Date
     token: String!
@@ -43,7 +45,7 @@ type Mutation {
     loginEmail(email: String!, password: String!): AuthenticatedUser
     createUserEmail(email: String!, password: String!, fullName: String!, role: UserRole): User
     adminEditUser(userId: ID!, email: String, fullName: String, className: String, role: UserRole): User
-    editUser(email: String, fullName: String, className: String): User
+    editUser(email: String, fullName: String, className: String, language: String, theme: String): User
     removeUser(email: String!): Boolean
     logout: Boolean
 }

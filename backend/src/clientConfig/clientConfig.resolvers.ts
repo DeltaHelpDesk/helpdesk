@@ -5,16 +5,16 @@ import { ClientConfig } from './clientConfig.type';
 export class ClientConfigResolver {
     @Query('clientConfig')
     getConfig(): ClientConfig {
-        const config: ClientConfig = {
+        return {
             validation: {
                 taskSubjectMaxLength: 20,
                 taskIssueMaxLength: 100,
             },
+            // Default prefs
             preferencies: {
                 language: 'cs_CZ',
                 theme: 'light',
             },
         };
-        return config;
     }
 }
