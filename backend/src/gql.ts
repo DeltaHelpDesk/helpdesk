@@ -30,6 +30,8 @@ export class AuthenticatedUser {
     id: string;
     fullName: string;
     email: string;
+    language: string;
+    theme?: string;
     created_at: Date;
     updated_at?: Date;
     token: string;
@@ -61,7 +63,7 @@ export abstract class IMutation {
 
     abstract adminEditUser(userId: string, email?: string, fullName?: string, className?: string, role?: UserRole): User | Promise<User>;
 
-    abstract editUser(email?: string, fullName?: string, className?: string): User | Promise<User>;
+    abstract editUser(email?: string, fullName?: string, className?: string, language?: string, theme?: string): User | Promise<User>;
 
     abstract removeUser(email: string): boolean | Promise<boolean>;
 
