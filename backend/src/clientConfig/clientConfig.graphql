@@ -12,7 +12,7 @@ type Query {
     clientConfig: ClientConfig
 }
 
-type Preferencies{
+type Preferencies {
     language: String
     theme: String
 }

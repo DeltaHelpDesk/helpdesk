@@ -14,7 +14,7 @@ export class AuthResolvers {
 
     @UseGuards(GqlAuthGuard)
     @Query('session')
-    async getSession(@User() user: UserEntity) {
+    getSession(@User() user: UserEntity): UserEntity {
         return user;
     }
 
@@ -40,7 +40,7 @@ export class AuthResolvers {
         provider: AuthType,
         @Args('token')
         token: string,
-    ) {
+    ): Promise<UserEntity | undefined> {
         return await this.authService.loginExternal(provider, email, token, name);
     }
 
@@ -48,7 +48,7 @@ export class AuthResolvers {
     async loginOffice(
         @Args('token')
         token: string,
-    ) {
+    ): Promise<UserEntity | undefined> {
         return await this.authService.loginOffice(token);
     }
 
@@ -58,13 +58,13 @@ export class AuthResolvers {
         email: string,
         @Args('password')
         password: string,
-    ) {
+    ): Promise<UserEntity | undefined> {
         return await this.authService.loginEmail(email, password);
     }
 
     @UseGuards(GqlAuthGuard)
     @Mutation('logout')
-    async logout(@User() user: UserEntity) {
+    async logout(@User() user: UserEntity): Promise<boolean> {
         return await this.authService.logout(user);
     }
 
@@ -77,7 +77,7 @@ export class AuthResolvers {
         password: string,
         @Args('fullName')
         fullName: string,
-    ) {
+    ): Promise<UserEntity | undefined> {
         return await this.authService.createUserEmail(email, password, fullName);
     }
 
@@ -94,7 +94,7 @@ export class AuthResolvers {
         className: string,
         @Args('role')
         role: UserRole,
-    ) {
+    ): Promise<UserEntity | undefined> {
         return await this.authService.adminEditUser(userId, email, fullName, className, role);
     }
 
@@ -107,10 +107,14 @@ export class AuthResolvers {
         fullName: string,
         @Args('className')
         className: string,
+        @Args('language')
+        language: string,
+        @Args('theme')
+        theme: string,
         @User()
         currentUser: UserEntity,
-    ) {
-        return await this.authService.editUser(currentUser, email, fullName, className, currentUser.role);
+    ): Promise<UserEntity | undefined> {
+        return await this.authService.editUser(currentUser, email, fullName, className, language, theme, currentUser.role);
     }
 
     @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.SUPERADMIN))
@@ -120,7 +124,7 @@ export class AuthResolvers {
         email: string,
         @User()
         currentUser: UserEntity,
-    ) {
+    ): Promise<boolean> {
         return await this.authService.removeUser(email, currentUser);
     }
 }

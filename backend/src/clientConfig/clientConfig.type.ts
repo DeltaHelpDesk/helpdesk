@@ -12,10 +12,10 @@ export class Validation {
 @ObjectType()
 export class Preferencies {
     @Field(() => String)
-    language: String;
+    language: string;
 
     @Field(() => String)
-    theme: String;
+    theme: string;
 }
 
 @ObjectType()
@@ -26,5 +26,3 @@ export class ClientConfig {
     @Field(() => Preferencies)
     preferencies: Preferencies;
 }
-
-
