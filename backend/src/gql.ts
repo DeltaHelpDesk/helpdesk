@@ -30,10 +30,17 @@ export class AuthenticatedUser {
     id: string;
     fullName: string;
     email: string;
+    language: string;
+    theme?: string;
     created_at: Date;
     updated_at?: Date;
     token: string;
     role?: UserRole;
+}
+
+export class ClientConfig {
+    validation?: Validation;
+    preferencies?: Preferencies;
 }
 
 export class Log {
@@ -56,7 +63,7 @@ export abstract class IMutation {
 
     abstract adminEditUser(userId: string, email?: string, fullName?: string, className?: string, role?: UserRole): User | Promise<User>;
 
-    abstract editUser(email?: string, fullName?: string, className?: string): User | Promise<User>;
+    abstract editUser(email?: string, fullName?: string, className?: string, language?: string, theme?: string): User | Promise<User>;
 
     abstract removeUser(email: string): boolean | Promise<boolean>;
 
@@ -69,12 +76,19 @@ export abstract class IMutation {
     abstract deleteTask(taskId?: string): boolean | Promise<boolean>;
 }
 
+export class Preferencies {
+    language?: string;
+    theme?: string;
+}
+
 export abstract class IQuery {
     abstract session(): AuthenticatedUser | Promise<AuthenticatedUser>;
 
     abstract admins(): User[] | Promise<User[]>;
 
     abstract users(): User[] | Promise<User[]>;
+
+    abstract clientConfig(): ClientConfig | Promise<ClientConfig>;
 
     abstract tasks(): Task[] | Promise<Task[]>;
 
@@ -100,4 +114,9 @@ export class User {
     created_at: Date;
     updated_at?: Date;
     role?: UserRole;
+}
+
+export class Validation {
+    taskSubjectMaxLength?: number;
+    taskIssueMaxLength?: number;
 }

@@ -20,6 +20,12 @@ export class User {
     @Column({ length: 10, nullable: true })
     className?: string;
 
+    @Column({ length: 10, default: 'cs_CZ', nullable: false })
+    language: string;
+
+    @Column({ length: 10, nullable: true })
+    theme?: string;
+
     token?: string;
 
     @CreateDateColumn()

@@ -1,0 +1,18 @@
+type Validation {
+    taskSubjectMaxLength: Int
+    taskIssueMaxLength: Int
+}
+
+type ClientConfig {
+    validation: Validation
+    preferencies: Preferencies
+}
+
+type Query {
+    clientConfig: ClientConfig
+}
+
+type Preferencies {
+    language: String
+    theme: String
+}

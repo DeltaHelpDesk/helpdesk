@@ -91,8 +91,7 @@ export class AuthService {
             const userData = await graphClient
                 .api('/me')
                 .get();
-            // tslint:disable-next-line:no-console
-            // console.log(userData);
+
             const microsoftId: string | undefined = userData.id;
             if (!microsoftId) {
                 throw new HttpException(`Could not authorize, Microsoft graph didn't return id`, HttpStatus.UNAUTHORIZED);
@@ -100,9 +99,6 @@ export class AuthService {
             const mail: string | undefined = userData.mail || userData.userPrincipalName;
             if (!mail) {
                 throw new HttpException(`Could not authorize, Microsoft graph didn't return email`, HttpStatus.UNAUTHORIZED);
-            }
-            if (!this.checkEmailDomain(mail)) {
-                throw new HttpException(`Email is not on authorized domain`, HttpStatus.UNAUTHORIZED);
             }
             const fullName: string = userData.displayName;
 
@@ -180,10 +176,6 @@ export class AuthService {
         return user;
     }
 
-    checkEmailDomain(email: string): boolean {
-        return email.split('@')[1] === 'delta-studenti.cz';
-    }
-
     async removeUser(email: string, currentUser: User): Promise<boolean> {
         const user = await this.userRepository.findOne({ email });
         if (!user) {
@@ -215,17 +207,29 @@ export class AuthService {
         return await this.userRepository.find();
     }
 
-    async adminEditUser(userId: number, newEmail?: string, newFullName?: string, newClassName?: string, newRole?: UserRole)
-        : Promise<User | undefined> {
+    async adminEditUser(
+        userId: number,
+        newEmail?: string,
+        newFullName?: string,
+        newClassName?: string,
+        newRole?: UserRole,
+    ): Promise<User | undefined> {
         const user = await this.userRepository.findOne(userId);
         if (!user) {
             return undefined;
         }
-        return await this.editUser(user, newEmail, newFullName, newClassName, newRole);
+        return await this.editUser(user, newEmail, newFullName, newClassName, undefined, undefined, newRole);
     }
 
-    async editUser(user: User, newEmail?: string, newFullName?: string, newClassName?: string, newRole?: UserRole)
-        : Promise<User | undefined> {
+    async editUser(
+        user: User,
+        newEmail?: string,
+        newFullName?: string,
+        newClassName?: string,
+        newLang?: string,
+        newTheme?: string,
+        newRole?: UserRole,
+    ): Promise<User | undefined> {
         if (!user) {
             return undefined;
         }
@@ -238,6 +242,12 @@ export class AuthService {
         }
         if (newClassName) {
             user.className = newClassName;
+        }
+        if (newLang) {
+            user.language = newLang;
+        }
+        if (newTheme) {
+            user.theme = newTheme;
         }
         if (newRole) {
             user.role = newRole;
