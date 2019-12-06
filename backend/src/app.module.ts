@@ -15,7 +15,7 @@ import { AutoJobModule } from './autoJob/autojob.module';
 import { User } from './auth/user.entity';
 import { Task } from './task/task.entity';
 import { Log } from './task/log.entity';
-import { ClientConfigModule } from 'clientConfig/clientConfig.module';
+import { ClientConfigModule } from './clientConfig/clientConfig.module';
 
 @Module({
     imports: [
@@ -50,8 +50,6 @@ import { ClientConfigModule } from 'clientConfig/clientConfig.module';
         TypeOrmModule.forFeature([User, Task, Log]),
     ],
     controllers: [AppController],
-    providers: [
-        FakeDataService,
-    ],
+    providers: [FakeDataService],
 })
-export class AppModule { }
+export class AppModule {}
