@@ -1,7 +1,6 @@
-import * as React from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, FunctionComponent, ChangeEvent } from "react";
 import Router from "next/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const DarkModeSelect: React.FunctionComponent = () => {
+const DarkModeSelect: FunctionComponent = () => {
     const cookieHelper = new CookieHelper();
 
     const [theme, setTheme] = useState<string>("dark");
@@ -35,7 +34,7 @@ const DarkModeSelect: React.FunctionComponent = () => {
         setTheme(currentTheme);
     }, []);
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
         const value = event.target.value as string;
 
         cookieHelper.setTheme(value);

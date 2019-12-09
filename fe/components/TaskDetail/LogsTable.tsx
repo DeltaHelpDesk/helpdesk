@@ -5,7 +5,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import * as React from "react";
 import { ILog } from "../../src/graphql/types";
 
 const CustomTableCell = TableCell;

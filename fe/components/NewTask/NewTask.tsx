@@ -1,10 +1,9 @@
-﻿import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
+﻿import { Component, FormEvent, ChangeEvent } from "react";
+import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-
-import * as React from "react";
 import { Mutation, Query } from "react-apollo";
 import { ADD_TASK, ADMINS } from "./NewTaskQueries";
 import { GET_TASKS } from "../TaskList/TaskListQueries";
@@ -33,7 +32,7 @@ interface INewTaskProps {
 
 } // TODO: handle in better fashion
 
-class NewTask extends React.Component<INewTaskProps, INewTaskState> {
+class NewTask extends Component<INewTaskProps, INewTaskState> {
     constructor(props: INewTaskProps) {
         super(props);
         this.state = {
@@ -47,7 +46,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+    handleInputChange(e: FormEvent<HTMLInputElement>) {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
@@ -58,7 +57,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
             },
         }));
     }
-    handleSelectedEvent(e: React.ChangeEvent<HTMLSelectElement>) {
+    handleSelectedEvent(e: ChangeEvent<HTMLSelectElement>) {
         this.setState((previousState) => ({
             task: {
                 ...previousState.task,
@@ -66,7 +65,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
             },
         }));
     }
-    handleSubmit(e: React.FormEvent, callback: (variables: object) => void) {
+    handleSubmit(e: FormEvent, callback: (variables: object) => void) {
         e.preventDefault();
         callback({
             variables: {
@@ -104,7 +103,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
 
                                             <form
 
-                                                onSubmit={(e: React.FormEvent) => this.handleSubmit(e, addTask)}
+                                                onSubmit={(e: FormEvent) => this.handleSubmit(e, addTask)}
                                             >
                                                 <h2>Přidat požadavek</h2>
                                                 <TextField
@@ -117,7 +116,7 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     value={this.state.task.subject}
                                                     required={true}
                                                     onChange={(e) =>
-                                                        this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                                        this.handleInputChange(e as FormEvent<HTMLInputElement>)}
                                                 />
                                                 <TextField
                                                     id="filled-adornment-issue"
@@ -129,14 +128,14 @@ class NewTask extends React.Component<INewTaskProps, INewTaskState> {
                                                     value={this.state.task.issue}
                                                     required={true}
                                                     onChange={(e) =>
-                                                        this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                                        this.handleInputChange(e as FormEvent<HTMLInputElement>)}
                                                 />
 
                                                 <Select
                                                     value={this.state.task.assigne}
                                                     onChange={(e) =>
                                                         // tslint:disable-next-line: max-line-length
-                                                        this.handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
+                                                        this.handleSelectedEvent(e as ChangeEvent<HTMLSelectElement>)
                                                     }
                                                     name="assingne"
 

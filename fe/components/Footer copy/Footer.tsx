@@ -1,6 +1,3 @@
-
-import * as React from "react";
-
 import { Link } from "react-router-dom";
 import { Theme, createStyles, withStyles, WithStyles } from "@material-ui/core";
 

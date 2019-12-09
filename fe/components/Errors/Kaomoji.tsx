@@ -1,5 +1,4 @@
-import { FunctionComponent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FunctionComponent } from "react";
 
 const Kaomoji: FunctionComponent = () => {
 

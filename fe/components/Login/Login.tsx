@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, FunctionComponent } from "react";
+import { useState, useContext, useEffect, FunctionComponent, FormEvent } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { mdiLogin, mdiGoogle, mdiFacebook, mdiMicrosoft } from "@mdi/js";
+import { mdiLogin, mdiGoogle, mdiFacebook } from "@mdi/js";
 import Router from "next/router";
 import MicrosoftButtonLogin from "./MicrosoftButtonLogin";
 import { ReactAuthContext } from "../../src/graphql/auth";
@@ -79,7 +79,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
@@ -227,7 +227,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 value={filled && filled.name || ""}
                                 style={{ width: "25rem" }}
                                 className={" pb-5"}
-                                onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)} />
+                                onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)} />
                         </Grid>
                         <Grid item={true}>
                             <TextField
@@ -238,7 +238,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 autoComplete="current-password"
                                 label={localisation.login.password}
                                 value={filled && filled.password || ""}
-                                onChange={(e) => handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)}
                                 onKeyPress={handleKeywordKeyPress}
                                 style={{ width: "25rem" }}
                                 className={" pb-5"}

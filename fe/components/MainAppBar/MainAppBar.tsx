@@ -11,7 +11,7 @@ import localisation from "../../src/Locales/Localisations";
 import PersonIcon from "@material-ui/icons/Person";
 import { Theme, makeStyles, Grid } from "@material-ui/core";
 
-const MainAppBar: React.FunctionComponent<{}> = (props) => {
+const MainAppBar: FunctionComponent<{}> = (props) => {
     const useStyles = makeStyles(() => ({
         grow: {
             flexGrow: 1,
