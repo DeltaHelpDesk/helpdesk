@@ -4,6 +4,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Zoom from "@material-ui/core/Zoom";
+import getTheme from "../Themes/MainTheme";
 
 interface IProps {
     children: ReactElement;
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const ScrollTop: FunctionComponent<IProps> = ({ children }) => {
-    const classes = useStyles({});
+    const classes = useStyles(getTheme());
 
     const trigger = useScrollTrigger({
         disableHysteresis: true,
@@ -44,7 +45,7 @@ const ScrollButton = () => {
     return (
         <Fragment>
             <ScrollTop>
-                <Fab color="secondary" size="small" aria-label="scroll back to top">
+                <Fab color="primary" size="large" aria-label="scroll back to top">
                     <KeyboardArrowUpIcon />
                 </Fab>
             </ScrollTop>
