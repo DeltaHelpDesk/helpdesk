@@ -1,20 +1,16 @@
 import { Resolver, Query } from '@nestjs/graphql';
 import { ClientConfig } from './clientConfig.type';
+import { Defaults } from '../common/defaults';
 
 @Resolver('ClientConfig')
 export class ClientConfigResolver {
     @Query('clientConfig')
     getConfig(): ClientConfig {
         return {
-            validation: {
-                taskSubjectMaxLength: 20,
-                taskIssueMaxLength: 100,
-            },
+            // Validation config
+            validation: Defaults.GetValidation(),
             // Default prefs
-            preferencies: {
-                language: 'cs_CZ',
-                theme: 'light',
-            },
+            preferencies: Defaults.GetPreferences(),
         };
     }
 }

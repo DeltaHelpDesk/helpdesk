@@ -13,6 +13,16 @@ type Log {
     state: State
     assignee: User
 }
+
+type SubTask{
+    id: ID!
+    message: String!
+    completed: Boolean
+    completed_at: Date
+    task: Task!
+    created_at: Date!
+}
+
 type Task {
     id: ID!
     subject: String!
@@ -23,6 +33,7 @@ type Task {
     updated_at: Date
     state: State!
     logs: [Log]
+    subtasks: [SubTask]
 }
 
 type Query{
@@ -33,5 +44,8 @@ type Mutation {
     addTask(subject: String!, issue: String!, assigneeId: ID): Task
     changeTaskState(taskId: ID, comment: String, state: State, assigneeId: ID): Task
     deleteTask(taskId: ID): Boolean
+    addSubTask(taskId: ID!, message: String!): SubTask
+    changeSubTask(subTaskId: ID!, message: String, completed: Boolean): SubTask
+    deleteSubTask(subTaskId: ID!): Boolean
 }
 

@@ -16,6 +16,7 @@ import { User } from './auth/user.entity';
 import { Task } from './task/task.entity';
 import { Log } from './task/log.entity';
 import { ClientConfigModule } from './clientConfig/clientConfig.module';
+import { SubTask } from './task/subtask/subtask.entity';
 
 @Module({
     imports: [
@@ -29,6 +30,7 @@ import { ClientConfigModule } from './clientConfig/clientConfig.module';
             debug: true,
             introspection: true,
             playground: true,
+            // tracing: true,
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
@@ -47,9 +49,9 @@ import { ClientConfigModule } from './clientConfig/clientConfig.module';
         TaskModule,
         AutoJobModule,
         ClientConfigModule,
-        TypeOrmModule.forFeature([User, Task, Log]),
+        TypeOrmModule.forFeature([User, Task, Log, SubTask]),
     ],
     controllers: [AppController],
     providers: [FakeDataService],
 })
-export class AppModule {}
+export class AppModule { }

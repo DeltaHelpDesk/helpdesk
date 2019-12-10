@@ -7,6 +7,9 @@ export class Validation {
 
     @Field(() => Int)
     taskIssueMaxLength: number;
+
+    @Field(() => Int)
+    subtaskMaxLength: number;
 }
 
 @ObjectType()
