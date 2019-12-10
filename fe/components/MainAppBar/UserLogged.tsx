@@ -13,6 +13,7 @@ import localisation from "../../src/Locales/Localisations";
 import Router from "next/router";
 import customRoutes from "../../src/Routes";
 import Divider from "@material-ui/core/Divider";
+import { Grid } from "@material-ui/core";
 
 interface ILoggedInProps {
     logout: () => Promise<void> | undefined;
@@ -44,17 +45,19 @@ const UserLogged: FunctionComponent<ILoggedInProps> = ({ logout, user }) => {
                 onClose={handleClose}
                 style={{ backgroundColor: "#ffffff !important" }}
             >
-
                 <MenuItem style={{ height: "6rem" }}>
-
-                    <div className="row align-items-center">
-                        <div className="col-4">
-                            <Avatar>{GetFirstLetters(user.fullName)}</Avatar>
-                        </div>
-                        <div className="col-8 h6-responsive">
-                            {user.fullName}
-                        </div>
-                    </div>
+                    <Grid>
+                        <Grid item>
+                            <div className="row align-items-center">
+                                <div className="col-4">
+                                    <Avatar>{GetFirstLetters(user.fullName)}</Avatar>
+                                </div>
+                                <div className="col-8 h6-responsive">
+                                    {user.fullName}
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={() => { Router.push(customRoutes.settings); }}>
