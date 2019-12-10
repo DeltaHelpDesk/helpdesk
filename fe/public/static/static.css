@@ -1,0 +1,49 @@
+body {
+    margin: 0px !important;
+}
+
+.clear-button-chip {
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+    supported by Chrome and Opera */
+}
+
+.animated-transition {
+    transition: 0.5s;
+}
+
+.admin-card {
+    width: 15rem;
+    height: 15rem;
+}
+
+.text-desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 16px;
+    --lines-to-show: 6;
+    /* fallback */
+    max-height: calc(16px*var(--lines-to-show));
+    /* fallback */
+    -webkit-line-clamp: var(--lines-to-show);
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+}

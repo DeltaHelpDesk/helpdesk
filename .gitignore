@@ -83,3 +83,5 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 .env
+node_modules
+yarn-error.log

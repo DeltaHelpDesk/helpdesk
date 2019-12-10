@@ -7,6 +7,9 @@ Written using React. *Obsolete*
 ### NextJS frontend - /fe
 Written using NextJS.
 
+Backend | Frontend
+------- | --------
+*To-Do* | [![Build Status](https://semaphoreci.com/api/v1/deltahelpdesk/helpdesk/branches/nextjs/shields_badge.svg)](https://semaphoreci.com/deltahelpdesk/helpdesk)
 
 ## Installation/Start
 
@@ -82,6 +85,3 @@ Frontend team
 - backend
 - frontend
 - storybook (optional)
-
-#### TODO
- - [ ] https://circleci.com/hooks/github - Tests

@@ -1,50 +1,26 @@
-import gql from "graphql-tag";
-import client from './client';
-import * as React from 'react';
-import MicrosoftAuthService from '../services/microsoft';
+import client from "./client";
+import { createContext, useEffect, FunctionComponent, useState } from "react";
+import MicrosoftAuthService from "../services/microsoft";
+import Cookies from "universal-cookie";
+import { UserTokenCookieKey } from "../Global/Keys";
+import Router from "next/router";
+import customRoutes from "../Routes";
+import { AuthType } from "./types";
+import { loginEmailMutation, loginExternalMutation, loginOfficeMutation, logoutMutation } from "./mutations";
+import { getSessionQuery } from "./queries";
+
+const cookies = new Cookies();
 
 export const isLoggedIn = () => {
-  return !!lastToken;
+    return !!lastToken;
 };
 
-export let lastToken: string | null = localStorage.getItem('token');
-
-export const LOGOUT = gql`
-  mutation logout {
-    logout
-  }
-`;
-
-export const LOGIN_EMAIL = gql`
-  mutation loginEmail($email: String!, $password: String!) {
-    loginEmail(email: $email, password: $password) {
-      token
-    }
-  }
-`;
-export const LOGIN_OFFICE = gql`
-  mutation loginOffice($token: String!) {
-    loginOffice(token: $token) {
-      token
-    }
-  }
-`;
-export const GET_SESSION = gql`
-  query getSession {
-    session {
-      id
-      fullName
-      email
-      role
-      token
-    }
-  }
-`;
+export let lastToken: string | null = cookies.get(UserTokenCookieKey);
 
 export enum UserRole {
     DEFAULT = "DEFAULT",
     ADMIN = "ADMIN",
-    SUPERADMIN = "SUPERADMIN"
+    SUPERADMIN = "SUPERADMIN",
 }
 
 export interface IUser {
@@ -61,117 +37,216 @@ export const UserRoleAscendency = [
 ];
 
 export interface IAuthContextValue {
-  user: IUser | undefined;
-  officeToken: null | string;
-  token: null | string;
-  isLoggedIn: boolean;
-  loginByOffice: (token: string) => Promise<string> | undefined;
-  loginByEmail: (email: string, password: string) => Promise<string> | undefined;
-  doLoginOffice: () => Promise<string> | undefined;
-  logout: () => Promise<void> | undefined;
-  loading: boolean;
+    user: IUser | undefined;
+    officeToken: null | string;
+    token: null | string;
+    isLoggedIn: boolean;
+    loginExternal: (email: string, name: string, provider: AuthType, token: string) => Promise<string> | undefined;
+    loginByEmail: (email: string, password: string) => Promise<string> | undefined;
+    loginByMicrosoft: (token: string) => Promise<string> | undefined;
+    doLoginByMicrosoft: () => Promise<string> | undefined;
+    logout: () => Promise<void> | undefined;
+    loading: boolean;
 }
 
 export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
-    const requiredRoleIndex = UserRoleAscendency.findIndex(role => role === requiredUserRole);
-    const userRoleIndex = UserRoleAscendency.findIndex(role => role === userRole);
+    const requiredRoleIndex = UserRoleAscendency.findIndex((role) => role === requiredUserRole);
+    const userRoleIndex = UserRoleAscendency.findIndex((role) => role === userRole);
     return userRoleIndex >= requiredRoleIndex;
 }
 
-const defaultContextValue: IAuthContextValue = { officeToken: null, token: null, isLoggedIn: false, loginByOffice: () => undefined,  loginByEmail: () => undefined, doLoginOffice: () => undefined, user: undefined, loading: true, logout: () => undefined };
-export let lastContextValue: IAuthContextValue = defaultContextValue; // get last context value for things outside of react context, should not be used normally!!!!!!!!!
-export const ReactAuthContext = React.createContext<IAuthContextValue>(defaultContextValue);
+const defaultContextValue: IAuthContextValue = {
+    officeToken: null,
+    token: null,
+    isLoggedIn: false,
+    loginByEmail: () => undefined,
+    loginExternal: () => undefined,
+    loginByMicrosoft: () => undefined,
+    doLoginByMicrosoft: () => undefined,
+    user: undefined,
+    loading: true,
+    logout: () => undefined,
+};
 
-class AuthContextProvider extends React.Component<{}, IAuthContextValue> {
-  microsoftAuthService = new MicrosoftAuthService();
-  constructor(props: {}) {
-    super(props);
-    this.state = { ...defaultContextValue, loginByOffice: this.loginByOffice, loginByEmail: this.loginByEmail, doLoginOffice: this.doLoginOffice, logout: this.logout };
-  }
+// get last context value for things outside of react context, should not be used normally!!!!!!!!!
+export let lastContextValue: IAuthContextValue = defaultContextValue;
 
-  logout = async () => {
-    try {
-        await client.mutate({
-            mutation: LOGOUT,
+export const ReactAuthContext = createContext<IAuthContextValue>(defaultContextValue);
+
+const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) => {
+    // microsoftAuthService = new MicrosoftAuthService();
+
+    const loginByEmail = async (email: string, password: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
+            mutation: loginEmailMutation,
+            variables: {
+                email,
+                password,
+            },
         });
-    } catch {
-        /// Vynucení smazání tokenu
-    }
-    this.setToken(null);
+        setToken(loginByEmailQuery.token);
+        // await getSessionUser();
+        return loginByEmailQuery.token;
+    };
 
-    window.location.reload();
-  };
+    const loginExternal = async (email: string, name: string, provider: AuthType, token: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginExternal: loginByExternalQuery } }: any = await client.mutate({
+            mutation: loginExternalMutation,
+            variables: {
+                email,
+                name,
+                provider,
+                token,
+            },
+        });
+        setToken(loginByExternalQuery.token);
+        return loginByExternalQuery.token;
+    };
 
-  doLoginOffice = async () => {
-    await this.microsoftAuthService.login();
-    return await this.loginByOffice((await this.microsoftAuthService.getToken()) as string);
-  }
+    const doLoginByMicrosoft = async (): Promise<string> => {
+        const microsoftAuthService = new MicrosoftAuthService();
+        const acc = await microsoftAuthService.login();
+        const id = acc.accountIdentifier;
+        const email = acc.userName;
+        const name = acc.name;
+        return await loginExternal(email, name, AuthType.Microsoft, id);
+        // const res = await microsoftAuthService.getToken();
+        // if (!res) {
+        //     return "";
+        // }
+        // return await loginByMicrosoft(res.accessToken);
+    };
 
-  loginByOffice = async (token: string): Promise<string> => {
-    // tslint:disable-next-line:no-shadowed-variable
-    const { data: { loginOffice: loginByOfficeQuery } }: any = await client.mutate({
-      mutation: LOGIN_OFFICE,
-      variables: {
-        token
-      }
+    const loginByMicrosoft = async (token: string): Promise<string> => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const { data: { loginOffice: loginByOfficeQuery } }: any = await client.mutate({
+            mutation: loginOfficeMutation,
+            variables: {
+                token,
+            },
+        });
+        this.setToken(loginByOfficeQuery.token);
+        // this.getSessionUser();
+        return loginByOfficeQuery.token;
+    };
+
+    const logout = async () => {
+        try {
+            await client.mutate({
+                mutation: logoutMutation,
+            });
+        } catch {
+            /// Vynucení smazání tokenu
+        }
+        setToken(null);
+        try {
+            if (window) {
+                window.localStorage.setItem("logout", Date.now().toString());
+                window.location.reload();
+            } else {
+                Router.push(customRoutes.loginRoute);
+            }
+            // tslint:disable-next-line:no-empty
+        } catch {
+
+        }
+    };
+
+    const [state, setState] = useState<IAuthContextValue>({
+        ...props,
+        loginByEmail,
+        loginExternal,
+        doLoginByMicrosoft,
+        loginByMicrosoft,
+        logout,
+        user: defaultContextValue.user,
+        officeToken: defaultContextValue.officeToken,
+        token: lastToken,
+        isLoggedIn: !!lastToken,
+        // token: defaultContextValue.token,
+        // isLoggedIn: true, // defaultContextValue.isLoggedIn,
+        loading: defaultContextValue.loading,
     });
-    this.setToken(loginByOfficeQuery.token);
-    this.getSessionUser();
-    return loginByOfficeQuery.token;
-  };
 
-  loginByEmail = async (email: string, password: string): Promise<string> => {
-    // tslint:disable-next-line:no-shadowed-variable
-    const { data: { loginEmail: loginByEmailQuery } }: any = await client.mutate({
-      mutation: LOGIN_EMAIL,
-      variables: {
-        email,
-        password
-      }
-    });
-    this.setToken(loginByEmailQuery.token);
-    this.getSessionUser();
-    return loginByEmailQuery.token;
-  };
+    useEffect(() => {
+        const token = getToken();
+        if (token) {
+            setToken(token);
+            seeIfSessionIsValid();
+        }
+        setState({
+            ...state,
+            loading: false,
+        });
+        setInterval(seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
+        // tslint:disable-next-line:no-empty
+        return () => {
+        };
+    }, []);
 
-  getSessionUser = async (): Promise<IUser> => {
-    const { data: { session } }: any = await client.query({
-        query: GET_SESSION
-    });
-    this.setState({ user: session });
-    return session;
-  }
+    const getSessionUser = async (): Promise<IUser> => {
+        const { data: { session } }: any = await client.query({
+            query: getSessionQuery,
+        });
+        setState({
+            ...state,
+            user: session,
+        });
+        return session;
+    };
 
-  seeIfSessionIsValid = async () => {
-    try { await this.getSessionUser(); } catch(e) { this.setToken(undefined); }
-  }
+    const seeIfSessionIsValid = async () => {
+        try {
+            await getSessionUser();
+        } catch (e) {
+            setToken(undefined);
+        }
+    };
 
-  async componentDidMount() {
-    const token = localStorage.getItem('token');
-    if(token) {
-      this.setToken(token);
-      this.seeIfSessionIsValid();
-    }
-    this.setState({ loading: false });
-    setInterval(this.seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
-  }
+    const getToken = (): string | null => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const cookies = new Cookies();
+        const token: string | null = cookies.get(UserTokenCookieKey);
+        return token;
+    };
 
-  setToken = (token: string | undefined | null) => {
-    if(token) {
-      lastToken = token;
-      this.setState({ token, isLoggedIn: true, loading: false });
-      localStorage.setItem('token', token);
-    } else {
-      lastToken = null;
-      this.setState({ isLoggedIn: false, token: null, user: undefined });
-      localStorage.removeItem('token');
-    }
-  }
+    const setToken = (token: string | undefined | null) => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const cookies = new Cookies();
+        if (token) {
+            lastToken = token;
+            setState({
+                ...state,
+                token,
+                isLoggedIn: true,
+                loading: false,
+            });
 
-  render() {
-    lastContextValue = this.state;
-    return <ReactAuthContext.Provider value={this.state}>{this.props.children}</ReactAuthContext.Provider>;
-  }
-}
+            cookies.set(UserTokenCookieKey, token, { path: "/", maxAge: 60 * 60 * 24 });
+        } else {
+            lastToken = null;
+            setState({
+                ...state,
+                isLoggedIn: false,
+                token: null,
+                user: undefined,
+            });
 
-export const AuthContext = { Provider: AuthContextProvider, Consumer: ReactAuthContext.Consumer };
+            cookies.remove(UserTokenCookieKey);
+        }
+    };
+
+    lastContextValue = state;
+    return (
+        <ReactAuthContext.Provider value={state}>
+            {props.children}
+        </ReactAuthContext.Provider>
+    );
+};
+
+export const AuthContext = {
+    Provider: AuthContextProvider,
+    Consumer: ReactAuthContext.Consumer,
+};
