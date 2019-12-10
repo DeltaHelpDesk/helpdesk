@@ -1,5 +1,4 @@
-import React from "react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactElement, Fragment } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Fab from "@material-ui/core/Fab";
@@ -7,7 +6,7 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Zoom from "@material-ui/core/Zoom";
 
 interface IProps {
-    children: React.ReactElement;
+    children: ReactElement;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,13 +42,13 @@ const ScrollTop: FunctionComponent<IProps> = ({ children }) => {
 
 const ScrollButton = () => {
     return (
-        <React.Fragment>
+        <Fragment>
             <ScrollTop>
                 <Fab color="secondary" size="small" aria-label="scroll back to top">
                     <KeyboardArrowUpIcon />
                 </Fab>
             </ScrollTop>
-        </React.Fragment>
+        </Fragment>
     );
 };
 

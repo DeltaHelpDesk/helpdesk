@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 /* import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem"; */
-import * as React from "react";
+import { Component, FormEvent } from "react";
 import { Mutation } from "react-apollo";
 import { ADD_USER } from "./NewUserQueries";
 import { withRouter, RouteComponentProps } from "react-router";
@@ -20,7 +20,7 @@ interface INewUserState {
 
 type NewUserProps = RouteComponentProps; // TODO: handle in better fashion
 
-class NewUser extends React.Component<NewUserProps, INewUserState> {
+class NewUser extends Component<NewUserProps, INewUserState> {
     constructor(props: NewUserProps) {
         super(props);
         this.state = {
@@ -34,7 +34,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+    handleInputChange(e: FormEvent<HTMLInputElement>) {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
 
@@ -46,7 +46,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
         }));
     }
 
-    handleSubmit(e: React.FormEvent, callback: (variables: object) => void) {
+    handleSubmit(e: FormEvent, callback: (variables: object) => void) {
         e.preventDefault();
         callback({
             variables: {
@@ -72,7 +72,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                             {(addUser: any) => (
                                 <form
 
-                                    onSubmit={(e: React.FormEvent) => this.handleSubmit(e, addUser)}
+                                    onSubmit={(e: FormEvent) => this.handleSubmit(e, addUser)}
                                 >
                                     <h2>Přidat uživatele</h2>
                                     <TextField
@@ -84,7 +84,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                                         type="text"
                                         value={this.state.user.fullName}
                                         required={true}
-                                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                        onChange={(e) => this.handleInputChange(e as FormEvent<HTMLInputElement>)}
                                     />
                                     <TextField
                                         id="filled-adornment-issue"
@@ -95,7 +95,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                                         type="text"
                                         value={this.state.user.email}
                                         required={true}
-                                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                        onChange={(e) => this.handleInputChange(e as FormEvent<HTMLInputElement>)}
                                     />
                                     <TextField
                                         id="filled-adornment-subject"
@@ -106,7 +106,7 @@ class NewUser extends React.Component<NewUserProps, INewUserState> {
                                         type="password"
                                         value={this.state.user.password}
                                         required={true}
-                                        onChange={(e) => this.handleInputChange(e as React.FormEvent<HTMLInputElement>)}
+                                        onChange={(e) => this.handleInputChange(e as FormEvent<HTMLInputElement>)}
                                     />
                                     <Button variant="contained" type="submit" color="primary" >
                                         Přidat

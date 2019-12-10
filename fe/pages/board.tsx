@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Component } from "react";
 import Layout from "../components/Layouts/Layout";
 import TaskBoard from "../components/TaskBoard/TaskBoard";
 import { UserRole } from "../src/graphql/auth";
@@ -9,7 +9,7 @@ interface IProps {
 
 }
 
-class Board extends React.Component<IProps> {
+class Board extends Component<IProps> {
 
     render() {
         return <>

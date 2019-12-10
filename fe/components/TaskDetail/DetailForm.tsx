@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent, FormEvent, ChangeEvent } from "react";
 import { TextField, Select, MenuItem, Button } from "@material-ui/core";
 import { useState } from "react";
 import { TASK_DETAIL } from "./TaskDetailQueries";
@@ -11,17 +11,17 @@ interface IProps {
     taskState: string;
 }
 
-const DetailForm: React.FC<IProps> = (props) => {
+const DetailForm: FunctionComponent<IProps> = (props) => {
     const [taskComment, setComment] = useState<string>();
     const [taskState, setState] = useState<string>(props.taskState);
 
-    const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
         setComment(e.currentTarget.value);
     };
-    const handleSelectedEvent = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleSelectedEvent = (e: ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value);
     };
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>, callback: (variables: object) => void) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>, callback: (variables: object) => void) => {
         e.preventDefault();
         callback({
             variables: {
@@ -47,12 +47,12 @@ const DetailForm: React.FC<IProps> = (props) => {
                         type="text"
                         value={taskComment || ""}
                         required={false}
-                        onChange={(e) => handleCommentChange(e as React.ChangeEvent<HTMLInputElement>)}
+                        onChange={(e) => handleCommentChange(e as ChangeEvent<HTMLInputElement>)}
                     />
                     <Select
                         value={taskState}
                         onChange={(e) =>
-                            handleSelectedEvent(e as React.ChangeEvent<HTMLSelectElement>)
+                            handleSelectedEvent(e as ChangeEvent<HTMLSelectElement>)
                         }
                         name="assingne"
                     >

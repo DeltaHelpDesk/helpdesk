@@ -1,4 +1,3 @@
-import * as React from "react";
 import Layout from "../components/Layouts/Layout";
 import { NextPage } from "next";
 import NewTask from "../components/NewTask/NewTask";

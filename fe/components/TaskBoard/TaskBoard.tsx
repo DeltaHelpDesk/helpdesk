@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import Board from "react-trello-for-timeline";
 import { useMutation } from "@apollo/react-hooks";
 // import "../../graphql/auth";
@@ -25,7 +25,7 @@ interface ICard {
 // tslint:disable-next-line: no-empty-interface
 interface IProps { }
 
-const TaskBoard: React.FunctionComponent<IProps> = () => {
+const TaskBoard: FunctionComponent<IProps> = () => {
     const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
     const [changeTaskState, { error: errorMutation, data: dataMutation }] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);

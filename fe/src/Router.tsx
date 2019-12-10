@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Component } from "react";
 import { Router, Switch, Route, BrowserRouter } from "react-router-dom";
 import Login from "../components/Login/Login";
 import AdministrationContainer from "../components/Administration/AdministrationContainer";
@@ -16,7 +16,7 @@ import { createMemoryHistory } from "history";
 
 const history = createMemoryHistory();
 
-class MainRouter extends React.Component<{}> {
+class MainRouter extends Component<{}> {
     render() {
         return (
             <Router history={history}>

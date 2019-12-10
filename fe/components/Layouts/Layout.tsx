@@ -67,31 +67,22 @@ interface IProps {
     title?: string;
 }
 
-const Layout: FunctionComponent<IProps> = ({
-    children,
-    title = "Helpdesk",
-}) => {
+const Layout: FunctionComponent<IProps> = ({ children, title = "Helpdesk" }) => {
     const classes = useStyles(getTheme());
 
-    return <>
-        <div>
-            <Head>
-                <title>{title} - Helpdesk</title>
+    return <div>
+        <Head>
+            <title>{title} - Helpdesk</title>
+        </Head>
+        <header>
+            <MainAppBar />
+        </header>
+        <main className={classes.content}>
+            <div className={classes.toolbar} />
+            {children}
 
-            </Head>
-            <header>
-                <MainAppBar />
-            </header>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                {children}
-
-            </main>
-            {/* <div style={{ marginTop: "10rem" }}>
-                {children}
-            </div> */}
-        </div>
-    </>;
+        </main>
+    </div>;
 };
 
 export default Layout;

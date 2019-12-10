@@ -1,7 +1,6 @@
-import * as React from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, ChangeEvent, FunctionComponent } from "react";
 import Router from "next/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const LanguageSelect: React.FunctionComponent = () => {
+const LanguageSelect: FunctionComponent = () => {
 
     const [language, setLanguage] = useState<ILangOption>({ lang: "cs", name: "Čeština" });
 
@@ -34,7 +33,7 @@ const LanguageSelect: React.FunctionComponent = () => {
         setLanguage(currentLang);
     }, []);
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
         const value = event.target.value as string;
         const l = langs.find((x) => x.lang === value);
 

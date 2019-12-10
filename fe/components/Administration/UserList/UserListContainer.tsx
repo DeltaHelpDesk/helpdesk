@@ -1,11 +1,11 @@
-import * as React from "react";
+import { FunctionComponent, useContext } from "react";
 import { Table, TableHead, TableRow, TableCell, TableBody, Paper, Fade } from "@material-ui/core";
 import { ReactAuthContext, checkUserRole, UserRole } from "../../../src/graphql/auth";
 import UserList from "./UserList";
 
-const UserListContainer: React.FunctionComponent = () => {
+const UserListContainer: FunctionComponent = () => {
 
-    const { user: logged } = React.useContext(ReactAuthContext);
+    const { user: logged } = useContext(ReactAuthContext);
 
     const isAdmin = !!logged && checkUserRole(logged.role, UserRole.ADMIN);
 
