@@ -33,3 +33,17 @@ body {
     width: 15rem;
     height: 15rem;
 }
+
+.text-desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 16px;
+    --lines-to-show: 6;
+    /* fallback */
+    max-height: calc(16px*var(--lines-to-show));
+    /* fallback */
+    -webkit-line-clamp: var(--lines-to-show);
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+}

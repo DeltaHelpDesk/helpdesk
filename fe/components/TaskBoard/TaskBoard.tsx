@@ -1,17 +1,13 @@
-import { FunctionComponent } from "react";
 import Board from "react-trello-for-timeline";
 import { useMutation } from "@apollo/react-hooks";
-// import "../../graphql/auth";
-import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from "../../src/graphql/auth";
 import Loading from "./../Loading/Loading";
-import { GET_TASKS } from "../TaskList/TaskListQueries";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { getTasksQuery } from "../../src/graphql/queries";
 import { getFormattedDate } from "../Dates/DateFormatter";
-import { getTasks } from "../../src/graphql/types/getTasks";
+import { getTasks, getTasks_tasks } from "../../src/graphql/types/getTasks";
 import { State } from "../../src/graphql/graphql-global-types";
 import { updateTaskBoardQuery } from "../../src/graphql/mutations";
+import { FunctionComponent } from "react";
 
 interface ICard {
     id: string;
@@ -20,14 +16,17 @@ interface ICard {
     label?: string;
     draggable?: boolean;
     metadata?: {};
+    onClick?: (id: string) => void;
 }
 
 // tslint:disable-next-line: no-empty-interface
-interface IProps { }
+interface IProps {
+    showDetail?: (task: getTasks_tasks) => void;
+ }
 
-const TaskBoard: FunctionComponent<IProps> = () => {
+const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
     const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
-    const [changeTaskState, { error: errorMutation, data: dataMutation }] = useMutation<
+    const [changeTaskState] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);
     if (loading) {
         return <Loading />;
@@ -37,6 +36,19 @@ const TaskBoard: FunctionComponent<IProps> = () => {
     }
 
     const { tasks } = data;
+
+    const onClicked = (id: string) => {
+
+        const task = tasks.find((x) => x.id === id);
+
+        if (!task) {
+            return;
+        }
+
+        if (showDetail) {
+            showDetail(task);
+        }
+    };
 
     let tasksCompleted: ICard[] = [];
     tasks.filter((x) => x.state === State.SOLVED)
@@ -48,6 +60,7 @@ const TaskBoard: FunctionComponent<IProps> = () => {
                 description: x.issue,
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
+                onClick: onClicked,
             }]);
     let tasksSolving: ICard[] = [];
     tasks.filter((x) => x.state === State.SOLVING)
@@ -59,6 +72,7 @@ const TaskBoard: FunctionComponent<IProps> = () => {
                 description: x.issue,
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
+                onClick: onClicked,
             }]);
     let tasksNotStarted: ICard[] = [];
     tasks.filter((x) => x.state === State.UNRESOLVED)
@@ -70,6 +84,7 @@ const TaskBoard: FunctionComponent<IProps> = () => {
                 description: x.issue,
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
+                onClick: onClicked,
             }]);
 
     const boardData = {
@@ -93,8 +108,9 @@ const TaskBoard: FunctionComponent<IProps> = () => {
     };
 
     const CustomCard = (x: any) => {
+        const {id, description, title, label = "", onClick}: ICard = x;
         return (
-            <div>
+            <div onClick={() => { onClick(id); }}>
                 <header
                     style={{
                         borderBottom: "1px solid #eee",
@@ -104,12 +120,12 @@ const TaskBoard: FunctionComponent<IProps> = () => {
                         flexDirection: "row",
                         justifyContent: "space-between",
                     }}>
-                    <div style={{ fontSize: 14, fontWeight: "bold" }}>{x.title}</div>
-                    <div style={{ fontSize: 11 }}>{x.label}</div>
+                    <div style={{ fontSize: 14, fontWeight: "bold" }}>{title}</div>
+                    <div style={{ fontSize: 11 }}>{label}</div>
                 </header>
                 <div style={{ fontSize: 12, color: "#BD3B36" }}>
-                    <div style={{ padding: "5px 0px" }}>
-                        <i>{x.description}</i>
+                    <div style={{ padding: "5px 0px" }} className="text-desc">
+                        <i style={{whiteSpace: "normal"}}>{description}</i>
                     </div>
                 </div>
             </div>
