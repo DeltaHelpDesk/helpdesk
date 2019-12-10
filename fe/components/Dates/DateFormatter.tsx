@@ -8,8 +8,13 @@ interface IDateProps {
 
 export const getFormattedDate = (date: string, relative = false) => {
     return relative
-        ? moment(date).calendar()
-        : moment(date).format("DD/MM/YYYY, hh:mm");
+        ? moment(date).calendar(null, {
+            sameDay: "[Dnes]",
+            lastDay: "[Včera]",
+            lastWeek: "[Minulý týden]",
+            sameElse: "DD.MM.YYYY",
+        })
+        : moment(date).format("DD.MM.YYYY, hh:mm");
 };
 
 const DateFormatComponent: FunctionComponent<IDateProps> = ({ date, relative }) => {
@@ -20,8 +25,13 @@ const DateFormatComponent: FunctionComponent<IDateProps> = ({ date, relative }) 
 
     useEffect(() => {
         const dateString: string = relative
-            ? moment(date).calendar()
-            : moment(date).format("DD/MM/YYYY, hh:mm");
+            ? moment(date).calendar(null, {
+                sameDay: "[Dnes]",
+                lastDay: "[Včera]",
+                lastWeek: "[Minulý] dddd",
+                sameElse: "DD.MM.YYYY",
+            })
+            : moment(date).format("DD.MM.YYYY, hh:msm");
         setDateMoment(dateString);
     });
 
