@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:helpdesk_mobile/src/models/taskType.dart';
+import '../components/taskList/sections.dart';
 
 class TaskList extends StatelessWidget {
-  final String tasks = r''' query abcd{
+  final String tasks = r''' query getTasks{
       tasks {
         id
         subject
@@ -78,13 +77,13 @@ class TaskList extends StatelessWidget {
         }
 
         var tasks = result.data['tasks'];
-        //return Text(result.data['tasks'].toString());
-        return ListView.builder(
-            itemCount: tasks.length,
-            itemBuilder: (BuildContext context, int index) {
-              var task = TaskType.fromJson(tasks[index]);
-              return Text(task.id);
-            });
+        var parsedTasks = List<TaskType>();
+        tasks.forEach((task) => parsedTasks.add(TaskType.fromJson(task)));
+        return SafeArea(
+          child: Sections(
+            tasks: parsedTasks,
+          ),
+        );
       },
     );
   }

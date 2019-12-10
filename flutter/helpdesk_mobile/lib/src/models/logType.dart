@@ -6,7 +6,7 @@ class LogType {
   UserType author;
   DateTime created_at;
   String comment;
-  State state;
+  Status state;
   UserType assignee;
 
   LogType.fromJson(Map<String, dynamic> json)
@@ -19,9 +19,9 @@ class LogType {
         state = json['state'] == null
         ? null
         : json['state'] == 'SOLVED'
-            ? State.SOLVED
+            ? Status.SOLVED
             : json['state'] == 'RETURNED'
-                ? State.RETURNED
-                : json['state'] == 'SOLVING' ? State.SOLVING : State.UNRESOLVED,
+                ? Status.RETURNED
+                : json['state'] == 'SOLVING' ? Status.SOLVING : Status.UNRESOLVED,
         assignee = UserType.fromJson(json['assignee']);
 }

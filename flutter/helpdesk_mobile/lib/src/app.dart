@@ -13,14 +13,6 @@ class HelpdeskApp extends StatelessWidget {
         title: 'Helpdesk - Delta',
         theme: ThemeData.light(),
         home: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            tooltip: "Create new task",
-            onPressed: () {
-              print("New task");
-            },
-            child: Icon(Icons.add),
-            backgroundColor: Colors.grey,
-          ),
           body: TaskList(),
         ),
       ),
