@@ -5,7 +5,7 @@ import * as faker from 'faker';
 import * as bcrypt from 'bcrypt';
 import { User } from './auth/user.entity';
 import { Task } from './task/task.entity';
-import { Log } from './task/log.entity';
+import { Log } from './task/log/log.entity';
 import { TaskState } from './task/taskState.enum';
 import { UserRole } from './auth/userRole.enum';
 import { SubTask } from './task/subtask/subtask.entity';

@@ -2,6 +2,7 @@ type Validation {
     taskSubjectMaxLength: Int!
     taskIssueMaxLength: Int!
     subtaskMaxLength: Int!
+    commentMaxLength: Int!
 }
 
 type ClientConfig {

@@ -136,4 +136,5 @@ export class Validation {
     taskSubjectMaxLength: number;
     taskIssueMaxLength: number;
     subtaskMaxLength: number;
+    commentMaxLength: number;
 }

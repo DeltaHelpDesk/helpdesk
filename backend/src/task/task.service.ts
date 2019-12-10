@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
-import { Log } from './log.entity';
+import { Log } from './log/log.entity';
 import { UserRole, checkUserRole } from '../auth/userRole.enum';
 
 @Injectable()
