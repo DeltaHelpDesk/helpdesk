@@ -74,7 +74,7 @@ export class SubTaskService {
         if (!subTask) {
             throw new HttpException(`SubTask with id: ${subTaskId} not found`, HttpStatus.NOT_FOUND);
         }
-        await this.taskRepository.delete(subTaskId);
+        await this.subRepository.delete(subTaskId);
         return true;
     }
 

@@ -43,6 +43,14 @@ export class ClientConfig {
     preferencies: Preferencies;
 }
 
+export class Comment {
+    id: string;
+    author: User;
+    created_at: Date;
+    updated_at: Date;
+    message: string;
+}
+
 export class Log {
     id: string;
     author: User;
@@ -80,6 +88,12 @@ export abstract class IMutation {
     abstract changeSubTask(subTaskId: string, message?: string, completed?: boolean): SubTask | Promise<SubTask>;
 
     abstract deleteSubTask(subTaskId: string): boolean | Promise<boolean>;
+
+    abstract addComment(taskId: string, message: string): Comment | Promise<Comment>;
+
+    abstract changeComment(commentId: string, message?: string): Comment | Promise<Comment>;
+
+    abstract deleteComment(subTaskId: string): boolean | Promise<boolean>;
 }
 
 export class Preferencies {
@@ -121,6 +135,7 @@ export class Task {
     state: State;
     logs?: Log[];
     subtasks?: SubTask[];
+    comments?: Comment[];
 }
 
 export class User {

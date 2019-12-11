@@ -14,6 +14,14 @@ type Log {
     assignee: User
 }
 
+type Comment {
+    id: ID!
+    author: User!
+    created_at: Date!
+    updated_at: Date!
+    message: String!
+}
+
 type SubTask{
     id: ID!
     message: String!
@@ -34,6 +42,7 @@ type Task {
     state: State!
     logs: [Log]
     subtasks: [SubTask]
+    comments: [Comment]
 }
 
 type Query{
@@ -47,5 +56,8 @@ type Mutation {
     addSubTask(taskId: ID!, message: String!): SubTask
     changeSubTask(subTaskId: ID!, message: String, completed: Boolean): SubTask
     deleteSubTask(subTaskId: ID!): Boolean
+    addComment(taskId: ID!, message: String!): Comment
+    changeComment(commentId: ID!, message: String): Comment
+    deleteComment(subTaskId: ID!): Boolean
 }
 
