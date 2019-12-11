@@ -17,7 +17,8 @@
     "copy-mysql": "ncp ../dckr/env/mysql-example.env ../dckr/env/mysql.env",
     "copy-sql": "ncp ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ../dckr/mysql/docker-entrypoint-initdb.d/createdb.sql",
     "copy-env": "cpx \"/local.env-example\" \"/local.env\" -u",
-    "begin": "ncp local.env-example local.env"
+    "begin": "ncp local.env-example local.env",
+    "typescript": "tsc -p ./tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
     "@microsoft/microsoft-graph-client": "^2.0.0",
@@ -45,6 +46,7 @@
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
+    "tsc": "^1.20150623.0",
     "type-graphql": "^0.17.5",
     "typeorm": "^0.2.7",
     "typescript": "^3.6.3",
