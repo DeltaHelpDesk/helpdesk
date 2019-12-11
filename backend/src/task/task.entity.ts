@@ -1,7 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
-import { Log } from './log.entity';
+import { Log } from './log/log.entity';
+import { SubTask } from './subtask/subtask.entity';
+import { Comment } from './comment/comment.entity';
 
 @Entity()
 export class Task {
@@ -29,9 +31,15 @@ export class Task {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @Column({default: TaskState.UNRESOLVED})
+    @Column({ default: TaskState.UNRESOLVED })
     state: TaskState;
 
     @OneToMany(type => Log, log => log.task, { eager: true })
     logs: Log[];
+
+    @OneToMany(type => SubTask, subtask => subtask.task, { eager: true })
+    subtasks: SubTask[];
+
+    @OneToMany(type => Comment, x => x.task, { eager: true })
+    comments: Comment[];
 }

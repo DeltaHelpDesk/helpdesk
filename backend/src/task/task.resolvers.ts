@@ -13,7 +13,7 @@ import { FilterOnRoleOrUserInterceptor } from '../auth/filterOnRoleOrUser.interc
 @UseGuards(GqlAuthGuard)
 @Resolver('Task')
 export class TaskResolvers {
-    constructor(private readonly taskService: TaskService) {}
+    constructor(private readonly taskService: TaskService) { }
 
     @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue', 'logs'], UserRole.ADMIN, 'authorId'))
     @Query('tasks')
@@ -40,14 +40,14 @@ export class TaskResolvers {
         assigneeId: number,
         @User()
         author: UserEntity,
-    ): Promise<Task> {
+    ): Promise<Task | undefined> {
         if (!subject) {
             throw new HttpException('subject', HttpStatus.BAD_REQUEST);
         }
         if (!issue) {
             throw new HttpException('issue', HttpStatus.BAD_REQUEST);
         }
-        return await this.taskService.addTask({author, issue, assigneeId, subject});
+        return await this.taskService.addTask(author, issue, subject, assigneeId);
     }
 
     @Mutation('changeTaskState')

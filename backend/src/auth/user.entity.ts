@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { Task } from '../task/task.entity';
 import { UserRole } from './userRole.enum';
 import { LoginToken } from './loginToken.entity';
+import { Task } from '../task/task.entity';
+import { Comment } from '../task/comment/comment.entity';
 
 @Entity()
 export class User {
@@ -34,11 +35,14 @@ export class User {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @OneToMany(type => Task, task => task.author)
+    @OneToMany(type => Task, x => x.author)
     createdTasks: Task[];
 
-    @OneToMany(type => Task, task => task.assignee)
+    @OneToMany(type => Task, x => x.assignee)
     assignedTasks: Task[];
+
+    @OneToMany(type => Comment, x => x.author)
+    createdComments: Comment[];
 
     @OneToMany(type => LoginToken, token => token.owner)
     loginTokens: Promise<LoginToken[]>;

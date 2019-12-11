@@ -3,13 +3,19 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
-import { Log } from './log.entity';
+import { Log } from './log/log.entity';
 import { TaskResolvers } from './task.resolvers';
 import { User } from '../auth/user.entity';
+import { Comment } from './comment/comment.entity';
+import { SubtaskModule } from './subtask/subtask.module';
+import { CommentModule } from './comment/comment.module';
+
 @Module({
     imports: [
         AuthModule,
-        TypeOrmModule.forFeature([User, Task, Log]),
+        SubtaskModule,
+        CommentModule,
+        TypeOrmModule.forFeature([User, Task, Log, Comment]),
     ],
     providers: [
         TaskService,

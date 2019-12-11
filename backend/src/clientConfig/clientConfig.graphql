@@ -1,18 +1,20 @@
 type Validation {
-    taskSubjectMaxLength: Int
-    taskIssueMaxLength: Int
+    taskSubjectMaxLength: Int!
+    taskIssueMaxLength: Int!
+    subtaskMaxLength: Int!
+    commentMaxLength: Int!
 }
 
 type ClientConfig {
-    validation: Validation
-    preferencies: Preferencies
+    validation: Validation!
+    preferencies: Preferencies!
 }
 
 type Query {
-    clientConfig: ClientConfig
+    clientConfig: ClientConfig!
 }
 
 type Preferencies {
-    language: String
-    theme: String
+    language: String!
+    theme: String!
 }

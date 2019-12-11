@@ -4,8 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
-import { Log } from './log.entity';
+import { Log } from './log/log.entity';
 import { UserRole, checkUserRole } from '../auth/userRole.enum';
+import { Defaults } from '../common/defaults';
 
 @Injectable()
 export class TaskService {
@@ -27,9 +28,32 @@ export class TaskService {
         return await this.taskRepository.find();
     }
 
-    async addTask(taskData: { author: User, issue: string, assigneeId?: number, subject?: string }): Promise<Task> {
-        const assignee = await this.userRepository.findOne(taskData.assigneeId);
-        const task = this.taskRepository.create({ ...taskData, assignee });
+    async addTask(author: User, issue: string, subject: string, assigneeId?: number): Promise<Task | undefined> {
+        const assignee = await this.userRepository.findOne(assigneeId);
+
+        return await this.addTaskP(author, issue, assignee, subject);
+    }
+
+    private async addTaskP(author: User, issue: string, assignee: User | undefined, subject: string): Promise<Task | undefined> {
+        if (!author || !issue || !subject) {
+            return undefined;
+        }
+
+        const subjectMaxLength = Defaults.taskSubjectMaxLength;
+        const issueMaxLength = Defaults.taskIssueMaxLength;
+        if (subject.length > subjectMaxLength) {
+            throw new HttpException(`Subject is longer than max length (${subjectMaxLength})`, HttpStatus.BAD_REQUEST);
+        }
+        if (issue.length > issueMaxLength) {
+            throw new HttpException(`Issue is longer than max length (${issueMaxLength})`, HttpStatus.BAD_REQUEST);
+        }
+
+        const task = this.taskRepository.create({
+            author,
+            assignee,
+            issue,
+            subject,
+        });
         return await this.taskRepository.save(task);
     }
 

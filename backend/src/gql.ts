@@ -39,8 +39,16 @@ export class AuthenticatedUser {
 }
 
 export class ClientConfig {
-    validation?: Validation;
-    preferencies?: Preferencies;
+    validation: Validation;
+    preferencies: Preferencies;
+}
+
+export class Comment {
+    id: string;
+    author: User;
+    created_at: Date;
+    updated_at: Date;
+    message: string;
 }
 
 export class Log {
@@ -74,11 +82,23 @@ export abstract class IMutation {
     abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string): Task | Promise<Task>;
 
     abstract deleteTask(taskId?: string): boolean | Promise<boolean>;
+
+    abstract addSubTask(taskId: string, message: string): SubTask | Promise<SubTask>;
+
+    abstract changeSubTask(subTaskId: string, message?: string, completed?: boolean): SubTask | Promise<SubTask>;
+
+    abstract deleteSubTask(subTaskId: string): boolean | Promise<boolean>;
+
+    abstract addComment(taskId: string, message: string): Comment | Promise<Comment>;
+
+    abstract changeComment(commentId: string, message?: string): Comment | Promise<Comment>;
+
+    abstract deleteComment(subTaskId: string): boolean | Promise<boolean>;
 }
 
 export class Preferencies {
-    language?: string;
-    theme?: string;
+    language: string;
+    theme: string;
 }
 
 export abstract class IQuery {
@@ -95,16 +115,27 @@ export abstract class IQuery {
     abstract task(id?: string): Task | Promise<Task>;
 }
 
+export class SubTask {
+    id: string;
+    message: string;
+    completed?: boolean;
+    completed_at?: Date;
+    task: Task;
+    created_at: Date;
+}
+
 export class Task {
     id: string;
     subject: string;
-    issue?: string;
+    issue: string;
     author: User;
     assignee?: User;
     created_at: Date;
     updated_at?: Date;
     state: State;
     logs?: Log[];
+    subtasks?: SubTask[];
+    comments?: Comment[];
 }
 
 export class User {
@@ -117,6 +148,8 @@ export class User {
 }
 
 export class Validation {
-    taskSubjectMaxLength?: number;
-    taskIssueMaxLength?: number;
+    taskSubjectMaxLength: number;
+    taskIssueMaxLength: number;
+    subtaskMaxLength: number;
+    commentMaxLength: number;
 }
