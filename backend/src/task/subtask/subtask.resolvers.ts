@@ -1,10 +1,10 @@
-import { UseGuards, HttpStatus, HttpException } from '@nestjs/common';
-import { GqlAuthGuard } from 'auth/gqlAuth.guard';
-import { SubTaskService } from './subtask.service';
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { UseGuards, HttpStatus, HttpException } from '@nestjs/common';
+import { GqlAuthGuard } from '../../auth/gqlAuth.guard';
+import { SubTaskService } from './subtask.service';
 import { SubTask } from './subtask.entity';
-import { GqlRoleGuard } from 'auth/gqlRole.guard';
-import { UserRole } from 'auth/userRole.enum';
+import { GqlRoleGuard } from '../../auth/gqlRole.guard';
+import { UserRole } from '../../auth/userRole.enum';
 
 @UseGuards(GqlAuthGuard)
 @Resolver('SubTask')

@@ -1,9 +1,9 @@
 import { UseGuards, HttpStatus, HttpException } from '@nestjs/common';
-import { GqlAuthGuard } from 'auth/gqlAuth.guard';
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { GqlRoleGuard } from 'auth/gqlRole.guard';
+import { GqlAuthGuard } from '../../auth/gqlAuth.guard';
+import { GqlRoleGuard } from '../../auth/gqlRole.guard';
 import { User } from '../../auth/user.param.decorator';
-import { UserRole } from 'auth/userRole.enum';
+import { UserRole } from '../../auth/userRole.enum';
 import { CommentService } from './comment.service';
 import { Comment } from './comment.entity';
 import { User as UserEntity } from '../../auth/user.entity';
