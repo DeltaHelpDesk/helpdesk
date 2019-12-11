@@ -19,22 +19,22 @@ export class CommentService {
 
     async addComment(message: string, authorId: number, taskId: number): Promise<Comment | undefined> {
         if (!taskId) {
-            return undefined;
+            throw new HttpException('Task id is missing', HttpStatus.BAD_REQUEST);
         }
         const task = await this.taskRepository.findOne({ id: taskId });
         if (!task) {
-            return undefined;
+            throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
         }
         return await this.addCommentP(message, authorId, task);
     }
 
     private async addCommentP(message: string, authorId: number, task: Task): Promise<Comment | undefined> {
         if (!authorId) {
-            return undefined;
+            throw new HttpException('Author id is missing', HttpStatus.BAD_REQUEST);
         }
         const author = await this.userRepository.findOne({ id: authorId });
         if (!author) {
-            return undefined;
+            throw new HttpException('Author not found', HttpStatus.NOT_FOUND);
         }
         return await this.addCommentPp(message, author, task);
     }
@@ -59,11 +59,11 @@ export class CommentService {
 
     async changeComment(commentId: number, message?: string): Promise<Comment | undefined> {
         if (!commentId) {
-            return undefined;
+            throw new HttpException('Comment id is missing', HttpStatus.BAD_REQUEST);
         }
         const comment = await this.commentRepository.findOne({ id: commentId });
         if (!comment) {
-            return undefined;
+            throw new HttpException('Comment not found', HttpStatus.NOT_FOUND);
         }
         if (message) {
             const maxLength = Defaults.commentMaxLength;
@@ -77,6 +77,10 @@ export class CommentService {
     }
 
     async deleteComment(commentId: number): Promise<boolean> {
+        if (!commentId) {
+            throw new HttpException('Comment id is missing', HttpStatus.BAD_REQUEST);
+        }
+
         const comment = await this.commentRepository.findOne(commentId);
         if (!comment) {
             throw new HttpException(`Comment with id: ${commentId} not found`, HttpStatus.NOT_FOUND);

@@ -16,11 +16,11 @@ export class SubTaskService {
 
     async addSubTask(message: string, taskId: number): Promise<SubTask | undefined> {
         if (!taskId) {
-            return undefined;
+            throw new HttpException('Task id is missing', HttpStatus.BAD_REQUEST);
         }
         const task = await this.taskRepository.findOne({ id: taskId });
         if (!task) {
-            return undefined;
+            throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
         }
         return await this.addSubTaskP(message, task);
     }
@@ -45,11 +45,11 @@ export class SubTaskService {
 
     async changeSubTaskState(subTaskId: number, message?: string, completed?: boolean): Promise<SubTask | undefined> {
         if (!subTaskId) {
-            return undefined;
+            throw new HttpException('Subtask id is missing', HttpStatus.BAD_REQUEST);
         }
         const subTask = await this.subRepository.findOne({ id: subTaskId });
         if (!subTask) {
-            return undefined;
+            throw new HttpException('Subtask not found', HttpStatus.NOT_FOUND);
         }
         if (message) {
             const maxLength = Defaults.taskSubjectMaxLength;
