@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from '../task.entity';
 import { SubTask } from './subtask.entity';
-import { Defaults } from 'common/defaults';
+import { Defaults } from '../../common/defaults';
 
 @Injectable()
 export class SubTaskService {
