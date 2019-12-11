@@ -1,0 +1,45 @@
+version: v1.0
+name: Node JS
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Frontend
+    task:
+      jobs:
+        - name: yarn lint
+          commands:
+            - yarn lint
+        - name: yarn typescript
+          commands:
+            - yarn typescript
+        - name: yarn build
+          commands:
+            - yarn build
+      prologue:
+        commands:
+          - sem-version node 8
+          - checkout
+          - cd fe
+          - yarn install
+    dependencies: []
+  - name: Backend
+    dependencies: []
+    task:
+      jobs:
+        - name: yarn lint
+          commands:
+            - yarn lint
+        - name: yarn typescript
+          commands:
+            - yarn typescript
+        - name: yarn build
+          commands:
+            - yarn build
+      prologue:
+        commands:
+          - sem-version node 8
+          - checkout
+          - cd backend
+          - yarn install
