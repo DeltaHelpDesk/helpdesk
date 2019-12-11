@@ -7,9 +7,7 @@ Written using React. *Obsolete*
 ### NextJS frontend - /fe
 Written using NextJS.
 
-Backend | Frontend
-------- | --------
-[![Build Status](https://semaphoreci.com/api/v1/deltahelpdesk/helpdesk_backend/branches/dev/badge.svg)](https://semaphoreci.com/deltahelpdesk/helpdesk_backend) | [![Build Status](https://semaphoreci.com/api/v1/deltahelpdesk/helpdesk_frontend/branches/dev/badge.svg)](https://semaphoreci.com/deltahelpdesk/helpdesk_frontend)
+[![Build Status](https://helpdesk.semaphoreci.com/badges/helpdesk/branches/dev.svg)](https://helpdesk.semaphoreci.com/projects/helpdesk)
 
 ## Installation/Start
 
