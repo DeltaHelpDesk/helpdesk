@@ -13,7 +13,7 @@ import localisation from "../../src/Locales/Localisations";
 import Router from "next/router";
 import customRoutes from "../../src/Routes";
 import Divider from "@material-ui/core/Divider";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 interface ILoggedInProps {
     logout: () => Promise<void> | undefined;
@@ -22,6 +22,7 @@ interface ILoggedInProps {
 
 const UserLogged: FunctionComponent<ILoggedInProps> = ({ logout, user }) => {
 
+    const { fullName } = user;
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -48,14 +49,22 @@ const UserLogged: FunctionComponent<ILoggedInProps> = ({ logout, user }) => {
                 <MenuItem style={{ height: "6rem" }}>
                     <Grid>
                         <Grid item>
-                            <div className="row align-items-center">
-                                <div className="col-4">
-                                    <Avatar>{GetFirstLetters(user.fullName)}</Avatar>
-                                </div>
-                                <div className="col-8 h6-responsive">
-                                    {user.fullName}
-                                </div>
-                            </div>
+                            <Grid container={true} justify={"space-around"} alignItems={"center"} spacing={2}>
+                                <Grid item={true}>
+                                    <Avatar style={{
+                                        width: 60,
+                                        height: 60,
+                                    }}>
+                                        {GetFirstLetters(fullName)}
+                                    </Avatar>
+
+                                </Grid>
+                                <Grid item={true}>
+                                    <Typography variant={"h6"}>
+                                        {fullName}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </MenuItem>

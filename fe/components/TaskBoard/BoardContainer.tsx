@@ -9,8 +9,19 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
 
+    const handleScroll = () => {
+        const anchor = (document).querySelector(
+            "#task-detail-box",
+        );
+
+        if (anchor) {
+            anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    };
+
     const handleClickTask = (clicked: getTasks_tasks) => {
         setTask(clicked);
+        handleScroll();
     };
 
     return <>
@@ -18,11 +29,11 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
             <Grid container direction="row" spacing={2}>
                 <Grid item xs={6}>
                     <div className="no-select">
-                        <TaskBoard showDetail={handleClickTask}  />
+                        <TaskBoard showDetail={handleClickTask} />
                     </div>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper style={{ padding: "2rem" }}>
+                    <Paper style={{ padding: "2rem" }} id="task-detail-box">
                         <TaskDetail task={task} />
                     </Paper>
                 </Grid>

@@ -8,6 +8,7 @@ import { getTasks, getTasks_tasks } from "../../src/graphql/types/getTasks";
 import { State } from "../../src/graphql/graphql-global-types";
 import { updateTaskBoardQuery } from "../../src/graphql/mutations";
 import { FunctionComponent } from "react";
+import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 
 interface ICard {
     id: string;
@@ -110,25 +111,29 @@ const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
     const CustomCard = (x: any) => {
         const {id, description, title, label = "", onClick}: ICard = x;
         return (
-            <div onClick={() => { onClick(id); }}>
-                <header
-                    style={{
-                        borderBottom: "1px solid #eee",
-                        paddingBottom: 6,
-                        marginBottom: 10,
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                    }}>
-                    <div style={{ fontSize: 14, fontWeight: "bold" }}>{title}</div>
-                    <div style={{ fontSize: 11 }}>{label}</div>
-                </header>
-                <div style={{ fontSize: 12, color: "#BD3B36" }}>
-                    <div style={{ padding: "5px 0px" }} className="text-desc">
-                        <i style={{whiteSpace: "normal"}}>{description}</i>
+            <Tooltip title="Kliknutím zobrazíte detail">
+            <Paper style={{padding: "0.7rem"}}>
+            <div onClick={() => { onClick(id); }} >
+                <Grid container direction="column">
+                    <Grid item>
+                        <Typography variant="subtitle1" color="textPrimary">{title}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="caption">{label}</Typography>
+                        <Divider/>
+                    </Grid>
+                </Grid>
+                <div style={{ fontSize: 12 }}>
+                    <div style={{ padding: "5px 0px" }} >
+                        <Typography variant="body2"  className="text-desc" style={{whiteSpace: "normal"}}>
+                            {description}
+                        </Typography>
+                        {/* <i style={{whiteSpace: "normal"}}></i> */}
                     </div>
                 </div>
             </div>
+            </Paper>
+            </Tooltip>
         );
     };
 
