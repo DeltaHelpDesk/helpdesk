@@ -8,6 +8,7 @@ import theme from "../src/theme";
 import { MuiThemeProvider } from "@material-ui/core";
 import ThemeContainer from "../components/Themes/ThemeProvider";
 import ScrollButton from "../components/ScrollTop/ScrollTop";
+import SnowComponent from "../components/Snow/SnowComponent";
 
 class HelpDeskApp extends App<{}> {
 
@@ -25,9 +26,10 @@ class HelpDeskApp extends App<{}> {
 
         const { Component, pageProps } = this.props;
 
-        return (
+        return <>
+            <SnowComponent />
             <HeadComponent>
-                <ScrollButton/>
+                <ScrollButton />
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
                         <ThemeContainer>
@@ -36,7 +38,7 @@ class HelpDeskApp extends App<{}> {
                     </ApolloProvider>
                 </AuthContext.Provider>
             </HeadComponent>
-        );
+        </>;
     }
 
 }

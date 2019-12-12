@@ -10,6 +10,7 @@ import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 import PersonIcon from "@material-ui/icons/Person";
 import { Theme, makeStyles, Grid } from "@material-ui/core";
+import Logo from "./Logo/Logo";
 
 const MainAppBar: FunctionComponent<{}> = (props) => {
     const useStyles = makeStyles(() => ({
@@ -64,11 +65,7 @@ const MainAppBar: FunctionComponent<{}> = (props) => {
         <CssBaseline />
         <AppBar position="fixed" >
             <Toolbar >
-                <Link href="/">
-                    <div style={{ cursor: "pointer" }}>
-                        <img src="/static/logo_new.png" className={classes.menuLogo} />
-                    </div>
-                </Link>
+                <Logo />
                 <div className={classes.grow} />
                 <Typography variant="body1" component="div">
                     <Grid container
