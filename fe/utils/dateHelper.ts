@@ -1,4 +1,4 @@
-class DateHelper {
+export default class DateHelper {
 
     isChristmasTime = (): boolean => {
         const today = new Date();
@@ -20,5 +20,3 @@ class DateHelper {
         return (today > from && today < to);
     }
 }
-
-export default DateHelper;

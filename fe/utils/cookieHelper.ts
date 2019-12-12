@@ -1,6 +1,6 @@
 import Cookies from "universal-cookie";
 
-class CookieHelper {
+export default class CookieHelper {
     static getDefaultTheme = (): string => "dark";
 
     cookies = new Cookies();
@@ -21,5 +21,3 @@ class CookieHelper {
     }
 
 }
-
-export default CookieHelper;
