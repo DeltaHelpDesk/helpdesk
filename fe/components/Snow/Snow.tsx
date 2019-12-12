@@ -1,7 +1,8 @@
+import { FunctionComponent } from "react";
 import S from "react-snow-effect";
 import DateHelper from "../../utils/dateHelper";
 
-const Snow: React.FunctionComponent<{}> = () => {
+const Snow: FunctionComponent<{}> = () => {
 
     const dateHelper = new DateHelper();
     const isChristmasTime = dateHelper.isChristmasTime();
