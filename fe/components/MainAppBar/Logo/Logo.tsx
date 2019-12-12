@@ -9,8 +9,6 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-
-
 const Logo: React.FunctionComponent<{}> = () => {
     const dateHelper = new DateHelper();
 
@@ -22,7 +20,6 @@ const Logo: React.FunctionComponent<{}> = () => {
 
     const styles = useStyles({});
 
-
     return <>
         <Link href="/">
             <div style={{ cursor: "pointer" }}>
@@ -32,8 +29,6 @@ const Logo: React.FunctionComponent<{}> = () => {
             </div>
         </Link>
     </>;
-
-
 };
 
 export default Logo;
