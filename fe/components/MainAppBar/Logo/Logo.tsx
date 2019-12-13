@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import DateHelper from "../../../utils/dateHelper";
 import { Link, makeStyles } from "@material-ui/core";
 
@@ -9,23 +9,23 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Logo: React.FunctionComponent<{}> = () => {
+const Logo: FunctionComponent<{}> = () => {
     const dateHelper = new DateHelper();
 
     const isXmasTime = dateHelper.isChristmasTime();
 
     const isPrideMonth = dateHelper.isPrideMonth();
 
-    const defaultLogo = (!isXmasTime && !isPrideMonth);
-
     const styles = useStyles({});
+
+    const url = isPrideMonth ? "/static/logos/logo_new.png" :
+                isXmasTime ? "/static/logos/christmas_logo.png" :
+                /* Default */ "/static/logos/logo_new.png";
 
     return <>
         <Link href="/">
             <div style={{ cursor: "pointer" }}>
-                {defaultLogo && <img src="/static/logos/logo_new.png" className={styles.menuLogo} />}
-                {isPrideMonth && <img src="/static/logos/logo_new.png" className={styles.menuLogo} />}
-                {isXmasTime && <img src="/static/logos/christmas_logo.png" className={styles.menuLogo} />}
+                <img src={url} className={styles.menuLogo} />
             </div>
         </Link>
     </>;
