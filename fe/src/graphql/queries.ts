@@ -55,6 +55,43 @@ export const taskDetailQuery = gql`
     }
 `;
 
+export const getTaskDetail = gql`
+query GetTaskDetail($id: ID!) {
+  task(id: $id) {
+    subject
+    issue
+    author {
+      fullName
+    }
+    created_at
+    updated_at
+    state
+    comments {
+      author {
+        fullName
+      }
+      created_at
+      updated_at
+      message
+    }
+  }
+}
+`;
+
+export const getTaskComments = gql`
+query GetTaskComments($id: ID!) {
+  task(id: $id) {
+    comments {
+      author {
+        fullName
+      }
+      created_at
+      updated_at
+      message
+    }
+  }
+}`;
+
 export const getTasksQuery = gql`
 query getTasks{
   tasks {

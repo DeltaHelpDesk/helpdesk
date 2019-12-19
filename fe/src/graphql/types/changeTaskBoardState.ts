@@ -24,7 +24,7 @@ export interface changeTaskBoardState_changeTaskState {
   __typename: "Task";
   id: string;
   subject: string;
-  issue: string | null;
+  issue: string;
   author: changeTaskBoardState_changeTaskState_author;
   assignee: changeTaskBoardState_changeTaskState_assignee | null;
   created_at: any;

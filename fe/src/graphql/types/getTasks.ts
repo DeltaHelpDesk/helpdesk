@@ -24,7 +24,7 @@ export interface getTasks_tasks {
   __typename: "Task";
   id: string;
   subject: string;
-  issue: string | null;
+  issue: string;
   state: State;
   created_at: any;
   author: getTasks_tasks_author;

@@ -3,6 +3,8 @@ import { Typography, Box, TextField, Grid, Divider, Fade } from "@material-ui/co
 import { getTasks_tasks } from "../../src/graphql/types/getTasks";
 import { useEffect } from "react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import CommentsContainer from "./CommentsContainer";
+import AddCommentComponent from "./AddComment";
 
 interface IProps {
     task?: getTasks_tasks;
@@ -28,14 +30,14 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
         </>;
     }
 
-    const { subject, state, issue } = task;
+    const { subject, state, issue, id } = task;
 
     return <>
         <Fade in={true}>
             <Grid container direction="column" spacing={4}>
                 <Grid item xs={12}>
                     <Typography variant="h3">
-                        Detail {subject}
+                        Detail - {subject}
                     </Typography>
                     <Divider />
                 </Grid>
@@ -51,6 +53,10 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                         value={issue}
                     />
                 </Grid>
+                <Grid item xs={12}>
+                    <CommentsContainer taskId={id} />
+                </Grid>
+                
             </Grid>
         </Fade>
     </>;
