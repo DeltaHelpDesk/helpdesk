@@ -1,14 +1,15 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import path from 'path';
 
 @Injectable()
 export class LocalizationService {
     getLocalization(lang: string, ns: string) {
+        const path = require('path');
+
         if (!lang) {
             lang = 'cs';
         }
         if (!ns) {
-            lang = 'translations';
+            ns = 'translations';
         }
         if (!(/^[A-Za-z\-]+$/m.test(lang))) {
             throw new HttpException('Bad lang string', HttpStatus.BAD_REQUEST);
@@ -18,7 +19,7 @@ export class LocalizationService {
         }
         let localization: any;
         try {
-            localization = require(path.resolve('./localizations', lang , `${ns}.json`));
+            localization = require(path.resolve('./src/localization/localizations', lang, `${ns}.json`));
         } catch (error) {
             localization = require('./localizations/cs/translations.json');
         }
