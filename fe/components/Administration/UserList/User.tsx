@@ -6,13 +6,14 @@ import { DELETE_USER, GET_USER } from "./UserListQueries";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { GET_TASKS } from "../../TaskList/TaskListQueries";
-import { IUser } from "../../../src/graphql/types";
+import { IUser, UserRole } from "../../../src/graphql/types";
 import DateFormatComponent from "../../Dates/DateFormatter";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getUsers_users } from "../../../src/graphql/types/getUsers";
+import RoleIcon from "../../RoleIcon/RoleIcon";
 
 interface IUserComponentProps {
-    user?: IUser | getUsers_users;
+    user?: getUsers_users;
     isAdmin: boolean;
 }
 
@@ -75,7 +76,7 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
                     {email}
                 </TableCell>
                 <TableCell>
-                    {role}
+                    <RoleIcon role={role} />
                 </TableCell>
                 <TableCell>
                     <DateFormatComponent date={created_at} relative={false} />
