@@ -9,6 +9,11 @@ Written using NextJS.
 
 [![Build Status](https://helpdesk.semaphoreci.com/badges/helpdesk/branches/dev.svg)](https://helpdesk.semaphoreci.com/projects/helpdesk)
 
+## Quick links
+
+    - [Frontend](https://delta-nextjs.herokuapp.com/)
+    - [Backend](https://delta-helpdesk.herokuapp.com/)
+
 ## Installation/Start
 
 ### Backend
