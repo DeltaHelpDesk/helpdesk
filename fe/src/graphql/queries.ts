@@ -84,6 +84,7 @@ export const getTaskComments = gql`
 query GetTaskComments($id: ID!) {
   task(id: $id) {
     comments {
+      id
       author {
         fullName
         role

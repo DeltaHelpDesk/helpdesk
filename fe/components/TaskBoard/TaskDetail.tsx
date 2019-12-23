@@ -172,7 +172,7 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                                 </div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                        <ExpansionPanel>
+                        {/* <ExpansionPanel>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"
@@ -181,11 +181,9 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <div style={{ width: "100%" }}>
-
                                 </div>
                             </ExpansionPanelDetails>
-                        </ExpansionPanel>
-
+                        </ExpansionPanel> */}
                     </div>
                 </Grid>
             </Grid>

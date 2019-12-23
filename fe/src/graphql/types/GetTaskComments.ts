@@ -16,6 +16,7 @@ export interface GetTaskComments_task_comments_author {
 
 export interface GetTaskComments_task_comments {
   __typename: "Comment";
+  id: string;
   author: GetTaskComments_task_comments_author;
   created_at: any;
   updated_at: any;

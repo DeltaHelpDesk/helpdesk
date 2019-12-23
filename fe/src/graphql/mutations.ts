@@ -21,6 +21,10 @@ mutation AddComment($taskId: ID!, $message: String!) {
   }
 }`;
 
+export const removeComment = gql`mutation DeleteComment($id: ID!) {
+  deleteComment(subTaskId: $id)
+}`;
+
 export const addTaskMutation = gql`
     mutation addTask($subject: String!, $issue: String!, $assigneeId: ID) {
         addTask(subject: $subject, issue: $issue, assigneeId: $assigneeId){
