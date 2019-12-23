@@ -10,7 +10,12 @@ interface IProps {
 const SharingHead: React.FunctionComponent<IProps> = ({ title = "Delta - Helpdesk", description = "",
     imageUrl = "/static/images/favicon/mstile-144x144.png" }) => {
 
+    // Must end with '/'
     const deployUrl = "https://delta-nextjs.herokuapp.com/";
+
+    if (imageUrl.startsWith("/")) {
+        imageUrl = imageUrl.substr(1, imageUrl.length - 1);
+    }
 
     return <>
         <Head>
