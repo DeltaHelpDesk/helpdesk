@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default class DateHelper {
 
     isChristmasTime = (): boolean => {
@@ -18,5 +20,21 @@ export default class DateHelper {
         const to = new Date(today.getFullYear(), 5 - 1 /* (Month) -1 */, 31 /* (Day)*/);
 
         return (today > from && today < to);
+    }
+
+    getFormattedDate = (date: string, relative: "strict" | "relative" | "fromNow"): string => {
+        switch (relative) {
+            case "strict":
+                return moment(date).format("DD.MM.YYYY, hh:mm");
+            case "relative":
+                return moment(date).calendar(null, {
+                    sameDay: "[Dnes]",
+                    lastDay: "[Včera]",
+                    lastWeek: "[Minulý týden]",
+                    sameElse: "DD.MM.YYYY",
+                });
+            case "fromNow":
+                return moment(date).fromNow();
+        }
     }
 }
