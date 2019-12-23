@@ -11,8 +11,8 @@ Written using NextJS.
 
 ## Quick links
 
-    - [Frontend](https://delta-nextjs.herokuapp.com/)
-    - [Backend](https://delta-helpdesk.herokuapp.com/)
+- [Frontend](https://delta-nextjs.herokuapp.com/)
+- [Backend](https://delta-helpdesk.herokuapp.com/)
 
 ## Installation/Start
 
