@@ -23,7 +23,7 @@ export interface addTask_addTask_assignee {
 export interface addTask_addTask {
   __typename: "Task";
   id: string;
-  issue: string | null;
+  issue: string;
   state: State;
   author: addTask_addTask_author;
   assignee: addTask_addTask_assignee | null;
