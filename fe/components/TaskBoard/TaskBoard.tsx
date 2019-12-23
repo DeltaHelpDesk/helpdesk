@@ -122,7 +122,8 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
             <Tooltip title="Kliknutím zobrazíte detail">
                 <Paper style={{
                     padding: "0.7rem",
-                    backgroundColor: selected ? "#1f1f1f" : "#3f3f3f"
+                    backgroundColor:
+                        selected ? "#1f1f1f" : "#3f3f3f",
                 }}>
                     <div onClick={() => { onClick(id); }} >
                         <Grid container direction="column">

@@ -68,7 +68,10 @@ const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove
                                 </Grid>
                                 <Grid item>
                                     <Tooltip title="Delete comment">
-                                        <IconButton aria-label="delete" size="small" onClick={(_) => { removeComm(); }} >
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={(_) => { removeComm(); }} >
                                             <DeleteIcon />
                                         </IconButton>
                                     </Tooltip>

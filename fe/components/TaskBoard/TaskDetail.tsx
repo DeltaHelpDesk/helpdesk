@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import CommentsContainer from "./CommentsContainer";
 import AddCommentComponent from "./AddComment";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import getTheme from "../Themes/MainTheme";
 import RoleIcon from "../RoleIcon/RoleIcon";
 import DateHelper from "../../utils/dateHelper";
@@ -13,11 +13,11 @@ import DateHelper from "../../utils/dateHelper";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: '100%',
+            width: "100%",
         },
         heading: {
             fontSize: theme.typography.pxToRem(15),
-            flexBasis: '33.33%',
+            flexBasis: "33.33%",
             flexShrink: 0,
         },
         secondaryHeading: {
