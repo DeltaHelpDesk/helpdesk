@@ -1,13 +1,20 @@
 import * as React from "react";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, useMediaQuery } from "@material-ui/core";
 import TaskBoard from "./TaskBoard";
 import TaskDetail from "./TaskDetail";
 import { useState } from "react";
 import { getTasks_tasks } from "../../src/graphql/types/getTasks";
+import getTheme from "../Themes/MainTheme";
 
 const BoardContainer: React.FunctionComponent<{}> = () => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
+
+    const theme = getTheme();
+
+    const smallDisplay = useMediaQuery(theme.breakpoints.down("md"));
+
+    const xs = smallDisplay ? 12 : 6;
 
     const handleScroll = () => {
         const anchor = (document).querySelector(
@@ -25,8 +32,8 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
     };
 
     return <>
-        <Grid container direction="row" spacing={2}>
-            <Grid item xs={6}>
+        <Grid container direction={smallDisplay ? "column-reverse" : "row"} spacing={2}>
+            <Grid item xs={xs}>
                 <Paper style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
                     <Grid container justify="center">
                         <Grid item>
@@ -36,7 +43,7 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
 
                 </Paper>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={xs}>
                 <Paper style={{ padding: "2rem" }} id="task-detail-box">
                     <TaskDetail task={task} />
                 </Paper>
