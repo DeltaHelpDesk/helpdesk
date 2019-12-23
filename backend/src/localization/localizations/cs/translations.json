@@ -1,4 +1,6 @@
 {
+    "welcome": "Vítejte na stránkách podpory",
+    "subWelcome": "Pokud máte problém zašlete požadavek.",
     "addTodo": "Přidat požadavek",
     "taskState": {
         "UNRESOLVED": "Neřešeno",
@@ -7,7 +9,7 @@
         "RETURNED": "Vráceno"
     },
     "userType": {
-        "SUPERADMIN": "Superadmin",
+        "SUPERADMIN": "Super Admin",
         "ADMIN": "Administrátor",
         "DEFAULT": "Uživatel"
     },
@@ -19,13 +21,18 @@
     "state": "Stav",
     "assignee": "Řeší",
     "administration": "Administrace",
-    "taskList": "Seznam požadavků",
+    "newTask": "Nový požadavek",
+    "sendTask": "Poslat požadavek",
     "logout": "Odhlásit se",
+    "taskList": "Seznam požadavků",
     "userList": "Seznam uživatelů",
     "name": "Jméno",
     "email": "Email",
     "login": "Přihlásit se",
     "role": "Role",
     "updatedAt": "Poslední aktualizace",
-    "createdAt": "Vytvořeno"
+    "createdAt": "Vytvořeno",
+    "action": "Akce",
+    "noTask": "Vyberte požadavek",
+    "description": "Popis"
 }
