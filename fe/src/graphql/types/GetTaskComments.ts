@@ -2,6 +2,8 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
+import { UserRole } from "./../graphql-global-types";
+
 // ====================================================
 // GraphQL query operation: GetTaskComments
 // ====================================================
@@ -9,6 +11,7 @@
 export interface GetTaskComments_task_comments_author {
   __typename: "User";
   fullName: string;
+  role: UserRole | null;
 }
 
 export interface GetTaskComments_task_comments {

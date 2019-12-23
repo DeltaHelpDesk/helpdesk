@@ -3,6 +3,7 @@ import { useMutation } from "react-apollo";
 import { AddComment, AddCommentVariables } from "../../src/graphql/types/AddComment";
 import { addComment } from "../../src/graphql/mutations";
 import { Grid, Button, TextField } from "@material-ui/core";
+import { useState } from "react";
 
 interface IProps {
     taskId: string;
@@ -11,28 +12,34 @@ interface IProps {
 
 const AddCommentComponent: React.FunctionComponent<IProps> = ({ taskId, onAdd = null }) => {
 
-    const [message, setMessage] = React.useState<string>("");
+    const [message, setMessage] = useState<string>("");
     const [addComm] = useMutation<AddComment>(addComment);
 
-    const handleTextChange = (text: string) => {
+    const minMsgLength = 5;
+    const maxMsgLength = 120;
+
+    const handleTextChange = (text: string): void => {
         setMessage(text);
     };
 
-    const handleSend = () => {
-        if (message.length < 5) {
+    const handleSend = async (): Promise<void> => {
+        if (message.length < minMsgLength || message.length > maxMsgLength) {
             return;
         }
 
-        const vars: AddCommentVariables = { taskId, message: message };
-        addComm({ variables: vars });
+        const vars: AddCommentVariables = { taskId, message };
+
+        await addComm({ variables: vars });
 
         if (onAdd) {
             onAdd();
         }
+
+        handleTextChange("");
     };
 
     return <>
-        <Grid container direction="column">
+        <Grid container direction="column" spacing={2}>
             <Grid item xs={12}>
                 <TextField
                     id="outlined-multiline-static"
@@ -46,7 +53,14 @@ const AddCommentComponent: React.FunctionComponent<IProps> = ({ taskId, onAdd = 
                 />
             </Grid>
             <Grid item xs={12}>
-                <Button variant="contained" onClick={(_) => { handleSend(); }} >
+                <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={message.length < minMsgLength || message.length > maxMsgLength}
+                    onClick={(_) => {
+                        setMessage(message);
+                        handleSend();
+                    }} >
                     Přidat
                 </Button>
             </Grid>

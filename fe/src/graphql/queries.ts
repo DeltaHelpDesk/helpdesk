@@ -62,6 +62,7 @@ query GetTaskDetail($id: ID!) {
     issue
     author {
       fullName
+      role
     }
     created_at
     updated_at
@@ -69,6 +70,7 @@ query GetTaskDetail($id: ID!) {
     comments {
       author {
         fullName
+        role
       }
       created_at
       updated_at
@@ -84,6 +86,7 @@ query GetTaskComments($id: ID!) {
     comments {
       author {
         fullName
+        role
       }
       created_at
       updated_at
@@ -103,10 +106,12 @@ query getTasks{
     author {
       id
       fullName
+      role
     }
     assignee {
       id
       fullName
+      role
     }
   }
 }

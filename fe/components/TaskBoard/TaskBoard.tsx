@@ -7,7 +7,7 @@ import { getFormattedDate } from "../Dates/DateFormatter";
 import { getTasks, getTasks_tasks } from "../../src/graphql/types/getTasks";
 import { State } from "../../src/graphql/graphql-global-types";
 import { updateTaskBoardQuery } from "../../src/graphql/mutations";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 
 interface ICard {
@@ -17,18 +17,22 @@ interface ICard {
     label?: string;
     draggable?: boolean;
     metadata?: {};
+    selected?: boolean;
     onClick?: (id: string) => void;
 }
 
 // tslint:disable-next-line: no-empty-interface
 interface IProps {
     showDetail?: (task: getTasks_tasks) => void;
- }
+}
 
-const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
+const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
     const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
     const [changeTaskState] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);
+
+    const [selectedId, setSelectedId] = useState<string>("");
+
     if (loading) {
         return <Loading />;
     }
@@ -47,6 +51,7 @@ const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
         }
 
         if (showDetail) {
+            setSelectedId(id);
             showDetail(task);
         }
     };
@@ -62,6 +67,7 @@ const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
                 onClick: onClicked,
+                selected: x.id === selectedId,
             }]);
     let tasksSolving: ICard[] = [];
     tasks.filter((x) => x.state === State.SOLVING)
@@ -74,6 +80,7 @@ const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
                 onClick: onClicked,
+                selected: x.id === selectedId,
             }]);
     let tasksNotStarted: ICard[] = [];
     tasks.filter((x) => x.state === State.UNRESOLVED)
@@ -86,6 +93,7 @@ const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
                 onClick: onClicked,
+                selected: x.id === selectedId,
             }]);
 
     const boardData = {
@@ -109,30 +117,32 @@ const TaskBoard: FunctionComponent<IProps> = ({showDetail}) => {
     };
 
     const CustomCard = (x: any) => {
-        const {id, description, title, label = "", onClick}: ICard = x;
+        const { id, description, title, label = "", onClick, selected }: ICard = x;
         return (
             <Tooltip title="Kliknutím zobrazíte detail">
-            <Paper style={{padding: "0.7rem"}}>
-            <div onClick={() => { onClick(id); }} >
-                <Grid container direction="column">
-                    <Grid item>
-                        <Typography variant="subtitle1" color="textPrimary">{title}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="caption">{label}</Typography>
-                        <Divider/>
-                    </Grid>
-                </Grid>
-                <div style={{ fontSize: 12 }}>
-                    <div style={{ padding: "5px 0px" }} >
-                        <Typography variant="body2"  className="text-desc" style={{whiteSpace: "normal"}}>
-                            {description}
-                        </Typography>
-                        {/* <i style={{whiteSpace: "normal"}}></i> */}
+                <Paper style={{
+                    padding: "0.7rem",
+                    backgroundColor: selected ? "#1f1f1f" : "#3f3f3f"
+                }}>
+                    <div onClick={() => { onClick(id); }} >
+                        <Grid container direction="column">
+                            <Grid item>
+                                <Typography variant="subtitle1" color="textPrimary">{title}</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="caption">{label}</Typography>
+                                <Divider />
+                            </Grid>
+                        </Grid>
+                        <div style={{ fontSize: 12 }}>
+                            <div style={{ padding: "5px 0px" }} >
+                                <Typography variant="body2" className="text-desc" style={{ whiteSpace: "normal" }}>
+                                    {description}
+                                </Typography>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            </Paper>
+                </Paper>
             </Tooltip>
         );
     };

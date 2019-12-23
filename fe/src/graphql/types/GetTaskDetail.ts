@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { State } from "./../graphql-global-types";
+import { UserRole, State } from "./../graphql-global-types";
 
 // ====================================================
 // GraphQL query operation: GetTaskDetail
@@ -11,11 +11,13 @@ import { State } from "./../graphql-global-types";
 export interface GetTaskDetail_task_author {
   __typename: "User";
   fullName: string;
+  role: UserRole | null;
 }
 
 export interface GetTaskDetail_task_comments_author {
   __typename: "User";
   fullName: string;
+  role: UserRole | null;
 }
 
 export interface GetTaskDetail_task_comments {

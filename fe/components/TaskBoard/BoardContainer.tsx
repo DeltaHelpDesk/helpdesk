@@ -25,20 +25,23 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
     };
 
     return <>
-        <Paper style={{ padding: "2rem" }}>
-            <Grid container direction="row" spacing={2}>
-                <Grid item xs={6}>
-                    <div className="no-select">
-                        <TaskBoard showDetail={handleClickTask} />
-                    </div>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper style={{ padding: "2rem" }} id="task-detail-box">
-                        <TaskDetail task={task} />
-                    </Paper>
-                </Grid>
+        <Grid container direction="row" spacing={2}>
+            <Grid item xs={6}>
+                <Paper style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
+                    <Grid container justify="center">
+                        <Grid item>
+                            <TaskBoard showDetail={handleClickTask} />
+                        </Grid>
+                    </Grid>
+
+                </Paper>
             </Grid>
-        </Paper>
+            <Grid item xs={6}>
+                <Paper style={{ padding: "2rem" }} id="task-detail-box">
+                    <TaskDetail task={task} />
+                </Paper>
+            </Grid>
+        </Grid>
     </>;
 };
 

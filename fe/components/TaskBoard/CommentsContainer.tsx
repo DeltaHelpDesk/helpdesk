@@ -9,7 +9,6 @@ import AddCommentComponent from "./AddComment";
 
 interface IProps {
     taskId: string;
-
 }
 
 const CommentsContainer: React.FunctionComponent<IProps> = ({ taskId }) => {
@@ -32,14 +31,12 @@ const CommentsContainer: React.FunctionComponent<IProps> = ({ taskId }) => {
         </>;
     }
 
-
-
     const { task } = data;
     const { comments } = task;
 
     const refresh = () => {
         refetch();
-    }
+    };
 
     if (!comments || comments.length < 1) {
 
@@ -48,7 +45,7 @@ const CommentsContainer: React.FunctionComponent<IProps> = ({ taskId }) => {
                 There are no updates
                 <Grid item xs={12}>
                     <Divider style={{ marginTop: "1rem", marginBottom: "1rem" }} />
-                    <AddCommentComponent taskId={taskId} onAdd={refresh} />
+                    <AddCommentComponent taskId={taskId} />
                 </Grid>
             </Grid>
 
@@ -56,11 +53,16 @@ const CommentsContainer: React.FunctionComponent<IProps> = ({ taskId }) => {
     }
 
     return <>
-        <Grid container direction="column">
-            {
-                comments.map((comment) => <><TaskComment /></>)
-            }
-            <Grid item xs={12}>
+        <Grid container direction="column" >
+            <Grid item xs={12} >
+                <Grid container direction="column" >
+                    {
+                        comments.map((comment) => <Grid item xs={12}><TaskComment comment={comment} /></Grid>)
+                    }
+                </Grid>
+            </Grid>
+
+            <Grid item xs={12} >
                 <Divider style={{ marginTop: "1rem", marginBottom: "1rem" }} />
                 <AddCommentComponent taskId={taskId} onAdd={refresh} />
             </Grid>
