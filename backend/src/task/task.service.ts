@@ -76,7 +76,7 @@ export class TaskService {
             const assignee = await this.userRepository.findOne(assigneeId);
             if (assignee) {
                 task.assignee = assignee;
-                assignee.assignedTasks.push(task);
+                // assignee.assignedTasks.push(task);
                 log.assignee = assignee;
             } else {
                 throw new HttpException(`Assignee for task with id: ${assigneeId} not found`, HttpStatus.NOT_FOUND);
