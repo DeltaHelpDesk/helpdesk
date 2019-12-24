@@ -15,12 +15,13 @@ const UserListContainer: FunctionComponent = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <TableCell>#</TableCell>
                             <TableCell>Jméno</TableCell>
                             <TableCell>Email</TableCell>
                             <TableCell>Role</TableCell>
                             <TableCell>Registrace</TableCell>
                             <TableCell>Aktualizace</TableCell>
-                            {isAdmin && <TableCell>Možnosti</TableCell>}
+                            {isAdmin && <TableCell>Akce</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>

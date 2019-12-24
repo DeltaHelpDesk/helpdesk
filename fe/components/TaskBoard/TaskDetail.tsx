@@ -9,6 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import getTheme from "../Themes/MainTheme";
 import RoleIcon from "../RoleIcon/RoleIcon";
 import DateHelper from "../../utils/dateHelper";
+import TaskActions from "./TaskActions";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -67,10 +68,10 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                     <Divider />
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container direction="row" spacing={2}>
+                    <Grid container direction="row" spacing={2} justify="space-around">
                         <Grid item>
-                            <Grid container direction="column">
-                                <Grid item>
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                <Grid item >
                                     <Typography variant="body1">
                                         Author
                                     </Typography>
@@ -88,7 +89,10 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Grid container direction="column">
+                            <Divider orientation="vertical" />
+                        </Grid>
+                        <Grid item>
+                            <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
                                         Created
@@ -104,7 +108,10 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Grid container direction="column">
+                            <Divider orientation="vertical" />
+                        </Grid>
+                        <Grid item>
+                            <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
                                         State
@@ -120,7 +127,10 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Grid container direction="column">
+                            <Divider orientation="vertical" />
+                        </Grid>
+                        <Grid item>
+                            <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
                                         Assignee
@@ -140,6 +150,27 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                                         variant="outlined"
                                         size="medium"
                                     />}
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item>
+                            <Divider orientation="vertical" />
+                        </Grid>
+                        <Grid item >
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                <Grid item>
+                                    <Typography variant="body1">
+                                        #
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Chip
+
+                                        label={id}
+                                        variant="outlined"
+                                        size="medium"
+                                    />
+
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -164,7 +195,7 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header">
-                                <Typography >Reakce | řešení</Typography>
+                                <Typography >Zprávy</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <div style={{ width: "100%" }}>
@@ -172,7 +203,7 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                                 </div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                        {/* <ExpansionPanel>
+                        <ExpansionPanel>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"
@@ -181,9 +212,10 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <div style={{ width: "100%" }}>
+                                    <TaskActions taskId={id} />
                                 </div>
                             </ExpansionPanelDetails>
-                        </ExpansionPanel> */}
+                        </ExpansionPanel>
                     </div>
                 </Grid>
             </Grid>
