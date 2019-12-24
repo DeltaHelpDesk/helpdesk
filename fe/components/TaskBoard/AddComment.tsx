@@ -50,6 +50,14 @@ const AddCommentComponent: React.FunctionComponent<IProps> = ({ taskId, onAdd = 
                     value={message}
                     onChange={(e) => { handleTextChange(e.currentTarget.value); }}
                     variant="outlined"
+                    error={message.length > 0 && (message.length < minMsgLength || message.length > maxMsgLength)}
+                    helperText={
+                        message.length > 0 && message.length < minMsgLength
+                            ? "Zpráva je příliš krátká"
+                            : message.length > maxMsgLength
+                                ? `Zpráva přesahuje maximální počet povolených znaků (${maxMsgLength})`
+                                : `${message.length}/${maxMsgLength}`
+                    }
                 />
             </Grid>
             <Grid item xs={12}>

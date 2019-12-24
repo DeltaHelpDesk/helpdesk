@@ -46,7 +46,7 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
         </>;
     }
 
-    const { email, fullName, role, created_at, updated_at } = user;
+    const { email, fullName, role, created_at, updated_at, id } = user;
 
     const DeleteButton: FunctionComponent = () => {
         return (
@@ -69,6 +69,9 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
     return (
         <Fade in={true}>
             <TableRow>
+                <TableCell>
+                    {id}
+                </TableCell>
                 <TableCell>
                     {fullName}
                 </TableCell>
