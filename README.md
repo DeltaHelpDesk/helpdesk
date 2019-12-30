@@ -1,11 +1,22 @@
 # Project for Delta HelpDesk
 ## Project structure
+
 ### Backend - /backend
 Written using NestJS with TypeORM and GraphQL.
-### React frontend - /frontend
-Written using React. *Obsolete*
+
 ### NextJS frontend - /fe
 Written using NextJS.
+
+### Mobile application - /flutter/helpdesk_mobile
+Writting using Flutter.
+
+~~
+### Old frontend - /frontend
+Written using React. *Obsolete*
+
+### Old mobile app - /mobile
+Written using Ionic. *Obsolete*
+~~
 
 [![Build Status](https://helpdesk.semaphoreci.com/badges/helpdesk/branches/dev.svg)](https://helpdesk.semaphoreci.com/projects/helpdesk)
 
@@ -26,9 +37,18 @@ Written using NextJS.
 
 4. 
    - a) Remote MySQL database: `yarn start:remote`
-   - b) Local docker MySQL database: See: [Docker setup](#Docker)
+   - b) Local docker MySQL database: `yarn start:local` See: [Docker setup](#Docker)
    - c) Remote production MySQL database: `yarn start:prod`
+ 
+### Frontend (Next.js)
 
+1. Project directory `cd fe`
+
+2. `yarn install`
+
+3. `yarn dev`
+
+~~
 ### Frontend (React)
 
 1. Project directory `cd frontend`
@@ -38,16 +58,7 @@ Written using NextJS.
 3. 
    - a) Local backend: `yarn start:local`
    - b) Remote backend: `yarn start:remote`
-  
- 
-### Frontend v2 (Next.js)
-
-1. Project directory `cd fe`
-
-2. `yarn install`
-
-3. `yarn dev`
-
+~~
 
 ### Docker
 
@@ -78,13 +89,3 @@ Start all services specified in `docker-compose.yml`. Argument `d` will start co
 Stop all running containers.
 #### `docker-compose logs [service]`
 View logs from containers.
-
-### Services
-Backend team
-- backend
-- mysql
-
-Frontend team
-- backend
-- frontend
-- storybook (optional)

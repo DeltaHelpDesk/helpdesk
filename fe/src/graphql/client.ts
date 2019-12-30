@@ -3,13 +3,12 @@ import resolvers from "./resolvers.js";
 import typeDefs from "./typedefs.js";
 import { lastToken, isLoggedIn, lastContextValue } from "./auth";
 import { ServerError } from "apollo-link-http-common";
-import fetcher from "node-fetch";
 
 const apiUri = "https://delta-helpdesk.herokuapp.com/graphql";
 
 const client = new ApolloClient({
     uri: apiUri,
-    fetch: fetcher,
+    fetch: require("node-fetch"),
     request: async (operation) => {
         if (isLoggedIn()) {
             operation.setContext({
