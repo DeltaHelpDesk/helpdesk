@@ -13,7 +13,7 @@ Writting using Flutter.
 ### ~~Old frontend - /frontend~~
 ~~Written using React. *Obsolete*~~
 
-### Old mobile app - /mobile
+### ~~Old mobile app - /mobile~~
 ~~Written using Ionic. *Obsolete*~~
 
 [![Build Status](https://helpdesk.semaphoreci.com/badges/helpdesk/branches/dev.svg)](https://helpdesk.semaphoreci.com/projects/helpdesk)
