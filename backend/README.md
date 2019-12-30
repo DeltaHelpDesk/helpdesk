@@ -12,21 +12,15 @@ $ yarn begin
 ## Running the app
 
 ```bash
-# development
-$ yarn start
+# Local docker MySQL database
+$ yarn start:local
 
-# watch mode
-$ yarn start:dev
+# Remote MySQL database
+$ yarn start:remote
 
-# incremental rebuild (webpack)
-$ yarn webpack
-$ yarn start:hmr
-
-# production mode
+# Remote production MySQL database
 $ yarn start:prod
 ```
 
 ### TODO
-  - [ ] problem with .env (when docker run from localhost), commit .env?
-  - [ ] use cross-env & params (not .env)
-  - [ ] init docker for MySQL somehow... (split init.sh)
+  - [ ] security issue with production.env, use env in hosting?

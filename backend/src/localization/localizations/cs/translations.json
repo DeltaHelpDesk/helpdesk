@@ -1,17 +1,20 @@
 {
     "welcome": "Vítejte na stránkách podpory",
     "subWelcome": "Pokud máte problém zašlete požadavek.",
-    "addTodo": "Přidat požadavek",
+    "addTask": "Přidat požadavek",
     "taskState": {
-        "UNRESOLVED": "Neřešeno",
+        "UNRESOLVED": "Nezapočato",
         "SOLVING": "Řeší se",
-        "SOLVED": "Vyřešeno",
-        "RETURNED": "Vráceno"
+        "SOLVED": "Dokončeno"
     },
     "userType": {
         "SUPERADMIN": "Super Admin",
         "ADMIN": "Administrátor",
         "DEFAULT": "Uživatel"
+    },
+    "theme": {
+        "DARK": "Temný",
+        "LIGHT": "Světlý"
     },
     "notAssigned": "Nepřiřazeno",
     "author": "Autor",
@@ -28,11 +31,26 @@
     "userList": "Seznam uživatelů",
     "name": "Jméno",
     "email": "Email",
+    "password": "Heslo",
     "login": "Přihlásit se",
     "role": "Role",
     "updatedAt": "Poslední aktualizace",
     "createdAt": "Vytvořeno",
+    "registrationAt": "Registrace",
     "action": "Akce",
-    "noTask": "Vyberte požadavek",
-    "description": "Popis"
+    "editUser": "Upravit uživatele",
+    "deleteUser": "Odstranit uživatele",
+    "noTask": "Vyberte požadavek pro zobrazení detailu",
+    "description": "Popis",
+    "comments": "Zprávy",
+    "deleteComment": "Odstranit komentář",
+    "addComment": "Přidat komentář",
+    "add": "Přidat",
+    "WIP": "Pracujeme na tom",
+    "issueDescription": "Popis problému",
+    "assigneeDescription": "Vyberte osobu, která by se měla tímto požadavkem zabývat",
+    "errorOnClient": "Nastala chyba na klientu",
+    "settings": "Nastavení",
+    "languageChoose": "Výběr jazyka",
+    "themeChoose": "Výběr téma"
 }
