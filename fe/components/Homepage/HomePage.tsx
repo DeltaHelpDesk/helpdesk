@@ -1,7 +1,7 @@
 import { FunctionComponent, useContext } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Theme, makeStyles } from "@material-ui/core";
+import { Theme, makeStyles, createStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { ReactAuthContext } from "../../src/graphql/auth";
@@ -10,14 +10,10 @@ import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 import Background from "../Background/Background";
 import { withTranslation, WithTranslation } from "react-i18next";
+import getTheme from "../Themes/MainTheme";
 
-// tslint:disable-next-line:no-empty-interface
-interface IHomePageProps extends WithTranslation {
-
-}
-
-const HomePage: FunctionComponent<IHomePageProps> = (props) => {
-    const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
         root: {
 
         },
@@ -52,11 +48,19 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
             textTransform: "uppercase",
         },
     }),
-    );
+);
+
+// tslint:disable-next-line:no-empty-interface
+interface IHomePageProps extends WithTranslation {
+
+}
+
+const HomePage: FunctionComponent<IHomePageProps> = ({ t }) => {
+
 
     const { isLoggedIn, logout } = useContext(ReactAuthContext);
 
-    const classes = useStyles(props);
+    const classes = useStyles(getTheme());
 
     return (
         <div>
