@@ -10,11 +10,11 @@ Written using NextJS.
 ### Mobile application - /flutter/helpdesk_mobile
 Writting using Flutter.
 
-### ~~ Old frontend - /frontend ~~
-~~ Written using React. *Obsolete* ~~
+### ~~Old frontend - /frontend~~
+~~Written using React. *Obsolete*~~
 
 ### Old mobile app - /mobile
-~~ Written using Ionic. *Obsolete* ~~
+~~Written using Ionic. *Obsolete*~~
 
 [![Build Status](https://helpdesk.semaphoreci.com/badges/helpdesk/branches/dev.svg)](https://helpdesk.semaphoreci.com/projects/helpdesk)
 
@@ -46,15 +46,15 @@ Writting using Flutter.
 
 3. `yarn dev`
 
-### ~~ Frontend (React) ~~
+### ~~Frontend (React)~~
 
-1. ~~ Project directory `cd frontend` ~~ 
+1. ~~Project directory `cd frontend`~~ 
 
-2. ~~ `yarn install` ~~ 
+2. ~~`yarn install`~~ 
 
 3. 
-   - ~~ a) Local backend: `yarn start:local` ~~ 
-   - ~~ b) Remote backend: `yarn start:remote` ~~ 
+   - ~~a) Local backend: `yarn start:local`~~ 
+   - ~~b) Remote backend: `yarn start:remote`~~ 
 
 
 ### Docker
