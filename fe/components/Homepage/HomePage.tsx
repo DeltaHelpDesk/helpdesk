@@ -9,9 +9,10 @@ import Link from "next/link";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 import Background from "../Background/Background";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 // tslint:disable-next-line:no-empty-interface
-interface IHomePageProps {
+interface IHomePageProps extends WithTranslation {
 
 }
 
@@ -115,4 +116,4 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
         </div>
     );
 };
-export default HomePage;
+export default withTranslation()(HomePage);
