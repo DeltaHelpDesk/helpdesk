@@ -1,22 +1,18 @@
 import { FunctionComponent, useContext } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Theme, makeStyles } from "@material-ui/core";
+import { Theme, makeStyles, createStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
-import localisation from "../../src/Locales/Localisations";
 import Background from "../Background/Background";
+import { useTranslation } from "react-i18next";
+import getTheme from "../Themes/MainTheme";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
-// tslint:disable-next-line:no-empty-interface
-interface IHomePageProps {
-
-}
-
-const HomePage: FunctionComponent<IHomePageProps> = (props) => {
-    const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
         root: {
 
         },
@@ -51,11 +47,19 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
             textTransform: "uppercase",
         },
     }),
-    );
+);
+
+// tslint:disable-next-line:no-empty-interface
+interface IHomePageProps {
+
+}
+
+const HomePage: FunctionComponent<IHomePageProps> = () => {
 
     const { isLoggedIn, logout } = useContext(ReactAuthContext);
 
-    const classes = useStyles(props);
+    const classes = useStyles(getTheme());
+    const { t, i18n } = useTranslation();
 
     return (
         <div>
@@ -73,40 +77,35 @@ const HomePage: FunctionComponent<IHomePageProps> = (props) => {
                 </Grid>
                 <Grid item={true}>
                     <Typography className={classes.subheader} component="h2" variant="h2" gutterBottom={true}>
-                        {localisation.common.welcome}
+                        {t(locKeys.common.welcome)}
                     </Typography>
                 </Grid>
                 <Grid item={true}>
                     <Typography className={classes.info} variant="body1" component="p">
-                        {localisation.common.subtitleHomepage}
+                        {t(locKeys.common.subtitleHomepage)}
                     </Typography>
                 </Grid>
                 <Grid item>
                     <Grid container direction="row" justify="center" spacing={6}>
-
-                        <Grid item>
-                            <Link href={customRoutes.newTask}>
-                                <Button className={classes.buttonHomepage} variant="contained" color="primary">
-                                    {localisation.task.sendNew}
-                                </Button>
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            {
-                                isLoggedIn
-                                    ? <></>
-                                    // <Button variant="contained" color="primary" onClick={logout}>
-                                    //     {localisation.login.logout}
-                                    // </Button>
-                                    :
-                                    <Link href={customRoutes.loginRoute}>
+                        {
+                            isLoggedIn ? (
+                                <Grid item>
+                                    <Link href={customRoutes.newTask}>
                                         <Button className={classes.buttonHomepage} variant="contained" color="primary">
-                                            {localisation.login.login}
+                                            {t(locKeys.task.newTask)}
                                         </Button>
                                     </Link>
-                            }
-                        </Grid>
-
+                                </Grid>
+                            ) : (
+                                    <Grid item>
+                                        <Link href={customRoutes.loginRoute}>
+                                            <Button className={classes.buttonHomepage} variant="contained" color="primary">
+                                                {t(locKeys.login.login)}
+                                            </Button>
+                                        </Link>
+                                    </Grid>
+                                )
+                        }
                     </Grid>
                 </Grid>
 

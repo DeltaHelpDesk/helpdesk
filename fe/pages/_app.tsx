@@ -9,6 +9,7 @@ import { MuiThemeProvider } from "@material-ui/core";
 import ThemeContainer from "../components/Themes/ThemeProvider";
 import ScrollButton from "../components/ScrollTop/ScrollTop";
 import SnowComponent from "../components/Snow/SnowComponent";
+import "../src/i18n";
 
 class HelpDeskApp extends App<{}> {
 

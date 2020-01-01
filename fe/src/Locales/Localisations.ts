@@ -18,6 +18,8 @@ interface ILocalisedCommon {
     welcome: string;
     subtitleHomepage: string;
     settings: string;
+    administration: string;
+    newTask: string;
 }
 
 interface ILocalisedTasks {

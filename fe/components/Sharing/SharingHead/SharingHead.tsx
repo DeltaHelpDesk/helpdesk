@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import Head from "next/head";
 
 interface IProps {
@@ -7,7 +7,7 @@ interface IProps {
     imageUrl?: string;
 }
 
-const SharingHead: React.FunctionComponent<IProps> = ({ title = "Delta - Helpdesk", description = "",
+const SharingHead: FunctionComponent<IProps> = ({ title = "Delta - Helpdesk", description = "",
     imageUrl = "/static/images/favicon/maxresdefault.png" }) => {
 
     // Must end with '/'
