@@ -5,6 +5,8 @@ const englishLang: ILocalisedStrings = {
         welcome: "Welcome to helpdesk",
         subtitleHomepage: "If you have a problem send a request.",
         settings: "Settings",
+        administration: "",
+        newTask: "",
     },
     task: {
         sendNew: "Create new ticket",

@@ -80,7 +80,6 @@ const Layout: FunctionComponent<IProps> = ({ children, title = "Helpdesk" }) => 
         <main className={classes.content}>
             <div className={classes.toolbar} />
             {children}
-
         </main>
     </div>;
 };

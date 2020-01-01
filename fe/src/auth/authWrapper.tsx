@@ -26,10 +26,8 @@ export const withAuthSync = (WrappedComponent: any, minRole: UserRole = UserRole
                 Router.push(customRoutes.loginRoute);
                 return;
             }
-
             if (user && !checkUserRole(user.role, minRole)) {
                 showError("Nemáte dostatečné oprávnění");
-                console.log("Nemáte dostatečné oprávnění");
                 Router.back();
                 return;
             }

@@ -5,10 +5,12 @@ const locKeys: ILocalisedStrings = {
         welcome: "welcome",
         subtitleHomepage: "subWelcome",
         settings: "settings",
+        administration: "administration",
+        newTask: "newTask",
     },
     task: {
         sendNew: "",
-        taskList: "",
+        taskList: "taskList",
         newTask: "addTask",
     },
     login: {

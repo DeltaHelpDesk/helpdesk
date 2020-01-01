@@ -5,6 +5,8 @@ const czechLang: ILocalisedStrings = {
         welcome: "Vítejte na stránkách podpory",
         subtitleHomepage: "Pokud máte problém zašlete požadavek.",
         settings: "Nastavení",
+        administration: "",
+        newTask: "",
     },
     task: {
         sendNew: "Poslat požadavek",

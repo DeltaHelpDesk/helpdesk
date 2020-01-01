@@ -1,6 +1,6 @@
 {
     "welcome": "Vítejte na stránkách podpory",
-    "subWelcome": "Pokud máte problém zašlete požadavek.",
+    "subWelcome": "Pokud máte problém, zašlete požadavek.",
     "addTask": "Přidat požadavek",
     "taskState": {
         "UNRESOLVED": "Nezapočato",

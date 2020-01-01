@@ -7,7 +7,7 @@ import { ReactAuthContext } from "../../src/graphql/auth";
 import Link from "next/link";
 import customRoutes from "../../src/Routes";
 import Background from "../Background/Background";
-import { withTranslation, WithTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import getTheme from "../Themes/MainTheme";
 import locKeys from "../../src/Locales/LocalizationKeys";
 
@@ -50,15 +50,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // tslint:disable-next-line:no-empty-interface
-interface IHomePageProps extends WithTranslation {
+interface IHomePageProps {
 
 }
 
-const HomePage: FunctionComponent<IHomePageProps> = ({ t }) => {
+const HomePage: FunctionComponent<IHomePageProps> = () => {
 
     const { isLoggedIn, logout } = useContext(ReactAuthContext);
 
     const classes = useStyles(getTheme());
+    const { t, i18n } = useTranslation();
 
     return (
         <div>
@@ -86,30 +87,25 @@ const HomePage: FunctionComponent<IHomePageProps> = ({ t }) => {
                 </Grid>
                 <Grid item>
                     <Grid container direction="row" justify="center" spacing={6}>
-
-                        <Grid item>
-                            <Link href={customRoutes.newTask}>
-                                <Button className={classes.buttonHomepage} variant="contained" color="primary">
-                                    {t(locKeys.task.newTask)}
-                                </Button>
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            {
-                                isLoggedIn
-                                    ? <></>
-                                    // <Button variant="contained" color="primary" onClick={logout}>
-                                    //     {localisation.login.logout}
-                                    // </Button>
-                                    :
-                                    <Link href={customRoutes.loginRoute}>
+                        {
+                            isLoggedIn ? (
+                                <Grid item>
+                                    <Link href={customRoutes.newTask}>
                                         <Button className={classes.buttonHomepage} variant="contained" color="primary">
-                                            {t(locKeys.login.login)}
+                                            {t(locKeys.task.newTask)}
                                         </Button>
                                     </Link>
-                            }
-                        </Grid>
-
+                                </Grid>
+                            ) : (
+                                    <Grid item>
+                                        <Link href={customRoutes.loginRoute}>
+                                            <Button className={classes.buttonHomepage} variant="contained" color="primary">
+                                                {t(locKeys.login.login)}
+                                            </Button>
+                                        </Link>
+                                    </Grid>
+                                )
+                        }
                     </Grid>
                 </Grid>
 
@@ -118,4 +114,4 @@ const HomePage: FunctionComponent<IHomePageProps> = ({ t }) => {
         </div>
     );
 };
-export default withTranslation()(HomePage);
+export default HomePage;

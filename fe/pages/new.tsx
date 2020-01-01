@@ -1,15 +1,14 @@
 import Layout from "../components/Layouts/Layout";
 import { NextPage } from "next";
-import NewTask from "../components/NewTask/NewTask";
 import NewTaskContainer from "../components/NewTask/NewTaskContainer";
+import { withAuthSync } from "../src/auth/authWrapper";
 
 const NewtaskPage: NextPage = () => {
     return (
         <Layout title="New">
             <NewTaskContainer />
-            {/* <NewTask /> */}
         </Layout>
     );
 };
 
-export default NewtaskPage;
+export default withAuthSync(NewtaskPage);

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { Grid, Button, Paper, Typography, TextField, Divider, Backdrop, CircularProgress } from "@material-ui/core";
 import AdminSelect from "../AdminSelect/AdminSelect";
 import { getAdmins_admins } from "../../src/graphql/types/getAdmins";
@@ -9,7 +9,7 @@ import { addTask, addTaskVariables } from "../../src/graphql/types/addTask";
 import { addTaskMutation } from "../../src/graphql/mutations";
 import Router from "next/router";
 
-const NewTaskContainer: React.FunctionComponent = () => {
+const NewTaskContainer: FunctionComponent = () => {
 
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");

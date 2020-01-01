@@ -47,13 +47,17 @@ export interface IAuthContextValue {
     doLoginByMicrosoft: () => Promise<string> | undefined;
     logout: () => Promise<void> | undefined;
     loading: boolean;
+    isInRole: (requiredRole: UserRole) => boolean;
 }
 
-export function checkUserRole(userRole: UserRole, requiredUserRole: UserRole) {
+export const checkUserRole = (userRole: UserRole, requiredUserRole: UserRole): boolean => {
+    if (!userRole || !requiredUserRole) {
+        return false;
+    }
     const requiredRoleIndex = UserRoleAscendency.findIndex((role) => role === requiredUserRole);
     const userRoleIndex = UserRoleAscendency.findIndex((role) => role === userRole);
     return userRoleIndex >= requiredRoleIndex;
-}
+};
 
 const defaultContextValue: IAuthContextValue = {
     officeToken: null,
@@ -66,6 +70,7 @@ const defaultContextValue: IAuthContextValue = {
     user: undefined,
     loading: true,
     logout: () => undefined,
+    isInRole: (requiredRole: UserRole) => false,
 };
 
 // get last context value for things outside of react context, should not be used normally!!!!!!!!!
@@ -154,6 +159,14 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         }
     };
 
+    const isInRole = (requiredRole: UserRole): boolean => {
+        // TODO: FIX -> User is null
+        if (!isLoggedIn || !user || !user.role || !requiredRole) {
+            return false;
+        }
+        return checkUserRole(user.role, requiredRole);
+    };
+
     const [state, setState] = useState<IAuthContextValue>({
         ...props,
         loginByEmail,
@@ -165,10 +178,10 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         officeToken: defaultContextValue.officeToken,
         token: lastToken,
         isLoggedIn: !!lastToken,
-        // token: defaultContextValue.token,
-        // isLoggedIn: true, // defaultContextValue.isLoggedIn,
         loading: defaultContextValue.loading,
+        isInRole,
     });
+    const { user } = state;
 
     useEffect(() => {
         const token = getToken();
@@ -190,6 +203,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         const { data: { session } }: any = await client.query({
             query: getSessionQuery,
         });
+        // console.log(user);
         setState({
             ...state,
             user: session,
