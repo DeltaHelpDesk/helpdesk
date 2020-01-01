@@ -2,24 +2,26 @@ import moment from "moment";
 
 export default class DateHelper {
 
+    isBetween = (main: Date, min: Date, max: Date): boolean => {
+        return (min <= main && main <= max);
+    }
+
     isChristmasTime = (): boolean => {
         const today = new Date();
+        const year = today.getFullYear();
 
-        // month -1 because months are from 0 to 11
-        const from = new Date(today.getFullYear(), 12 - 1 /* (Month) -1 */, 10 /* (Day)*/);
-        const to = new Date(today.getFullYear() + 1, 1 - 1 /* (Month) -1 */, 6 /* (Day)*/);
-
-        return (today > from && today < to);
+        // is between 1.1.year and 6.1.year or
+        // is between 10.12.year and 31.12.year
+        return this.isBetween(today, new Date(year, 1 - 1, 1), new Date(year, 1 - 1, 6)) ||
+            this.isBetween(today, new Date(year, 12 - 1, 10), new Date(year, 12 - 1, 31));
     }
 
     isPrideMonth = (): boolean => {
         const today = new Date();
+        const year = today.getFullYear();
 
-        // month -1 because months are from 0 to 11
-        const from = new Date(today.getFullYear(), 5 - 1 /* (Month) -1 */, 1 /* (Day)*/);
-        const to = new Date(today.getFullYear(), 5 - 1 /* (Month) -1 */, 31 /* (Day)*/);
-
-        return (today > from && today < to);
+        // is between 1.6 and 30.6
+        return this.isBetween(today, new Date(year, 6 - 1, 1), new Date(year, 6 - 1, 30));
     }
 
     getFormattedDate = (date: string, relative: "strict" | "relative" | "fromNow"): string => {
