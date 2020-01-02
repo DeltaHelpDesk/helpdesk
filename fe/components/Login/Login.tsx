@@ -194,8 +194,6 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         }
     };
 
-
-
     if (loading) {
         return <>
             <Loading />
