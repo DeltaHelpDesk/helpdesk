@@ -6,7 +6,6 @@ import { DELETE_USER, GET_USER } from "./UserListQueries";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { GET_TASKS } from "../../TaskList/TaskListQueries";
-import { IUser, UserRole } from "../../../src/graphql/types";
 import DateFormatComponent from "../../Dates/DateFormatter";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getUsers_users } from "../../../src/graphql/types/getUsers";

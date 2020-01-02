@@ -17,9 +17,9 @@ import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
 import { Typography, Tooltip } from "@material-ui/core";
 import SocialButton from "./SocialButton";
-import { AuthType } from "../../src/graphql/types";
 import Background from "../Background/Background";
 import { Theme, makeStyles } from "@material-ui/core";
+import { AuthType } from "../../src/graphql/graphql-global-types";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -123,7 +123,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const googleLoginSuccess = async (user: any) => {
         const email: string = user._profile.email;
         const name: string = user._profile.name;
-        const provider: AuthType = AuthType.Google;
+        const provider: AuthType = AuthType.GOOGLE;
         const token: string = user._profile.id;
 
         await externalLogin(email, name, provider, token);
@@ -132,7 +132,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const facebookLoginSuccess = async (user: any) => {
         const email: string = user._profile.email;
         const name: string = user._profile.name;
-        const provider: AuthType = AuthType.Facebook;
+        const provider: AuthType = AuthType.FACEBOOK;
         const token: string = user._profile.id;
 
         await externalLogin(email, name, provider, token);

@@ -1,11 +1,11 @@
 import { Component } from "react";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { Query } from "react-apollo";
-import { checkUserRole, IAuthContextValue, ReactAuthContext, UserRole } from "../../src/graphql/auth";
+import { checkUserRole, IAuthContextValue, ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "./../Loading/Loading";
 import Task from "./Task";
 import { GET_TASKS } from "./TaskListQueries";
-import { ITask } from "../../src/graphql/types";
+import { UserRole } from "../../src/graphql/graphql-global-types";
 
 /*
 export interface ITask {
@@ -43,7 +43,7 @@ class TaskList extends Component<{}> {
                         return <>Error! {error.message}</>;
                     }
                     const { tasks } = data;
-                    const tableBody = tasks.map((task: ITask) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
+                    const tableBody = tasks.map((task: any) => <Task key={task.id} task={task} isAdmin={isAdmin} />);
                     return (
                         <Table>
                             <TableHead>

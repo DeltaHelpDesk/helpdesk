@@ -1,14 +1,12 @@
 import { FunctionComponent, useContext } from "react";
 import { Table, TableHead, TableRow, TableCell, TableBody, Fade } from "@material-ui/core";
-import { ReactAuthContext, checkUserRole, UserRole } from "../../../src/graphql/auth";
+import { ReactAuthContext, checkUserRole } from "../../../src/graphql/auth";
 import { Query, useQuery } from "react-apollo";
-import { GET_USER } from "./UserListQueries";
 import UserComponent from "./User";
-import { IUser } from "../../../src/graphql/types";
-import Loading from "../../Loading/Loading";
 import { withAuthSync } from "../../../src/auth/authWrapper";
 import { getUsers } from "../../../src/graphql/types/getUsers";
 import { getUsersQuery } from "../../../src/graphql/queries";
+import { UserRole } from "../../../src/graphql/graphql-global-types";
 
 const UserList: FunctionComponent = () => {
     const { user: logged } = useContext(ReactAuthContext);

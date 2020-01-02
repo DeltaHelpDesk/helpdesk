@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "next/link";
 import { CssBaseline } from "@material-ui/core";
-import { AuthContext, ReactAuthContext, UserRole, checkUserRole } from "../../src/graphql/auth";
+import { AuthContext, ReactAuthContext, checkUserRole } from "../../src/graphql/auth";
 import UserLogged from "./UserLogged";
 import customRoutes from "../../src/Routes";
 import PersonIcon from "@material-ui/icons/Person";
@@ -13,6 +13,7 @@ import Logo from "./Logo/Logo";
 import { useTranslation } from "react-i18next";
 import locKeys from "../../src/Locales/LocalizationKeys";
 import getTheme from "../Themes/MainTheme";
+import { UserRole } from "../../src/graphql/graphql-global-types";
 
 const useStyles = makeStyles(() => ({
     grow: {
@@ -61,7 +62,7 @@ const useStyles = makeStyles(() => ({
 }));
 const MainAppBar: FunctionComponent<{}> = () => {
 
-    const { isLoggedIn, logout } = useContext(ReactAuthContext);
+    const { isLoggedIn, logout, user: u } = useContext(ReactAuthContext);
     const classes = useStyles(getTheme());
     const { t } = useTranslation();
 
@@ -80,9 +81,9 @@ const MainAppBar: FunctionComponent<{}> = () => {
                         spacing={2}>
                         {isLoggedIn ?
                             <>
-                                <AuthContext.Consumer>{({ user }) =>
+                                {
                                     // Ukázat administraci jen, pokud je admin
-                                    user && checkUserRole(user.role, UserRole.ADMIN) ?
+                                    u && checkUserRole(u.role, UserRole.ADMIN) ?
                                         <Grid item>
                                             <Link href="/admin">
                                                 <a className={classes.menuItem}>
@@ -98,7 +99,6 @@ const MainAppBar: FunctionComponent<{}> = () => {
                                             </Link>
                                         </Grid>
                                 }
-                                </AuthContext.Consumer>
                                 <Grid item>
                                     <Link href={customRoutes.newTask}>
                                         <a className={classes.menuItem}>
@@ -107,15 +107,12 @@ const MainAppBar: FunctionComponent<{}> = () => {
                                     </Link>
                                 </Grid>
                             </> : <></>
+
                         }
                         <Grid item>{
                             isLoggedIn ? (
-                                <AuthContext.Consumer>
-                                    {({ user }) =>
-                                        // Občas to blbne, proto ta podmínka
-                                        user && <UserLogged logout={logout} user={user} />
-                                    }
-                                </AuthContext.Consumer>
+                                // Občas to blbne, proto ta podmínka
+                                u && <UserLogged logout={logout} user={u} />
                             ) : (
                                     <div>
                                         <Link href={customRoutes.loginRoute}>

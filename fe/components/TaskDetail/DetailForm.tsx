@@ -4,7 +4,7 @@ import { useState } from "react";
 import { TASK_DETAIL } from "./TaskDetailQueries";
 import { CHANGE_TASK_STATE } from "./TaskDetailQueries";
 import { Mutation } from "react-apollo";
-import { State } from "../../src/graphql/types";
+import { State } from "../../src/graphql/graphql-global-types";
 
 interface IProps {
     taskId: string;

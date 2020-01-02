@@ -1,8 +1,8 @@
 import { Component } from "react";
 import Layout from "../components/Layouts/Layout";
 import TaskBoard from "../components/TaskBoard/TaskBoard";
-import { UserRole } from "../src/graphql/auth";
 import { withAuthSync } from "../src/auth/authWrapper";
+import { UserRole } from "../src/graphql/graphql-global-types";
 
 // tslint:disable-next-line:no-empty-interface
 interface IProps {
