@@ -5,13 +5,12 @@ import { Mutation } from "react-apollo";
 import { DELETE_TASK, GET_TASKS } from "./TaskListQueries";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { NavLink } from "react-router-dom";
-import { ITask } from "../../src/graphql/types";
 const styles = {
 
 };
 
 interface ITaskProps {
-    task: ITask;
+    task: any;
     isAdmin: boolean;
 }
 

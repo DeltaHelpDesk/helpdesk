@@ -25,6 +25,12 @@ class HelpDeskApp extends App<{}> {
         // @ts-ignore
         global.fetch = fetch;
 
+        // tslint:disable-next-line: no-string-literal
+        if (!global["XMLHttpRequest"]) {
+            // @ts-ignore
+            global.XMLHttpRequest = require("xhr2");
+        }
+
         const { Component, pageProps } = this.props;
 
         return <>

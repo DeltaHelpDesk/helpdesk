@@ -1,10 +1,11 @@
 import { Component } from "react";
 import { Query } from "react-apollo";
-import { ReactAuthContext, checkUserRole, UserRole, IAuthContextValue } from "../../src/graphql/auth";
+import { ReactAuthContext, checkUserRole, IAuthContextValue } from "../../src/graphql/auth";
 import { TASK_DETAIL } from "./TaskDetailQueries";
 import { RouteComponentProps } from "react-router";
 import LogsTable from "./LogsTable";
 import DetailForm from "./DetailForm";
+import { UserRole } from "../../src/graphql/graphql-global-types";
 
 const styles = {};
 class TaskList extends Component<RouteComponentProps<{ id: string }>> {

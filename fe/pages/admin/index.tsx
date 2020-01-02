@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import Layout from "../../components/Layouts/Layout";
-import { UserRole } from "../../src/graphql/auth";
 import { withAuthSync } from "../../src/auth/authWrapper";
 import AdminContainer from "../../components/Administration/AdminContainer/AdminContainer";
 import BoardContainer from "../../components/TaskBoard/BoardContainer";
+import { UserRole } from "../../src/graphql/graphql-global-types";
 
 const AdminPage: NextPage = () => {
     return (

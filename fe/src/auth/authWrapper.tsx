@@ -1,7 +1,8 @@
-import { UserRole, ReactAuthContext, checkUserRole } from "../graphql/auth";
+import { ReactAuthContext, checkUserRole } from "../graphql/auth";
 import Router from "next/router";
 import customRoutes from "../Routes";
 import { useContext, useEffect } from "react";
+import { UserRole } from "../graphql/graphql-global-types";
 
 export const withAuthSync = (WrappedComponent: any, minRole: UserRole = UserRole.DEFAULT) => {
 

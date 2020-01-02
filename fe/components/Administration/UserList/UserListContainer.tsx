@@ -1,7 +1,8 @@
 import { FunctionComponent, useContext } from "react";
 import { Table, TableHead, TableRow, TableCell, TableBody, Paper, Fade } from "@material-ui/core";
-import { ReactAuthContext, checkUserRole, UserRole } from "../../../src/graphql/auth";
+import { ReactAuthContext, checkUserRole } from "../../../src/graphql/auth";
 import UserList from "./UserList";
+import { UserRole } from "../../../src/graphql/graphql-global-types";
 
 const UserListContainer: FunctionComponent = () => {
 

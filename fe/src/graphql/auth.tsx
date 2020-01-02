@@ -5,9 +5,10 @@ import Cookies from "universal-cookie";
 import { UserTokenCookieKey } from "../Global/Keys";
 import Router from "next/router";
 import customRoutes from "../Routes";
-import { AuthType } from "./types";
 import { loginEmailMutation, loginExternalMutation, loginOfficeMutation, logoutMutation } from "./mutations";
 import { getSessionQuery } from "./queries";
+import { getSession, getSession_session } from "./types/getSession";
+import { UserRole, AuthType } from "./graphql-global-types";
 
 const cookies = new Cookies();
 
@@ -17,19 +18,6 @@ export const isLoggedIn = () => {
 
 export let lastToken: string | null = cookies.get(UserTokenCookieKey);
 
-export enum UserRole {
-    DEFAULT = "DEFAULT",
-    ADMIN = "ADMIN",
-    SUPERADMIN = "SUPERADMIN",
-}
-
-export interface IUser {
-    email: string;
-    fullName: string;
-    id: string;
-    role: UserRole;
-}
-
 export const UserRoleAscendency = [
     UserRole.DEFAULT,
     UserRole.ADMIN,
@@ -37,7 +25,7 @@ export const UserRoleAscendency = [
 ];
 
 export interface IAuthContextValue {
-    user: IUser | undefined;
+    user: getSession_session | undefined;
     officeToken: null | string;
     token: null | string;
     isLoggedIn: boolean;
@@ -46,7 +34,6 @@ export interface IAuthContextValue {
     loginByMicrosoft: (token: string) => Promise<string> | undefined;
     doLoginByMicrosoft: () => Promise<string> | undefined;
     logout: () => Promise<void> | undefined;
-    loading: boolean;
     isInRole: (requiredRole: UserRole) => boolean;
 }
 
@@ -68,7 +55,6 @@ const defaultContextValue: IAuthContextValue = {
     loginByMicrosoft: () => undefined,
     doLoginByMicrosoft: () => undefined,
     user: undefined,
-    loading: true,
     logout: () => undefined,
     isInRole: (requiredRole: UserRole) => false,
 };
@@ -116,7 +102,7 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         const id = acc.accountIdentifier;
         const email = acc.userName;
         const name = acc.name;
-        return await loginExternal(email, name, AuthType.Microsoft, id);
+        return await loginExternal(email, name, AuthType.MICROSOFT, id);
         // const res = await microsoftAuthService.getToken();
         // if (!res) {
         //     return "";
@@ -178,7 +164,6 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
         officeToken: defaultContextValue.officeToken,
         token: lastToken,
         isLoggedIn: !!lastToken,
-        loading: defaultContextValue.loading,
         isInRole,
     });
     const { user } = state;
@@ -189,18 +174,15 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
             setToken(token);
             seeIfSessionIsValid();
         }
-        setState({
-            ...state,
-            loading: false,
-        });
-        setInterval(seeIfSessionIsValid, 15 * 60 * 1000); // see if session is valid and update user info every 15 mins
+        // see if session is valid and update user info every 15 mins
+        setInterval(seeIfSessionIsValid, 15 * 60 * 1000);
         // tslint:disable-next-line:no-empty
         return () => {
         };
     }, []);
 
-    const getSessionUser = async (): Promise<IUser> => {
-        const { data: { session } }: any = await client.query({
+    const getSessionUser = async (): Promise<getSession_session> => {
+        const { data: { session } } = await client.query<getSession>({
             query: getSessionQuery,
         });
         // console.log(user);
@@ -235,7 +217,6 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
                 ...state,
                 token,
                 isLoggedIn: true,
-                loading: false,
             });
 
             cookies.set(UserTokenCookieKey, token, { path: "/", maxAge: 60 * 60 * 24 });
