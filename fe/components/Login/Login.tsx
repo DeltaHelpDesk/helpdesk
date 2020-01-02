@@ -15,11 +15,12 @@ import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
 import localisation from "../../src/Locales/Localisations";
-import { Typography, Tooltip } from "@material-ui/core";
+import { Typography, Tooltip, createStyles } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import Background from "../Background/Background";
 import { Theme, makeStyles } from "@material-ui/core";
 import { AuthType } from "../../src/graphql/graphql-global-types";
+import getTheme from "../Themes/MainTheme";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -31,53 +32,54 @@ interface IUser {
     password: string;
 }
 
-// type FilledInputAdornmentsProps<T> = WithStyles<string> & Record<"mode", boolean>
-
-const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
-    const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
         button: {
             borderRadius: "0px",
         },
-
         socialButton: {
             margin: "0px 1%",
             width: "97%",
         },
-
         fbButton: {
             "backgroundColor": "#4267b2",
             "&:hover": {
                 backgroundColor: "#314d85",
             },
         },
-
         gglButton: {
             "backgroundColor": "#dd4b39",
             "&:hover": {
                 backgroundColor: "#b12e1e",
             },
         },
-
         msButton: {
             "backgroundColor": "#3ebede",
             "&:hover": {
                 backgroundColor: "#007f9f",
             },
         },
-
         title: {
             fontWeight: "bold",
             textTransform: "uppercase",
-        }
-        ,
-    }),
-    );
+        },
+    }));
+
+const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
     const { loginByEmail, isLoggedIn, loginExternal, doLoginByMicrosoft } = useContext(ReactAuthContext);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            Router.push("/");
+        }
+    }, []);
 
     const [filled, setUser] = useState<IUser>(loginVars);
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
     const [loading, setLoading] = useState<boolean>(false);
+
+    const classes = useStyles(getTheme());
 
     const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
         const property = e.currentTarget.name;
@@ -192,19 +194,11 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         }
     };
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            Router.push("/");
-        }
-    }, []);
-
     if (loading) {
         return <>
             <Loading />
         </>;
     }
-
-    const classes = useStyles({});
 
     return <>
         <Grid container direction="row" justify="center">
