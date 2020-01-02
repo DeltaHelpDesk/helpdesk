@@ -107,7 +107,6 @@ const MainAppBar: FunctionComponent<{}> = () => {
                                     </Link>
                                 </Grid>
                             </> : <></>
-
                         }
                         <Grid item>{
                             isLoggedIn ? (

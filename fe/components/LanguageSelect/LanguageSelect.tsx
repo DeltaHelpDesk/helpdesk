@@ -30,7 +30,6 @@ const LanguageSelect: FunctionComponent = () => {
         const langInfo = localisation.getLanguage();
         console.log(langInfo);
         const currentLang = langs.find((x) => x.lang === langInfo);
-        i18n.
         setLanguage(currentLang);
     }, []);
 
