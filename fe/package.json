@@ -44,7 +44,8 @@
         "react-trello-for-timeline": "^2.2.6",
         "serialize-javascript": "^2.1.2",
         "tslint": "^5.20.0",
-        "universal-cookie": "^4.0.2"
+        "universal-cookie": "^4.0.2",
+        "xhr2": "^0.2.0"
     },
     "devDependencies": {
         "@graphql-codegen/cli": "^1.8.3",
