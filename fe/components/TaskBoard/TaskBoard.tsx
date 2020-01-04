@@ -130,17 +130,17 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
                 borderColor = "#ffffff";
                 break;
             case State.SOLVED:
-                borderColor = "#ffffff";
+                borderColor = "#40a351";
                 break;
             case State.SOLVING:
-                borderColor = "#ffffff";
+                borderColor = "#ffff00";
                 break;
             case State.UNRESOLVED:
-                borderColor = "#ffffff";
+                borderColor = "#ff0000";
                 break;
         }
 
-        const border = `2px solid ${borderColor}`;
+        const taskBorder = `3px solid ${borderColor}`;
 
         return (
             <Tooltip title="Kliknutím zobrazíte detail">
@@ -148,6 +148,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
                     padding: "0.7rem",
                     backgroundColor:
                         selected ? "#1f1f1f" : "#3f3f3f",
+                    borderTop: taskBorder,
                 }}>
                     <div onClick={() => { onClick(id); }} >
                         <Grid container direction="column">

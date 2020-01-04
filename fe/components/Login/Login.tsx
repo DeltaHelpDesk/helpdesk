@@ -63,6 +63,19 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: "bold",
             textTransform: "uppercase",
         },
+        loginCard: {
+            padding: "2rem",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+        },
+        mainContentWidth: {
+            width: "25rem",
+        },
+        socialButtonsContainer: {
+            width: "100%", paddingTop: "0px",
+        },
     }));
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
@@ -203,7 +216,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     return <>
         <Grid container direction="row" justify="center">
             <Grid item>
-                <Paper style={{ padding: "2rem", position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)" }} >
+                <Paper className={classes.loginCard} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
                         <Grid item>
                             <Typography variant="h4" component="div">
@@ -219,8 +232,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 type="text"
                                 autoComplete="email"
                                 value={filled && filled.name || ""}
-                                style={{ width: "25rem" }}
-                                className={" pb-5"}
+                                className={`" pb-5" ${classes.mainContentWidth}`}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)} />
                         </Grid>
                         <Grid item={true}>
@@ -234,8 +246,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 value={filled && filled.password || ""}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)}
                                 onKeyPress={handleKeywordKeyPress}
-                                style={{ width: "25rem" }}
-                                className={" pb-5"}
+                                className={`" pb-5" ${classes.mainContentWidth}`}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment variant="filled" position="end">
@@ -255,8 +266,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 variant="contained"
                                 size="large"
                                 color="primary"
-                                style={{ width: "25rem" }}
-                                className={classes.button}
+                                className={`${classes.button} ${classes.mainContentWidth}`}
                                 onClick={handleFormSubmit}>
                                 <Icon path={mdiLogin}
                                     size={1}
@@ -265,7 +275,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 {localisation.login.login}
                             </Button>
                         </Grid>
-                        <Grid item sm={12} style={{ width: "100%", paddingTop: "0px" }}>
+                        <Grid item sm={12} className={classes.socialButtonsContainer}>
                             <Grid container={true} direction={"row"} alignItems={"stretch"}  >
                                 <Grid item sm>
                                     <SocialButton appId="798682318207-k4cmrgbnabg5vf8o12cdj867nqe7tufo.apps.googleusercontent.com"
