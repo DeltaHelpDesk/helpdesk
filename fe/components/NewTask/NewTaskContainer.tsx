@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Grid, Button, Paper, Typography, TextField, Divider, Backdrop, CircularProgress } from "@material-ui/core";
+import { Grid, Button, Paper, Typography, TextField, Divider, Backdrop, CircularProgress, makeStyles, createStyles, Theme } from "@material-ui/core";
 import AdminSelect from "../AdminSelect/AdminSelect";
 import { getAdmins_admins } from "../../src/graphql/types/getAdmins";
 import { useState } from "react";
@@ -8,8 +8,29 @@ import { useMutation } from "react-apollo";
 import { addTask, addTaskVariables } from "../../src/graphql/types/addTask";
 import { addTaskMutation } from "../../src/graphql/mutations";
 import Router from "next/router";
+import getTheme from "../Themes/MainTheme";
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        button: {
+            borderRadius: "0px",
+        },
+        title: {
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            paddingTop: ".5rem",
+        },
+        mainCard: {
+            padding: "2rem",
+        },
+        mainContentWidth: {
+            width: "25rem",
+        },
+    }));
 
 const NewTaskContainer: FunctionComponent = () => {
+
+    const classes = useStyles(getTheme());
 
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
@@ -68,8 +89,8 @@ const NewTaskContainer: FunctionComponent = () => {
         </Backdrop>
         <Grid container justify="center" alignItems="center" alignContent="center" style={{ paddingTop: "1.5rem" }}>
             <Grid item xs={12} md={6} >
-                <Paper style={{ padding: "1.5rem" }}>
-                    <Typography variant="h5" style={{ paddingTop: ".5rem" }}>
+                <Paper className={classes.mainCard}>
+                    <Typography variant="h4" className={classes.title}>
                         Přidat nový ticket
                     </Typography>
                     <Divider />
@@ -114,7 +135,7 @@ const NewTaskContainer: FunctionComponent = () => {
                         </Grid>
                         <Grid item>
                             <AdminSelect
-                                title="Řešitel? Řešenec?"
+                                title="Řešitel? Řešenec? Řešící?"
                                 helperText="Vyberte osobu, která by se měla tímto požadavkem zabývat"
                                 onSelected={adminSelected} />
                         </Grid>
@@ -123,6 +144,7 @@ const NewTaskContainer: FunctionComponent = () => {
                             <Button
                                 variant="contained"
                                 fullWidth color="primary"
+                                className={classes.button}
                                 onClick={() => { submit(); }}>
                                 Přidat ticket
                             </Button>
