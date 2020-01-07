@@ -1,16 +1,25 @@
 import * as React from "react";
-import { Grid, Paper, useMediaQuery } from "@material-ui/core";
+import { Grid, Paper, useMediaQuery, makeStyles, createStyles, Theme } from "@material-ui/core";
 import TaskBoard from "./TaskBoard";
 import TaskDetail from "./TaskDetail";
 import { useState } from "react";
 import { getTasks_tasks } from "../../src/graphql/types/getTasks";
 import getTheme from "../Themes/MainTheme";
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        cards: {
+            paddingTop: "2rem",
+            paddingBottom: "2rem",
+        },
+    }));
+
 const BoardContainer: React.FunctionComponent<{}> = () => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
 
     const theme = getTheme();
+    const classes = useStyles(getTheme());
 
     const smallDisplay = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -34,7 +43,7 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
     return <>
         <Grid container direction={smallDisplay ? "column-reverse" : "row"} spacing={2}>
             <Grid item xs={xs}>
-                <Paper style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
+                <Paper className={classes.cards}>
                     <Grid container justify="center">
                         <Grid item>
                             <TaskBoard showDetail={handleClickTask} />
@@ -44,7 +53,7 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
                 </Paper>
             </Grid>
             <Grid item xs={xs}>
-                <Paper style={{ padding: "2rem" }} id="task-detail-box">
+                <Paper className={classes.cards} id="task-detail-box">
                     <TaskDetail task={task} />
                 </Paper>
             </Grid>
