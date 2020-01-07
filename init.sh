@@ -6,5 +6,5 @@
 cp -i ./dckr/env/mysql-example.env ./dckr/env/mysql.env
 cp -i ./dckr/mysql/docker-entrypoint-initdb.d/createdb.sql.example ./dckr/mysql/docker-entrypoint-initdb.d/createdb.sql
 cp -i ./.env-example ./.env
-cp -i ./frontend/env-example ./frontend/.env
+# cp -i ./frontend/env-example ./frontend/.env
 cp -i ./backend/env-example ./backend/.env

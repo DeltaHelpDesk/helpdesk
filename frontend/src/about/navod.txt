@@ -1,9 +1,0 @@
-1)Přidej složku se svoji přezdívkou
-2)Do složky
-    obrázek pojmenovaný "image" s příponou .jpg nebo .png
-    soubor index.ts, ve kterém
-                               importuješ a exportuješ v default svůj soubor image
-                               exportuješ v default svůj text v markdownu tvaru
-3)Exportuj svoji složku v about/index.ts
-
-Předloha složka "botafi"
