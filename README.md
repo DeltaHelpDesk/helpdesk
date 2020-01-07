@@ -22,6 +22,7 @@ Writting using Flutter.
 
 - [Frontend](https://delta-nextjs.herokuapp.com/)
 - [Backend](https://delta-helpdesk.herokuapp.com/)
+- [Trello](https://trello.com/b/MXKHJvS8/helpdesk)
 
 ## Installation/Start
 
