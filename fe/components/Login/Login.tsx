@@ -232,7 +232,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 type="text"
                                 autoComplete="email"
                                 value={filled && filled.name || ""}
-                                className={`" pb-5" ${classes.mainContentWidth}`}
+                                className={classes.mainContentWidth}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)} />
                         </Grid>
                         <Grid item={true}>
