@@ -10,6 +10,7 @@ import ThemeContainer from "../components/Themes/ThemeProvider";
 import ScrollButton from "../components/ScrollTop/ScrollTop";
 import SnowComponent from "../components/Snow/SnowComponent";
 import "../src/i18n";
+import { SnackbarProvider } from "notistack";
 
 class HelpDeskApp extends App<{}> {
 
@@ -40,7 +41,9 @@ class HelpDeskApp extends App<{}> {
                 <AuthContext.Provider >
                     <ApolloProvider client={client}>
                         <ThemeContainer>
-                            <Component {...pageProps} />
+                            <SnackbarProvider maxSnack={3}>
+                                <Component {...pageProps} />
+                            </SnackbarProvider>
                         </ThemeContainer>
                     </ApolloProvider>
                 </AuthContext.Provider>

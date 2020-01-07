@@ -59,7 +59,7 @@ const HomePage: FunctionComponent<IHomePageProps> = () => {
     const { isLoggedIn, logout } = useContext(ReactAuthContext);
 
     const classes = useStyles(getTheme());
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <div>
@@ -108,7 +108,6 @@ const HomePage: FunctionComponent<IHomePageProps> = () => {
                         }
                     </Grid>
                 </Grid>
-
                 <Background />
             </Grid>
         </div>

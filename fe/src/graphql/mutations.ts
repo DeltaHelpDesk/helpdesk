@@ -113,3 +113,9 @@ export const loginOfficeMutation = gql`
     }
   }
 `;
+
+export const editUserAdmin = gql`mutation EditUserAdmin($userId: ID!, $email: String!, $fullName: String!, $role: UserRole!) {
+    adminEditUser(userId: $userId, email: $email, fullName: $fullName, role: $role) {
+      id
+    }
+  }`;

@@ -1,6 +1,6 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { TableRow, TableCell, Button, Box, Fade } from "@material-ui/core";
+import { TableRow, TableCell, Button, Box, Fade, Modal, IconButton, Grid } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { DELETE_USER, GET_USER } from "./UserListQueries";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -10,13 +10,28 @@ import DateFormatComponent from "../../Dates/DateFormatter";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getUsers_users } from "../../../src/graphql/types/getUsers";
 import RoleIcon from "../../RoleIcon/RoleIcon";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import EditUser from "./EditUser";
+import RemoveUser from "./DeleteUser";
 
 interface IUserComponentProps {
     user?: getUsers_users;
     isAdmin: boolean;
+    refresh?: () => void;
 }
 
-const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, isAdmin }) => {
+const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, isAdmin, refresh = null }) => {
+
+    const reload = () => {
+        if (refresh) {
+            refresh();
+        }
+    };
 
     if (!user) {
         return <>
@@ -47,25 +62,7 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
 
     const { email, fullName, role, created_at, updated_at, id } = user;
 
-    const DeleteButton: FunctionComponent = () => {
-        return (
-            <Mutation mutation={DELETE_USER} refetchQueries={() => [{ query: GET_USER }, { query: GET_TASKS }]}>
-                {(removeUser: any) => (
-                    <Button variant="contained" color="secondary" onClick={() => {
-                        removeUser({
-                            variables: {
-                                email,
-                            },
-                        });
-                    }}>
-                        <DeleteIcon />
-                    </Button>
-                )}
-            </Mutation>
-        );
-    };
-
-    return (
+    return <>
         <Fade in={true}>
             <TableRow>
                 <TableCell>
@@ -87,14 +84,13 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
                     <DateFormatComponent date={updated_at} relative={false} />
                 </TableCell>
                 {isAdmin && <TableCell>
-                    <Button variant="contained" color="primary">
-                        <EditIcon />
-                    </Button>
-                    <DeleteButton />
+                    <EditUser user={user} onEdited={reload} />
+                    <RemoveUser user={user} onRemoved={reload} />
                 </TableCell>}
             </TableRow>
         </Fade>
-    );
+
+    </>;
 };
 
 export default UserComponent;
