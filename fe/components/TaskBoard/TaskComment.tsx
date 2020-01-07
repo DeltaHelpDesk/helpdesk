@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, Grid, Chip, Divider, Typography, IconButton, Tooltip } from "@material-ui/core";
+import { Card, Grid, Chip, Divider, Typography, IconButton, Tooltip, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@material-ui/core";
 import { GetTaskComments_task_comments } from "../../src/graphql/types/GetTaskComments";
 import Skeleton from "@material-ui/lab/Skeleton";
 import RoleIcon from "../RoleIcon/RoleIcon";
@@ -17,6 +17,16 @@ interface IProps {
 const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove = null }) => {
 
     const dateHelper = new DateHelper();
+
+    const [open, setOpen] = React.useState<boolean>(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const [rem] = useMutation<DeleteComment>(removeComment);
 
@@ -40,6 +50,8 @@ const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove
         if (res && onRemove) {
             onRemove();
         }
+
+        handleClose();
     };
 
     return <>
@@ -67,14 +79,17 @@ const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove
                                     <Divider style={{ marginTop: "5px" }} />
                                 </Grid>
                                 <Grid item>
-                                    <Tooltip title="Delete comment">
+                                    {
+
+                                        <Tooltip title="Delete comment">
                                         <IconButton
                                             aria-label="delete"
                                             size="small"
-                                            onClick={(_) => { removeComm(); }} >
+                                            onClick={handleClickOpen} >
                                             <DeleteIcon />
                                         </IconButton>
                                     </Tooltip>
+                                    }
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -91,6 +106,27 @@ const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove
             </Grid>
         </Card>
         <Divider style={{ margin: "1rem" }} />
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">{"Potvrdit smazání"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Opravdu chcete smazat komentář?
+          </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Zrušit
+          </Button>
+                <Button onClick={removeComm} color="primary" autoFocus>
+                    Potvrdit
+          </Button>
+            </DialogActions>
+        </Dialog>
     </>;
 };
 

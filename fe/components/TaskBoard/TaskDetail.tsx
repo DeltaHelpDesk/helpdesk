@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: theme.typography.pxToRem(15),
             color: theme.palette.text.secondary,
         },
+        panel: {
+            backgroundColor: "#1f1f1f",
+        },
     }),
 );
 
@@ -190,7 +193,7 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <div >
-                        <ExpansionPanel>
+                        <ExpansionPanel className={classes.panel}>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -203,7 +206,7 @@ const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
                                 </div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                        <ExpansionPanel>
+                        <ExpansionPanel className={classes.panel}>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"

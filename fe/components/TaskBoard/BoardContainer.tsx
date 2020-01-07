@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: "2rem",
             paddingBottom: "2rem",
         },
+        detail: {
+            padding: "2rem",
+        },
     }));
 
 const BoardContainer: React.FunctionComponent<{}> = () => {
@@ -53,7 +56,7 @@ const BoardContainer: React.FunctionComponent<{}> = () => {
                 </Paper>
             </Grid>
             <Grid item xs={xs}>
-                <Paper className={classes.cards} id="task-detail-box">
+                <Paper className={classes.detail} id="task-detail-box">
                     <TaskDetail task={task} />
                 </Paper>
             </Grid>
