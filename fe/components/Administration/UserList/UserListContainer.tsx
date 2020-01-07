@@ -3,8 +3,19 @@ import { Table, TableHead, TableRow, TableCell, TableBody, Paper, Fade } from "@
 import { ReactAuthContext, checkUserRole } from "../../../src/graphql/auth";
 import UserList from "./UserList";
 import { UserRole } from "../../../src/graphql/graphql-global-types";
+import { Theme, makeStyles, createStyles } from "@material-ui/core";
+import getTheme from "../../Themes/MainTheme";
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        userListContainer: {
+            padding: "1rem",
+        },
+    }));
 
 const UserListContainer: FunctionComponent = () => {
+
+    const classes = useStyles(getTheme());
 
     const { user: logged } = useContext(ReactAuthContext);
 
@@ -12,7 +23,7 @@ const UserListContainer: FunctionComponent = () => {
 
     return <>
         <Fade in={true}>
-            <Paper style={{ padding: "1rem" }}>
+            <Paper className={classes.userListContainer}>
                 <Table>
                     <TableHead>
                         <TableRow>

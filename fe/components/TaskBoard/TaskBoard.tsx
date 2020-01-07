@@ -18,6 +18,7 @@ interface ICard {
     draggable?: boolean;
     metadata?: {};
     selected?: boolean;
+    state?: State;
     onClick?: (id: string) => void;
 }
 
@@ -63,6 +64,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
             {
                 id: x.id,
                 title: x.subject,
+                state: x.state,
                 description: x.issue,
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
@@ -76,6 +78,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
             {
                 id: x.id,
                 title: x.subject,
+                state: x.state,
                 description: x.issue,
                 label: getFormattedDate(x.created_at, true),
                 draggable: true,
@@ -88,6 +91,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
             ...tasksNotStarted,
             {
                 id: x.id,
+                state: x.state,
                 title: x.subject,
                 description: x.issue,
                 label: getFormattedDate(x.created_at, true),
@@ -117,13 +121,34 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
     };
 
     const CustomCard = (x: any) => {
-        const { id, description, title, label = "", onClick, selected }: ICard = x;
+        const { id, description, title, label = "", onClick, selected, state }: ICard = x;
+
+        let borderColor: string = "";
+
+        switch (state) {
+            case State.RETURNED:
+                borderColor = "#ffffff";
+                break;
+            case State.SOLVED:
+                borderColor = "#40a351";
+                break;
+            case State.SOLVING:
+                borderColor = "#ffff00";
+                break;
+            case State.UNRESOLVED:
+                borderColor = "#ff0000";
+                break;
+        }
+
+        const taskBorder = `3px solid ${borderColor}`;
+
         return (
             <Tooltip title="Kliknutím zobrazíte detail">
                 <Paper style={{
                     padding: "0.7rem",
                     backgroundColor:
                         selected ? "#1f1f1f" : "#3f3f3f",
+                    borderTop: taskBorder,
                 }}>
                     <div onClick={() => { onClick(id); }} >
                         <Grid container direction="column">
