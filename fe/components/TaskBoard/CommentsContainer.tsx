@@ -42,13 +42,12 @@ const CommentsContainer: React.FunctionComponent<IProps> = ({ taskId }) => {
 
         return <>
             <Grid container direction="column">
-                There are no updates
+                Na tento požadavek ještě nikdo nereagoval
                 <Grid item xs={12}>
                     <Divider style={{ marginTop: "1rem", marginBottom: "1rem" }} />
-                    <AddCommentComponent taskId={taskId} />
+                    <AddCommentComponent taskId={taskId} onAdd={refresh} />
                 </Grid>
             </Grid>
-
         </>;
     }
 

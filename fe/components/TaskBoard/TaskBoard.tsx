@@ -9,6 +9,7 @@ import { State } from "../../src/graphql/graphql-global-types";
 import { updateTaskBoardQuery } from "../../src/graphql/mutations";
 import { FunctionComponent, useState } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
+import DateHelper from "../../utils/dateHelper";
 
 interface ICard {
     id: string;
@@ -27,10 +28,17 @@ interface IProps {
     showDetail?: (task: getTasks_tasks) => void;
 }
 
+const dateHelper = new DateHelper();
+
+const getDateLabel = (x: getTasks_tasks) => {
+    return `${dateHelper.getFormattedDate(x.created_at, "relative")} (${dateHelper.getFormattedDate(x.created_at, "fromNow")})`
+};
+
 const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
     const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
     const [changeTaskState] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);
+
 
     const [selectedId, setSelectedId] = useState<string>("");
 
@@ -66,7 +74,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
                 title: x.subject,
                 state: x.state,
                 description: x.issue,
-                label: getFormattedDate(x.created_at, true),
+                label: getDateLabel(x),
                 draggable: true,
                 onClick: onClicked,
                 selected: x.id === selectedId,
@@ -80,7 +88,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
                 title: x.subject,
                 state: x.state,
                 description: x.issue,
-                label: getFormattedDate(x.created_at, true),
+                label: getDateLabel(x),
                 draggable: true,
                 onClick: onClicked,
                 selected: x.id === selectedId,
@@ -94,7 +102,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
                 state: x.state,
                 title: x.subject,
                 description: x.issue,
-                label: getFormattedDate(x.created_at, true),
+                label: getDateLabel(x),
                 draggable: true,
                 onClick: onClicked,
                 selected: x.id === selectedId,
