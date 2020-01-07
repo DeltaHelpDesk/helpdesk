@@ -5,72 +5,42 @@ import { getAdmins, getAdmins_admins } from "../../src/graphql/types/getAdmins";
 import { getAdminsQuery } from "../../src/graphql/queries";
 import { useQuery } from "react-apollo";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { UserRole, State } from "../../src/graphql/graphql-global-types";
 
 interface IProps {
-    helperText?: string;
-    title?: string;
-    onSelected?: (admin: getAdmins_admins) => void;
-    selectOneText?: string;
+    onSelected?: (admin: UserRole) => void;
+    currentRole: UserRole;
 }
 
 const RoleSelect: React.FunctionComponent<IProps> = ({
-    helperText = "",
     onSelected = null,
-    title = "Select admin",
-    selectOneText = "Select one",
+    currentRole,
 }) => {
 
-    const [selected, setSelected] = useState<string>("");
+    const [selected, setSelected] = useState<string>(currentRole);
 
-    const { loading, data, error } = useQuery<getAdmins>(getAdminsQuery);
-
-    if (loading) {
-        return <>
-            <Skeleton variant="text" />
-        </>;
-    }
-
-    if (error) {
-        return <>
-            {error}
-        </>;
-    }
-
-    const { admins } = data;
-
-    const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
-
-        const selectedValue = event.target.value;
-        setSelected(selectedValue);
-
-        const selectedAdmin = admins.find(({ id }) => id === selectedValue);
-
+    const handleChange = (event: React.ChangeEvent<{ value: UserRole }>) => {
+        const state = event.target.value as UserRole;
+        setSelected(state);
         if (onSelected) {
-            onSelected(selectedAdmin);
+            onSelected(state);
         }
     };
 
     return <>
-        <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-helper-label">{title}</InputLabel>
+        <FormControl fullWidth >
+            <InputLabel id="state-label">Práva uživatele</InputLabel>
             <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
+                labelId="state-label"
+                id="state-select"
                 value={selected}
                 onChange={handleChange}
+                fullWidth
             >
-                <MenuItem value="" disabled>
-                    <em>
-                        {selectOneText}
-                    </em>
-                </MenuItem>
                 {
-                    admins.map(({ fullName, id }) => <MenuItem value={id}>
-                        {fullName}
-                    </MenuItem>)
+                    Object.values(UserRole).map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)
                 }
             </Select>
-            <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
     </>;
 };

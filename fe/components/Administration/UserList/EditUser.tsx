@@ -8,6 +8,8 @@ import { EditUserAdmin, EditUserAdminVariables } from "../../../src/graphql/type
 import { editUserAdmin } from "../../../src/graphql/mutations";
 import { removeUserVariables } from "../../../src/graphql/types/removeUser";
 import { useSnackbar } from "notistack";
+import RoleSelect from "../../RoleSelect/RoleSelect";
+import { UserRole } from "../../../src/graphql/graphql-global-types";
 
 interface IProps {
     user: getUsers_users;
@@ -19,6 +21,7 @@ const EditUser: React.FunctionComponent<IProps> = ({ user, onEdited = null }) =>
 
     const [uEmail, setUEmail] = useState<string>(email);
     const [uFullName, setUFullName] = useState<string>(fullName);
+    const [uRole, setURole] = useState<UserRole>(role);
 
     const [openEdit, setOpenEdit] = useState<boolean>(false);
 
@@ -39,7 +42,7 @@ const EditUser: React.FunctionComponent<IProps> = ({ user, onEdited = null }) =>
             email: uEmail,
             userId: id,
             fullName: uFullName,
-            role,
+            role: uRole,
         };
 
         const res = await editU({ variables });
@@ -52,7 +55,7 @@ const EditUser: React.FunctionComponent<IProps> = ({ user, onEdited = null }) =>
         }
 
         if (!!data.adminEditUser.id) {
-            enqueueSnackbar("Changes saved");
+            enqueueSnackbar("Změny byly uloženy");
             if (onEdited) {
                 onEdited();
             }
@@ -67,47 +70,40 @@ const EditUser: React.FunctionComponent<IProps> = ({ user, onEdited = null }) =>
         <Dialog open={openEdit} onClose={handleCloseEdit} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Úprava uživatele</DialogTitle>
             <DialogContent>
-                <Grid container direction="column" spacing={2} >
-                    <Grid item>
-                        <TextField
-                            margin="dense"
-                            id="name"
-                            label="Jméno"
-                            type="text"
-                            fullWidth
-                            defaultValue={fullName}
-                            value={uFullName}
-                            onChange={(event) => { setUFullName(event.target.value); }}
-                        />
+                <div >
+                    <Grid container direction="column" spacing={2} >
+                        <Grid item>
+                            <TextField
+                                margin="dense"
+                                id="name"
+                                label="Jméno"
+                                type="text"
+                                fullWidth
+                                defaultValue={fullName}
+                                value={uFullName}
+                                onChange={(event) => { setUFullName(event.target.value); }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                margin="dense"
+                                id="email"
+                                label="Email"
+                                type="email"
+                                defaultValue={email}
+                                fullWidth
+                                value={uEmail}
+                                onChange={(event) => { setUEmail(event.target.value); }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <RoleSelect
+                                currentRole={role}
+                                onSelected={(uR) => { setURole(uR); }}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Divider />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            margin="dense"
-                            id="email"
-                            label="Email"
-                            type="email"
-                            defaultValue={email}
-                            fullWidth
-                            value={uEmail}
-                            onChange={(event) => { setUEmail(event.target.value); }}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            margin="dense"
-                            id="email"
-                            label="Email"
-                            type="email"
-                            defaultValue={email}
-                            fullWidth
-                            value={uEmail}
-                            onChange={(event) => { setUEmail(event.target.value); }}
-                        />
-                    </Grid>
-                </Grid>
+                </div>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleCloseEdit} color="primary">
