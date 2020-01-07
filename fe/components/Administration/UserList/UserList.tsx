@@ -13,7 +13,11 @@ const UserList: FunctionComponent = () => {
 
     const isAdmin = !!logged && checkUserRole(logged.role, UserRole.ADMIN);
 
-    const { loading, error, data } = useQuery<getUsers>(getUsersQuery);
+    const { loading, error, data, refetch } = useQuery<getUsers>(getUsersQuery);
+
+    const reload = () => {
+        refetch();
+    };
 
     if (loading) {
         return <>
@@ -35,7 +39,7 @@ const UserList: FunctionComponent = () => {
 
         {
             users.map((user) =>
-                <UserComponent key={user.id} user={user} isAdmin={isAdmin} />)
+                <UserComponent key={user.id} user={user} isAdmin={isAdmin} refresh={reload} />)
         }
 
     </>;
