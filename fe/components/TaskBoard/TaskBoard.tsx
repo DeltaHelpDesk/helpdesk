@@ -31,14 +31,13 @@ interface IProps {
 const dateHelper = new DateHelper();
 
 const getDateLabel = (x: getTasks_tasks) => {
-    return `${dateHelper.getFormattedDate(x.created_at, "relative")} (${dateHelper.getFormattedDate(x.created_at, "fromNow")})`
+    return `${dateHelper.getFormattedDate(x.created_at, "relative")} (${dateHelper.getFormattedDate(x.created_at, "fromNow")})`;
 };
 
 const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
     const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
     const [changeTaskState] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);
-
 
     const [selectedId, setSelectedId] = useState<string>("");
 
