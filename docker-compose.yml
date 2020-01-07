@@ -34,20 +34,6 @@ services:
     volumes:
     - './dckr/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
     - 'mysql-data:/var/lib/mysql'
-  mobile:
-    image: kkarczmarczyk/node-yarn
-    networks:
-      backend:
-        aliases:
-          - mobile
-    expose:
-    - '8100'
-    ports:
-      - '${IONIC_PORT}:8100'
-    volumes:
-      - './mobile:/mobile'
-    working_dir: '/mobile'
-    command: ['yarn', 'start']
 networks:
   backend:
     driver: 'bridge'
