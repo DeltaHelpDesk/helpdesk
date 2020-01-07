@@ -246,7 +246,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 value={filled && filled.password || ""}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)}
                                 onKeyPress={handleKeywordKeyPress}
-                                className={`" pb-5" ${classes.mainContentWidth}`}
+                                className={classes.mainContentWidth}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment variant="filled" position="end">
