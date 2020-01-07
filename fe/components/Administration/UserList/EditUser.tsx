@@ -25,7 +25,6 @@ const EditUser: React.FunctionComponent<IProps> = ({ user, onEdited = null }) =>
 
     const [openEdit, setOpenEdit] = useState<boolean>(false);
 
-
     const [editU] = useMutation<EditUserAdmin>(editUserAdmin);
 
     const { enqueueSnackbar } = useSnackbar();
