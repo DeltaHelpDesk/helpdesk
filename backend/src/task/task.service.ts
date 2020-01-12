@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
-import { Log } from './log/log.entity';
 import { UserRole, checkUserRole } from '../auth/userRole.enum';
 import { Defaults } from '../common/defaults';
 
@@ -16,8 +15,6 @@ export class TaskService {
         private readonly taskRepository: Repository<Task>,
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
-        @InjectRepository(Log)
-        private readonly logRepository: Repository<Log>,
     ) { }
 
     async findOneById(id: number): Promise<Task | undefined> {
@@ -68,7 +65,6 @@ export class TaskService {
         if (!comment && !state && !assigneeId) {
             throw new HttpException(`Haven't passed any changes for task`, HttpStatus.BAD_REQUEST);
         }
-        let log = this.logRepository.create({ author, comment, task, state });
         if (state) {
             task.state = state;
         }
@@ -76,15 +72,11 @@ export class TaskService {
             const assignee = await this.userRepository.findOne(assigneeId);
             if (assignee) {
                 task.assignee = assignee;
-                // assignee.assignedTasks.push(task);
-                log.assignee = assignee;
             } else {
                 throw new HttpException(`Assignee for task with id: ${assigneeId} not found`, HttpStatus.NOT_FOUND);
             }
         }
         task = await this.taskRepository.save(task);
-        log = await this.logRepository.save(log);
-        task.logs.push(log);
         return task;
     }
 
