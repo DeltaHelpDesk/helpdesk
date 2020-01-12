@@ -1,4 +1,4 @@
-import * as React from "react";
+import {FunctionComponent, ChangeEvent, useState} from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Grid } from "@material-ui/core";
@@ -10,11 +10,11 @@ interface IProps {
     activeTab?: number;
 }
 
-const AdminContaier: React.FunctionComponent<IProps> = ({ activeTab = 0, children }) => {
+const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) => {
 
-    const [value, setValue] = React.useState(activeTab);
+    const [value, setValue] = useState(activeTab);
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
 
         if (value === newValue) {
