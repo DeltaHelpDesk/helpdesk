@@ -1,10 +1,8 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { Typography, Box, TextField, Grid, Divider, Fade, makeStyles, Theme, createStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip } from "@material-ui/core";
 import { getTasks_tasks } from "../../src/graphql/types/getTasks";
-import { useEffect } from "react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import CommentsContainer from "./CommentsContainer";
-import AddCommentComponent from "./AddComment";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import getTheme from "../Themes/MainTheme";
 import RoleIcon from "../RoleIcon/RoleIcon";
@@ -35,7 +33,7 @@ interface IProps {
     task?: getTasks_tasks;
 }
 
-const TaskDetail: React.FunctionComponent<IProps> = ({ task }) => {
+const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
 
     const classes = useStyles(getTheme());
     const dateHelper = new DateHelper();

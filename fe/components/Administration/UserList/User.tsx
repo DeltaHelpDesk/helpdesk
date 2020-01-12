@@ -1,21 +1,9 @@
-import { FunctionComponent, useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { TableRow, TableCell, Button, Box, Fade, Modal, IconButton, Grid } from "@material-ui/core";
-import { Mutation } from "react-apollo";
-import { DELETE_USER, GET_USER } from "./UserListQueries";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import { GET_TASKS } from "../../TaskList/TaskListQueries";
+import { FunctionComponent } from "react";
+import { TableRow, TableCell, Box, Fade } from "@material-ui/core";
 import DateFormatComponent from "../../Dates/DateFormatter";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getUsers_users } from "../../../src/graphql/types/getUsers";
 import RoleIcon from "../../RoleIcon/RoleIcon";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import EditUser from "./EditUser";
 import RemoveUser from "./DeleteUser";
 

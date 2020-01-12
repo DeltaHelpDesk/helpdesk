@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { useMutation } from "react-apollo";
 import { AddComment, AddCommentVariables } from "../../src/graphql/types/AddComment";
 import { addComment } from "../../src/graphql/mutations";
@@ -10,7 +10,7 @@ interface IProps {
     onAdd?: () => void;
 }
 
-const AddCommentComponent: React.FunctionComponent<IProps> = ({ taskId, onAdd = null }) => {
+const AddCommentComponent: FunctionComponent<IProps> = ({ taskId, onAdd = null }) => {
 
     const [message, setMessage] = useState<string>("");
     const [addComm] = useMutation<AddComment>(addComment);

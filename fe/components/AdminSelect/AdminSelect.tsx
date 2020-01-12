@@ -1,6 +1,5 @@
-import * as React from "react";
 import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@material-ui/core";
-import { useState } from "react";
+import { useState, FunctionComponent, ChangeEvent } from "react";
 import { getAdmins, getAdmins_admins } from "../../src/graphql/types/getAdmins";
 import { getAdminsQuery } from "../../src/graphql/queries";
 import { useQuery } from "react-apollo";
@@ -13,7 +12,7 @@ interface IProps {
     selectOneText?: string;
 }
 
-const AdminSelect: React.FunctionComponent<IProps> = ({
+const AdminSelect: FunctionComponent<IProps> = ({
     helperText = "",
     onSelected = null,
     title = "Select admin",
@@ -38,7 +37,7 @@ const AdminSelect: React.FunctionComponent<IProps> = ({
 
     const { admins } = data;
 
-    const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
+    const handleChange = (event: ChangeEvent<{ value: string }>) => {
 
         const selectedValue = event.target.value;
         setSelected(selectedValue);

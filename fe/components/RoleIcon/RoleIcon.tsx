@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FunctionComponent, useState, CSSProperties } from "react";
 import { UserRole } from "../../src/graphql/graphql-global-types";
 import { Chip, Popover, makeStyles, Theme, createStyles, Typography, Grid } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
@@ -20,14 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps {
     role: UserRole;
     showText?: boolean;
-    style?: React.CSSProperties;
-    iconStyle?: React.CSSProperties;
+    style?: CSSProperties;
+    iconStyle?: CSSProperties;
 }
 
-const RoleIcon: React.FunctionComponent<IProps> = ({ role, showText = true, style = null, iconStyle = null }) => {
+const RoleIcon: FunctionComponent<IProps> = ({ role, showText = true, style = null, iconStyle = null }) => {
 
     const classes = useStyles(getTheme());
-    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     let icon: JSX.Element;
     let text: string = "";

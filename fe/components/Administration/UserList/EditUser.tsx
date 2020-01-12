@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import { useState, FunctionComponent } from "react";
 import { IconButton, Dialog, DialogTitle, DialogContent, Grid, TextField, DialogActions, Button, Typography, Divider } from "@material-ui/core";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { getUsers_users } from "../../../src/graphql/types/getUsers";
@@ -16,7 +15,7 @@ interface IProps {
     onEdited?: () => void;
 }
 
-const EditUser: React.FunctionComponent<IProps> = ({ user, onEdited = null }) => {
+const EditUser: FunctionComponent<IProps> = ({ user, onEdited = null }) => {
     const { email, fullName, role, created_at, updated_at, id } = user;
 
     const [uEmail, setUEmail] = useState<string>(email);

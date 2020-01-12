@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent, useState } from "react";
 import { Card, Grid, Chip, Divider, Typography, IconButton, Tooltip, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@material-ui/core";
 import { GetTaskComments_task_comments } from "../../src/graphql/types/GetTaskComments";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -14,11 +14,11 @@ interface IProps {
     onRemove?: () => void;
 }
 
-const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove = null }) => {
+const TaskComment: FunctionComponent<IProps> = ({ comment = null, onRemove = null }) => {
 
     const dateHelper = new DateHelper();
 
-    const [open, setOpen] = React.useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -82,13 +82,13 @@ const TaskComment: React.FunctionComponent<IProps> = ({ comment = null, onRemove
                                     {
 
                                         <Tooltip title="Delete comment">
-                                        <IconButton
-                                            aria-label="delete"
-                                            size="small"
-                                            onClick={handleClickOpen} >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </Tooltip>
+                                            <IconButton
+                                                aria-label="delete"
+                                                size="small"
+                                                onClick={handleClickOpen} >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                     }
                                 </Grid>
                             </Grid>

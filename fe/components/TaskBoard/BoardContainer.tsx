@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { Grid, Paper, useMediaQuery, makeStyles, createStyles, Theme } from "@material-ui/core";
 import TaskBoard from "./TaskBoard";
 import TaskDetail from "./TaskDetail";
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }));
 
-const BoardContainer: React.FunctionComponent<{}> = () => {
+const BoardContainer: FunctionComponent<{}> = () => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
 

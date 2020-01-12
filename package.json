@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@material-ui/icons": "^4.4.3",
-    "moment": "^2.24.0"
-  },
-  "devDependencies": {
-    "create-next-app": "^9.0.7"
-  }
-}
