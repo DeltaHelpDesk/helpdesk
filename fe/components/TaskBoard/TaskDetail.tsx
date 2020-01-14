@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { Typography, Box, TextField, Grid, Divider, Fade, makeStyles, Theme, createStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip } from "@material-ui/core";
 import { getTasks_tasks } from "../../src/graphql/types/getTasks";
 import VisibilityIcon from "@material-ui/icons/Visibility";
@@ -34,6 +34,11 @@ interface IProps {
 }
 
 const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
+    const [expanded, setExpanded] = useState<string | false>(false);
+
+    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false);
+    };
 
     const classes = useStyles(getTheme());
     const dateHelper = new DateHelper();
@@ -191,7 +196,10 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <div >
-                        <ExpansionPanel className={classes.panel}>
+                        <ExpansionPanel
+                            className={classes.panel}
+                            expanded={expanded === "panel1"}
+                            onChange={handleChange("panel1")}>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -204,7 +212,10 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                 </div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                        <ExpansionPanel className={classes.panel}>
+                        <ExpansionPanel
+                            className={classes.panel}
+                            expanded={expanded === "panel2"}
+                            onChange={handleChange("panel2")}>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"

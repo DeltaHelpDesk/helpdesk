@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }));
 
-const BoardContainer: FunctionComponent<{}> = () => {
+interface IProps {
+    taskId?: string;
+}
+
+const BoardContainer: FunctionComponent<IProps> = ({taskId}) => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
 
@@ -49,7 +53,7 @@ const BoardContainer: FunctionComponent<{}> = () => {
                 <Paper className={classes.cards}>
                     <Grid container justify="center">
                         <Grid item>
-                            <TaskBoard showDetail={handleClickTask} />
+                            <TaskBoard showDetail={handleClickTask} taskId={taskId} />
                         </Grid>
                     </Grid>
 
@@ -57,7 +61,7 @@ const BoardContainer: FunctionComponent<{}> = () => {
             </Grid>
             <Grid item xs={xs}>
                 <Paper className={classes.detail} id="task-detail-box">
-                    <TaskDetail task={task} />
+                    <TaskDetail task={task}  />
                 </Paper>
             </Grid>
         </Grid>

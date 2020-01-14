@@ -7,7 +7,7 @@ import { getFormattedDate } from "../Dates/DateFormatter";
 import { getTasks, getTasks_tasks } from "../../src/graphql/types/getTasks";
 import { State } from "../../src/graphql/graphql-global-types";
 import { updateTaskBoardQuery } from "../../src/graphql/mutations";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 import DateHelper from "../../utils/dateHelper";
 import Router from "next/router";
@@ -27,6 +27,7 @@ interface ICard {
 // tslint:disable-next-line: no-empty-interface
 interface IProps {
     showDetail?: (task: getTasks_tasks) => void;
+    taskId?: string;
 }
 
 const dateHelper = new DateHelper();
@@ -35,25 +36,29 @@ const getDateLabel = (x: getTasks_tasks) => {
     return `${dateHelper.getFormattedDate(x.created_at, "relative")} (${dateHelper.getFormattedDate(x.created_at, "fromNow")})`;
 };
 
-const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
+const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
     const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
     const [changeTaskState] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);
 
+    const [toFindId, setToFindId] = useState<string>("");
+
     const [selectedId, setSelectedId] = useState<string>("");
-
-    if (loading) {
-        return <Loading />;
-    }
-    if (error) {
-        return <> Error... </>;
-    }
-
-    const { tasks } = data;
 
     const onClicked = (id: string) => {
 
+        if (typeof (id) !== "string") {
+            return;
+        }
+
         const task = tasks.find((x) => x.id === id);
+
+        const url = "/admin?taskId=" + id;
+        // Router.push(url, url, { shallow: true });
+
+        if (window) {
+            window.history.pushState({}, `Helpdesk - detail ${id}`, url);
+        }
 
         if (!task) {
             return;
@@ -64,6 +69,23 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
             showDetail(task);
         }
     };
+
+    useEffect(() => {
+        if (!toFindId) {
+            return;
+        }
+
+        onClicked(toFindId);
+    }, [toFindId]);
+
+    if (loading) {
+        return <Loading />;
+    }
+    if (error) {
+        return <> Error... </>;
+    }
+
+    const { tasks } = data;
 
     let tasksCompleted: ICard[] = [];
     tasks.filter((x) => x.state === State.SOLVED)
@@ -127,6 +149,10 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail }) => {
             },
         ],
     };
+
+    if (taskId && toFindId !== taskId) {
+        setToFindId(taskId);
+    }
 
     const CustomCard = (x: any) => {
         const { id, description, title, label = "", onClick, selected, state }: ICard = x;
