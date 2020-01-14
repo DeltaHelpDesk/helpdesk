@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useContext } from "react";
 import { Typography, Box, TextField, Grid, Divider, Fade, makeStyles, Theme, createStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip } from "@material-ui/core";
 import { getTasks_tasks } from "../../src/graphql/types/getTasks";
 import VisibilityIcon from "@material-ui/icons/Visibility";
@@ -8,6 +8,7 @@ import getTheme from "../Themes/MainTheme";
 import RoleIcon from "../RoleIcon/RoleIcon";
 import DateHelper from "../../utils/dateHelper";
 import TaskActions from "./TaskActions";
+import { ReactAuthContext, userIsAdmin } from "../../src/graphql/auth";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,6 +36,7 @@ interface IProps {
 
 const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
     const [expanded, setExpanded] = useState<string | false>(false);
+    const { user } = useContext(ReactAuthContext);
 
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
@@ -212,22 +214,25 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                 </div>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
-                        <ExpansionPanel
-                            className={classes.panel}
-                            expanded={expanded === "panel2"}
-                            onChange={handleChange("panel2")}>
-                            <ExpansionPanelSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel2a-content"
-                                id="panel2a-header">
-                                <Typography>Akce</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <div style={{ width: "100%" }}>
-                                    <TaskActions taskId={id} />
-                                </div>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                        {(userIsAdmin(user)) ?
+                            <ExpansionPanel
+                                className={classes.panel}
+                                expanded={expanded === "panel2"}
+                                onChange={handleChange("panel2")}>
+                                <ExpansionPanelSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel2a-content"
+                                    id="panel2a-header">
+                                    <Typography>Akce</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <div style={{ width: "100%" }}>
+                                        <TaskActions taskId={id} />
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                            : <></>
+                        }
                     </div>
                 </Grid>
             </Grid>
