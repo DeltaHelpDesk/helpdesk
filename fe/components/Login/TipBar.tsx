@@ -40,7 +40,7 @@ const TipBar: FunctionComponent = () => {
     useEffect(() => {
         const k = tips[Math.floor(Math.random() * tips.length)];
         setTip(k);
-    });
+    },[]);
 
     return <>
         <Fade in={true}>

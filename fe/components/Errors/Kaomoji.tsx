@@ -24,7 +24,7 @@ const Kaomoji: FunctionComponent = () => {
     useEffect(() => {
         const k = faces[Math.floor(Math.random() * faces.length)];
         setKaomoji(k);
-    });
+    },[]);
 
     return <>
         <Fade in={true}>

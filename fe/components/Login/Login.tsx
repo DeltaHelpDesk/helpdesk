@@ -77,6 +77,10 @@ const useStyles = makeStyles((theme: Theme) =>
         socialButtonsContainer: {
             width: "100%", paddingTop: "0px",
         },
+        heading: {
+            fontWeight: "bold",
+            textTransform: "uppercase",
+        },
     }));
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
@@ -220,7 +224,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                 <Paper className={classes.loginCard} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
                         <Grid item>
-                            <Typography variant="h4" component="div">
+                            <Typography variant="h4" component="div" className={classes.heading}>
                                 {localisation.login.title}
                             </Typography>
                         </Grid>
