@@ -125,3 +125,9 @@ export const editUserAdmin = gql`mutation EditUserAdmin($userId: ID!, $email: St
       id
     }
   }`;
+
+  export const editUser = gql`mutation {
+    editUser(theme: $theme) {
+      id
+    }
+  }`;
