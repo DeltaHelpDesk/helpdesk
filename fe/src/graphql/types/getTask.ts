@@ -20,27 +20,6 @@ export interface getTask_task_assignee {
   fullName: string;
 }
 
-export interface getTask_task_logs_author {
-  __typename: "User";
-  id: string;
-  fullName: string;
-}
-
-export interface getTask_task_logs_assignee {
-  __typename: "User";
-  fullName: string;
-}
-
-export interface getTask_task_logs {
-  __typename: "Log";
-  id: string;
-  author: getTask_task_logs_author;
-  created_at: any;
-  comment: string | null;
-  state: State | null;
-  assignee: getTask_task_logs_assignee | null;
-}
-
 export interface getTask_task {
   __typename: "Task";
   id: string;
@@ -50,7 +29,6 @@ export interface getTask_task {
   created_at: any;
   author: getTask_task_author;
   assignee: getTask_task_assignee | null;
-  logs: (getTask_task_logs | null)[] | null;
 }
 
 export interface getTask {

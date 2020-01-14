@@ -38,19 +38,6 @@ export const taskDetailQuery = gql`
                 id
                 fullName
             }
-            logs {
-                id
-                author {
-                    id
-                    fullName
-                }
-                created_at
-                comment
-                state
-                assignee {
-                    fullName
-                }
-            }
         }
     }
 `;
