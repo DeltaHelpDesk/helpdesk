@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import { useQuery } from "react-apollo";
 import { GetTaskDetail, GetTaskDetailVariables } from "../../src/graphql/types/GetTaskDetail";
 import { getTaskDetail, getTaskComments } from "../../src/graphql/queries";
@@ -11,7 +11,7 @@ interface IProps {
     taskId: string;
 }
 
-const CommentsContainer: React.FunctionComponent<IProps> = ({ taskId }) => {
+const CommentsContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     const vars: GetTaskDetailVariables = { id: taskId };
 

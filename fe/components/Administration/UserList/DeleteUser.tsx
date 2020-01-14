@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import { useState, FunctionComponent } from "react";
 import { IconButton, Dialog, DialogTitle, DialogContent, Grid, TextField, DialogActions, Button } from "@material-ui/core";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import { getUsers_users } from "../../../src/graphql/types/getUsers";
@@ -13,7 +12,7 @@ interface IProps {
     onRemoved?: () => void;
 }
 
-const RemoveUser: React.FunctionComponent<IProps> = ({ user, onRemoved = null }) => {
+const RemoveUser: FunctionComponent<IProps> = ({ user, onRemoved = null }) => {
     const [open, setOpen] = useState<boolean>(false);
 
     const [remUser] = useMutation<removeUser>(removeUserMutation);
