@@ -14,7 +14,6 @@ import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOpti
 import { AutoJobModule } from './autoJob/autojob.module';
 import { User } from './auth/user.entity';
 import { Task } from './task/task.entity';
-import { Log } from './task/log/log.entity';
 import { ClientConfigModule } from './clientConfig/clientConfig.module';
 import { SubTask } from './task/subtask/subtask.entity';
 import { Comment } from './task/comment/comment.entity';
@@ -50,7 +49,7 @@ import { Comment } from './task/comment/comment.entity';
         TaskModule,
         AutoJobModule,
         ClientConfigModule,
-        TypeOrmModule.forFeature([User, Task, Log, SubTask, Comment]),
+        TypeOrmModule.forFeature([User, Task, SubTask, Comment]),
     ],
     controllers: [AppController],
     providers: [FakeDataService],

@@ -1,7 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
-import { Log } from './log/log.entity';
 import { SubTask } from './subtask/subtask.entity';
 import { Comment } from './comment/comment.entity';
 
@@ -33,9 +32,6 @@ export class Task {
 
     @Column({ default: TaskState.UNRESOLVED })
     state: TaskState;
-
-    @OneToMany(type => Log, log => log.task, { eager: true })
-    logs: Log[];
 
     @OneToMany(type => SubTask, subtask => subtask.task, { eager: true })
     subtasks: SubTask[];

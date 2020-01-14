@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
-import { Log } from './log/log.entity';
 import { TaskResolvers } from './task.resolvers';
 import { User } from '../auth/user.entity';
 import { Comment } from './comment/comment.entity';
@@ -15,7 +14,7 @@ import { CommentModule } from './comment/comment.module';
         AuthModule,
         SubtaskModule,
         CommentModule,
-        TypeOrmModule.forFeature([User, Task, Log, Comment]),
+        TypeOrmModule.forFeature([User, Task, Comment]),
     ],
     providers: [
         TaskService,

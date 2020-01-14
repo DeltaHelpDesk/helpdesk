@@ -5,15 +5,6 @@ enum State {
     RETURNED
 }
 
-type Log {
-    id: ID!
-    author: User!
-    created_at: Date!
-    comment: String
-    state: State
-    assignee: User
-}
-
 type Comment {
     id: ID!
     author: User!
@@ -40,7 +31,6 @@ type Task {
     created_at: Date!
     updated_at: Date
     state: State!
-    logs: [Log]
     subtasks: [SubTask]
     comments: [Comment]
 }

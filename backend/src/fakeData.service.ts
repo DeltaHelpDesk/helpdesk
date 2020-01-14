@@ -5,7 +5,6 @@ import * as faker from 'faker';
 import * as bcrypt from 'bcrypt';
 import { User } from './auth/user.entity';
 import { Task } from './task/task.entity';
-import { Log } from './task/log/log.entity';
 import { TaskState } from './task/taskState.enum';
 import { UserRole } from './auth/userRole.enum';
 import { SubTask } from './task/subtask/subtask.entity';
@@ -19,8 +18,6 @@ export class FakeDataService implements OnModuleInit {
         private readonly taskRepository: Repository<Task>,
         @InjectRepository(SubTask)
         private readonly subTaskRepository: Repository<SubTask>,
-        @InjectRepository(Log)
-        private readonly logRepository: Repository<Log>,
     ) { }
     async onModuleInit() {
         // seed admin if not exists
@@ -66,9 +63,6 @@ export class FakeDataService implements OnModuleInit {
         }
         const tasks = await this.seedTasks(user1, user2);
 
-        if ((await this.logRepository.count()) < 4) {
-            const logs = await this.seedLogs(user1, user2, tasks);
-        }
         if ((await this.subTaskRepository.count()) < 4) {
             const subTasks = await this.seedSubTasks(tasks);
         }
@@ -105,39 +99,6 @@ export class FakeDataService implements OnModuleInit {
             },
         ]) as any;
         return { task1, task2, task3 };
-    }
-
-    private async seedLogs(user1: User, user2: User, { task1, task2, task3 }) {
-        const { identifiers: [log1, log2, log3, log4, log5] }: { identifiers: Log[] } = await this.logRepository.insert([
-            {
-                author: user1,
-                comment: faker.lorem.paragraph(2),
-                assignee: user1,
-                task: task1,
-            },
-            {
-                author: user1,
-                comment: faker.lorem.paragraph(2),
-                task: task1,
-            },
-            {
-                author: user2,
-                assignee: user2,
-                task: task2,
-            },
-            {
-                author: user2,
-                state: TaskState.SOLVING,
-                task: task3,
-            },
-            {
-                author: user2,
-                state: TaskState.SOLVING,
-                task: task3,
-                comment: faker.lorem.paragraph(2),
-            },
-        ]) as any;
-        return { log1, log2, log3 };
     }
 
     private async seedSubTasks({ task1, task2 }) {

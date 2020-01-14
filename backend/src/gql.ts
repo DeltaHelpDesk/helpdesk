@@ -51,15 +51,6 @@ export class Comment {
     message: string;
 }
 
-export class Log {
-    id: string;
-    author: User;
-    created_at: Date;
-    comment?: string;
-    state?: State;
-    assignee?: User;
-}
-
 export abstract class IMutation {
     abstract loginOffice(token: string): AuthenticatedUser | Promise<AuthenticatedUser>;
 
@@ -133,7 +124,6 @@ export class Task {
     created_at: Date;
     updated_at?: Date;
     state: State;
-    logs?: Log[];
     subtasks?: SubTask[];
     comments?: Comment[];
 }

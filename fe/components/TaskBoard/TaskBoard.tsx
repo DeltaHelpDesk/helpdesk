@@ -10,6 +10,7 @@ import { updateTaskBoardQuery } from "../../src/graphql/mutations";
 import { FunctionComponent, useState } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 import DateHelper from "../../utils/dateHelper";
+import Router from "next/router";
 
 interface ICard {
     id: string;
