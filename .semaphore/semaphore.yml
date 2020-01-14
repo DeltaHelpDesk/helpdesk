@@ -19,7 +19,7 @@ blocks:
             - yarn build
       prologue:
         commands:
-          - sem-version node 8
+          - sem-version node 12.14.1
           - checkout
           - cd fe
           - yarn install
@@ -39,7 +39,7 @@ blocks:
             - yarn build
       prologue:
         commands:
-          - sem-version node 8
+          - sem-version node 12.14.1
           - checkout
           - cd backend
           - yarn install
