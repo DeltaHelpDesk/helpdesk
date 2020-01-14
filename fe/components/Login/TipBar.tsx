@@ -8,15 +8,19 @@ const useStyles = makeStyles((theme: Theme) =>
             overflowWrap: "anywhere",
         },
         tipBox: {
+            padding: "1rem",
             paddingLeft: "2rem",
-            paddingBottom: "2rem",
             borderRadius: "1em",
 
-            margin: "2rem",
+            margin: "1rem",
             width: "26.5em",
 
             borderLeft: "#40a351 solid 10px",
         },
+        heading: {
+            margin: "0px",
+            marginBottom: "5px",
+        }
     }));
 
 const TipBar: FunctionComponent = () => {
@@ -27,7 +31,6 @@ const TipBar: FunctionComponent = () => {
 
     const tips: string[] = [
         "...přihlášení přes sociální sítě je naprosto bezpečné? Přístup k vašim údajům vůbec nedostaneme!",
-        "...Michal Štěrba nepohnul při vývoji helpdesku ani jedním prstem?",
         "...při vývoji helpdesku nebylo ublíženo žádnému zvířeti?",
         "...si náš nejmenovaný kolega polil klávesnici pivem? Upadl na třetím schodu...",
         "...helpdesk si pamatuje všechna vaše rozhodnutí? Příběh vám vyprávěný je jen jeden z mnoha.",
@@ -42,9 +45,9 @@ const TipBar: FunctionComponent = () => {
     return <>
         <Fade in={true}>
             <div className={classes.tipBox}>
-                <h1 className="display-3">
+                <h2 className={classes.heading}>
                     Věděli jste, že...
-                </h1>
+                </h2>
                 <div className={classes.tipBar}>
                     {tip}
                 </div>
