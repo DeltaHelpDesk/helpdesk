@@ -21,6 +21,7 @@ import Background from "../Background/Background";
 import { Theme, makeStyles } from "@material-ui/core";
 import { AuthType } from "../../src/graphql/graphql-global-types";
 import getTheme from "../Themes/MainTheme";
+import TipBar from "./TipBar";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
         loginCard: {
             padding: "2rem",
             position: "fixed",
-            top: "50%",
+            top: "55%",
             left: "50%",
             transform: "translate(-50%,-50%)",
         },
@@ -319,6 +320,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 </Grid>
                             </Grid>
                         </Grid>
+                        <TipBar />
                     </Grid>
                 </Paper>
             </Grid>
