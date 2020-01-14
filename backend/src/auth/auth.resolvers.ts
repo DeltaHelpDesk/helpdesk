@@ -125,6 +125,7 @@ export class AuthResolvers {
         @User()
         currentUser: UserEntity,
     ): Promise<boolean> {
-        return await this.authService.removeUser(email, currentUser);
+        return await this.authService.deactivateUser(email, currentUser);
+        // return await this.authService.removeUser(email, currentUser);
     }
 }

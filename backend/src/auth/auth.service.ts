@@ -28,6 +28,9 @@ export class AuthService {
         if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
             throw new HttpException('Bad email or password', HttpStatus.UNAUTHORIZED);
         }
+        if (!user.enabled) {
+            throw new HttpException('User is not enabled', HttpStatus.BAD_REQUEST);
+        }
         const issued = new Date();
         const jwtPayload: JwtPayload = { userId: user.id, authType: AuthType.EMAIL, issued };
         const token = this.jwtService.sign(jwtPayload);
@@ -77,7 +80,13 @@ export class AuthService {
             role = UserRole.DEFAULT;
         }
         const password = await bcrypt.hash(textPassword, 10);
-        const user = this.userRepository.create({ email, password, fullName, role: role ? role : UserRole.DEFAULT });
+        const user = this.userRepository.create({
+            email,
+            password,
+            fullName,
+            role: role ? role : UserRole.DEFAULT,
+            enabled: true,
+        });
         return await this.userRepository.save(user);
     }
 
@@ -118,6 +127,7 @@ export class AuthService {
             user = this.userRepository.create({
                 email: mail,
                 fullName: externalFullName,
+                enabled: true,
             });
             user = await this.userRepository.save(user);
             /// Vytvoření a přiřazení externího tokenu k uživateli
@@ -139,7 +149,9 @@ export class AuthService {
             /// Externí token nesouhlasí
             throw new HttpException(`Invalid ${type} id`, HttpStatus.UNAUTHORIZED);
         }
-
+        if (!user.enabled) {
+            throw new HttpException('User is not enabled', HttpStatus.BAD_REQUEST);
+        }
         const issued = new Date();
         const jwtPayload: JwtPayload = {
             userId: user.id,
@@ -157,6 +169,10 @@ export class AuthService {
         const user = await this.userRepository.findOne({ id: userId });
         if (!user) {
             return user;
+        }
+        /// Uživatel je deaktivovaný
+        if (!user.enabled) {
+            return undefined;
         }
         const tokens = await user.loginTokens;
         /// Ověření - pokud je uživatel přihlášen přes externí účet (Fb, Google,...) zda je token validní
@@ -194,6 +210,25 @@ export class AuthService {
         return true;
     }
 
+    async deactivateUser(email: string, currentUser: User): Promise<boolean> {
+        const user = await this.userRepository.findOne({ email });
+        if (!user) {
+            throw new HttpException(`User with email: ${email} not found`, HttpStatus.NOT_FOUND);
+        }
+
+        if (user.id === currentUser.id) {
+            throw new BadRequestException('Cannot delete currently logged in user');
+        }
+
+        if (user.role === UserRole.SUPERADMIN) {
+            throw new BadRequestException('Cannot remove superadmin');
+        }
+
+        user.enabled = false;
+        await this.userRepository.save(user);
+        return true;
+    }
+
     async getAdmins(): Promise<User[]> {
         return await this.userRepository.find({
             where: [
@@ -203,7 +238,13 @@ export class AuthService {
         });
     }
 
-    async getUsers(): Promise<User[]> {
+    async getUsers(enabledOnly = false): Promise<User[]> {
+        if (enabledOnly) {
+            return await this.userRepository
+                .createQueryBuilder()
+                .where('enabled = :enabled', { enabled: true })
+                .getMany();
+        }
         return await this.userRepository.find();
     }
 
