@@ -19,9 +19,7 @@ type RequestQuery = {
 class AdminPage extends Component<IProps> {
 
     static getInitialProps = async ({ query }: NextPageContext) => {
-        console.log(query);
-        const taskId: string = query.taskId.toString();
-        console.log("taskId", taskId);
+        const taskId: string = query.taskId?.toString();
         return { taskId };
     }
 
