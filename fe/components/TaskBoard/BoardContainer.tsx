@@ -21,7 +21,7 @@ interface IProps {
     taskId?: string;
 }
 
-const BoardContainer: FunctionComponent<IProps> = ({taskId}) => {
+const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
 
@@ -61,7 +61,7 @@ const BoardContainer: FunctionComponent<IProps> = ({taskId}) => {
             </Grid>
             <Grid item xs={xs}>
                 <Paper className={classes.detail} id="task-detail-box">
-                    <TaskDetail task={task}  />
+                    <TaskDetail task={task} />
                 </Paper>
             </Grid>
         </Grid>

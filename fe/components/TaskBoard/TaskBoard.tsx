@@ -6,9 +6,10 @@ import { getTasksQuery } from "../../src/graphql/queries";
 import { getTasks, getTasks_tasks } from "../../src/graphql/types/getTasks";
 import { State } from "../../src/graphql/graphql-global-types";
 import { updateTaskBoardQuery } from "../../src/graphql/mutations";
-import { FunctionComponent, useState, useEffect } from "react";
+import { FunctionComponent, useState, useContext, useEffect } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 import DateHelper from "../../utils/dateHelper";
+import { ReactAuthContext, userIsAdmin } from "../../src/graphql/auth";
 
 interface ICard {
     id: string;
@@ -54,6 +55,8 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
     const [toFindId, setToFindId] = useState<string>("");
 
     const [selectedId, setSelectedId] = useState<string>("");
+    const { user } = useContext(ReactAuthContext);
+    const isAdmin = () => userIsAdmin(user);
 
     const onClicked = (id: string) => {
 
@@ -239,7 +242,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
     };
 
     return <Board data={boardData} customCardLayout laneDraggable={false}
-        draggable handleDragEnd={handleCardChange}>
+        draggable={isAdmin()} handleDragEnd={handleCardChange}>
         <CustomCard />
     </Board>;
 };

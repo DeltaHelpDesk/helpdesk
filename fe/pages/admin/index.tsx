@@ -1,9 +1,7 @@
-import { NextPage } from "next";
 import Layout from "../../components/Layouts/Layout";
 import { withAuthSync } from "../../src/auth/authWrapper";
 import AdminContainer from "../../components/Administration/AdminContainer/AdminContainer";
 import BoardContainer from "../../components/TaskBoard/BoardContainer";
-import { UserRole } from "../../src/graphql/graphql-global-types";
 import { NextPageContext } from "next";
 import { Component } from "react";
 
@@ -34,4 +32,4 @@ class AdminPage extends Component<IProps> {
     }
 }
 
-export default withAuthSync(AdminPage, UserRole.ADMIN);
+export default withAuthSync(AdminPage);
