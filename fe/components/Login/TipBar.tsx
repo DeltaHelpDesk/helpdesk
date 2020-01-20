@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
         heading: {
             margin: "0px",
             marginBottom: "5px",
-        }
+        },
     }));
 
 const TipBar: FunctionComponent = () => {
@@ -36,7 +36,7 @@ const TipBar: FunctionComponent = () => {
     useEffect(() => {
         const k = tips[Math.floor(Math.random() * tips.length)];
         setTip(k);
-    },[]);
+    }, []);
 
     return <>
         <Fade in={true}>
