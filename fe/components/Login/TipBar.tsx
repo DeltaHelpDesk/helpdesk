@@ -31,10 +31,6 @@ const TipBar: FunctionComponent = () => {
 
     const tips: string[] = [
         "...přihlášení přes sociální sítě je naprosto bezpečné? Přístup k vašim údajům vůbec nedostaneme!",
-        "...při vývoji helpdesku nebylo ublíženo žádnému zvířeti?",
-        "...si náš nejmenovaný kolega polil klávesnici pivem? Upadl na třetím schodu...",
-        "...helpdesk si pamatuje všechna vaše rozhodnutí? Příběh vám vyprávěný je jen jeden z mnoha.",
-        "...paní Bulánková má dvě dcery? Kupodivu ani jednu z nich zatím nezabila...",
     ];
 
     useEffect(() => {
