@@ -21,6 +21,7 @@ import Background from "../Background/Background";
 import { Theme, makeStyles } from "@material-ui/core";
 import { AuthType } from "../../src/graphql/graphql-global-types";
 import getTheme from "../Themes/MainTheme";
+import TipBar from "./TipBar";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
         loginCard: {
             padding: "2rem",
             position: "fixed",
-            top: "50%",
+            top: "55%",
             left: "50%",
             transform: "translate(-50%,-50%)",
         },
@@ -75,6 +76,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         socialButtonsContainer: {
             width: "100%", paddingTop: "0px",
+        },
+        heading: {
+            fontWeight: "bold",
+            textTransform: "uppercase",
         },
     }));
 
@@ -219,7 +224,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                 <Paper className={classes.loginCard} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
                         <Grid item>
-                            <Typography variant="h4" component="div">
+                            <Typography variant="h4" component="div" className={classes.heading}>
                                 {localisation.login.title}
                             </Typography>
                         </Grid>
@@ -319,6 +324,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 </Grid>
                             </Grid>
                         </Grid>
+                        <TipBar />
                     </Grid>
                 </Paper>
             </Grid>
