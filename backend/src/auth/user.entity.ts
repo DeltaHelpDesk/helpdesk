@@ -12,6 +12,9 @@ export class User {
     @Column({ length: 120 })
     fullName: string;
 
+    @Column({ default: true })
+    enabled: boolean;
+
     @Column({ length: 120, unique: true })
     email: string;
 

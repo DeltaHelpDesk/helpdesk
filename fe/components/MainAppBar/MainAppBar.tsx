@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "next/link";
 import { CssBaseline } from "@material-ui/core";
-import { AuthContext, ReactAuthContext, checkUserRole } from "../../src/graphql/auth";
+import { ReactAuthContext, userIsAdmin } from "../../src/graphql/auth";
 import UserLogged from "./UserLogged";
 import customRoutes from "../../src/Routes";
 import PersonIcon from "@material-ui/icons/Person";
@@ -13,7 +13,6 @@ import Logo from "./Logo/Logo";
 import { useTranslation } from "react-i18next";
 import locKeys from "../../src/Locales/LocalizationKeys";
 import getTheme from "../Themes/MainTheme";
-import { UserRole } from "../../src/graphql/graphql-global-types";
 
 const useStyles = makeStyles(() => ({
     grow: {
@@ -83,16 +82,16 @@ const MainAppBar: FunctionComponent<{}> = () => {
                             <>
                                 {
                                     // Ukázat administraci jen, pokud je admin
-                                    u && checkUserRole(u.role, UserRole.ADMIN) ?
+                                    userIsAdmin(u) ?
                                         <Grid item>
-                                            <Link href="/admin">
+                                            <Link href={customRoutes.administration}>
                                                 <a className={classes.menuItem}>
                                                     {t(locKeys.common.administration)}
                                                 </a>
                                             </Link>
                                         </Grid>
                                         : <Grid item>
-                                            <Link href="">
+                                            <Link href={customRoutes.administration}>
                                                 <a className={classes.menuItem}>
                                                     {t(locKeys.task.taskList)}
                                                 </a>

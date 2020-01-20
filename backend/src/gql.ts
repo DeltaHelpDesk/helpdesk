@@ -135,6 +135,7 @@ export class User {
     created_at: Date;
     updated_at?: Date;
     role?: UserRole;
+    enabled: boolean;
 }
 
 export class Validation {
