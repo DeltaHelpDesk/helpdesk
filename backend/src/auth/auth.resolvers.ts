@@ -135,13 +135,13 @@ export class AuthResolvers {
     @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.DEFAULT))
     @Mutation('changePassword')
     async changePassword(
-        @Args('oldPassword')
-        oldPassword: string,
         @Args('newPassword')
         newPassword: string,
         @User()
         currentUser: UserEntity,
+        @Args('oldPassword')
+        oldPassword?: string,
     ): Promise<boolean> {
-        return await this.authService.changePassword(oldPassword, newPassword, currentUser);
+        return await this.authService.changePassword(newPassword, currentUser, oldPassword);
     }
 }

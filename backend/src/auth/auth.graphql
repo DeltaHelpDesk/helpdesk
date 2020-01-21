@@ -48,6 +48,6 @@ type Mutation {
     adminEditUser(userId: ID!, email: String, fullName: String, className: String, role: UserRole): User
     editUser(email: String, fullName: String, className: String, language: String, theme: String): User
     removeUser(email: String!): Boolean
-    changePassword(oldPassword: String, newPassword: String!): Boolean
+    changePassword(newPassword: String!, oldPassword: String): Boolean
     logout: Boolean
 }

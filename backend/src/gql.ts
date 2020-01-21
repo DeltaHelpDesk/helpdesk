@@ -66,7 +66,7 @@ export abstract class IMutation {
 
     abstract removeUser(email: string): boolean | Promise<boolean>;
 
-    abstract changePassword(oldPassword?: string, newPassword: string): boolean | Promise<boolean>;
+    abstract changePassword(newPassword: string, oldPassword?: string): boolean | Promise<boolean>;
 
     abstract logout(): boolean | Promise<boolean>;
 
