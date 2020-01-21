@@ -4,7 +4,8 @@ import 'package:helpdesk_mobile/src/models/taskType.dart';
 import '../components/taskList/sections.dart';
 
 class TaskList extends StatelessWidget {
-  final String tasks = r''' query getTasks{
+  final String tasks = """
+  query getTasks{
       tasks {
         id
         subject
@@ -28,42 +29,34 @@ class TaskList extends StatelessWidget {
         created_at
         updated_at
         state
-        logs {
-          id
-          author {
-            id
-            fullName
-            email
-            created_at
-            updated_at
-            role
-          }
-          created_at
-          comment
-          state
-          assignee {
-            id
-            fullName
-            email
-            created_at
-            updated_at
-            role
-          }
-        }
     }
   }
-  ''';
+  """;
 
+  final String getTasks = """
+    query getTasks{
+      tasks{
+        id
+        subject
+        created_at
+        author{
+          fullName
+        }
+        state
+      }
+    }
+  """;
+  
   @override
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        document: tasks,
+        documentNode: gql(getTasks),
       ),
-      builder: (QueryResult result, {VoidCallback refetch}) {
-        if (result.errors != null) {
-          print(result.data['tasks']);
-          return Text(result.errors.toString());
+      builder: (QueryResult result,
+          {VoidCallback refetch, FetchMore fetchMore}) {
+        if (result.hasException) {
+          return Text(result.exception.toString());
         }
 
         if (result.loading) {
@@ -77,8 +70,8 @@ class TaskList extends StatelessWidget {
         }
 
         var tasks = result.data['tasks'];
-        var parsedTasks = List<TaskType>();
-        tasks.forEach((task) => parsedTasks.add(TaskType.fromJson(task)));
+        var parsedTasks = List<TaskTypeList>();
+        tasks.forEach((task) => parsedTasks.add(TaskTypeList.fromJson(task)));
         return SafeArea(
           child: Sections(
             tasks: parsedTasks,

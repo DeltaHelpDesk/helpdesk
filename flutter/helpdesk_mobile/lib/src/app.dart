@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/pages/tasklist.dart';
+import 'ui/pages/login.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class HelpdeskApp extends StatelessWidget {
@@ -13,7 +13,7 @@ class HelpdeskApp extends StatelessWidget {
         title: 'Helpdesk - Delta',
         theme: ThemeData.light(),
         home: Scaffold(
-          body: TaskList(),
+          body: Login(),
         ),
       ),
     );

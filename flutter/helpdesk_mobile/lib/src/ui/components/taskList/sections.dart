@@ -4,7 +4,7 @@ import 'package:helpdesk_mobile/src/ui/components/taskList/taskCard.dart';
 import 'package:helpdesk_mobile/src/models/enums.dart';
 
 class Sections extends StatefulWidget {
-  final List<TaskType> tasks;
+  final List<TaskTypeList> tasks;
   Sections({Key key, this.tasks}) : super(key: key);
 
   @override
@@ -14,8 +14,8 @@ class Sections extends StatefulWidget {
 class _SectionsState extends State<Sections> {
   PageController pageController;
 
-  final List<TaskType> tasks;
-  Map<String, List<TaskType>> sectionedTasks = Map<String, List<TaskType>>();
+  final List<TaskTypeList> tasks;
+  Map<String, List<TaskTypeList>> sectionedTasks = Map<String, List<TaskTypeList>>();
 
   _SectionsState({this.tasks}) {
     sectionedTasks['Nezapočato'] =

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helpdesk_mobile/src/models/taskType.dart';
 
 class TaskCard extends StatelessWidget {
-  final TaskType task;
+  final TaskTypeList task;
   TaskCard(this.task);
 
   @override
