@@ -23,9 +23,13 @@ export class AuthService {
     /// Počet hodin, než expiruje obyčejný token (NE externí)
     readonly loginExpirationTime: number = 24;
 
+    async checkPwd(tested: string, actual: string): Promise<boolean> {
+        return await bcrypt.compare(tested, actual);
+    }
+
     async loginEmail(email: string, textPassword: string): Promise<User | undefined> {
         const user = await this.userRepository.findOne({ email });
-        if (!user || !user.password || !(await bcrypt.compare(textPassword, user.password))) {
+        if (!user || !user.password || !(await this.checkPwd(textPassword, user.password))) {
             throw new HttpException('Bad email or password', HttpStatus.UNAUTHORIZED);
         }
         if (!user.enabled) {
@@ -294,6 +298,28 @@ export class AuthService {
     }
 
     async changePassword(oldPwd: string, newPwd: string, currentUser: User): Promise<boolean> {
+        if (!newPwd || !currentUser) {
+            // Input is not valid
+            throw new BadRequestException('Invalid input');
+        }
+        const { password: realOldPwd } = currentUser;
+        if (!oldPwd && realOldPwd) {
+            // User has old password
+            throw new BadRequestException('User has old password');
+        }
+        if (realOldPwd) {
+            const pwdsAreSame = await this.checkPwd(oldPwd, realOldPwd);
+            if (!pwdsAreSame) {
+                // Passwords does not match
+                throw new HttpException('Passwords does not match', HttpStatus.UNAUTHORIZED);
+            }
+        }
+        const realNewPwd = await bcrypt.hash(newPwd, 10);
+
+        currentUser.password = realNewPwd;
+
+        await this.userRepository.save(currentUser);
+
         return true;
     }
 
