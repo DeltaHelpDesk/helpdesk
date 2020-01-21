@@ -6,6 +6,7 @@ import Layout from "../components/Layouts/Layout";
 import LanguageSelect from "../components/LanguageSelect/LanguageSelect";
 import DarkModeSelect from "../components/DarkModeSelect/DarkModeSelect";
 import { withAuthSync } from "../src/auth/authWrapper";
+import ChangePassword from "../components/ChangePassword/ChangePassword";
 
 const SettingsPage: FunctionComponent = () => {
 
@@ -25,6 +26,9 @@ const SettingsPage: FunctionComponent = () => {
                         </Grid>
                         <Grid item>
                             <DarkModeSelect />
+                        </Grid>
+                        <Grid item>
+                            <ChangePassword />
                         </Grid>
                     </Grid>
                 </Paper>
