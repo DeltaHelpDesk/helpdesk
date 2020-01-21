@@ -128,4 +128,17 @@ export class AuthResolvers {
         return await this.authService.deactivateUser(email, currentUser);
         // return await this.authService.removeUser(email, currentUser);
     }
+
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.DEFAULT))
+    @Mutation('changePassword')
+    async changePassword(
+        @Args('oldPassword')
+        oldPassword: string,
+        @Args('newPassword')
+        newPassword: string,
+        @User()
+        currentUser: UserEntity,
+    ): Promise<boolean> {
+        return await this.authService.changePassword(oldPassword, newPassword, currentUser);
+    }
 }

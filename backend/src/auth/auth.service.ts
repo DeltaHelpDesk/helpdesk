@@ -296,4 +296,8 @@ export class AuthService {
         return await this.userRepository.save(user);
     }
 
+    async changePassword(oldPwd: string, newPwd: string, currentUser: User): Promise<boolean> {
+        return true;
+    }
+
 }
