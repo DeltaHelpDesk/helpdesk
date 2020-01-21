@@ -8,7 +8,9 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import localisation, { ILangOption, langs } from "../../src/Locales/Localisations";
 import mainTheme from "../Themes/MainTheme";
 import CookieHelper from "../../utils/cookieHelper";
+import { editUser } from "../../src/graphql/mutations";
 import getTheme from "../Themes/MainTheme";
+import { useMutation } from "react-apollo";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -24,6 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DarkModeSelect: FunctionComponent = () => {
     const cookieHelper = new CookieHelper();
+    const [editTheme] = useMutation<
+    { theme: string }>(editUser);
 
     const [theme, setTheme] = useState<string>("dark");
 
@@ -34,8 +38,13 @@ const DarkModeSelect: FunctionComponent = () => {
         setTheme(currentTheme);
     }, []);
 
-    const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+    const handleChange = async (event: ChangeEvent<{ value: unknown }>) => {
         const value = event.target.value as string;
+        const res = await editTheme({
+            variables: {
+                theme: value,
+            },
+        });
 
         cookieHelper.setTheme(value);
         setTheme(value);

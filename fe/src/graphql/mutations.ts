@@ -126,7 +126,7 @@ export const editUserAdmin = gql`mutation EditUserAdmin($userId: ID!, $email: St
     }
   }`;
 
-  export const editUser = gql`mutation {
+export const editUser = gql`mutation EditUser($theme: String!){
     editUser(theme: $theme) {
       id
     }
