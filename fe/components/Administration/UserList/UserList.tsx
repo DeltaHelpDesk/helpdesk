@@ -1,9 +1,7 @@
 import { FunctionComponent, useContext } from "react";
-import { Table, TableHead, TableRow, TableCell, TableBody, Fade } from "@material-ui/core";
-import { ReactAuthContext, checkUserRole } from "../../../src/graphql/auth";
-import { Query, useQuery } from "react-apollo";
+import { ReactAuthContext, userIsInRole } from "../../../src/graphql/auth";
+import { useQuery } from "react-apollo";
 import UserComponent from "./User";
-import { withAuthSync } from "../../../src/auth/authWrapper";
 import { getUsers } from "../../../src/graphql/types/getUsers";
 import { getUsersQuery } from "../../../src/graphql/queries";
 import { UserRole } from "../../../src/graphql/graphql-global-types";
@@ -11,7 +9,7 @@ import { UserRole } from "../../../src/graphql/graphql-global-types";
 const UserList: FunctionComponent = () => {
     const { user: logged } = useContext(ReactAuthContext);
 
-    const isAdmin = !!logged && checkUserRole(logged.role, UserRole.ADMIN);
+    const allowDelete = userIsInRole(logged, UserRole.SUPERADMIN);
 
     const { loading, error, data, refetch } = useQuery<getUsers>(getUsersQuery);
 
@@ -23,7 +21,7 @@ const UserList: FunctionComponent = () => {
         return <>
             {
                 Array.from(new Array(10)).map((user, index) =>
-                    <UserComponent key={index} user={null} isAdmin={isAdmin} />)
+                    <UserComponent key={index} user={null} allowDelete={allowDelete} />)
             }
         </>;
     }
@@ -36,13 +34,11 @@ const UserList: FunctionComponent = () => {
 
     const { users } = data;
     return <>
-
         {
             users.map((user) =>
-                <UserComponent key={user.id} user={user} isAdmin={isAdmin} refresh={reload} />)
+                <UserComponent key={user.id} user={user} allowDelete={allowDelete} refresh={reload} />)
         }
-
     </>;
 };
 
-export default withAuthSync(UserList);
+export default UserList;

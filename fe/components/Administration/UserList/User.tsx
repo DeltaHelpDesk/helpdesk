@@ -9,12 +9,11 @@ import RemoveUser from "./DeleteUser";
 
 interface IUserComponentProps {
     user?: getUsers_users;
-    isAdmin: boolean;
+    allowDelete: boolean;
     refresh?: () => void;
 }
 
-const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, isAdmin, refresh = null }) => {
-
+const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, allowDelete, refresh = null }) => {
     const reload = () => {
         if (refresh) {
             refresh();
@@ -40,9 +39,9 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
                     <TableCell>
                         <Skeleton />
                     </TableCell>
-                    {isAdmin && <TableCell>
+                    <TableCell>
                         <Box width="5rem" />
-                    </TableCell>}
+                    </TableCell>
                 </TableRow>
             </Fade>
         </>;
@@ -71,10 +70,11 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, is
                 <TableCell>
                     <DateFormatComponent date={updated_at} relative={false} />
                 </TableCell>
-                {isAdmin && <TableCell>
+                <TableCell>
                     <EditUser user={user} onEdited={reload} />
-                    <RemoveUser user={user} onRemoved={reload} />
-                </TableCell>}
+                    {allowDelete &&
+                        <RemoveUser user={user} onRemoved={reload} />}
+                </TableCell>
             </TableRow>
         </Fade>
 

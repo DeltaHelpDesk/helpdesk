@@ -9,6 +9,7 @@ query getUsers{
     created_at
     updated_at
     role
+    enabled
   }
 }
 `;

@@ -9,6 +9,8 @@ import { addTask, addTaskVariables } from "../../src/graphql/types/addTask";
 import { addTaskMutation } from "../../src/graphql/mutations";
 import Router from "next/router";
 import getTheme from "../Themes/MainTheme";
+import { useSnackbar } from "notistack";
+import customRoutes from "../../src/Routes";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,6 +39,7 @@ const NewTaskContainer: FunctionComponent = () => {
     const [selectedAdmin, setSelectedAdmin] = useState<getAdmins_admins>(null);
 
     const [open, setOpen] = useState<boolean>(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     const [sendTicket] = useMutation<addTask>(addTaskMutation);
 
@@ -59,8 +62,8 @@ const NewTaskContainer: FunctionComponent = () => {
     };
 
     const submit = async (): Promise<void> => {
-        const titleValid = !IsTextfieldError(title.length, maxTitle, minTitle);
-        const descValid = !IsTextfieldError(description.length, maxDesc, minDesc);
+        const titleValid = !IsTextfieldError(title.trim().length, maxTitle, minTitle);
+        const descValid = !IsTextfieldError(description.trim().length, maxDesc, minDesc);
 
         if (!titleValid || !descValid || !selectedAdmin) {
             return null;
@@ -68,16 +71,24 @@ const NewTaskContainer: FunctionComponent = () => {
 
         setOpen(true);
 
-        const { id } = selectedAdmin;
+        const { id: authorId } = selectedAdmin;
 
         const vars: addTaskVariables = {
             subject: title,
             issue: description,
-            assigneeId: id,
+            assigneeId: authorId,
         };
-        const result = await sendTicket({ variables: vars });
+        const { data: { addTask: { id: taskId } }, errors } = await sendTicket({ variables: vars });
 
-        Router.push("/");
+        if (errors) {
+            console.log(errors);
+            enqueueSnackbar(errors[0].message, { variant: "error" });
+            return;
+        }
+
+        // TODO: localization
+        enqueueSnackbar("Úspěšně vytvořeno", { variant: "success" });
+        window.location.replace(customRoutes.administration + "?taskId=" + taskId);
     };
 
     return <>

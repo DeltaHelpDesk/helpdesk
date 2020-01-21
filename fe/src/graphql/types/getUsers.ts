@@ -16,6 +16,7 @@ export interface getUsers_users {
   created_at: any;
   updated_at: any | null;
   role: UserRole | null;
+  enabled: boolean;
 }
 
 export interface getUsers {

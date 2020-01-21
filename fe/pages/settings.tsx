@@ -5,6 +5,7 @@ import { Typography, Grid, Divider, Paper } from "@material-ui/core";
 import Layout from "../components/Layouts/Layout";
 import LanguageSelect from "../components/LanguageSelect/LanguageSelect";
 import DarkModeSelect from "../components/DarkModeSelect/DarkModeSelect";
+import { withAuthSync } from "../src/auth/authWrapper";
 
 const SettingsPage: FunctionComponent = () => {
 
@@ -32,4 +33,4 @@ const SettingsPage: FunctionComponent = () => {
     </>;
 };
 
-export default SettingsPage;
+export default withAuthSync(SettingsPage);

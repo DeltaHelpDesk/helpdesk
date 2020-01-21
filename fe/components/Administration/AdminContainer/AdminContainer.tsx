@@ -1,10 +1,12 @@
-import {FunctionComponent, ChangeEvent, useState} from "react";
+import { FunctionComponent, ChangeEvent, useState, useContext } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Grid } from "@material-ui/core";
 import Router from "next/router";
 import GroupIcon from "@material-ui/icons/Group";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
+import { ReactAuthContext, userIsAdmin } from "../../../src/graphql/auth";
+import customRoutes from "../../../src/Routes";
 
 interface IProps {
     activeTab?: number;
@@ -13,6 +15,7 @@ interface IProps {
 const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) => {
 
     const [value, setValue] = useState(activeTab);
+    const { user } = useContext(ReactAuthContext);
 
     const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -24,10 +27,10 @@ const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) =
         setTimeout(() => {
             switch (newValue) {
                 case 0:
-                    Router.push("/admin");
+                    Router.push(customRoutes.administration);
                     break;
                 case 1:
-                    Router.push("/admin/users");
+                    Router.push(customRoutes.userList);
                     break;
             }
         }, 250);
@@ -45,9 +48,10 @@ const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) =
                     centered
                 >
                     <Tab label="Seznam požadavků" icon={<AllInboxIcon />} />
-                    <Tab label="Seznam uživatelů" icon={<GroupIcon />} />
-                    {/* <Tab label="Nastavení" />
-                    <Tab label="Hardware" /> */}
+                    {(userIsAdmin(user)) ?
+                        <Tab label="Seznam uživatelů" icon={<GroupIcon />} />
+                        : <></>
+                    }
                 </Tabs>
             </Grid>
             <Grid item sm={12}>
