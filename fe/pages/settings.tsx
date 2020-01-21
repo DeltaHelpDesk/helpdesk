@@ -28,6 +28,9 @@ const SettingsPage: FunctionComponent = () => {
                         <Grid item>
                             <DarkModeSelect />
                         </Grid>
+                        <Grid item>
+                            <ChangePassword />
+                        </Grid>
                     </Grid>
                 </Paper>
             </Layout>

@@ -37,11 +37,9 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
         handleCloseEdit();
     };
     return <>
-        <IconButton aria-label="edit" onClick={handleOpenEdit}>
-            <EditOutlinedIcon />
-        </IconButton>
+        <Button aria-label="edit" onClick={handleOpenEdit}>Změnit heslo</Button>
         <Dialog open={openEdit} onClose={handleCloseEdit} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Úprava uživatele</DialogTitle>
+            <DialogTitle id="form-dialog-title">Změna hesla</DialogTitle>
             <DialogContent>
                 <div >
                     <Grid container direction="column" spacing={2} >
