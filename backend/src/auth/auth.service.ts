@@ -23,8 +23,11 @@ export class AuthService {
     /// Počet hodin, než expiruje obyčejný token (NE externí)
     readonly loginExpirationTime: number = 24;
 
-    async checkPwd(tested: string, actual: string): Promise<boolean> {
-        return await bcrypt.compare(tested, actual);
+    async checkPwd(tested?: string, actual?: string): Promise<boolean> {
+        if (tested && actual) {
+            return await bcrypt.compare(tested, actual);
+        }
+        return false;
     }
 
     async loginEmail(email: string, textPassword: string): Promise<User | undefined> {
@@ -297,7 +300,7 @@ export class AuthService {
         return await this.userRepository.save(user);
     }
 
-    async changePassword(oldPwd: string, newPwd: string, currentUser: User): Promise<boolean> {
+    async changePassword(newPwd: string, currentUser: User, oldPwd?: string): Promise<boolean> {
         if (!newPwd || !currentUser) {
             // Input is not valid
             throw new BadRequestException('Invalid input');
