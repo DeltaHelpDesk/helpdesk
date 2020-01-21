@@ -37,7 +37,7 @@ type AuthenticatedUser {
 type Query {
     session: AuthenticatedUser
     admins: [User]
-    users: [User]
+    users(onlyEnabled: Boolean): [User]
 }
 
 type Mutation {

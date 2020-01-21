@@ -37,7 +37,7 @@ type Task {
 }
 
 type Query{
-    tasks: [Task]
+    tasks(onlyEnabled: Boolean, lastUpdate: Date): [Task]
     task(id: ID): Task
 }
 

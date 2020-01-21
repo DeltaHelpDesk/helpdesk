@@ -240,10 +240,7 @@ export class AuthService {
 
     async getUsers(enabledOnly = true): Promise<User[]> {
         if (enabledOnly) {
-            return await this.userRepository
-                .createQueryBuilder()
-                .where('enabled = :enabled', { enabled: true })
-                .getMany();
+            return await this.userRepository.find({ enabled: true });
         }
         return await this.userRepository.find();
     }

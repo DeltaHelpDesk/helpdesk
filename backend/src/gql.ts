@@ -97,11 +97,11 @@ export abstract class IQuery {
 
     abstract admins(): User[] | Promise<User[]>;
 
-    abstract users(): User[] | Promise<User[]>;
+    abstract users(onlyEnabled?: boolean): User[] | Promise<User[]>;
 
     abstract clientConfig(): ClientConfig | Promise<ClientConfig>;
 
-    abstract tasks(): Task[] | Promise<Task[]>;
+    abstract tasks(onlyEnabled?: boolean, lastUpdate?: Date): Task[] | Promise<Task[]>;
 
     abstract task(id?: string): Task | Promise<Task>;
 }

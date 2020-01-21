@@ -26,8 +26,11 @@ export class AuthResolvers {
 
     @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.ADMIN))
     @Query('users')
-    async getUsers(): Promise<UserEntity[]> {
-        return await this.authService.getUsers();
+    async getUsers(
+        @Args('onlyEnabled')
+        enabledOnly?: boolean,
+    ): Promise<UserEntity[]> {
+        return await this.authService.getUsers(enabledOnly);
     }
 
     @Mutation('loginExternal')

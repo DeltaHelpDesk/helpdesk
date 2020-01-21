@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, FindConditions, MoreThan, Not, MoreThanOrEqual } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { UserRole, checkUserRole } from '../auth/userRole.enum';
@@ -21,8 +21,44 @@ export class TaskService {
         return await this.taskRepository.findOne(id);
     }
 
-    async findAll(): Promise<Task[]> {
-        return await this.taskRepository.find();
+    async findAll(enabledOnly = true, lastUpdate?: Date): Promise<Task[]> {
+        // Jestli toto někdo čte:
+        // Nesnaž se to pochopit, dokud to funguje, tak to nech být.
+        // Jiná varianta nefungovala :)
+        let fcEnabled: FindConditions<Task> = {};
+        if (enabledOnly) {
+            fcEnabled = {
+                enabled: true,
+            };
+        }
+        let fcLastUpdate: FindConditions<Task> = {
+            id: MoreThanOrEqual(0),
+            // AND
+            ...fcEnabled,
+        };
+        if (!!lastUpdate) {
+            fcLastUpdate = {
+                ...fcEnabled,
+                // AND
+                state: TaskState.SOLVED,
+                // AND
+                updated_at: MoreThan(lastUpdate),
+            };
+        }
+
+        return this.taskRepository.find({
+            where: [
+                {
+                    ...fcLastUpdate,
+                },
+                // OR
+                {
+                    state: Not(TaskState.SOLVED),
+                    // AND
+                    ...fcEnabled,
+                },
+            ],
+        });
     }
 
     async addTask(author: User, issue: string, subject: string, assigneeId?: number): Promise<Task | undefined> {

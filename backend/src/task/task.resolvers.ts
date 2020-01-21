@@ -17,8 +17,13 @@ export class TaskResolvers {
 
     @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue'], UserRole.ADMIN, 'authorId'))
     @Query('tasks')
-    async getTasks() {
-        return await this.taskService.findAll();
+    async getTasks(
+        @Args('onlyEnabled')
+        enabledOnly?: boolean,
+        @Args('lastUpdate')
+        lastUpdate?: Date,
+    ) {
+        return await this.taskService.findAll(enabledOnly, lastUpdate);
     }
 
     @UseInterceptors(new FilterOnRoleOrUserInterceptor<Task>(['issue'], UserRole.ADMIN, 'authorId'))
