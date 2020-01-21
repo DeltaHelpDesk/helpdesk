@@ -94,6 +94,8 @@ export const loginEmailMutation = gql`
   mutation loginEmail($email: String!, $password: String!) {
     loginEmail(email: $email, password: $password) {
       token
+      language
+      theme
     }
   }
 `;
@@ -102,6 +104,8 @@ export const loginExternalMutation = gql`
   mutation loginExternal($email: String!, $name: String!, $provider: AuthType!, $token: String! ) {
     loginExternal(email: $email, name: $name, provider: $provider, token: $token) {
       token
+      language
+      theme
     }
   }
 `;
@@ -110,12 +114,20 @@ export const loginOfficeMutation = gql`
   mutation loginOffice($token: String!) {
     loginOffice(token: $token) {
       token
+      language
+      theme
     }
   }
 `;
 
 export const editUserAdmin = gql`mutation EditUserAdmin($userId: ID!, $email: String!, $fullName: String!, $role: UserRole!) {
     adminEditUser(userId: $userId, email: $email, fullName: $fullName, role: $role) {
+      id
+    }
+  }`;
+
+export const editUser = gql`mutation EditUser($theme: String!){
+    editUser(theme: $theme) {
       id
     }
   }`;

@@ -9,6 +9,7 @@ import { loginEmailMutation, loginExternalMutation, loginOfficeMutation, logoutM
 import { getSessionQuery } from "./queries";
 import { getSession, getSession_session } from "./types/getSession";
 import { UserRole, AuthType } from "./graphql-global-types";
+import CookieHelper from "../../utils/cookieHelper";
 
 const cookies = new Cookies();
 
@@ -86,6 +87,9 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
                 password,
             },
         });
+        const cookieHelper = new CookieHelper();
+        cookieHelper.setTheme(loginByEmailQuery.theme);
+        console.log(loginByEmailQuery);
         setToken(loginByEmailQuery.token);
         // await getSessionUser();
         return loginByEmailQuery.token;
@@ -102,6 +106,8 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
                 token,
             },
         });
+        const cookieHelper = new CookieHelper();
+        cookieHelper.setTheme(loginByExternalQuery.theme);
         setToken(loginByExternalQuery.token);
         return loginByExternalQuery.token;
     };
@@ -128,6 +134,8 @@ const AuthContextProvider: FunctionComponent<{} | IAuthContextValue> = (props) =
                 token,
             },
         });
+        const cookieHelper = new CookieHelper();
+        cookieHelper.setTheme(loginByOfficeQuery.theme);
         this.setToken(loginByOfficeQuery.token);
         // this.getSessionUser();
         return loginByOfficeQuery.token;

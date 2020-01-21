@@ -145,8 +145,9 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         const name: string = user._profile.name;
         const provider: AuthType = AuthType.GOOGLE;
         const token: string = user._profile.id;
+        const theme: string = user._profile.theme;
 
-        await externalLogin(email, name, provider, token);
+        await externalLogin(email, name, provider, token, theme);
     };
 
     const facebookLoginSuccess = async (user: any) => {
@@ -154,15 +155,16 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
         const name: string = user._profile.name;
         const provider: AuthType = AuthType.FACEBOOK;
         const token: string = user._profile.id;
+        const theme: string = user._profile.theme;
 
-        await externalLogin(email, name, provider, token);
+        await externalLogin(email, name, provider, token, theme);
     };
 
     const onExternalLoginFail = async (error: any) => {
         console.log(error);
     };
 
-    const externalLogin = async (email: string, name: string, provider: AuthType, token: string) => {
+    const externalLogin = async (email: string, name: string, provider: AuthType, token: string, theme: string) => {
         if (!email || !name || !provider || !token) {
             // TODO: Dialog
             console.log("Prázdné vstupní údaje");
