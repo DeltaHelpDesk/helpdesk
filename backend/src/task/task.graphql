@@ -28,6 +28,7 @@ type Task {
     issue: String!
     author: User!
     assignee: User
+    enabled: Boolean!
     created_at: Date!
     updated_at: Date
     state: State!
@@ -36,12 +37,13 @@ type Task {
 }
 
 type Query{
-    tasks: [Task]
+    tasks(onlyEnabled: Boolean, lastUpdate: Date): [Task]
     task(id: ID): Task
 }
+
 type Mutation {
     addTask(subject: String!, issue: String!, assigneeId: ID): Task
-    changeTaskState(taskId: ID, comment: String, state: State, assigneeId: ID): Task
+    changeTaskState(taskId: ID, comment: String, state: State, assigneeId: ID, enabled: Boolean): Task
     deleteTask(taskId: ID): Boolean
     addSubTask(taskId: ID!, message: String!): SubTask
     changeSubTask(subTaskId: ID!, message: String, completed: Boolean): SubTask

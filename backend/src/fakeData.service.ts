@@ -95,7 +95,7 @@ export class FakeDataService implements OnModuleInit {
                 subject: faker.commerce.product(),
                 issue: faker.lorem.paragraph(2),
                 assignee: user1,
-                state: TaskState.RETURNED,
+                state: TaskState.SOLVING,
             },
         ]) as any;
         return { task1, task2, task3 };
