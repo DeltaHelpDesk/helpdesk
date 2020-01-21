@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, FindConditions, MoreThan, Not, MoreThanOrEqual } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TaskState } from './taskState.enum';
 import { UserRole, checkUserRole } from '../auth/userRole.enum';
@@ -21,8 +21,44 @@ export class TaskService {
         return await this.taskRepository.findOne(id);
     }
 
-    async findAll(): Promise<Task[]> {
-        return await this.taskRepository.find();
+    async findAll(enabledOnly = true, lastUpdate?: Date): Promise<Task[]> {
+        // Jestli toto někdo čte:
+        // Nesnaž se to pochopit, dokud to funguje, tak to nech být.
+        // Jiná varianta nefungovala :)
+        let fcEnabled: FindConditions<Task> = {};
+        if (enabledOnly) {
+            fcEnabled = {
+                enabled: true,
+            };
+        }
+        let fcLastUpdate: FindConditions<Task> = {
+            id: MoreThanOrEqual(0),
+            // AND
+            ...fcEnabled,
+        };
+        if (!!lastUpdate) {
+            fcLastUpdate = {
+                ...fcEnabled,
+                // AND
+                state: TaskState.SOLVED,
+                // AND
+                updated_at: MoreThan(lastUpdate),
+            };
+        }
+
+        return this.taskRepository.find({
+            where: [
+                {
+                    ...fcLastUpdate,
+                },
+                // OR
+                {
+                    state: Not(TaskState.SOLVED),
+                    // AND
+                    ...fcEnabled,
+                },
+            ],
+        });
     }
 
     async addTask(author: User, issue: string, subject: string, assigneeId?: number): Promise<Task | undefined> {
@@ -54,7 +90,7 @@ export class TaskService {
         return await this.taskRepository.save(task);
     }
 
-    async changeTaskState(author: User, taskId: number, comment?: string, state?: TaskState, assigneeId?: number): Promise<Task> {
+    async changeTaskState(author: User, taskId: number, comment?: string, state?: TaskState, assigneeId?: number, enabled?: boolean): Promise<Task> {
         let task = await this.taskRepository.findOne(taskId);
         if (!task) {
             throw new HttpException(`Task with id: ${taskId} not found`, HttpStatus.NOT_FOUND);
@@ -62,11 +98,17 @@ export class TaskService {
         if (!(checkUserRole(author.role, UserRole.ADMIN) || author.id === task.author.id)) {
             throw new HttpException(`Unauthorized user`, HttpStatus.UNAUTHORIZED);
         }
-        if (!comment && !state && !assigneeId) {
+        if (!comment && !state && !assigneeId && enabled == null) {
             throw new HttpException(`Haven't passed any changes for task`, HttpStatus.BAD_REQUEST);
         }
         if (state) {
             task.state = state;
+        }
+        if (comment) {
+            task.issue = comment.trim();
+        }
+        if (enabled != null) {
+            task.enabled = enabled;
         }
         if (assigneeId) {
             const assignee = await this.userRepository.findOne(assigneeId);

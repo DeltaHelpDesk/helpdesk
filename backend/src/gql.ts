@@ -70,7 +70,7 @@ export abstract class IMutation {
 
     abstract addTask(subject: string, issue: string, assigneeId?: string): Task | Promise<Task>;
 
-    abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string): Task | Promise<Task>;
+    abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string, enabled?: boolean): Task | Promise<Task>;
 
     abstract deleteTask(taskId?: string): boolean | Promise<boolean>;
 
@@ -97,11 +97,11 @@ export abstract class IQuery {
 
     abstract admins(): User[] | Promise<User[]>;
 
-    abstract users(): User[] | Promise<User[]>;
+    abstract users(onlyEnabled?: boolean): User[] | Promise<User[]>;
 
     abstract clientConfig(): ClientConfig | Promise<ClientConfig>;
 
-    abstract tasks(): Task[] | Promise<Task[]>;
+    abstract tasks(onlyEnabled?: boolean, lastUpdate?: Date): Task[] | Promise<Task[]>;
 
     abstract task(id?: string): Task | Promise<Task>;
 }
@@ -121,6 +121,7 @@ export class Task {
     issue: string;
     author: User;
     assignee?: User;
+    enabled: boolean;
     created_at: Date;
     updated_at?: Date;
     state: State;
