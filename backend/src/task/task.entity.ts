@@ -17,6 +17,9 @@ export class Task {
 
     authorId: number;
 
+    @Column({ default: true })
+    enabled: boolean;
+
     @ManyToOne(type => User, user => user.createdTasks, { eager: true, onDelete: 'CASCADE' })
     @JoinColumn({ name: 'authorId' })
     author: User;

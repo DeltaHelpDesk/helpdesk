@@ -70,7 +70,7 @@ export abstract class IMutation {
 
     abstract addTask(subject: string, issue: string, assigneeId?: string): Task | Promise<Task>;
 
-    abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string): Task | Promise<Task>;
+    abstract changeTaskState(taskId?: string, comment?: string, state?: State, assigneeId?: string, enabled?: boolean): Task | Promise<Task>;
 
     abstract deleteTask(taskId?: string): boolean | Promise<boolean>;
 
@@ -121,6 +121,7 @@ export class Task {
     issue: string;
     author: User;
     assignee?: User;
+    enabled: boolean;
     created_at: Date;
     updated_at?: Date;
     state: State;

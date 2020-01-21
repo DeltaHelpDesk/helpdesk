@@ -238,7 +238,7 @@ export class AuthService {
         });
     }
 
-    async getUsers(enabledOnly = false): Promise<User[]> {
+    async getUsers(enabledOnly = true): Promise<User[]> {
         if (enabledOnly) {
             return await this.userRepository
                 .createQueryBuilder()

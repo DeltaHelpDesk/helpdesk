@@ -54,7 +54,7 @@ export class TaskService {
         return await this.taskRepository.save(task);
     }
 
-    async changeTaskState(author: User, taskId: number, comment?: string, state?: TaskState, assigneeId?: number): Promise<Task> {
+    async changeTaskState(author: User, taskId: number, comment?: string, state?: TaskState, assigneeId?: number, enabled?: boolean): Promise<Task> {
         let task = await this.taskRepository.findOne(taskId);
         if (!task) {
             throw new HttpException(`Task with id: ${taskId} not found`, HttpStatus.NOT_FOUND);
@@ -62,11 +62,17 @@ export class TaskService {
         if (!(checkUserRole(author.role, UserRole.ADMIN) || author.id === task.author.id)) {
             throw new HttpException(`Unauthorized user`, HttpStatus.UNAUTHORIZED);
         }
-        if (!comment && !state && !assigneeId) {
+        if (!comment && !state && !assigneeId && enabled == null) {
             throw new HttpException(`Haven't passed any changes for task`, HttpStatus.BAD_REQUEST);
         }
         if (state) {
             task.state = state;
+        }
+        if (comment) {
+            task.issue = comment.trim();
+        }
+        if (enabled != null) {
+            task.enabled = enabled;
         }
         if (assigneeId) {
             const assignee = await this.userRepository.findOne(assigneeId);

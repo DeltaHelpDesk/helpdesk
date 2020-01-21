@@ -31,7 +31,7 @@ export class TaskResolvers {
     }
 
     @Mutation('addTask')
-    async login(
+    async addTask(
         @Args('subject')
         subject: string,
         @Args('issue')
@@ -62,11 +62,13 @@ export class TaskResolvers {
         state?: TaskState,
         @Args('assigneeId')
         assigneeId?: number,
+        @Args('enabled')
+        enabled?: boolean,
     ): Promise<Task> {
         if (!taskId) {
             throw new HttpException('taskId', HttpStatus.BAD_REQUEST);
         }
-        return await this.taskService.changeTaskState(author, taskId, comment, state, assigneeId);
+        return await this.taskService.changeTaskState(author, taskId, comment, state, assigneeId, enabled);
     }
 
     @UseGuards(new GqlRoleGuard(UserRole.ADMIN))
