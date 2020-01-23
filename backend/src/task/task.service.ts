@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindConditions, MoreThan, Not, MoreThanOrEqual } from 'typeorm';
@@ -122,10 +122,22 @@ export class TaskService {
         return task;
     }
 
-    async deleteTask(taskId: number) {
+    async deleteTask(taskId: number, currentUser: User) {
+        if (!currentUser) {
+            throw new UnauthorizedException('User not found');
+        }
         const task = await this.taskRepository.findOne(taskId);
         if (!task) {
             throw new HttpException(`Task with id: ${taskId} not found`, HttpStatus.NOT_FOUND);
+        }
+        const { authorId, state } = task;
+        const { id, role } = currentUser;
+        if (role === UserRole.DEFAULT) {
+            if (id === authorId && state === TaskState.UNRESOLVED) {
+                await this.taskRepository.delete(taskId);
+                return true;
+            }
+            throw new UnauthorizedException('You are not authorized to do this action');
         }
         await this.taskRepository.delete(taskId);
         return true;

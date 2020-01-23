@@ -55,6 +55,7 @@ export class TaskResolvers {
         return await this.taskService.addTask(author, issue, subject, assigneeId);
     }
 
+    @UseGuards(GqlAuthGuard, new GqlRoleGuard(UserRole.ADMIN))
     @Mutation('changeTaskState')
     async changeState(
         @User()
@@ -76,13 +77,14 @@ export class TaskResolvers {
         return await this.taskService.changeTaskState(author, taskId, comment, state, assigneeId, enabled);
     }
 
-    @UseGuards(new GqlRoleGuard(UserRole.ADMIN))
     @Mutation('deleteTask')
     async deleteTask(
         @Args('taskId')
         taskId: number,
+        @User()
+        currentUser: UserEntity,
     ): Promise<boolean> {
-        return await this.taskService.deleteTask(taskId);
+        return await this.taskService.deleteTask(taskId, currentUser);
     }
 
 }
