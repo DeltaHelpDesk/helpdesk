@@ -8,6 +8,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useMutation } from "react-apollo";
 import { DeleteComment, DeleteCommentVariables } from "../../src/graphql/types/DeleteComment";
 import { removeComment } from "../../src/graphql/mutations";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 interface IProps {
     comment?: GetTaskComments_task_comments;
@@ -40,6 +42,8 @@ const TaskComment: FunctionComponent<IProps> = ({ comment = null, onRemove = nul
 
     const { author, created_at, updated_at, message, id } = comment;
     const { fullName, role } = author;
+
+    const { t } = useTranslation();
 
     const removeComm = async () => {
 
@@ -112,18 +116,18 @@ const TaskComment: FunctionComponent<IProps> = ({ comment = null, onRemove = nul
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title">{"Potvrdit smazání"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{t(locKeys.task.deleteConfirm)}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Opravdu chcete smazat komentář?
+                    {t(locKeys.task.deleteComment)}
           </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                    Zrušit
+                    {t(locKeys.task.cancel)}
           </Button>
                 <Button onClick={removeComm} color="primary" autoFocus>
-                    Potvrdit
+                    {t(locKeys.task.accept)}
           </Button>
             </DialogActions>
         </Dialog>

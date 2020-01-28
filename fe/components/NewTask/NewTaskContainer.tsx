@@ -11,6 +11,8 @@ import Router from "next/router";
 import getTheme from "../Themes/MainTheme";
 import { useSnackbar } from "notistack";
 import customRoutes from "../../src/Routes";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,6 +44,8 @@ const NewTaskContainer: FunctionComponent = () => {
     const { enqueueSnackbar } = useSnackbar();
 
     const [sendTicket] = useMutation<addTask>(addTaskMutation);
+
+    const { t } = useTranslation();
 
     const minTitle = 5;
     const maxTitle = 20;
@@ -86,8 +90,8 @@ const NewTaskContainer: FunctionComponent = () => {
             return;
         }
 
-        // TODO: localization
-        enqueueSnackbar("Úspěšně vytvořeno", { variant: "success" });
+        const { t } = useTranslation();
+        enqueueSnackbar(`${t(locKeys.task.success)}`, { variant: "success" });
         window.location.replace(customRoutes.administration + "?taskId=" + taskId);
     };
 
@@ -102,7 +106,7 @@ const NewTaskContainer: FunctionComponent = () => {
             <Grid item xs={12} md={6} >
                 <Paper className={classes.mainCard}>
                     <Typography variant="h4" className={classes.title}>
-                        Přidat nový ticket
+                        {t(locKeys.task.addNewTicket)}
                     </Typography>
                     <Divider />
                     <Grid container spacing={4} direction="column" style={{ marginTop: "1rem " }} >
@@ -113,14 +117,14 @@ const NewTaskContainer: FunctionComponent = () => {
                                 required
                                 fullWidth
                                 id="ticket-title"
-                                label="Předmět"
+                                label={t(locKeys.common.subject)}
                                 error={IsTextfieldError(title.length, maxTitle, minTitle)}
                                 helperText={GetHelperText(
                                     title.length,
                                     maxTitle,
-                                    "Text přesahuje maximální počet povolených znaků",
+                                    `${t(locKeys.error.msgTooLong)}`,
                                     minTitle,
-                                    "Text je příliš krátký")}
+                                    `${t(locKeys.error.msgTooShort)}`)}
                             />
                         </Grid>
                         <Grid item>
@@ -128,26 +132,26 @@ const NewTaskContainer: FunctionComponent = () => {
                                 onChange={(event) => { handleDescChange(event.currentTarget.value); }}
                                 value={description}
                                 id="ticket-description"
-                                label="Popis problému"
+                                label={t(locKeys.common.issueDescription)}
                                 required
                                 fullWidth
                                 multiline
                                 rows="5"
                                 variant="outlined"
-                                placeholder={`Při přihlášení mi bakaláři napíšou "chyba XYZ", ...`}
+                                placeholder={t(locKeys.common.issuePlaceholder)}
                                 helperText={GetHelperText(
                                     description.length,
                                     maxDesc,
-                                    "Text přesahuje maximální počet povolených znaků",
+                                    `${t(locKeys.error.msgTooLong)}`,
                                     minDesc,
-                                    "Text je příliš krátký")}
+                                    `${t(locKeys.error.msgTooShort)}`)}
                                 error={IsTextfieldError(description.length, maxDesc, minDesc)}
                             />
                         </Grid>
                         <Grid item>
                             <AdminSelect
-                                title="Řešitel? Řešenec? Řešící?"
-                                helperText="Vyberte osobu, která by se měla tímto požadavkem zabývat"
+                                title={t(locKeys.common.asigneeTitle)}
+                                helperText={t(locKeys.common.selectAsignee)}
                                 onSelected={adminSelected} />
                         </Grid>
                         <Grid item>
@@ -157,7 +161,7 @@ const NewTaskContainer: FunctionComponent = () => {
                                 fullWidth color="primary"
                                 className={classes.button}
                                 onClick={() => { submit(); }}>
-                                Přidat ticket
+                                {t(locKeys.task.addTicket)}
                             </Button>
                         </Grid>
                     </Grid>

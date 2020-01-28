@@ -6,6 +6,8 @@ import { GetTaskComments } from "../../src/graphql/types/GetTaskComments";
 import TaskComment from "./TaskComment";
 import { Grid, Divider } from "@material-ui/core";
 import AddCommentComponent from "./AddComment";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 interface IProps {
     taskId: string;
@@ -14,6 +16,8 @@ interface IProps {
 const CommentsContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     const vars: GetTaskDetailVariables = { id: taskId };
+
+    const { t } = useTranslation();
 
     const { loading, error, data, refetch } = useQuery<GetTaskComments>(getTaskComments, { variables: vars });
 
@@ -27,7 +31,7 @@ const CommentsContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     if (error) {
         return <>
-            An error has occured!
+            {t(locKeys.error.undefinedError)}
         </>;
     }
 
@@ -42,7 +46,7 @@ const CommentsContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
         return <>
             <Grid container direction="column">
-                Na tento požadavek ještě nikdo nereagoval
+                {t(locKeys.common.noResponse)}
                 <Grid item xs={12}>
                     <Divider style={{ marginTop: "1rem", marginBottom: "1rem" }} />
                     <AddCommentComponent taskId={taskId} onAdd={refresh} />

@@ -1,6 +1,8 @@
 import { Fade, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { useEffect, useState, FunctionComponent } from "react";
 import getTheme from "../Themes/MainTheme";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,8 +31,10 @@ const TipBar: FunctionComponent = () => {
 
     const [tip , setTip] = useState<string>("");
 
+    const { t } = useTranslation();
+
     const tips: string[] = [
-        "...přihlášení přes sociální sítě je naprosto bezpečné? Přístup k vašim údajům vůbec nedostaneme!",
+        `${t(locKeys.tips.loginSafety)}`,
     ];
 
     useEffect(() => {
@@ -42,7 +46,7 @@ const TipBar: FunctionComponent = () => {
         <Fade in={true}>
             <div className={classes.tipBox}>
                 <h2 className={classes.heading}>
-                    Věděli jste, že...
+                    {t(locKeys.tips.didYouKnow)}
                 </h2>
                 <div className={classes.tipBar}>
                     {tip}

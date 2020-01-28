@@ -6,6 +6,8 @@ import FaceIcon from "@material-ui/icons/Face";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import SecurityIcon from "@material-ui/icons/Security";
 import getTheme from "../Themes/MainTheme";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -44,18 +46,20 @@ const RoleIcon: FunctionComponent<IProps> = ({ role, showText = true, style = nu
     const open = Boolean(anchorEl);
     const iStyle = { ...iconStyle, verticalAlign: "middle" };
 
+    const { t } = useTranslation();
+
     switch (role) {
         case UserRole.ADMIN:
             icon = <VerifiedUserIcon style={iStyle} />;
-            text = "Admin";
+            text = `${t(locKeys.userType.ADMIN)}`;
             break;
         case UserRole.DEFAULT:
             icon = <FaceIcon style={iStyle} />;
-            text = "User";
+            text = `${t(locKeys.userType.DEFAULT)}`;
             break;
         case UserRole.SUPERADMIN:
             icon = <SecurityIcon style={iStyle} />;
-            text = "Super Admin";
+            text = `${t(locKeys.userType.SUPERADMIN)}`;
             break;
     }
 

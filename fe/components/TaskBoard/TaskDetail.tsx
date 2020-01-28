@@ -9,6 +9,8 @@ import RoleIcon from "../RoleIcon/RoleIcon";
 import DateHelper from "../../utils/dateHelper";
 import TaskActions from "./TaskActions";
 import { ReactAuthContext, userIsAdmin } from "../../src/graphql/auth";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -38,6 +40,8 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
     const [expanded, setExpanded] = useState<string | false>(false);
     const { user } = useContext(ReactAuthContext);
 
+    const { t } = useTranslation();
+
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
     };
@@ -54,7 +58,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                     </Grid>
                     <Grid item>
                         <Typography variant="h6">
-                            Vyberte task pro zobrazení detailu
+                            {t(locKeys.task.selectTask)}
                         </Typography>
                     </Grid>
                 </Grid>
@@ -81,7 +85,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item >
                                     <Typography variant="body1">
-                                        Author
+                                        {t(locKeys.task.author)}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -103,7 +107,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
-                                        Created
+                                        {t(locKeys.task.createdAt)}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -122,7 +126,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
-                                        State
+                                        {t(locKeys.task.state)}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -141,7 +145,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
-                                        Assignee
+                                        {t(locKeys.task.asignee)}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -187,7 +191,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                 <Grid item xs={12}>
                     <TextField
                         id="standard-multiline-flexible"
-                        label="Popis"
+                        label={t(locKeys.common.description)}
                         multiline
                         fullWidth
                         InputProps={{
@@ -206,7 +210,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header">
-                                <Typography >Zprávy</Typography>
+                                <Typography>{t(locKeys.common.comments)}</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <div style={{ width: "100%" }}>
