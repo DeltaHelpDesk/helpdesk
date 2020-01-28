@@ -2,7 +2,6 @@ import { FunctionComponent, useState } from "react";
 import { IconButton, Dialog, DialogTitle, DialogContent, Grid, TextField, DialogActions, Button } from "@material-ui/core";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { useSnackbar } from "notistack";
-import LastPassword from "./LastPassword";
 
 interface IProps {
     onEdited?: () => void;
@@ -44,8 +43,17 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
             <DialogContent>
                 <div >
                     <Grid container direction="column" spacing={2} >
-                        <Grid >
-                            {/* <LastPassword /> */}
+                        <Grid item>
+                            {/* <TextField
+                                margin="dense"
+                                id="name"
+                                label="Jméno"
+                                type="text"
+                                fullWidth
+                                defaultValue={fullName}
+                                value={uFullName}
+                                onChange={(event) => { setUFullName(event.target.value); }}
+                            /> */}
                         </Grid>
                         <Grid item>
                             {/* <TextField
