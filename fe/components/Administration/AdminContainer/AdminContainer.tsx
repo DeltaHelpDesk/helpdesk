@@ -7,6 +7,8 @@ import GroupIcon from "@material-ui/icons/Group";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 import { ReactAuthContext, userIsAdmin } from "../../../src/graphql/auth";
 import customRoutes from "../../../src/Routes";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../../src/Locales/LocalizationKeys";
 
 interface IProps {
     activeTab?: number;
@@ -35,6 +37,8 @@ const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) =
             }
         }, 250);
     };
+     
+    const { t } = useTranslation();
 
     return <>
         <Grid container direction="column">
@@ -47,9 +51,9 @@ const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) =
                     variant="fullWidth"
                     centered
                 >
-                    <Tab label="Seznam požadavků" icon={<AllInboxIcon />} />
+                    <Tab label={t(locKeys.task.taskList)} icon={<AllInboxIcon />} />
                     {(userIsAdmin(user)) ?
-                        <Tab label="Seznam uživatelů" icon={<GroupIcon />} />
+                        <Tab label={t(locKeys.users.userList)} icon={<GroupIcon />} />
                         : <></>
                     }
                 </Tabs>

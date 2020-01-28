@@ -1,12 +1,16 @@
-import { ILocalisedStrings } from "./Localisations";
 
-const locKeys: ILocalisedStrings = {
+
+const locKeys = {
     common: {
         welcome: "welcome",
         subtitleHomepage: "subWelcome",
         settings: "settings",
         administration: "administration",
+        registration: "registrationAt",
+        role: "role",
         newTask: "newTask",
+        update: "updateAt",
+        actions: "actions",
         noResponse: "noResponse",
         noTask: "noTask",
         description: "description",
@@ -17,6 +21,11 @@ const locKeys: ILocalisedStrings = {
         selectAsignee: "selectAsignee",
         subject: "subject",
     },
+    users:{
+        editUser: "editUser",
+        deleteUser: "deleteUser",
+        userList: "userList",
+    },
     userType: {
         SUPERADMIN: "SUPERADMIN",
         ADMIN: "ADMIN",
@@ -26,6 +35,9 @@ const locKeys: ILocalisedStrings = {
         sendNew: "",
         taskList: "taskList",
         newTask: "addTask",
+        cancel: "cancel",
+        accept: "accept",
+        save: "save",
         addComment: "addComment",
         addTicket: "addTicket",
         addNewTicket: "addNewTicket",
@@ -54,7 +66,8 @@ const locKeys: ILocalisedStrings = {
         loginFacebook: "",
         loginMicrosoft: "",
         logout: "",
-        email: "",
+        name: "name",
+        email: "email",
         password: "",
         showPassword: "",
         title: "",
@@ -81,8 +94,13 @@ const locKeys: ILocalisedStrings = {
         themeSelect: "",
         language: "",
         theme: "",
-        light: "",
-        dark: "",
+        light: "LIGHT",
+        dark: "DARK",
+    },
+    date:{
+        sameDay: "Dnes",
+        lastDay: "Včera",
+        lastWeek: "Minulý týden",
     },
 };
 

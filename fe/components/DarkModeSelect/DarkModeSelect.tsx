@@ -11,6 +11,8 @@ import CookieHelper from "../../utils/cookieHelper";
 import { editUser } from "../../src/graphql/mutations";
 import getTheme from "../Themes/MainTheme";
 import { useMutation } from "react-apollo";
+import locKeys from "../../src/Locales/LocalizationKeys";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -55,6 +57,8 @@ const DarkModeSelect: FunctionComponent = () => {
 
     };
 
+    const { t } = useTranslation();
+
     return <>
         <FormControl className={classes.formControl}>
             <InputLabel id="select-theme-helper-label" shrink>{localisation.settings.themeSelect}</InputLabel>
@@ -63,8 +67,8 @@ const DarkModeSelect: FunctionComponent = () => {
                 id="select-theme"
                 value={theme}
                 onChange={handleChange}>
-                <MenuItem value="dark" key="0">Dark</MenuItem>
-                <MenuItem value="light" key="1">Light</MenuItem>
+                <MenuItem value={t(locKeys.settings.dark)} key="0">{t(locKeys.settings.dark)}</MenuItem>
+                <MenuItem value={t(locKeys.settings.light)} key="1">{t(locKeys.settings.light)}</MenuItem>
             </Select>
         </FormControl>
     </>;
