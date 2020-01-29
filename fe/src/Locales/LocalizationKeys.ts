@@ -45,8 +45,6 @@ const locKeys = {
         selectTask: "selectTask",
         deleteComment: "deleteComment",
         deleteConfirm: "deleteConfirm",
-        cancel: "cancel",
-        accept: "accept",
         state: "state",
         actions: "actions",
         author: "author",
@@ -94,13 +92,8 @@ const locKeys = {
         themeSelect: "",
         language: "",
         theme: "",
-        light: "LIGHT",
-        dark: "DARK",
-    },
-    date:{
-        sameDay: "Dnes",
-        lastDay: "Včera",
-        lastWeek: "Minulý týden",
+        light: "light",
+        dark: "dark",
     },
 };
 

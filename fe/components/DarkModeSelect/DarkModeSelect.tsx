@@ -67,8 +67,8 @@ const DarkModeSelect: FunctionComponent = () => {
                 id="select-theme"
                 value={theme}
                 onChange={handleChange}>
-                <MenuItem value={t(locKeys.settings.dark)} key="0">{t(locKeys.settings.dark)}</MenuItem>
-                <MenuItem value={t(locKeys.settings.light)} key="1">{t(locKeys.settings.light)}</MenuItem>
+                <MenuItem value="DARK" key="0">{t(locKeys.settings.dark)}</MenuItem>
+                <MenuItem value="LIGHT" key="1">{t(locKeys.settings.light)}</MenuItem>
             </Select>
         </FormControl>
     </>;
