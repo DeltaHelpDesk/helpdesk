@@ -34,7 +34,8 @@ const TipBar: FunctionComponent = () => {
     const { t } = useTranslation();
 
     const tips: string[] = [
-        `${t(locKeys.tips.loginSafety)}`,
+        // t(locKeys.tips.loginSafety),
+        "...přihlášení přes sociální sítě je naprosto bezpečné? Přístup k vašim údajům vůbec nedostaneme!",
     ];
 
     useEffect(() => {
