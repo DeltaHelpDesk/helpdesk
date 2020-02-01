@@ -151,6 +151,7 @@ const NewTaskContainer: FunctionComponent = () => {
                             <AdminSelect
                                 title={t(locKeys.common.asigneeTitle)}
                                 helperText={t(locKeys.common.selectAsignee)}
+                                selectOneText={t(locKeys.common.selectOne)}
                                 onSelected={adminSelected} />
                         </Grid>
                         <Grid item>

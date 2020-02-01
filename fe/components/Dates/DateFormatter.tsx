@@ -14,7 +14,7 @@ export const getFormattedDate = (date: string, relative = false) => {
             lastWeek: "[Minulý týden]",
             sameElse: "DD.MM.YYYY",
         })
-        : moment(date).format("DD.MM.YYYY, hh:mm");
+        : moment(date).format("DD.MM.YYYY, HH:mm");
 };
 
 const DateFormatComponent: FunctionComponent<IDateProps> = ({ date, relative }) => {
@@ -31,7 +31,7 @@ const DateFormatComponent: FunctionComponent<IDateProps> = ({ date, relative }) 
                 lastWeek: "[Minulý] dddd",
                 sameElse: "DD.MM.YYYY",
             })
-            : moment(date).format("DD.MM.YYYY, hh:msm");
+            : moment(date).format("DD.MM.YYYY, HH:mm");
         setDateMoment(dateString);
     });
 

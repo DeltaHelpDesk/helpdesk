@@ -18,6 +18,7 @@ const locKeys = {
         asigneeTitle: "asigneeTitle",
         selectAsignee: "assigneeDescription",
         subject: "subject",
+        selectOne: "selectOne",
     },
     users: {
         editUser: "editUser",
@@ -51,7 +52,7 @@ const locKeys = {
         state: "state",
         actions: "actions",
         author: "author",
-        asignee: "asignee",
+        assignee: "assignee",
         createdAt: "createdAt",
         success: "success",
     },

@@ -2,6 +2,7 @@ import { FunctionComponent, ChangeEvent } from "react";
 import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@material-ui/core";
 import { useState } from "react";
 import { UserRole, State } from "../../src/graphql/graphql-global-types";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     onSelected?: (admin: UserRole) => void;
@@ -14,6 +15,7 @@ const RoleSelect: FunctionComponent<IProps> = ({
 }) => {
 
     const [selected, setSelected] = useState<string>(currentRole);
+    const { t } = useTranslation();
 
     const handleChange = (event: ChangeEvent<{ value: UserRole }>) => {
         const state = event.target.value as UserRole;
@@ -34,7 +36,7 @@ const RoleSelect: FunctionComponent<IProps> = ({
                 fullWidth
             >
                 {
-                    Object.values(UserRole).map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)
+                    Object.values(UserRole).map((x) => <MenuItem key={x} value={x}>{t("userType." + x)}</MenuItem>)
                 }
             </Select>
         </FormControl>

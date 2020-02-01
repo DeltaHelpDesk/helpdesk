@@ -145,7 +145,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
-                                        {t(locKeys.task.asignee)}
+                                        {t(locKeys.task.assignee)}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
