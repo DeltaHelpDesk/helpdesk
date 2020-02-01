@@ -1,6 +1,5 @@
 import { Component } from "react";
 import Link from "next/link";
-import localisation from "../src/Locales/Localisations";
 import { Button, Paper, Grid, Typography } from "@material-ui/core";
 import HeadComponent from "../components/Layouts/HeadComponent";
 import Kaomoji from "../components/Errors/Kaomoji";
@@ -28,10 +27,15 @@ class Error extends Component<IProps> {
                         <Grid item>
                             <Typography variant="h6" component="div">
                                 {
+                                    /*
+                                    TODO: Lokalizace
                                     this.props.statusCode
                                         ? localisation.formatString(localisation.error.errorCodeOccured,
                                             this.props.statusCode.toString())
-                                        : localisation.error.errorOnClient
+                                        : localisation.error.errorOnClient*/
+                                    this.props.statusCode
+                                        ? "Error" + this.props.statusCode.toString()
+                                        : "Error on client"
                                 }
                             </Typography>
                         </Grid>

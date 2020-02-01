@@ -7,13 +7,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import { GetFirstLetters } from "../../utils/TextHelper";
-import localisation from "../../src/Locales/Localisations";
 import Router from "next/router";
 import customRoutes from "../../src/Routes";
 import Divider from "@material-ui/core/Divider";
 import { Grid, Typography } from "@material-ui/core";
+import locKeys from "../../src/Locales/LocalizationKeys";
+import { useTranslation } from "react-i18next";
 
 interface ILoggedInProps {
     logout: () => Promise<void> | undefined;
@@ -24,6 +24,7 @@ const UserLogged: FunctionComponent<ILoggedInProps> = ({ logout, user }) => {
 
     const { fullName } = user;
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const { t } = useTranslation();
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -73,14 +74,14 @@ const UserLogged: FunctionComponent<ILoggedInProps> = ({ logout, user }) => {
                     <ListItemIcon>
                         <SettingsIcon />
                     </ListItemIcon>
-                    <ListItemText primary={localisation.settings.title} />
+                    <ListItemText primary={t(locKeys.settings.title)} />
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={() => { logout(); }}>
                     <ListItemIcon>
                         <ExitToAppIcon />
                     </ListItemIcon>
-                    <ListItemText primary={localisation.login.logout} />
+                    <ListItemText primary={t(locKeys.login.logout)} />
                 </MenuItem>
             </Menu>
         </div>

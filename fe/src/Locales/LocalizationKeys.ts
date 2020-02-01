@@ -19,6 +19,7 @@ const locKeys = {
         selectAsignee: "assigneeDescription",
         subject: "subject",
         selectOne: "selectOne",
+        themeChoose: "themeChoose",
     },
     users: {
         editUser: "editUser",
@@ -67,7 +68,7 @@ const locKeys = {
         loginGoogle: "",
         loginFacebook: "",
         loginMicrosoft: "",
-        logout: "",
+        logout: "logout",
         name: "name",
         email: "email",
         password: "",
@@ -91,7 +92,7 @@ const locKeys = {
         WIP: "error.WIP",
     },
     settings: {
-        title: "",
+        title: "settings",
         languageSelect: "",
         themeSelect: "",
         language: "",

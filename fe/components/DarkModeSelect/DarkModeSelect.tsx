@@ -5,7 +5,6 @@ import Router from "next/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
-import localisation, { ILangOption, langs } from "../../src/Locales/Localisations";
 import mainTheme from "../Themes/MainTheme";
 import CookieHelper from "../../utils/cookieHelper";
 import { editUser } from "../../src/graphql/mutations";
@@ -61,7 +60,7 @@ const DarkModeSelect: FunctionComponent = () => {
 
     return <>
         <FormControl className={classes.formControl}>
-            <InputLabel id="select-theme-helper-label" shrink>{localisation.settings.themeSelect}</InputLabel>
+            <InputLabel id="select-theme-helper-label" shrink>{t(locKeys.common.themeChoose)}</InputLabel>
             <Select
                 labelId="select-theme-helper-label"
                 id="select-theme"
