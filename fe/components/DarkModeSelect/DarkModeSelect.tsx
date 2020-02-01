@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const DarkModeSelect: FunctionComponent = () => {
     const cookieHelper = new CookieHelper();
     const [editTheme] = useMutation<
-    { theme: string }>(editUser);
+        { theme: string }>(editUser);
 
     const [theme, setTheme] = useState<string>("dark");
 
@@ -67,8 +67,8 @@ const DarkModeSelect: FunctionComponent = () => {
                 id="select-theme"
                 value={theme}
                 onChange={handleChange}>
-                <MenuItem value="DARK" key="0">{t(locKeys.settings.dark)}</MenuItem>
-                <MenuItem value="LIGHT" key="1">{t(locKeys.settings.light)}</MenuItem>
+                <MenuItem value="dark" key="0">{t(locKeys.theme.DARK)}</MenuItem>
+                <MenuItem value="light" key="1">{t(locKeys.theme.LIGHT)}</MenuItem>
             </Select>
         </FormControl>
     </>;

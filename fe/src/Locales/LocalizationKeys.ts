@@ -1,5 +1,3 @@
-
-
 const locKeys = {
     common: {
         welcome: "welcome",
@@ -9,7 +7,7 @@ const locKeys = {
         registration: "registrationAt",
         role: "role",
         newTask: "newTask",
-        update: "updateAt",
+        update: "updatedAt",
         actions: "actions",
         noResponse: "noResponse",
         noTask: "noTask",
@@ -17,19 +15,23 @@ const locKeys = {
         comments: "comments",
         issueDescription: "issueDescription",
         issuePlaceholder: "issuePlaceholder",
-        asigneeTitle: "asignee",
-        selectAsignee: "selectAsignee",
+        asigneeTitle: "asigneeTitle",
+        selectAsignee: "assigneeDescription",
         subject: "subject",
     },
-    users:{
+    users: {
         editUser: "editUser",
         deleteUser: "deleteUser",
         userList: "userList",
     },
     userType: {
-        SUPERADMIN: "SUPERADMIN",
-        ADMIN: "ADMIN",
-        DEFAULT: "DEFAULT",
+        SUPERADMIN: "userType.SUPERADMIN",
+        ADMIN: "userType.ADMIN",
+        DEFAULT: "userType.DEFAULT",
+    },
+    theme: {
+        DARK: "theme.DARK",
+        LIGHT: "theme.LIGHT",
     },
     task: {
         sendNew: "",
@@ -39,10 +41,11 @@ const locKeys = {
         accept: "accept",
         save: "save",
         addComment: "addComment",
-        addTicket: "addTicket",
+        addTicket: "addTask",
         addNewTicket: "addNewTicket",
         showDetail: "showDetail",
-        selectTask: "selectTask",
+        selectTask: "noTask",
+        deleteCommentDialog: "deleteCommentDialog",
         deleteComment: "deleteComment",
         deleteConfirm: "deleteConfirm",
         state: "state",
@@ -53,10 +56,10 @@ const locKeys = {
         success: "success",
     },
     taskState: {
-        UNRESOLVED: "UNRESOLVED",
-        SOLVING: "SOLVING",
-        SOLVED: "SOLVED",
-        changed: "changed",
+        UNRESOLVED: "taskState.UNRESOLVED",
+        SOLVING: "taskState.SOLVING",
+        SOLVED: "taskState.SOLVED",
+        changed: "taskState.changed",
     },
     login: {
         login: "login",
@@ -75,16 +78,16 @@ const locKeys = {
         didYouKnow: "didYouKnow",
     },
     error: {
-        sorry: "",
-        anErrorHasOccured: "",
-        errorCodeOccured: "",
-        errorOnClient: "",
-        msgTooShort: "msgTooShort",
-        textTooShort: "textTooShort",
-        msgTooLong: "msgTooLong",
-        textTooLong: "textTooLong",
-        undefinedError: "undefinedError",
-        WIP: "WIP",
+        sorry: "error.sorry",
+        anErrorHasOccured: "error.anErrorHasOccured",
+        errorCodeOccured: "error.errorCodeOccured",
+        errorOnClient: "error.errorOnClient",
+        msgTooShort: "error.msgTooShort",
+        textTooShort: "error.textTooShort",
+        msgTooLong: "error.msgTooLong",
+        textTooLong: "error.textTooLong",
+        undefinedError: "error.undefinedError",
+        WIP: "error.WIP",
     },
     settings: {
         title: "",
@@ -92,8 +95,6 @@ const locKeys = {
         themeSelect: "",
         language: "",
         theme: "",
-        light: "light",
-        dark: "dark",
     },
 };
 

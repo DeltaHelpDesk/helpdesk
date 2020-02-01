@@ -60,7 +60,7 @@ const CommentsContainer: FunctionComponent<IProps> = ({ taskId }) => {
             <Grid item xs={12} >
                 <Grid container direction="column" >
                     {
-                        comments.map((comment) => <Grid item xs={12}>
+                        comments.map((comment, index) => <Grid item xs={12} key={index} >
                             <TaskComment
                                 comment={comment}
                                 onRemove={refresh} />

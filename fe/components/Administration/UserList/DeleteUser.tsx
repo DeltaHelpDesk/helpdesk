@@ -56,7 +56,7 @@ const RemoveUser: FunctionComponent<IProps> = ({ user, onRemoved = null }) => {
     };
 
     const { t } = useTranslation();
-    
+
     return <>
         <IconButton aria-label="delete" onClick={handleOpen}>
             <DeleteOutlineOutlinedIcon />
@@ -69,7 +69,7 @@ const RemoveUser: FunctionComponent<IProps> = ({ user, onRemoved = null }) => {
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
                     {t(locKeys.task.cancel)}
-                    </Button>
+                </Button>
                 <Button onClick={handleChanges} color="primary" autoFocus={true} >
                     {t(locKeys.task.accept)}
                 </Button>

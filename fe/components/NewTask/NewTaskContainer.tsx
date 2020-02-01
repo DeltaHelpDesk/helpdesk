@@ -90,7 +90,6 @@ const NewTaskContainer: FunctionComponent = () => {
             return;
         }
 
-        const { t } = useTranslation();
         enqueueSnackbar(`${t(locKeys.task.success)}`, { variant: "success" });
         window.location.replace(customRoutes.administration + "?taskId=" + taskId);
     };

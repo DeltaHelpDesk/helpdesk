@@ -84,8 +84,7 @@ const TaskComment: FunctionComponent<IProps> = ({ comment = null, onRemove = nul
                                 </Grid>
                                 <Grid item>
                                     {
-
-                                        <Tooltip title="Delete comment">
+                                        <Tooltip title={t(locKeys.task.deleteComment)}>
                                             <IconButton
                                                 aria-label="delete"
                                                 size="small"
@@ -116,12 +115,7 @@ const TaskComment: FunctionComponent<IProps> = ({ comment = null, onRemove = nul
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title">{t(locKeys.task.deleteConfirm)}</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    {t(locKeys.task.deleteComment)}
-          </DialogContentText>
-            </DialogContent>
+            <DialogTitle id="alert-dialog-title">{t(locKeys.task.deleteCommentDialog)}</DialogTitle>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
                     {t(locKeys.task.cancel)}

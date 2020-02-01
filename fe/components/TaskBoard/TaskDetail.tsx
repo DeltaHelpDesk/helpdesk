@@ -131,7 +131,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                 </Grid>
                                 <Grid item>
                                     <Chip
-                                        label={state}
+                                        label={t("taskState." + state)}
                                         variant="outlined"
                                         size="medium"
                                     />

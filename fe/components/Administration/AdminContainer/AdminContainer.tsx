@@ -37,7 +37,7 @@ const AdminContaier: FunctionComponent<IProps> = ({ activeTab = 0, children }) =
             }
         }, 250);
     };
-     
+
     const { t } = useTranslation();
 
     return <>
