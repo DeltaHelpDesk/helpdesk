@@ -4,6 +4,8 @@ import { AddComment, AddCommentVariables } from "../../src/graphql/types/AddComm
 import { addComment } from "../../src/graphql/mutations";
 import { Grid, Button, TextField } from "@material-ui/core";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 interface IProps {
     taskId: string;
@@ -17,6 +19,8 @@ const AddCommentComponent: FunctionComponent<IProps> = ({ taskId, onAdd = null }
 
     const minMsgLength = 5;
     const maxMsgLength = 120;
+
+    const { t } = useTranslation();
 
     const handleTextChange = (text: string): void => {
         setMessage(text);
@@ -43,7 +47,7 @@ const AddCommentComponent: FunctionComponent<IProps> = ({ taskId, onAdd = null }
             <Grid item xs={12}>
                 <TextField
                     id="outlined-multiline-static"
-                    label="Přidat komentář"
+                    label={t(locKeys.task.addComment)}
                     multiline
                     fullWidth
                     rows="5"
@@ -53,9 +57,9 @@ const AddCommentComponent: FunctionComponent<IProps> = ({ taskId, onAdd = null }
                     error={message.length > 0 && (message.length < minMsgLength || message.length > maxMsgLength)}
                     helperText={
                         message.length > 0 && message.length < minMsgLength
-                            ? "Zpráva je příliš krátká"
+                            ? `${t(locKeys.error.msgTooShort)}`
                             : message.length > maxMsgLength
-                                ? `Zpráva přesahuje maximální počet povolených znaků (${maxMsgLength})`
+                                ? `${t(locKeys.error.msgTooLong)} (${maxMsgLength})`
                                 : `${message.length}/${maxMsgLength}`
                     }
                 />

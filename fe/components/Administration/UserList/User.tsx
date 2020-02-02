@@ -17,6 +17,7 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, al
     const reload = () => {
         if (refresh) {
             refresh();
+            return;
         }
     };
 
@@ -48,7 +49,7 @@ const UserComponent: FunctionComponent<IUserComponentProps> = ({ user = null, al
     }
 
     const { email, fullName, role, created_at, updated_at, id } = user;
-
+    console.log(user);
     return <>
         <Fade in={true}>
             <TableRow>

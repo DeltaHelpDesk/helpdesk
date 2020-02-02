@@ -13,8 +13,8 @@
         "DEFAULT": "Uživatel"
     },
     "theme": {
-        "DARK": "Temný",
-        "LIGHT": "Světlý"
+        "DARK": "Tmavé",
+        "LIGHT": "Světlé"
     },
     "notAssigned": "Nepřiřazeno",
     "author": "Autor",
@@ -34,7 +34,7 @@
     "password": "Heslo",
     "login": "Přihlásit se",
     "role": "Role",
-    "updatedAt": "Poslední aktualizace",
+    "updatedAt": "Poslední změna",
     "createdAt": "Vytvořeno",
     "registrationAt": "Registrace",
     "action": "Akce",
@@ -46,11 +46,34 @@
     "deleteComment": "Odstranit komentář",
     "addComment": "Přidat komentář",
     "add": "Přidat",
-    "WIP": "Pracujeme na tom",
     "issueDescription": "Popis problému",
     "assigneeDescription": "Vyberte osobu, která by se měla tímto požadavkem zabývat",
     "errorOnClient": "Nastala chyba na klientu",
     "settings": "Nastavení",
     "languageChoose": "Výběr jazyka",
-    "themeChoose": "Výběr téma"
+    "themeChoose": "Výběr téma",
+    "didYouKnow": "Věděli jste, že...",
+    "loginSafety": "...přihlášení přes sociální sítě je naprosto bezpečné? Přístup k vašim údajům vůbec nedostaneme!",
+    "addNewTicket": "Přidat nový požadavek",
+    "asigneeTitle": "Řeší...",
+    "noResponse": "Na tento požadavek ještě nikdo nereagoval",
+    "showDetail": "Kliknutím zobrazíte detail",
+    "deleteCommentDialog": "Opravdu chcete smazat komentář?",
+    "deleteConfirm": "Potvrdit smazání",
+    "selectOne": "Vyberte",
+    "cancel": "Zrušit",
+    "accept": "Potvrdit",
+    "save": "Uložit",
+    "error": {
+        "sorry": "Omlouváme se",
+        "anErrorHasOccured": "Nastala neočekávaná chyba",
+        "errorCodeOccured": "Nastala chyba {0}",
+        "errorOnClient": "Nastala chyba na klientu",
+        "msgTooShort": "Zpráva je příliš krátká",
+        "textTooShort": "Text je příliš krátký",
+        "msgTooLong": "Zpráva přesahuje maximální počet povolených znaků",
+        "textTooLong": "Text přesahuje maximální počet povolených znaků",
+        "undefinedError": "An error has occured!",
+        "WIP": "Požádejte mého stvořitele o doprogramování."
+    }
 }

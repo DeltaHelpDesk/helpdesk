@@ -10,6 +10,8 @@ import { FunctionComponent, useState, useContext, useEffect } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 import DateHelper from "../../utils/dateHelper";
 import { ReactAuthContext, userIsAdmin } from "../../src/graphql/auth";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 interface ICard {
     id: string;
@@ -53,6 +55,8 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
         { changeTaskState: ICard }>(updateTaskBoardQuery);
 
     const [toFindId, setToFindId] = useState<string>("");
+
+    const { t } = useTranslation();
 
     const [selectedId, setSelectedId] = useState<string>("");
     const { user } = useContext(ReactAuthContext);
@@ -152,17 +156,17 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
         lanes: [
             {
                 id: "UNRESOLVED",
-                title: "Nezapočato",
+                title: `${t(locKeys.taskState.UNRESOLVED)}`,
                 cards: tasksNotStarted,
             },
             {
                 id: "SOLVING",
-                title: "Pracuje se na tom",
+                title: `${t(locKeys.taskState.SOLVING)}`,
                 cards: tasksSolving,
             },
             {
                 id: "SOLVED",
-                title: "Dokončeno",
+                title: `${t(locKeys.taskState.SOLVED)}`,
                 cards: tasksCompleted,
             },
         ],
@@ -195,7 +199,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
         const taskBorder = `3px solid ${borderColor}`;
 
         return (
-            <Tooltip title="Kliknutím zobrazíte detail">
+            <Tooltip title={t(locKeys.task.showDetail)}>
                 <Paper style={{
                     padding: "0.7rem",
                     backgroundColor:
@@ -235,7 +239,7 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
         const res = await changeTaskState({
             variables: {
                 taskId: cardId,
-                comment: "TASK STATE CHANGED",
+                comment: `${t(locKeys.taskState.changed)}`,
                 state: targetLaneId,
             },
         });

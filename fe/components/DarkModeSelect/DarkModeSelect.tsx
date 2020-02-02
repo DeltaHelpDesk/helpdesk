@@ -5,12 +5,13 @@ import Router from "next/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
-import localisation, { ILangOption, langs } from "../../src/Locales/Localisations";
 import mainTheme from "../Themes/MainTheme";
 import CookieHelper from "../../utils/cookieHelper";
 import { editUser } from "../../src/graphql/mutations";
 import getTheme from "../Themes/MainTheme";
 import { useMutation } from "react-apollo";
+import locKeys from "../../src/Locales/LocalizationKeys";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const DarkModeSelect: FunctionComponent = () => {
     const cookieHelper = new CookieHelper();
     const [editTheme] = useMutation<
-    { theme: string }>(editUser);
+        { theme: string }>(editUser);
 
     const [theme, setTheme] = useState<string>("dark");
 
@@ -55,16 +56,18 @@ const DarkModeSelect: FunctionComponent = () => {
 
     };
 
+    const { t } = useTranslation();
+
     return <>
         <FormControl className={classes.formControl}>
-            <InputLabel id="select-theme-helper-label" shrink>{localisation.settings.themeSelect}</InputLabel>
+            <InputLabel id="select-theme-helper-label" shrink>{t(locKeys.common.themeChoose)}</InputLabel>
             <Select
                 labelId="select-theme-helper-label"
                 id="select-theme"
                 value={theme}
                 onChange={handleChange}>
-                <MenuItem value="dark" key="0">Dark</MenuItem>
-                <MenuItem value="light" key="1">Light</MenuItem>
+                <MenuItem value="dark" key="0">{t(locKeys.theme.DARK)}</MenuItem>
+                <MenuItem value="light" key="1">{t(locKeys.theme.LIGHT)}</MenuItem>
             </Select>
         </FormControl>
     </>;

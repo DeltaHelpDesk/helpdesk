@@ -9,6 +9,8 @@ import { removeUserVariables } from "../../../src/graphql/types/removeUser";
 import { useSnackbar } from "notistack";
 import RoleSelect from "../../RoleSelect/RoleSelect";
 import { UserRole } from "../../../src/graphql/graphql-global-types";
+import locKeys from "../../../src/Locales/LocalizationKeys";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     user: getUsers_users;
@@ -61,12 +63,15 @@ const EditUser: FunctionComponent<IProps> = ({ user, onEdited = null }) => {
 
         handleCloseEdit();
     };
+
+    const { t } = useTranslation();
+
     return <>
         <IconButton aria-label="edit" onClick={handleOpenEdit}>
             <EditOutlinedIcon />
         </IconButton>
         <Dialog open={openEdit} onClose={handleCloseEdit} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Úprava uživatele</DialogTitle>
+            <DialogTitle id="form-dialog-title"> {t(locKeys.users.editUser)} </DialogTitle>
             <DialogContent>
                 <div >
                     <Grid container direction="column" spacing={2} >
@@ -105,10 +110,10 @@ const EditUser: FunctionComponent<IProps> = ({ user, onEdited = null }) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleCloseEdit} color="primary">
-                    Zrušit
+                    {t(locKeys.task.cancel)}
                     </Button>
                 <Button onClick={handleChanges} color="primary" autoFocus={true} >
-                    Uložit
+                    {t(locKeys.task.save)}
                 </Button>
             </DialogActions>
         </Dialog>

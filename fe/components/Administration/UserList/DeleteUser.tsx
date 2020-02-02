@@ -6,6 +6,8 @@ import { useMutation } from "react-apollo";
 import { removeUser, removeUserVariables } from "../../../src/graphql/types/removeUser";
 import { removeUserMutation } from "../../../src/graphql/mutations";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../../src/Locales/LocalizationKeys";
 
 interface IProps {
     user: getUsers_users;
@@ -52,21 +54,24 @@ const RemoveUser: FunctionComponent<IProps> = ({ user, onRemoved = null }) => {
 
         handleClose();
     };
+
+    const { t } = useTranslation();
+
     return <>
         <IconButton aria-label="delete" onClick={handleOpen}>
             <DeleteOutlineOutlinedIcon />
         </IconButton>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
-            <DialogTitle id="form-dialog-title">Smazat uživatele? </DialogTitle>
+            <DialogTitle id="form-dialog-title"> {t(locKeys.users.deleteUser)} </DialogTitle>
             <DialogContent>
                 Opravdu si přejete smazat uživatele {fullName}?
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                    Zrušit
-                    </Button>
+                    {t(locKeys.task.cancel)}
+                </Button>
                 <Button onClick={handleChanges} color="primary" autoFocus={true} >
-                    Potvrdit
+                    {t(locKeys.task.accept)}
                 </Button>
             </DialogActions>
         </Dialog>

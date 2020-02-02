@@ -64,7 +64,7 @@ const AdminSelect: FunctionComponent<IProps> = ({
                     </em>
                 </MenuItem>
                 {
-                    admins.map(({ fullName, id }) => <MenuItem value={id}>
+                    admins.map(({ fullName, id }, index) => <MenuItem value={id} key={index}>
                         {fullName}
                     </MenuItem>)
                 }
