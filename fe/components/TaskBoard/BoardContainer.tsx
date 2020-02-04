@@ -3,8 +3,10 @@ import { Grid, Paper, useMediaQuery, makeStyles, createStyles, Theme } from "@ma
 import TaskBoard from "./TaskBoard";
 import TaskDetail from "./TaskDetail";
 import { useState } from "react";
-import { getTasks_tasks } from "../../src/graphql/types/getTasks";
+import { getTasks_tasks, getTasks } from "../../src/graphql/types/getTasks";
 import getTheme from "../Themes/MainTheme";
+import { useQuery } from "react-apollo";
+import { getTasksQuery } from "../../src/graphql/queries";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -24,6 +26,9 @@ interface IProps {
 const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     const [task, setTask] = useState<getTasks_tasks>(null);
+
+    const tasksQuery = useQuery<getTasks>(getTasksQuery);
+    const { refetch } = tasksQuery;
 
     const theme = getTheme();
     const classes = useStyles(getTheme());
@@ -47,13 +52,17 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
         handleScroll();
     };
 
+    const reload = () => {
+        refetch();
+    };
+
     return <>
         <Grid container direction={smallDisplay ? "column-reverse" : "row"} spacing={2}>
             <Grid item xs={xs}>
                 <Paper className={classes.cards}>
                     <Grid container justify="center">
                         <Grid item>
-                            <TaskBoard showDetail={handleClickTask} taskId={taskId} />
+                            <TaskBoard showDetail={handleClickTask} taskId={taskId} dataQuery={tasksQuery} />
                         </Grid>
                     </Grid>
 
@@ -61,7 +70,7 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
             </Grid>
             <Grid item xs={xs}>
                 <Paper className={classes.detail} id="task-detail-box">
-                    <TaskDetail task={task} />
+                    <TaskDetail task={task} reload={reload} />
                 </Paper>
             </Grid>
         </Grid>

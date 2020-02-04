@@ -3,13 +3,13 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: deleteTask
+// GraphQL mutation operation: DeleteTask
 // ====================================================
 
-export interface deleteTask {
+export interface DeleteTask {
   deleteTask: boolean | null;
 }
 
-export interface deleteTaskVariables {
+export interface DeleteTaskVariables {
   taskId: string;
 }

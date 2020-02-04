@@ -131,3 +131,14 @@ export const editUser = gql`mutation EditUser($theme: String!){
       id
     }
   }`;
+
+export const deleteTask = gql`mutation DeleteTask($taskId: ID!) {
+    deleteTask(taskId: $taskId)
+  }`;
+
+export const updateTaskState = gql`mutation UpdateTaskState($taskId: ID!, $state: State!) {
+    changeTaskState(taskId: $taskId, state: $state) {
+      id
+    }
+  }
+  `;

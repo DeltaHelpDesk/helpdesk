@@ -10,6 +10,7 @@ import { FunctionComponent, useState, useContext, useEffect } from "react";
 import { Typography, Grid, Divider, Paper, Tooltip } from "@material-ui/core";
 import DateHelper from "../../utils/dateHelper";
 import { ReactAuthContext, userIsAdmin } from "../../src/graphql/auth";
+import { QueryResult } from "react-apollo";
 
 interface ICard {
     id: string;
@@ -28,6 +29,7 @@ interface ICard {
 interface IProps {
     showDetail?: (task: getTasks_tasks) => void;
     taskId?: string;
+    dataQuery: QueryResult<getTasks, Record<string, any>>;
 }
 
 const dateHelper = new DateHelper();
@@ -47,8 +49,9 @@ const sortDate = (a: getTasks_tasks, b: getTasks_tasks) => {
         : aDate.getTime() - bDate.getTime();
 };
 
-const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
-    const { loading, error, data } = useQuery<getTasks>(getTasksQuery);
+const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId, dataQuery }) => {
+
+    const { loading, error, data } = dataQuery;
     const [changeTaskState] = useMutation<
         { changeTaskState: ICard }>(updateTaskBoardQuery);
 

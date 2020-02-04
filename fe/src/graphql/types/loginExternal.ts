@@ -11,6 +11,8 @@ import { AuthType } from "./../graphql-global-types";
 export interface loginExternal_loginExternal {
   __typename: "AuthenticatedUser";
   token: string;
+  language: string;
+  theme: string | null;
 }
 
 export interface loginExternal {

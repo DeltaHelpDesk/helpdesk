@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
     task?: getTasks_tasks;
+    reload?: () => void;
 }
 
-const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
+const TaskDetail: FunctionComponent<IProps> = ({ task, reload }) => {
     const [expanded, setExpanded] = useState<string | false>(false);
     const { user } = useContext(ReactAuthContext);
 
@@ -223,11 +224,11 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel2a-content"
                                     id="panel2a-header">
-                                    <Typography>Akce</Typography>
+                                    <Typography>Možnosti ticketu</Typography>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
                                     <div style={{ width: "100%" }}>
-                                        <TaskActions taskId={id} />
+                                        <TaskActions task={task} reload={reload} />
                                     </div>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
