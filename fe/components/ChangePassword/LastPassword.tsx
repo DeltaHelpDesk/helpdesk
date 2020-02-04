@@ -31,6 +31,7 @@ const LastPassword: FunctionComponent<ILoginProps> = ({ showPassword, user: logi
         <TextField
             id="filled[-adornment-password"
             variant="filled"
+            type="password"
             name="password"
             autoComplete="current-password"
             label={localisation.login.password}
