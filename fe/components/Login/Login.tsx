@@ -14,7 +14,6 @@ import MicrosoftButtonLogin from "./MicrosoftButtonLogin";
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
-import localisation from "../../src/Locales/Localisations";
 import { Typography, Tooltip, createStyles } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import Background from "../Background/Background";
@@ -22,6 +21,8 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { AuthType } from "../../src/graphql/graphql-global-types";
 import getTheme from "../Themes/MainTheme";
 import TipBar from "./TipBar";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -84,6 +85,8 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
+
+    const { t } = useTranslation();
 
     const { loginByEmail, isLoggedIn, loginExternal, doLoginByMicrosoft } = useContext(ReactAuthContext);
 
@@ -227,7 +230,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
                         <Grid item>
                             <Typography variant="h4" component="div" className={classes.heading}>
-                                {localisation.login.title}
+                                {t(locKeys.login.title)}
                             </Typography>
                         </Grid>
                         <Grid item={true}>
@@ -235,7 +238,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 id="name"
                                 variant="filled"
                                 name="name"
-                                label={localisation.login.email}
+                                label={t(locKeys.login.email)}
                                 type="text"
                                 autoComplete="email"
                                 value={filled && filled.name || ""}
@@ -249,7 +252,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 name="password"
                                 type={showPwd ? "text" : "password"}
                                 autoComplete="current-password"
-                                label={localisation.login.password}
+                                label={t(locKeys.login.password)}
                                 value={filled && filled.password || ""}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)}
                                 onKeyPress={handleKeywordKeyPress}
@@ -279,7 +282,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                     size={1}
                                     color="white"
                                 />
-                                {localisation.login.login}
+                                {t(locKeys.login.login)}
                             </Button>
                         </Grid>
                         <Grid item sm={12} className={classes.socialButtonsContainer}>
