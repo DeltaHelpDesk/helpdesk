@@ -9,6 +9,8 @@
 export interface loginEmail_loginEmail {
   __typename: "AuthenticatedUser";
   token: string;
+  language: string;
+  theme: string | null;
 }
 
 export interface loginEmail {

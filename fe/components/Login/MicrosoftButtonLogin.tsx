@@ -1,6 +1,4 @@
 import { SFC } from "react";
-import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
-import localisation from "../../src/Locales/Localisations";
 import Button from "@material-ui/core/Button";
 import Icon from "@mdi/react";
 import { mdiWindows } from "@mdi/js";

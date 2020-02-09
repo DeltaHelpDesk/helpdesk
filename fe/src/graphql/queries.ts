@@ -114,6 +114,7 @@ export const getSessionQuery = gql`
       email
       role
       token
+      language
     }
   }
 `;

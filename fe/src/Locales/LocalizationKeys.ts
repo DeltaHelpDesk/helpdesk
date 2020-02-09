@@ -71,9 +71,9 @@ const locKeys = {
         logout: "logout",
         name: "name",
         email: "email",
-        password: "",
+        password: "password",
         showPassword: "",
-        title: "",
+        title: "loginTitle",
     },
     tips: {
         loginSafety: "loginSafety",
@@ -93,7 +93,7 @@ const locKeys = {
     },
     settings: {
         title: "settings",
-        languageSelect: "",
+        languageSelect: "languageChoose",
         themeSelect: "",
         language: "",
         theme: "",

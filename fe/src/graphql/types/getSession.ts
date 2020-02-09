@@ -15,6 +15,7 @@ export interface getSession_session {
   email: string;
   role: UserRole | null;
   token: string;
+  language: string;
 }
 
 export interface getSession {

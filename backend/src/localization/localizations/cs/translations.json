@@ -33,6 +33,7 @@
     "email": "Email",
     "password": "Heslo",
     "login": "Přihlásit se",
+    "loginTitle": "Přihlášení",
     "role": "Role",
     "updatedAt": "Poslední změna",
     "createdAt": "Vytvořeno",
