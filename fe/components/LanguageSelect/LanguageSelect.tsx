@@ -1,14 +1,17 @@
+import { useState, ChangeEvent, FunctionComponent, useContext, useEffect } from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useState, useEffect, ChangeEvent, FunctionComponent } from "react";
-import Router from "next/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
-// import localisation, { ILangOption, langs } from "../../src/Locales/Localisations";
 import mainTheme from "../Themes/MainTheme";
 import { useTranslation } from "react-i18next";
 import locKeys from "../../src/Locales/LocalizationKeys";
+import Loading from "../Loading/Loading";
+import { editUserLanguage } from "../../src/graphql/mutations";
+import { useMutation } from "react-apollo";
+import { EditUserLanguage } from "../../src/graphql/types/EditUserLanguage";
+import { ReactAuthContext } from "../../src/graphql/auth";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,7 +33,7 @@ interface ILang {
 const LanguageSelect: FunctionComponent = () => {
     const languages: ILang[] = [
         {
-            name: "Čestina",
+            name: "Čeština",
             key: "cs",
         },
         {
@@ -39,28 +42,32 @@ const LanguageSelect: FunctionComponent = () => {
         },
     ];
 
-    const { t, i18n: { changeLanguage } } = useTranslation(null, { useSuspense: false });
+    const { t, i18n } = useTranslation();
     const [lang, setLanguage] = useState<ILang>(languages[0]);
+    const [editLang] = useMutation<EditUserLanguage>(editUserLanguage);
+    const { user } = useContext(ReactAuthContext);
 
     const classes = useStyles(mainTheme);
 
-    // useEffect(() => {
-    //     const langInfo = localisation.getLanguage();
-    //     console.log(langInfo);
-    //     const currentLang = langs.find((x) => x.lang === langInfo);
-    //     setLanguage(currentLang);
-    // }, []);
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        const currentLang = languages.find((x) => x.key === user.language);
+        setLanguage(currentLang);
+    }, [user]);
 
-    const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+    const handleChange = async (event: ChangeEvent<{ value: unknown }>) => {
         const value = event.target.value as string;
         const l = languages.find((x) => x.key === value);
 
-        console.log(l.key);
-        changeLanguage(l.key, () => {
-            console.log("test");
-        });
+        await i18n.changeLanguage(l.key);
         setLanguage(l);
-
+        const res = await editLang({
+            variables: {
+                language: l.key,
+            },
+        });
         // setTimeout(() => {
         //     Router.reload();
         // }, 500);

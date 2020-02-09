@@ -131,3 +131,9 @@ export const editUser = gql`mutation EditUser($theme: String!){
       id
     }
   }`;
+
+export const editUserLanguage = gql`mutation EditUserLanguage($language: String!){
+    editUser(language: $language) {
+      id
+    }
+  }`;

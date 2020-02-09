@@ -7,8 +7,6 @@
         "start": "next start -p $PORT",
         "type-check": "tsc",
         "lint": "tslint -p tsconfig.json -c tslint.json",
-        "codegen": "graphql-codegen --config codegen.yml",
-        "format:generated": "prettier --write \"generated/**/*.ts\"",
         "schema": "apollo client:download-schema --endpoint=https://delta-helpdesk.herokuapp.com/graphql/ ./src/graphql/graphql-schema.json",
         "generate": "apollo client:codegen --localSchemaFile=./src/graphql/graphql-schema.json --target=typescript --includes=./src/graphql/**/*.ts --tagName=gql --addTypename --globalTypesFile=./src/graphql/graphql-global-types.ts types",
         "typescript": "tsc -p ./tsconfig.json --pretty --noEmit"
@@ -32,6 +30,7 @@
         "moment": "^2.24.0",
         "msal": "^1.1.3",
         "next": "^9.1.4",
+        "next-i18next": "^4.2.0",
         "node-fetch": "^2.6.0",
         "notistack": "^0.9.7",
         "react": "^16.10.1",
