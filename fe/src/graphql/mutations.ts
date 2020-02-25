@@ -65,7 +65,7 @@ export const logoutMutation = gql`
 
 export const updateTaskBoardQuery = gql`mutation changeTaskBoardState(
     $taskId: ID!
-    $comment: String!
+    $comment: String
     $state: State!
   ) {
     changeTaskState(
