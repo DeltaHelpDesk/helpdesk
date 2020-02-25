@@ -9,6 +9,8 @@
 export interface loginOffice_loginOffice {
   __typename: "AuthenticatedUser";
   token: string;
+  language: string;
+  theme: string | null;
 }
 
 export interface loginOffice {

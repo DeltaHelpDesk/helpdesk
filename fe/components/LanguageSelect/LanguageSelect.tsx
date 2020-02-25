@@ -1,12 +1,17 @@
+import { useState, ChangeEvent, FunctionComponent, useContext, useEffect } from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useState, useEffect, ChangeEvent, FunctionComponent } from "react";
-import Router from "next/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
-import localisation, { ILangOption, langs } from "../../src/Locales/Localisations";
 import mainTheme from "../Themes/MainTheme";
+import { useTranslation } from "react-i18next";
+import locKeys from "../../src/Locales/LocalizationKeys";
+import Loading from "../Loading/Loading";
+import { editUserLanguage } from "../../src/graphql/mutations";
+import { useMutation } from "react-apollo";
+import { EditUserLanguage } from "../../src/graphql/types/EditUserLanguage";
+import { ReactAuthContext } from "../../src/graphql/auth";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,42 +25,63 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const LanguageSelect: FunctionComponent = () => {
+interface ILang {
+    name: string;
+    key: string;
+}
 
-    const [language, setLanguage] = useState<ILangOption>({ lang: "cs", name: "Čeština" });
+const LanguageSelect: FunctionComponent = () => {
+    const languages: ILang[] = [
+        {
+            name: "Čeština",
+            key: "cs",
+        },
+        {
+            name: "English",
+            key: "en",
+        },
+    ];
+
+    const { t, i18n } = useTranslation();
+    const [lang, setLanguage] = useState<ILang>(languages[0]);
+    const [editLang] = useMutation<EditUserLanguage>(editUserLanguage);
+    const { user } = useContext(ReactAuthContext);
 
     const classes = useStyles(mainTheme);
 
     useEffect(() => {
-        const langInfo = localisation.getLanguage();
-        console.log(langInfo);
-        const currentLang = langs.find((x) => x.lang === langInfo);
+        if (!user) {
+            return;
+        }
+        const currentLang = languages.find((x) => x.key === user.language);
         setLanguage(currentLang);
-    }, []);
+    }, [user]);
 
-    const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+    const handleChange = async (event: ChangeEvent<{ value: unknown }>) => {
         const value = event.target.value as string;
-        const l = langs.find((x) => x.lang === value);
+        const l = languages.find((x) => x.key === value);
 
-        localisation.setLanguage(l.lang);
+        await i18n.changeLanguage(l.key);
         setLanguage(l);
-
-        setTimeout(() => {
-            Router.reload();
-        }, 500);
+        const res = await editLang({
+            variables: {
+                language: l.key,
+            },
+        });
+        // setTimeout(() => {
+        //     Router.reload();
+        // }, 500);
     };
-
-    const { name, lang } = language;
 
     return <>
         <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-helper-label" shrink>{localisation.settings.languageSelect}</InputLabel>
+            <InputLabel id="demo-simple-select-helper-label" shrink>{t(locKeys.settings.languageSelect)}</InputLabel>
             <Select
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select"
-                value={lang}
+                value={lang.key}
                 onChange={handleChange}>
-                {langs.map((l, i) => <MenuItem value={l.lang} key={i}>{l.name}</MenuItem>)}
+                {languages.map((l, i) => <MenuItem value={l.key} key={i}>{l.name}</MenuItem>)}
             </Select>
         </FormControl>
     </>;

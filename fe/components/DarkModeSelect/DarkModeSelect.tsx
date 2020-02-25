@@ -12,6 +12,7 @@ import getTheme from "../Themes/MainTheme";
 import { useMutation } from "react-apollo";
 import locKeys from "../../src/Locales/LocalizationKeys";
 import { useTranslation } from "react-i18next";
+import { EditUser } from "../../src/graphql/types/EditUser";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,8 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DarkModeSelect: FunctionComponent = () => {
     const cookieHelper = new CookieHelper();
-    const [editTheme] = useMutation<
-        { theme: string }>(editUser);
+    const [editTheme] = useMutation<EditUser>(editUser);
 
     const [theme, setTheme] = useState<string>("dark");
 
