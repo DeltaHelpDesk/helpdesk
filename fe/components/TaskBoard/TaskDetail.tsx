@@ -81,7 +81,28 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container direction="row" spacing={2} justify="space-around">
+                    <Grid item xs={3}>
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                <Grid item>
+                                    <Typography variant="body1">
+                                        #
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Chip
+
+                                        label={id}
+                                        variant="outlined"
+                                        size="medium"
+                                    />
+
+                                </Grid>
+                            </Grid>
+                        </Grid>
                         <Grid item>
+                            <Divider orientation="vertical" />
+                        </Grid>
+                        <Grid item xs={3}>
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item >
                                     <Typography variant="body1">
@@ -103,7 +124,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                         <Grid item>
                             <Divider orientation="vertical" />
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={3}>
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
@@ -119,10 +140,9 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item>
-                            <Divider orientation="vertical" />
-                        </Grid>
-                        <Grid item>
+                    </Grid>
+                    <Grid container direction="row" spacing={2} justify="space-around">
+                        <Grid item xs={5}>
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
@@ -141,7 +161,7 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                         <Grid item>
                             <Divider orientation="vertical" />
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={5}>
                             <Grid container direction="column" justify="center" alignItems="center">
                                 <Grid item>
                                     <Typography variant="body1">
@@ -162,27 +182,6 @@ const TaskDetail: FunctionComponent<IProps> = ({ task }) => {
                                         variant="outlined"
                                         size="medium"
                                     />}
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Divider orientation="vertical" />
-                        </Grid>
-                        <Grid item >
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                <Grid item>
-                                    <Typography variant="body1">
-                                        #
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Chip
-
-                                        label={id}
-                                        variant="outlined"
-                                        size="medium"
-                                    />
-
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -30,7 +30,8 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     const smallDisplay = useMediaQuery(theme.breakpoints.down("md"));
 
-    const xs = smallDisplay ? 12 : 6;
+    const detail = smallDisplay ? 12 : 5;
+    const tasks = smallDisplay ? 12 : 7;
 
     const handleScroll = () => {
         const anchor = (document).querySelector(
@@ -49,7 +50,7 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     return <>
         <Grid container direction={smallDisplay ? "column-reverse" : "row"} spacing={2}>
-            <Grid item xs={xs}>
+            <Grid item xs={tasks}>
                 <Paper className={classes.cards}>
                     <Grid container justify="center">
                         <Grid item>
@@ -59,7 +60,7 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
                 </Paper>
             </Grid>
-            <Grid item xs={xs}>
+            <Grid item xs={detail}>
                 <Paper className={classes.detail} id="task-detail-box">
                     <TaskDetail task={task} />
                 </Paper>
