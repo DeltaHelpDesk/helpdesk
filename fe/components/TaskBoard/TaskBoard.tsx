@@ -239,7 +239,6 @@ const TaskBoard: FunctionComponent<IProps> = ({ showDetail, taskId }) => {
         const res = await changeTaskState({
             variables: {
                 taskId: cardId,
-                comment: `${t(locKeys.taskState.changed)}`,
                 state: targetLaneId,
             },
         });
