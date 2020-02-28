@@ -272,7 +272,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                         <InputAdornment variant="filled" position="end">
                                             <IconButton
                                                 aria-label="Toggle password visibility"
-                                                onClick={() => { setShowPwd(!showPwd); }}
+                                                onClick={handleClickShowPassword}
                                             >
                                                 {showPwd ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
