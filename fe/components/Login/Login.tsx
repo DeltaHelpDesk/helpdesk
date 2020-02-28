@@ -23,6 +23,7 @@ import getTheme from "../Themes/MainTheme";
 import TipBar from "./TipBar";
 import { useTranslation } from "react-i18next";
 import locKeys from "../../src/Locales/LocalizationKeys";
+import { useSnackbar } from "notistack";
 
 interface ILoginProps {
     showPassword: boolean;
@@ -102,6 +103,8 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
 
     const classes = useStyles(getTheme());
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
         const property = e.currentTarget.name;
         const value = e.currentTarget.value;
@@ -119,7 +122,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const handleFormSubmit = async () => {
         if (!filled || !filled.name || !filled.password) {
             // TODO: Localization
-            // TODO: Info - Neplatné jméno nebo heslo
+            enqueueSnackbar("Musíte zadat přihlašovací údaje", { variant: "error" });
             return;
         }
         setLoading(true);
@@ -134,9 +137,10 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
             return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                // TODO: material ui dialog
+                enqueueSnackbar(e.graphQLErrors[0].message, { variant: "error" });
                 console.log(e.graphQLErrors[0].message);
             } else {
+                enqueueSnackbar(e, { variant: "error" });
                 console.error("handle login error", e);
             }
         }
@@ -164,12 +168,15 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     };
 
     const onExternalLoginFail = async (error: any) => {
+        enqueueSnackbar(error, { variant: "error" });
+
         console.log(error);
     };
 
     const externalLogin = async (email: string, name: string, provider: AuthType, token: string, theme: string) => {
         if (!email || !name || !provider || !token) {
-            // TODO: Dialog
+            // TODO: Localization
+            enqueueSnackbar("Prázdné vstupní údaje od externího poskytovatele", { variant: "error" });
             console.log("Prázdné vstupní údaje");
             return;
         }
@@ -185,9 +192,10 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
             return;
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                // TODO: material ui dialog
+                enqueueSnackbar(e.graphQLErrors[0].message, { variant: "error" });
                 console.log(e.graphQLErrors[0].message);
             } else {
+                enqueueSnackbar(e, { variant: "error" });
                 console.error("handle login error", e);
             }
         }
@@ -204,8 +212,10 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
             }
         } catch (e) {
             if (e && e.graphQLErrors && e.graphQLErrors[0]) {
-                alert(e.graphQLErrors[0].message); // TODO: material ui dialog
+                enqueueSnackbar(e.graphQLErrors[0].message, { variant: "error" });
+                console.log(e.graphQLErrors[0].message);
             } else {
+                enqueueSnackbar(e, { variant: "error" });
                 console.error("handle login error", e);
             }
         }
