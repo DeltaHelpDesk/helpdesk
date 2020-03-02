@@ -7,6 +7,7 @@ import DarkModeSelect from "../components/DarkModeSelect/DarkModeSelect";
 import { withAuthSync } from "../src/auth/authWrapper";
 import { useTranslation } from "react-i18next";
 import locKeys from "../src/Locales/LocalizationKeys";
+import ChangePassword from "../components/ChangePassword/ChangePassword";
 
 const SettingsPage: FunctionComponent = () => {
     const { t } = useTranslation();

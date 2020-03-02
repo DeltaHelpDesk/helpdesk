@@ -12,7 +12,7 @@ interface IUser {
     password: string;
 }
 
-const LastPassword: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
+const NewPassword: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
 
     const [filled, setUser] = useState<IUser>(loginVars);
 
@@ -38,4 +38,4 @@ const LastPassword: FunctionComponent<ILoginProps> = ({ showPassword, user: logi
     </>;
 };
 
-export default LastPassword;
+export default NewPassword;

@@ -3,6 +3,9 @@ import { IconButton, Dialog, DialogTitle, DialogContent, Grid, TextField, Dialog
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { useSnackbar } from "notistack";
 import LastPassword from "./LastPassword";
+import NewPassword from "./NewPassword";
+import NewPasswordAgain from "./NewPasswordAgain";
+import PasswordField from "../PasswordField/PasswordField";
 
 interface IProps {
     onEdited?: () => void;
@@ -13,12 +16,15 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
     const [openEdit, setOpenEdit] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
 
+    
+
     const handleCloseEdit = () => {
         setOpenEdit(false);
     };
     const handleOpenEdit = () => {
         setOpenEdit(true);
     };
+
     const handleChanges = async () => {
 
         // const { errors, data } = res;
@@ -37,6 +43,7 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
 
         handleCloseEdit();
     };
+
     return <>
         <Button aria-label="edit" onClick={handleOpenEdit}>Změnit heslo</Button>
         <Dialog open={openEdit} onClose={handleCloseEdit} aria-labelledby="form-dialog-title">
@@ -45,11 +52,21 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
                 <div >
                     <Grid container direction="column">
                         <Grid >
-                            {<LastPassword showPassword={false} user={null} />}
+                            {/* {<LastPassword showPassword={false} user={null} />} */}
+                            <PasswordField
+                                label="Stávající heslo"
+                                id="password" />
                         </Grid>
                         <Grid item>
+                            <PasswordField
+                                label="Nové heslo"
+                                id="new-password" />
                         </Grid>
                         <Grid item>
+                            <PasswordField
+                                label="Potvrzení hesla"
+                                id="new-password-confirmation" />
+
                         </Grid>
                     </Grid>
                 </div>
