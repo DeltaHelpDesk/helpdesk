@@ -43,21 +43,11 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
             <DialogTitle id="form-dialog-title">Změna hesla</DialogTitle>
             <DialogContent>
                 <div >
-                    <Grid container direction="column" spacing={2} >
+                    <Grid container direction="column">
                         <Grid >
-                            {/* <LastPassword /> */}
+                            {<LastPassword showPassword={false} user={null} />}
                         </Grid>
                         <Grid item>
-                            {/* <TextField
-                                margin="dense"
-                                id="email"
-                                label="Email"
-                                type="email"
-                                defaultValue={email}
-                                fullWidth
-                                value={uEmail}
-                                onChange={(event) => { setUEmail(event.target.value); }}
-                            /> */}
                         </Grid>
                         <Grid item>
                         </Grid>
