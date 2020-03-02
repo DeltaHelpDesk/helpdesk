@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useRef } from "react";
 import { IconButton, Dialog, DialogTitle, DialogContent, Grid, TextField, DialogActions, Button } from "@material-ui/core";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { useSnackbar } from "notistack";
@@ -14,9 +14,13 @@ interface IProps {
 const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
 
     const [openEdit, setOpenEdit] = useState<boolean>(false);
+    const [newPassword, setNewPassword] = useState<string>("");
+    const [newPasswordConfirmed, setNewPasswordConfirmed] = useState<string>("");
+    const pwdError = useRef<boolean>(false);
+    const [newPwdError, setNewPwdError] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
 
-    
+
 
     const handleCloseEdit = () => {
         setOpenEdit(false);
@@ -25,21 +29,19 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
         setOpenEdit(true);
     };
 
+    const isPasswordError = (): boolean => {
+        if (newPassword === "" || newPasswordConfirmed === "") {
+            return true;
+        }
+
+        return newPassword !== newPasswordConfirmed;
+    };
+
     const handleChanges = async () => {
 
-        // const { errors, data } = res;
-
-        // if (errors) {
-        //     console.log(errors);
-        //     enqueueSnackbar(errors[0].message, { variant: "error" });
-        // }
-
-        // if (!!data.adminEditUser.id) {
-        //     enqueueSnackbar("Změny byly uloženy");
-        //     if (onEdited) {
-        //         onEdited();
-        //     }
-        // }
+        if (isPasswordError()) {
+            return;
+        }
 
         handleCloseEdit();
     };
@@ -60,11 +62,20 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
                         <Grid item>
                             <PasswordField
                                 label="Nové heslo"
+                                onChange={(pwd) => {
+                                    setNewPassword(pwd);
+                                }}
+                                isError={pwdError.current}
                                 id="new-password" />
                         </Grid>
                         <Grid item>
                             <PasswordField
                                 label="Potvrzení hesla"
+                                onChange={(pwd) => {
+                                    setNewPasswordConfirmed(pwd);
+                                    pwdError.current = isPasswordError();
+                                }}
+                                isError={pwdError.current}
                                 id="new-password-confirmation" />
 
                         </Grid>
@@ -75,7 +86,7 @@ const ChangePassword: FunctionComponent<IProps> = ({ onEdited = null }) => {
                 <Button onClick={handleCloseEdit} color="primary">
                     Zrušit
                     </Button>
-                <Button onClick={handleChanges} color="primary" autoFocus={true} >
+                <Button onClick={handleChanges} color="primary" autoFocus={true} disabled={isPasswordError()} >
                     Uložit
                 </Button>
             </DialogActions>

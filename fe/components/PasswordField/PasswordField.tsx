@@ -6,13 +6,14 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 interface IProps {
     id?: string;
     label: string;
-    onChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+    onChange?: (value: string) => void;
     fullWidth?: boolean;
     ariaLabel?: string;
+    isError?: boolean;
 }
 
 const PasswordField: React.FunctionComponent<IProps> = ({ onChange, id,
-    label, fullWidth = false, ariaLabel }) => {
+    label, fullWidth = false, ariaLabel, isError = false }) => {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -22,7 +23,7 @@ const PasswordField: React.FunctionComponent<IProps> = ({ onChange, id,
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         if (!!onChange) {
-            onChange(event);
+            onChange(event.currentTarget.value);
         }
     };
 
@@ -33,6 +34,7 @@ const PasswordField: React.FunctionComponent<IProps> = ({ onChange, id,
                 id={id || ""}
                 type={showPassword ? "text" : "password"}
                 onChange={handleChange}
+                error={isError}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
