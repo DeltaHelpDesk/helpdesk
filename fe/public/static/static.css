@@ -68,3 +68,11 @@ body {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3) !important;
     background-color: #ff6600 !important;
 }
+
+.smooth-dnd-container.horizontal {
+    margin: 0 auto;
+}
+
+.smooth-dnd-container.horizontal:last-of-type{
+    display: none;
+}

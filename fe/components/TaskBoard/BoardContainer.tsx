@@ -30,8 +30,8 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
 
     const smallDisplay = useMediaQuery(theme.breakpoints.down("md"));
 
-    const detail = smallDisplay ? 12 : 6;
-    const tasks = smallDisplay ? 12 : 6;
+    const detail = smallDisplay ? 12 : 5;
+    const tasks = smallDisplay ? 12 : 7;
 
     const handleScroll = () => {
         const anchor = (document).querySelector(

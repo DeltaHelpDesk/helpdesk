@@ -14,7 +14,7 @@ import MicrosoftButtonLogin from "./MicrosoftButtonLogin";
 import { ReactAuthContext } from "../../src/graphql/auth";
 import Loading from "../Loading/Loading";
 import customRoutes from "../../src/Routes";
-import { Typography, Tooltip, createStyles } from "@material-ui/core";
+import { Typography, Tooltip, createStyles, useMediaQuery } from "@material-ui/core";
 import SocialButton from "./SocialButton";
 import Background from "../Background/Background";
 import { Theme, makeStyles } from "@material-ui/core";
@@ -83,6 +83,18 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: "bold",
             textTransform: "uppercase",
         },
+        loginCardResponsive: {
+            padding: "2rem 1rem",
+            position: "fixed",
+            top: "55%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            width: "95%",
+        },
+
+        mainContentWidthResponsive: {
+            width: "20em",
+        },
     }));
 
 const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVars }) => {
@@ -101,7 +113,10 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     const [showPwd, setShowPwd] = useState<boolean>(showPassword);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const classes = useStyles(getTheme());
+    const mainTheme = getTheme();
+    const sm = useMediaQuery(mainTheme.breakpoints.up("sm"));
+
+    const classes = useStyles(mainTheme);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -236,7 +251,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
     return <>
         <Grid container direction="row" justify="center">
             <Grid item>
-                <Paper className={classes.loginCard} >
+                <Paper className={sm ? classes.loginCard : classes.loginCardResponsive} >
                     <Grid container={true} direction="column" justify="center" alignItems="center" spacing={4}>
                         <Grid item>
                             <Typography variant="h4" component="div" className={classes.heading}>
@@ -252,7 +267,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 type="text"
                                 autoComplete="email"
                                 value={filled && filled.name || ""}
-                                className={classes.mainContentWidth}
+                                className={sm ? classes.mainContentWidth : classes.mainContentWidthResponsive}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)} />
                         </Grid>
                         <Grid item={true}>
@@ -266,7 +281,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 value={filled && filled.password || ""}
                                 onChange={(e) => handleInputChange(e as FormEvent<HTMLInputElement>)}
                                 onKeyPress={handleKeywordKeyPress}
-                                className={classes.mainContentWidth}
+                                className={sm ? classes.mainContentWidth : classes.mainContentWidthResponsive}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment variant="filled" position="end">
@@ -286,7 +301,7 @@ const LoginPage: FunctionComponent<ILoginProps> = ({ showPassword, user: loginVa
                                 variant="contained"
                                 size="large"
                                 color="primary"
-                                className={`${classes.button} ${classes.mainContentWidth}`}
+                                className={`${classes.button} ${sm ? classes.mainContentWidth : classes.mainContentWidthResponsive}`}
                                 onClick={handleFormSubmit}>
                                 <Icon path={mdiLogin}
                                     size={1}
