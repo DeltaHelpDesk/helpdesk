@@ -53,7 +53,7 @@ const BoardContainer: FunctionComponent<IProps> = ({ taskId }) => {
             <Grid item xs={tasks}>
                 <Paper className={classes.cards}>
                     <Grid container justify="center">
-                        <Grid item>
+                        <Grid item style={{ width: "100%"}}>
                             <TaskBoard showDetail={handleClickTask} taskId={taskId} />
                         </Grid>
                     </Grid>
